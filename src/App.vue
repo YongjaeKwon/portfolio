@@ -2,9 +2,9 @@
   <div class="bg-black text-white min-h-screen flex flex-col relative">
     <Navbar @scroll-to-section="scrollToSection" />
     <HomeView @scroll-to-section="scrollToSection" />
+    <TechStackView />
     <ProjectsView />
     <ExperienceView />
-    <TechStackView />
     <EducationView />
     <Footer />
   </div>
