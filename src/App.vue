@@ -1,26 +1,49 @@
-<script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
-
 <template>
-  <div
-    class="flex justify-center items-center h-screen bg-blue-500 text-white text-3xl"
-  >
-    Tailwind CSS 설정 완료! 🚀
+  <div class="bg-black text-white min-h-screen flex flex-col relative">
+    <Navbar @scroll-to-section="scrollToSection" />
+    <HomeView @scroll-to-section="scrollToSection" />
+    <ProjectsView />
+    <ExperienceView />
+    <TechStackView />
+    <EducationView />
+    <Footer />
   </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<script setup lang="ts">
+import { defineComponent } from "vue";
+import Navbar from "./components/Navbar.vue";
+import HomeView from "./views/HomeView.vue";
+import ProjectsView from "./views/ProjectsView.vue";
+import ExperienceView from "./views/ExperienceView.vue";
+import TechStackView from "./views/TechStackView.vue";
+import EducationView from "./views/EducationView.vue";
+import Footer from "./components/Footer.vue";
+
+defineComponent({
+  name: "App",
+});
+
+const scrollToSection = (id: string) => {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  }
+};
+// onMounted(() => {
+//   const observer = new IntersectionObserver(
+//     (entries) => {
+//       entries.forEach((entry) => {
+//         if (entry.isIntersecting) {
+//           activeSection.value = entry.target.id;
+//         }
+//       });
+//     },
+//     { threshold: 0.6 }
+//   );
+
+//   document.querySelectorAll("section").forEach((section) => {
+//     observer.observe(section);
+//   });
+// });
+</script>
