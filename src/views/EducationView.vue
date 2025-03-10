@@ -1,4 +1,3 @@
-<!-- EducationView.vue -->
 <template>
   <section id="education" class="py-20 min-h-screen text-center">
     <h2 class="text-4xl font-bold text-green-400 mb-6">Education</h2>

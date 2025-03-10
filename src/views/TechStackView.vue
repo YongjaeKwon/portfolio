@@ -1,82 +1,62 @@
 <template>
-  <section id="techstack" class="py-20 min-h-screen text-center">
+  <section id="techstack" class="py-20 text-center bg-gray-900 text-white">
     <h2
-      class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent mb-6"
+      class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent mb-10"
     >
       기술 스택
     </h2>
-    <div class="flex flex-wrap justify-center gap-8 px-8">
+    <div class="flex flex-wrap justify-center gap-10 px-8">
       <div
         v-for="stack in techStacks"
-        :key="stack.title"
-        class="flex flex-col items-center bg-gray-800 p-6 rounded-lg shadow-lg hover:scale-105 transition-transform w-52"
+        :key="stack.name"
+        class="group relative flex flex-col items-center"
       >
         <font-awesome-icon
           :icon="stack.icon"
-          class="text-6xl mb-4"
-          :class="gradientClass(stack.title)"
+          class="text-6xl text-gray-400 group-hover:text-green-400 transition-colors duration-300"
         />
-        <h3 class="text-xl font-bold" :class="gradientClass(stack.title)">
-          {{ stack.title }}
-        </h3>
-        <ul class="text-gray-400 text-sm space-y-2">
-          <li v-for="skill in stack.skills" :key="skill">{{ skill }}</li>
-        </ul>
+        <div
+          class="absolute bottom-0 transform translate-y-10 opacity-0 group-hover:opacity-100 group-hover:translate-y-2 transition-all duration-300 bg-gray-800 text-white text-sm py-2 px-4 rounded-md shadow-lg"
+        >
+          {{ stack.name }}
+        </div>
       </div>
     </div>
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faDatabase } from "@fortawesome/free-solid-svg-icons";
-import { faVuejs, faReact, faNodeJs } from "@fortawesome/free-brands-svg-icons";
+import {
+  faVuejs,
+  faReact,
+  faNodeJs,
+  faPython,
+  faJava,
+  faDatabase,
+} from "@fortawesome/free-brands-svg-icons";
 
-const techStacks = ref([
-  {
-    title: "프론트엔드",
-    icon: ["fab", "vuejs"],
-    skills: [
-      "Vue.js",
-      "React",
-      "TypeScript",
-      "TailwindCSS",
-      "Next.js",
-      "SASS",
-      "Vite",
-    ],
-  },
-  {
-    title: "백엔드",
-    icon: ["fab", "node-js"],
-    skills: [
-      "Node.js",
-      "Express",
-      "Spring Boot",
-      "Java",
-      "NestJS",
-      "Django",
-      "FastAPI",
-    ],
-  },
-  {
-    title: "데이터베이스",
-    icon: "database",
-    skills: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Firebase"],
-  },
+interface TechStack {
+  name: string;
+  icon: string[] | string;
+}
+
+const techStacks = ref<TechStack[]>([
+  { name: "Vue.js", icon: ["fab", "vuejs"] },
+  { name: "React", icon: ["fab", "react"] },
+  { name: "Node.js", icon: ["fab", "node-js"] },
+  { name: "Python", icon: ["fab", "python"] },
+  { name: "Java", icon: ["fab", "java"] },
+  { name: "Database", icon: ["fas", "database"] },
 ]);
-
-const gradientClass = (title) => {
-  return title === "프론트엔드" || title === "데이터베이스"
-    ? "bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent"
-    : "bg-gradient-to-r from-green-400 to-purple-400 bg-clip-text text-transparent";
-};
 </script>
 
 <style scoped>
-.bg-clip-text {
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.group:hover .group-hover\:translate-y-2 {
+  transform: translateY(-10px);
+}
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
 }
 </style>
