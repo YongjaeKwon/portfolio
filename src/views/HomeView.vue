@@ -1,40 +1,47 @@
 <template>
   <section
-    id="home"
-    class="relative flex flex-col items-center justify-center text-center min-h-screen bg-gray-900 text-white overflow-hidden transition-opacity duration-1000 entrance-animation"
+    id="hero"
+    class="relative flex flex-col items-center justify-center text-center min-h-screen bg-gray-950 text-white overflow-hidden pt-32"
   >
-    <!-- 배경 애니메이션 추가 -->
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="neon-thorns"></div>
+    <div class="relative inset-0 overflow-hidden">
+      <div
+        class="relative inset-0 bg-gradient-to-b from-gray-900 to-gray-950 opacity-80"
+      ></div>
     </div>
 
-    <div class="relative z-10">
-      <h1 class="text-6xl font-extrabold text-white mb-4">
-        <span class="typewriter">CREATE YOUR JOURNEY</span>
+    <div
+      class="relative flex flex-col items-center transition-all duration-1000 ease-in-out transform"
+      :class="{ 'translate-y-[-100px] scale-90': showImage }"
+    >
+      <h1
+        class="text-6xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent mb-6 transition-all duration-1000"
+        :class="{ 'text-4xl': showImage }"
+      >
+        권용재 | Full-stack Developer
       </h1>
-      <h2 class="text-4xl font-bold text-white animate-glow">
-        BUILD YOUR FUTURE
+      <h2
+        class="flex text-2xl text-gray-400 max-w-3xl mx-auto mb-8 transition-all duration-1000"
+        :class="{ 'text-lg': showImage }"
+      >
+        <span
+          class="inline-block overflow-hidden border-r-3 border-gray-400"
+          id="typing-text"
+        ></span>
+        <span
+          class="hidden border-r-3 border-gray-400 pr-2"
+          id="blinking-cursor"
+        ></span>
       </h2>
+    </div>
 
-      <p class="text-lg text-gray-300 max-w-3xl mx-auto mb-6">
-        창의적인 사고와 과감한 도전으로 새로운 가능성을 탐구합니다.<br />
-        기술로 세상을 더 나은 방향으로 변화시키는 것을 목표로 합니다.
-      </p>
-
-      <div class="flex space-x-4 justify-center">
-        <button
-          class="px-6 py-3 bg-green-400 text-black font-bold rounded-lg shadow-lg hover:scale-105 transition-transform entrance-button"
-          @click="$emit('scroll-to-section', 'techstack')"
-        >
-          Stacks
-        </button>
-        <button
-          class="px-6 py-3 bg-purple-400 text-black font-bold rounded-lg shadow-lg hover:scale-105 transition-transform entrance-button"
-          @click="$emit('scroll-to-section', 'projects')"
-        >
-          Projects
-        </button>
-      </div>
+    <!-- 프로필 이미지 -->
+    <div class="relative bottom-32 flex justify-center items-center w-full">
+      <img
+        src="../public/my-photo.jpg"
+        alt="Profile Photo"
+        class="w-72 h-auto object-cover rounded-full border-4 border-gray-300 shadow-lg opacity-0 transition-all duration-1000 ease-in-out transform translate-y-24"
+        :class="{ 'opacity-100 translate-y-0': showImage }"
+      />
     </div>
   </section>
 </template>
@@ -42,85 +49,48 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 
-// const fullText = "하이";
-const displayText = ref("");
-let index = 0;
+const fullText: string =
+  "사용자 중심의 직관적이고 인터랙티브한 웹 개발을 추구합니다.";
+const displayText = ref<string>("");
+const showImage = ref<boolean>(false);
+const showButtons = ref<boolean>(false);
+let index: number = 0;
 
 onMounted(() => {
-  const typingEffect = setInterval(() => {
+  const target = document.getElementById("typing-text");
+  const cursor = document.getElementById("blinking-cursor");
+  if (!target) return;
+  if (!cursor) return;
+  const typingEffect: NodeJS.Timeout = setInterval(() => {
     if (index < fullText.length) {
       displayText.value += fullText[index];
+      target.textContent = displayText.value;
       index++;
     } else {
       clearInterval(typingEffect);
+      target.classList.remove("border-gray-400");
+      target.classList.remove("border-r-3");
+      cursor.classList.add("blinking-cursor");
+      setTimeout(() => {
+        showImage.value = true;
+        setTimeout(() => {
+          showButtons.value = true;
+        }, 2000); // 2초 후 버튼 등장
+      }, 1000); // 1초 후 이미지 등장
     }
   }, 100);
-
-  document.body.classList.add("fade-in");
 });
 </script>
 
 <style scoped>
-@keyframes typewriter {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-.typewriter {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 3px solid white;
-  animation: typewriter 3s steps(30, end) forwards;
-}
-
-@keyframes textGlow {
-  0% {
-    text-shadow: 0 0 10px #00ff7f;
-  }
+@keyframes blink {
   50% {
-    text-shadow: 0 0 20px #00ff7f;
-  }
-  100% {
-    text-shadow: 0 0 10px #00ff7f;
-  }
-}
-
-.animate-glow {
-  animation: textGlow 1.5s infinite alternate;
-}
-
-@keyframes entranceEffect {
-  0% {
     opacity: 0;
-    transform: scale(1.2);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
   }
 }
 
-.entrance-animation {
-  animation: entranceEffect 1.5s ease-in-out;
-}
-
-@keyframes entranceButtonEffect {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.entrance-button {
-  animation: entranceButtonEffect 1.2s ease-in-out forwards;
+.blinking-cursor {
+  display: inline-block;
+  animation: blink 1s step-end infinite;
 }
 </style>

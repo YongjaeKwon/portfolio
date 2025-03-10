@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="fixed top-0 w-full bg-black p-4 flex justify-between items-center z-50"
+    class="fixed top-0 w-full bg-none p-4 flex justify-between items-center z-50"
   >
     <h1 class="text-2xl font-extrabold text-white tracking-widest">
       MY PORTFOLIO
