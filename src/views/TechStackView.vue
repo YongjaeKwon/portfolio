@@ -28,14 +28,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import {
-  faVuejs,
-  faReact,
-  faNodeJs,
-  faPython,
-  faJava,
-  faDatabase,
-} from "@fortawesome/free-brands-svg-icons";
 
 interface TechStack {
   name: string;

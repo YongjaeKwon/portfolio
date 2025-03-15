@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import ExperienceItem from "../components/ExperienceItem.vue";
+import ExperienceItem from "@/components/ExperienceItem.vue";
 
 const experience = ref([
   {
