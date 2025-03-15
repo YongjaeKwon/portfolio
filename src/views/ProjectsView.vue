@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import ProjectCard from "../components/ProjectCard.vue";
+import ProjectCard from "@/components/ProjectCard.vue";
 
 const projects = ref([
   {
