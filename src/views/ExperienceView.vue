@@ -1,33 +1,38 @@
 <template>
-  <section id="experience" class="py-20 min-h-screen text-center">
-    <h2 class="text-4xl font-bold text-green-400 mb-6">Experience</h2>
-    <div class="flex flex-col items-center space-y-8">
-      <ExperienceItem
-        v-for="(exp, index) in experience"
-        :key="index"
-        :title="exp.title"
-        :time="exp.time"
-        :description="exp.description"
-      />
+  <section id="experience" class="py-24">
+    <div class="section-shell">
+      <p class="section-kicker">Experience</p>
+      <h2 class="section-title">회사에서 맡고 있는 일</h2>
+
+      <div class="surface mt-8 overflow-hidden rounded-xl">
+        <div class="grid gap-0 lg:grid-cols-[0.34fr_0.66fr]">
+          <div class="border-b border-[var(--border)] bg-[var(--surface-soft)] p-6 lg:border-b-0 lg:border-r">
+            <BriefcaseBusiness class="h-8 w-8 text-cyan-500" />
+            <p class="text-muted mt-6 text-sm font-semibold">{{ experience.period }}</p>
+            <h3 class="text-primary mt-2 text-2xl font-black">{{ experience.title }}</h3>
+            <p class="accent-text mt-2 font-bold">{{ experience.company }}</p>
+          </div>
+
+          <div class="p-6">
+            <p class="text-secondary leading-7">{{ experience.description }}</p>
+            <ul class="text-secondary mt-6 grid gap-3 text-sm leading-6 md:grid-cols-3">
+              <li
+                v-for="bullet in experience.bullets"
+                :key="bullet"
+                class="surface-strong rounded-lg p-4"
+              >
+                <Workflow class="mb-3 h-4 w-4 text-emerald-500" />
+                {{ bullet }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import ExperienceItem from "@/components/ExperienceItem.vue";
-
-const experience = ref([
-  {
-    title: "Frontend Developer",
-    time: "2023 - Present",
-    description:
-      "Developed interactive UI components and optimized performance.",
-  },
-  {
-    title: "Backend Engineer",
-    time: "2021 - 2023",
-    description: "Built scalable APIs and managed databases efficiently.",
-  },
-]);
+import { BriefcaseBusiness, Workflow } from "@lucide/vue";
+import { experience } from "@/data/portfolio";
 </script>
