@@ -46,7 +46,7 @@
 
               <p class="text-secondary mt-4 max-w-4xl leading-7">{{ project.summary }}</p>
 
-              <ul class="text-secondary mt-5 grid gap-3 text-sm leading-6 md:grid-cols-3">
+              <ul :class="['text-secondary mt-5 grid gap-3 text-sm leading-6', highlightGridClass(project.highlights.length)]">
                 <li
                   v-for="highlight in project.highlights"
                   :key="highlight"
@@ -67,6 +67,21 @@
                   {{ stack }}
                 </span>
               </div>
+
+              <div v-if="project.links?.length" class="mt-5 flex flex-wrap gap-2">
+                <a
+                  v-for="link in project.links"
+                  :key="link.href"
+                  :href="link.href"
+                  target="_blank"
+                  rel="noreferrer"
+                  class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-3 py-2 text-xs font-black transition hover:text-[var(--accent-strong)]"
+                >
+                  <component :is="link.type === 'github' ? FileCode : FileText" class="h-4 w-4" />
+                  {{ link.label }}
+                  <ExternalLink class="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
           </div>
         </article>
@@ -76,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowRight, CircleCheck } from "@lucide/vue";
+import { ArrowRight, CircleCheck, ExternalLink, FileCode, FileText } from "@lucide/vue";
 import TechIcon from "@/components/TechIcon.vue";
 import { projects } from "@/data/portfolio";
 
@@ -102,5 +117,9 @@ const progressClass = (accent: string) => {
   };
 
   return classes[accent] ?? classes.cyan;
+};
+
+const highlightGridClass = (count: number) => {
+  return count > 3 ? "md:grid-cols-2" : "md:grid-cols-3";
 };
 </script>
