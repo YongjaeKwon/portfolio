@@ -1,66 +1,33 @@
 <template>
-  <section id="education" class="py-20 min-h-screen text-center">
-    <h2 class="text-4xl font-bold text-green-400 mb-6">Education</h2>
-    <div class="relative w-2/3 mx-auto">
-      <div v-for="(edu, index) in education" :key="index" class="timeline-item">
-        <div
-          class="timeline-content"
-          :class="{ left: index % 2 === 0, right: index % 2 !== 0 }"
+  <section id="education" class="py-24">
+    <div class="section-shell">
+      <p class="section-kicker">Education & Certificates</p>
+      <h2 class="section-title">교육, 자격, 수상</h2>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <article
+          v-for="item in education"
+          :key="item.title"
+          class="surface interactive-surface rounded-xl p-6"
         >
-          <h3 class="text-2xl font-bold text-green-400">{{ edu.title }}</h3>
-          <p class="text-gray-400 text-sm">{{ edu.time }}</p>
-          <p class="text-white mt-2">{{ edu.description }}</p>
-        </div>
+          <component :is="iconMap[item.icon]" class="h-6 w-6 text-cyan-500" />
+          <p class="text-muted mt-5 text-sm font-semibold">{{ item.period }}</p>
+          <h3 class="text-primary mt-2 text-xl font-black">{{ item.title }}</h3>
+          <p class="text-secondary mt-4 leading-7">{{ item.description }}</p>
+        </article>
       </div>
-      <div class="timeline-line"></div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { Award, Database, GraduationCap } from "@lucide/vue";
+import type { Component } from "vue";
+import { education } from "@/data/portfolio";
 
-const education = ref([
-  {
-    title: "Samsung SW Academy for Youth (SSAFY)",
-    time: "2022 - 2023",
-    description: "Learned full-stack development with Vue.js and Spring Boot.",
-  },
-  {
-    title: "University of XYZ",
-    time: "2018 - 2022",
-    description:
-      "Studied Computer Science focusing on algorithms and web technologies.",
-  },
-  {
-    title: "Udemy & Coursera Certifications",
-    time: "2021 - Present",
-    description: "Completed courses in Advanced React, Kubernetes, and DevOps.",
-  },
-]);
+const iconMap: Record<string, Component> = {
+  Award,
+  Database,
+  GraduationCap,
+};
 </script>
-
-<style scoped>
-.timeline-item {
-  position: relative;
-  padding: 20px;
-  width: 50%;
-}
-.timeline-item.left {
-  left: 0;
-  text-align: right;
-}
-.timeline-item.right {
-  left: 50%;
-  text-align: left;
-}
-.timeline-line {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 4px;
-  height: 100%;
-  background: #00ff7f;
-  transform: translateX(-50%);
-}
-</style>

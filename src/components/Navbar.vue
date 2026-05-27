@@ -1,91 +1,97 @@
 <template>
-  <header
-    class="fixed top-0 w-full bg-black bg-opacity-90 text-white py-4 px-6 z-50"
-  >
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-xl font-bold">Yongjae's Portfolio</h1>
+  <header class="site-header fixed top-0 z-50 w-full px-4 py-3 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-6xl items-center justify-between">
+      <button
+        type="button"
+        class="focus-ring group flex items-center gap-3 rounded-md text-left"
+        aria-label="첫 화면으로 이동"
+        @click="moveToSection('hero')"
+      >
+        <span class="accent-soft grid h-9 w-9 place-items-center rounded-md border text-sm font-black">
+          K
+        </span>
+        <span>
+          <span class="text-primary block text-sm font-bold leading-none">{{ profile.name }}</span>
+          <span class="text-muted mt-1 hidden text-xs sm:block">Frontend Engineer</span>
+        </span>
+      </button>
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden md:flex space-x-6">
-        <div>
-          <a
-            class="mx-4 text-gray-400 hover:text-green-400 transition cursor-pointer"
-            @click="moveToSection('hero')"
-            >Home</a
+      <div class="flex items-center gap-2">
+        <nav class="nav-panel hidden items-center gap-1 rounded-md p-1 md:flex" aria-label="주요 섹션">
+          <button
+            v-for="item in navItems"
+            :key="item.id"
+            type="button"
+            class="focus-ring text-muted rounded px-3 py-2 text-sm font-semibold transition hover:bg-black/5 hover:text-[var(--accent-strong)]"
+            @click="moveToSection(item.id)"
           >
-          <a
-            class="mx-4 text-gray-400 hover:text-green-400 transition cursor-pointer"
-            @click="moveToSection('profile')"
-            >Profile</a
-          >
-          <a
-            class="mx-4 text-gray-400 hover:text-green-400 transition cursor-pointer"
-            @click="moveToSection('projects')"
-            >Projects</a
-          >
-          <a
-            class="mx-4 text-gray-400 hover:text-green-400 transition cursor-pointer"
-            @click="moveToSection('experience')"
-            >Experience</a
-          >
-        </div>
-      </nav>
+            {{ item.label }}
+          </button>
+        </nav>
 
-      <!-- Mobile Navigation -->
-      <div class="md:hidden relative">
-        <button @click="toggleMenu" class="focus:outline-none">
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
+        <button
+          type="button"
+          class="focus-ring nav-panel text-primary inline-flex h-10 w-10 items-center justify-center rounded-md"
+          :aria-label="theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'"
+          @click="emit('toggle-theme')"
+        >
+          <Sun v-if="theme === 'dark'" class="h-4 w-4" />
+          <Moon v-else class="h-4 w-4" />
         </button>
 
-        <!-- Dropdown Menu with Blur Effect -->
-        <div
-          class="absolute top-10 right-0 w-48 backdrop-blur-sm text-white rounded-lg shadow-lg transform transition-all duration-300 origin-top-right scale-y-0 opacity-0"
-          :class="{ 'scale-y-100 opacity-100': isMenuOpen }"
+        <button
+          type="button"
+          class="focus-ring nav-panel text-primary rounded-md px-3 py-2 text-sm font-semibold md:hidden"
+          :aria-expanded="isMenuOpen"
+          aria-controls="mobile-navigation"
+          @click="toggleMenu"
         >
-          <nav class="flex flex-col space-y-4 py-4 px-6">
-            <a class="hover:text-green-400" @click="mobileMoveToSection('hero')"
-              >Home</a
-            >
-            <a
-              class="hover:text-green-400"
-              @click="mobileMoveToSection('profile')"
-              >Profile</a
-            >
-            <a
-              class="hover:text-green-400"
-              @click="mobileMoveToSection('projects')"
-              >Projects</a
-            >
-            <a
-              class="hover:text-green-400"
-              @click="mobileMoveToSection('experience')"
-              >Experience</a
-            >
-          </nav>
-        </div>
+          Menu
+        </button>
       </div>
     </div>
+
+    <nav
+      v-if="isMenuOpen"
+      id="mobile-navigation"
+      class="surface mx-auto mt-3 grid max-w-6xl gap-1 rounded-lg p-2 md:hidden"
+      aria-label="모바일 주요 섹션"
+    >
+      <button
+        v-for="item in navItems"
+        :key="item.id"
+        type="button"
+        class="text-secondary rounded-md px-3 py-3 text-left text-sm font-semibold hover:bg-black/5"
+        @click="mobileMoveToSection(item.id)"
+      >
+        {{ item.label }}
+      </button>
+    </nav>
   </header>
 </template>
 
 <script setup lang="ts">
+import { Moon, Sun } from "@lucide/vue";
 import { ref } from "vue";
+import { profile } from "@/data/portfolio";
 
-const emit = defineEmits(["scroll-to-section"]);
-const isMenuOpen = ref<boolean>(false);
+defineProps<{
+  theme: "dark" | "light";
+}>();
+
+const emit = defineEmits<{
+  "scroll-to-section": [id: string];
+  "toggle-theme": [];
+}>();
+
+const isMenuOpen = ref(false);
+const navItems = [
+  { id: "profile", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "experience", label: "Experience" },
+  { id: "techstack", label: "Tech" },
+  { id: "contact", label: "Contact" },
+];
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -97,7 +103,6 @@ const moveToSection = (section: string) => {
 
 const mobileMoveToSection = (section: string) => {
   isMenuOpen.value = false;
-  emit("scroll-to-section", section);
+  moveToSection(section);
 };
 </script>
-<style></style>
