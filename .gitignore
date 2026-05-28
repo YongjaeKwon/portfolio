@@ -13,7 +13,8 @@ node_modules/
 dist/
 dist-ssr
 build/
-#환경 변수 파일
+
+# 환경 변수 파일
 .env
 .env.local
 *.local
