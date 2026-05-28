@@ -22,7 +22,12 @@
             v-for="item in navItems"
             :key="item.id"
             type="button"
-            class="focus-ring text-muted rounded px-3 py-2 text-sm font-semibold transition hover:bg-black/5 hover:text-[var(--accent-strong)]"
+            :class="[
+              'focus-ring rounded px-3 py-2 text-sm font-semibold transition',
+              activeSection === item.id
+                ? 'nav-active'
+                : 'text-muted hover:bg-black/5 hover:text-[var(--accent-strong)]',
+            ]"
             @click="moveToSection(item.id)"
           >
             {{ item.label }}
@@ -46,7 +51,7 @@
           aria-controls="mobile-navigation"
           @click="toggleMenu"
         >
-          Menu
+          <Menu class="h-4 w-4" />
         </button>
       </div>
     </div>
@@ -61,7 +66,12 @@
         v-for="item in navItems"
         :key="item.id"
         type="button"
-        class="text-secondary rounded-md px-3 py-3 text-left text-sm font-semibold hover:bg-black/5"
+        :class="[
+          'rounded-md px-3 py-3 text-left text-sm font-semibold',
+          activeSection === item.id
+            ? 'nav-active'
+            : 'text-secondary hover:bg-black/5',
+        ]"
         @click="mobileMoveToSection(item.id)"
       >
         {{ item.label }}
@@ -71,8 +81,8 @@
 </template>
 
 <script setup lang="ts">
-import { Moon, Sun } from "@lucide/vue";
-import { ref } from "vue";
+import { Menu, Moon, Sun } from "@lucide/vue";
+import { onMounted, onBeforeUnmount, ref } from "vue";
 import { profile } from "@/data/portfolio";
 
 defineProps<{
@@ -85,6 +95,8 @@ const emit = defineEmits<{
 }>();
 
 const isMenuOpen = ref(false);
+const activeSection = ref("hero");
+
 const navItems = [
   { id: "profile", label: "About" },
   { id: "projects", label: "Projects" },
@@ -92,6 +104,31 @@ const navItems = [
   { id: "techstack", label: "Tech" },
   { id: "contact", label: "Contact" },
 ];
+
+const sectionIds = ["hero", ...navItems.map((n) => n.id)];
+
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          activeSection.value = entry.target.id;
+        }
+      });
+    },
+    { threshold: 0.3, rootMargin: "-80px 0px -40% 0px" }
+  );
+  sectionIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) observer?.observe(el);
+  });
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+});
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;

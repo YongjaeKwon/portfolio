@@ -1,17 +1,17 @@
 <template>
   <section id="techstack" class="py-24">
     <div class="section-shell">
-      <p class="section-kicker">Tech Stack</p>
-      <h2 class="section-title">기술 스택</h2>
-      <p class="section-copy">
+      <p class="reveal section-kicker">Tech Stack</p>
+      <h2 class="reveal reveal-d1 section-title">기술 스택</h2>
+      <p class="reveal reveal-d2 section-copy">
         회사 업무에서 사용한 기술과 개인 프로젝트로 다뤄본 기술을 함께 정리했습니다.
       </p>
 
       <div class="mt-8 grid gap-4 md:grid-cols-2">
         <article
-          v-for="group in techGroups"
+          v-for="(group, idx) in techGroups"
           :key="group.title"
-          class="surface interactive-surface rounded-xl p-6"
+          :class="['reveal surface interactive-surface rounded-xl p-6', `reveal-d${idx + 1}`]"
         >
           <div class="flex items-center gap-3">
             <div :class="['grid h-11 w-11 place-items-center rounded-lg border', toneClass(group.tone)]">
@@ -23,7 +23,7 @@
             <span
               v-for="item in group.items"
               :key="item"
-              class="surface-strong text-secondary inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
+              class="tech-chip surface-strong text-secondary inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
             >
               <TechIcon :name="item" />
               {{ item }}
@@ -40,9 +40,9 @@
         </p>
         <div class="mt-6 grid gap-4 md:grid-cols-2">
           <article
-            v-for="item in jobFit"
+            v-for="(item, idx) in jobFit"
             :key="item.label"
-            class="surface interactive-surface rounded-xl p-6"
+            :class="['reveal surface interactive-surface rounded-xl p-6', `reveal-d${idx + 1}`]"
           >
             <div class="flex gap-4">
               <div class="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-amber-400/25 bg-[var(--amber-soft)] text-amber-500">

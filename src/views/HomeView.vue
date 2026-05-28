@@ -1,30 +1,37 @@
 <template>
-  <section id="hero" class="relative min-h-screen overflow-hidden pb-20 pt-28">
+  <section id="hero" class="relative min-h-screen overflow-hidden pb-20 pt-24">
     <div class="pointer-events-none absolute inset-0 opacity-35">
       <div class="grid-backdrop absolute inset-0"></div>
     </div>
 
-    <div class="section-shell relative grid min-h-[calc(100vh-7rem)] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
+    <div class="section-shell relative grid min-h-[calc(100vh-6rem)] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
+      <!-- Left column -->
       <div>
-        <div class="accent-soft inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-bold uppercase tracking-[0.22em]">
+        <img
+          :src="myPhoto"
+          alt="권용재 프로필 사진"
+          class="hero-enter mb-6 h-16 w-16 rounded-full object-cover ring-2 ring-[var(--accent)]/30 shadow-lg"
+        />
+
+        <div class="hero-enter hero-enter-d1 accent-soft inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-bold uppercase tracking-[0.22em]">
           <Radar class="h-4 w-4" />
           Frontend · Operation UI
         </div>
 
-        <h1 class="text-primary mt-8 max-w-4xl text-5xl font-black leading-[1.05] md:text-7xl">
+        <h1 class="gradient-name hero-enter hero-enter-d2 mt-6 max-w-4xl text-5xl font-black leading-[1.05] md:text-7xl">
           {{ profile.name }}
         </h1>
-        <p class="text-primary mt-5 text-2xl font-bold md:text-4xl">
-          {{ profile.role }}
+        <p class="text-primary hero-enter hero-enter-d3 mt-4 text-2xl font-bold md:text-4xl">
+          {{ displayRole }}<span v-if="showCursor" class="typing-cursor" aria-hidden="true"></span>
         </p>
-        <p class="text-secondary mt-7 max-w-3xl text-lg leading-8">
+        <p class="text-secondary hero-enter hero-enter-d4 mt-6 max-w-3xl text-lg leading-8">
           {{ profile.headline }}
         </p>
-        <p class="text-muted mt-4 max-w-3xl text-base leading-7">
+        <p class="text-muted hero-enter hero-enter-d4 mt-3 max-w-3xl text-base leading-7">
           {{ profile.target }}
         </p>
 
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="hero-enter hero-enter-d5 mt-8 flex flex-wrap gap-3">
           <button
             type="button"
             class="focus-ring accent-bg inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-black transition hover:brightness-105"
@@ -51,21 +58,22 @@
           </a>
         </div>
 
-        <div class="mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
+        <div class="hero-enter hero-enter-d6 mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
           <div
-            v-for="stat in heroStats"
+            v-for="(stat, idx) in heroStats"
             :key="stat.label"
             class="surface rounded-lg p-4"
           >
             <p class="text-muted text-xs font-semibold">{{ stat.label }}</p>
             <p class="text-primary mt-2 text-lg font-black">
-              {{ stat.value }}<span class="accent-text ml-1 text-sm">{{ stat.unit }}</span>
+              {{ animatedStats[idx] }}<span class="accent-text ml-1 text-sm">{{ stat.unit }}</span>
             </p>
           </div>
         </div>
       </div>
 
-      <div class="surface relative rounded-xl p-5">
+      <!-- Right column: Work Style card -->
+      <div class="surface hero-enter hero-enter-d3 relative rounded-xl p-5">
         <div class="flex items-center justify-between border-b border-[var(--border)] pb-4">
           <div>
             <p class="text-xs font-bold uppercase tracking-[0.22em] text-amber-500">Work Style</p>
@@ -109,6 +117,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted, ref } from "vue";
 import {
   Activity,
   ArrowRight,
@@ -123,6 +132,7 @@ import {
 } from "@lucide/vue";
 import type { Component } from "vue";
 import { heroStats, profile, strengths } from "@/data/portfolio";
+import myPhoto from "@/public/my-photo.png";
 
 const emit = defineEmits<{
   "scroll-to-section": [id: string];
@@ -134,4 +144,54 @@ const iconMap: Record<string, Component> = {
   ShieldCheck,
   Workflow,
 };
+
+// Typing animation
+const displayRole = ref("");
+const showCursor = ref(false);
+
+// Stat counter
+const stat0 = ref(0);
+const stat1 = ref("·");
+const stat2 = ref(0);
+
+const animatedStats = computed(() => [
+  String(stat0.value),
+  stat1.value,
+  stat2.value + "+",
+]);
+
+onMounted(() => {
+  // Typing animation for role
+  const target = profile.role;
+  let i = 0;
+  showCursor.value = true;
+  setTimeout(() => {
+    const t = setInterval(() => {
+      displayRole.value = target.slice(0, ++i);
+      if (i >= target.length) {
+        clearInterval(t);
+        setTimeout(() => {
+          showCursor.value = false;
+        }, 2800);
+      }
+    }, 75);
+  }, 650);
+
+  // Stat counters
+  setTimeout(() => {
+    const t0 = setInterval(() => {
+      if (stat0.value < 4) stat0.value++;
+      else clearInterval(t0);
+    }, 110);
+
+    setTimeout(() => {
+      stat1.value = "2024.06";
+    }, 350);
+
+    const t2 = setInterval(() => {
+      if (stat2.value < 2) stat2.value++;
+      else clearInterval(t2);
+    }, 220);
+  }, 700);
+});
 </script>

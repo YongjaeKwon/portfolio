@@ -32,6 +32,7 @@
   --accent-strong: #22d3ee;
   --accent-contrast: #071013;
   --accent-soft: rgba(34, 211, 238, 0.12);
+  --accent-rgb: 34 211 238;
   --emerald-soft: rgba(16, 185, 129, 0.12);
   --amber-soft: rgba(245, 158, 11, 0.12);
   --violet-soft: rgba(139, 92, 246, 0.12);
@@ -55,6 +56,7 @@
   --accent-strong: #0e7490;
   --accent-contrast: #ffffff;
   --accent-soft: rgba(8, 145, 178, 0.11);
+  --accent-rgb: 8 145 178;
   --emerald-soft: rgba(5, 150, 105, 0.11);
   --amber-soft: rgba(180, 83, 9, 0.11);
   --violet-soft: rgba(124, 58, 237, 0.11);
@@ -73,9 +75,17 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(circle at 15% 8%, var(--accent-soft), transparent 28rem),
-    radial-gradient(circle at 85% 18%, var(--emerald-soft), transparent 24rem),
-    radial-gradient(circle at 72% 70%, var(--amber-soft), transparent 26rem),
+    radial-gradient(ellipse 90% 55% at 12% 4%, rgba(34, 211, 238, 0.22), transparent),
+    radial-gradient(ellipse 65% 45% at 88% 14%, rgba(16, 185, 129, 0.14), transparent),
+    radial-gradient(ellipse 75% 55% at 70% 78%, rgba(245, 158, 11, 0.12), transparent),
+    var(--page-bg);
+}
+
+:root[data-theme="light"] body {
+  background:
+    radial-gradient(ellipse 90% 55% at 12% 4%, rgba(8, 145, 178, 0.15), transparent),
+    radial-gradient(ellipse 65% 45% at 88% 14%, rgba(5, 150, 105, 0.1), transparent),
+    radial-gradient(ellipse 75% 55% at 70% 78%, rgba(180, 83, 9, 0.09), transparent),
     var(--page-bg);
 }
 
@@ -86,9 +96,10 @@ a {
 
 @layer components {
   .app-root {
+    position: relative;
     min-height: 100vh;
     overflow-x: hidden;
-    background: var(--page-bg);
+    background: transparent;
     color: var(--text-primary);
     transition:
       background-color 220ms ease,
@@ -153,7 +164,7 @@ a {
 
   .interactive-surface:hover {
     transform: translateY(-0.25rem);
-    border-color: rgb(34 211 238 / 0.5);
+    border-color: rgb(var(--accent-rgb) / 0.45);
   }
 
   .text-primary {
@@ -187,4 +198,113 @@ a {
     @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4;
     outline-color: var(--accent);
   }
+
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.75rem);
+    transition:
+      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+  .reveal-d4 { transition-delay: 0.4s; }
+  .reveal-d5 { transition-delay: 0.5s; }
+
+  /* ── Gradient name ── */
+  .gradient-name {
+    background: linear-gradient(135deg, #a5f3fc 0%, #67e8f9 40%, #e0f2fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  :root[data-theme="light"] .gradient-name {
+    background: linear-gradient(135deg, #0c4a6e 0%, #0891b2 55%, #0369a1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Active nav ── */
+  .nav-active {
+    color: var(--accent-strong) !important;
+    background: var(--accent-soft) !important;
+  }
+
+  /* ── Cursor spotlight ── */
+  .cursor-spotlight {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(
+      700px circle at var(--cursor-x, -9999px) var(--cursor-y, -9999px),
+      rgba(34, 211, 238, 0.06),
+      transparent 40%
+    );
+  }
+  :root[data-theme="light"] .cursor-spotlight {
+    background: radial-gradient(
+      700px circle at var(--cursor-x, -9999px) var(--cursor-y, -9999px),
+      rgba(8, 145, 178, 0.06),
+      transparent 40%
+    );
+  }
+
+  /* ── Typing cursor ── */
+  .typing-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 0.85em;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-left: 3px;
+    border-radius: 1px;
+    animation: cursor-blink 1s step-end infinite;
+  }
+
+  /* ── Tech chip hover ── */
+  .tech-chip {
+    transition:
+      border-color 180ms ease,
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+  .tech-chip:hover {
+    border-color: rgb(var(--accent-rgb) / 0.4);
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
 }
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-enter {
+  animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-d1 { animation-delay: 0.1s; }
+.hero-enter-d2 { animation-delay: 0.2s; }
+.hero-enter-d3 { animation-delay: 0.3s; }
+.hero-enter-d4 { animation-delay: 0.4s; }
+.hero-enter-d5 { animation-delay: 0.5s; }
+.hero-enter-d6 { animation-delay: 0.6s; }

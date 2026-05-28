@@ -188,7 +188,7 @@ export const projects = [
     highlights: [
       "설문 대상자 관리, 응답 데이터 저장, 통계 조회 화면 구현",
       "SQL 쿼리 개선 및 PL/SQL 작성으로 통계 데이터 산출 지원",
-      "설문 참여 프로세스 개선으로 응답률을 5%에서 20%로 향상",
+      "설문 참여 상태와 통계 조회 흐름을 개선해 운영자가 응답 현황을 더 쉽게 확인하도록 보완",
     ],
     stack: ["Nexacro", "Java", "Spring MVC", "PL/SQL", "Oracle"],
     links: [

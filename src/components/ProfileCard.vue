@@ -1,7 +1,7 @@
 <template>
   <section id="profile" class="py-24">
     <div class="section-shell grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-      <div>
+      <div class="reveal">
         <p class="section-kicker">About</p>
         <h2 class="section-title">실제 업무 흐름에 맞춰 구현하는 개발자</h2>
         <p class="section-copy">
@@ -9,7 +9,7 @@
         </p>
       </div>
 
-      <div class="grid gap-4">
+      <div class="reveal reveal-d2 grid gap-4">
         <div class="surface rounded-xl p-6">
           <p class="text-secondary text-lg leading-8">{{ profile.summary }}</p>
         </div>
