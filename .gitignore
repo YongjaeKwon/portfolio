@@ -33,3 +33,7 @@ build/
 # 캐시 파일
 .cache/
 .npm/
+
+# 개발 도구 설정
+.claude/
+.ecc/
