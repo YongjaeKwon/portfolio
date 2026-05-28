@@ -22,7 +22,7 @@
           :class="['reveal surface interactive-surface group rounded-xl p-5 md:p-6', `reveal-d${Math.min(index, 4)}`]"
         >
           <div class="grid gap-6 lg:grid-cols-[0.32fr_0.68fr]">
-            <div :class="['rounded-lg border-x border-b p-5 border-t-2', accentPanel(project.accent), accentTopBorder(project.accent)]">
+            <div :class="['rounded-lg border p-5', accentPanel(project.accent)]">
               <p class="text-xs font-black uppercase tracking-[0.22em] opacity-80">
                 {{ project.category }}
               </p>
@@ -217,22 +217,11 @@ onBeforeUnmount(() => {
 
 const accentPanel = (accent: string) => {
   const classes: Record<string, string> = {
-    cyan: "border-cyan-300/20 bg-cyan-300/10",
-    emerald: "border-emerald-300/20 bg-emerald-300/10",
-    amber: "border-amber-300/20 bg-amber-300/10",
-    violet: "border-violet-300/20 bg-violet-300/10",
-    blue: "border-blue-300/20 bg-blue-300/10",
-  };
-  return classes[accent] ?? classes.cyan;
-};
-
-const accentTopBorder = (accent: string) => {
-  const classes: Record<string, string> = {
-    cyan: "border-t-cyan-400/70",
-    emerald: "border-t-emerald-400/70",
-    amber: "border-t-amber-400/70",
-    violet: "border-t-violet-400/70",
-    blue: "border-t-blue-400/70",
+    cyan:    "border-white/6 bg-white/3",
+    emerald: "border-white/6 bg-white/3",
+    amber:   "border-white/6 bg-white/3",
+    violet:  "border-white/6 bg-white/3",
+    blue:    "border-white/6 bg-white/3",
   };
   return classes[accent] ?? classes.cyan;
 };

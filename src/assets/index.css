@@ -16,50 +16,52 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --page-bg: #07090d;
-  --page-bg-rgb: 7 9 13;
-  --page-grid: rgba(255, 255, 255, 0.045);
+  --page-bg: #08090d;
+  --page-bg-rgb: 8 9 13;
+  --page-grid: rgba(255, 255, 255, 0.03);
   --text-primary: #f8fafc;
-  --text-secondary: #d9dee7;
-  --text-muted: #8f98a7;
-  --surface: rgba(255, 255, 255, 0.048);
-  --surface-strong: #0b1018;
-  --surface-soft: rgba(255, 255, 255, 0.035);
-  --border: rgba(255, 255, 255, 0.11);
-  --border-strong: rgba(255, 255, 255, 0.18);
-  --shadow: 0 18px 80px rgba(0, 0, 0, 0.25);
+  --text-secondary: #c8cdd6;
+  --text-muted: #6b7280;
+  --text-kicker: rgba(255, 255, 255, 0.35);
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(255, 255, 255, 0.06);
+  --surface-soft: rgba(255, 255, 255, 0.025);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   --accent: #67e8f9;
   --accent-strong: #22d3ee;
   --accent-contrast: #071013;
-  --accent-soft: rgba(34, 211, 238, 0.12);
+  --accent-soft: rgba(34, 211, 238, 0.1);
   --accent-rgb: 34 211 238;
-  --emerald-soft: rgba(16, 185, 129, 0.12);
-  --amber-soft: rgba(245, 158, 11, 0.12);
-  --violet-soft: rgba(139, 92, 246, 0.12);
+  --emerald-soft: rgba(16, 185, 129, 0.1);
+  --amber-soft: rgba(245, 158, 11, 0.1);
+  --violet-soft: rgba(139, 92, 246, 0.1);
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --page-bg: #f5f7fb;
-  --page-bg-rgb: 245 247 251;
-  --page-grid: rgba(15, 23, 42, 0.055);
+  --page-bg: #fafafa;
+  --page-bg-rgb: 250 250 250;
+  --page-grid: rgba(15, 23, 42, 0.04);
   --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --surface: rgba(255, 255, 255, 0.86);
+  --text-secondary: #374151;
+  --text-muted: #9ca3af;
+  --text-kicker: rgba(15, 23, 42, 0.42);
+  --surface: rgba(255, 255, 255, 0.9);
   --surface-strong: #ffffff;
-  --surface-soft: rgba(15, 23, 42, 0.035);
-  --border: rgba(15, 23, 42, 0.11);
-  --border-strong: rgba(15, 23, 42, 0.18);
-  --shadow: 0 20px 70px rgba(15, 23, 42, 0.12);
+  --surface-soft: rgba(15, 23, 42, 0.03);
+  --border: rgba(15, 23, 42, 0.09);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
   --accent: #0891b2;
   --accent-strong: #0e7490;
   --accent-contrast: #ffffff;
-  --accent-soft: rgba(8, 145, 178, 0.11);
+  --accent-soft: rgba(8, 145, 178, 0.1);
   --accent-rgb: 8 145 178;
-  --emerald-soft: rgba(5, 150, 105, 0.11);
-  --amber-soft: rgba(180, 83, 9, 0.11);
-  --violet-soft: rgba(124, 58, 237, 0.11);
+  --emerald-soft: rgba(5, 150, 105, 0.09);
+  --amber-soft: rgba(180, 83, 9, 0.09);
+  --violet-soft: rgba(124, 58, 237, 0.09);
 }
 
 html {
@@ -71,21 +73,19 @@ html {
   scroll-margin-top: 5.5rem;
 }
 
+/* Subtle, barely-there atmospheric glow — feel it, don't see it */
 body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(ellipse 90% 55% at 12% 4%, rgba(34, 211, 238, 0.22), transparent),
-    radial-gradient(ellipse 65% 45% at 88% 14%, rgba(16, 185, 129, 0.14), transparent),
-    radial-gradient(ellipse 75% 55% at 70% 78%, rgba(245, 158, 11, 0.12), transparent),
+    radial-gradient(ellipse 70% 45% at 10% 0%, rgba(34, 211, 238, 0.055), transparent),
+    radial-gradient(ellipse 50% 35% at 90% 10%, rgba(16, 185, 129, 0.03), transparent),
     var(--page-bg);
 }
 
 :root[data-theme="light"] body {
   background:
-    radial-gradient(ellipse 90% 55% at 12% 4%, rgba(8, 145, 178, 0.15), transparent),
-    radial-gradient(ellipse 65% 45% at 88% 14%, rgba(5, 150, 105, 0.1), transparent),
-    radial-gradient(ellipse 75% 55% at 70% 78%, rgba(180, 83, 9, 0.09), transparent),
+    radial-gradient(ellipse 70% 45% at 10% 0%, rgba(8, 145, 178, 0.07), transparent),
     var(--page-bg);
 }
 
@@ -108,7 +108,7 @@ a {
 
   .site-header {
     border-bottom: 1px solid var(--border);
-    background: rgb(var(--page-bg-rgb) / 0.82);
+    background: rgb(var(--page-bg-rgb) / 0.85);
     color: var(--text-primary);
   }
 
@@ -121,16 +121,17 @@ a {
     background-image:
       linear-gradient(var(--page-grid) 1px, transparent 1px),
       linear-gradient(90deg, var(--page-grid) 1px, transparent 1px);
-    background-size: 44px 44px;
+    background-size: 48px 48px;
   }
 
   .section-shell {
     @apply mx-auto w-full max-w-6xl px-6;
   }
 
+  /* Muted kicker — whisper, not shout */
   .section-kicker {
-    color: var(--accent-strong);
-    @apply text-xs font-bold uppercase tracking-[0.26em];
+    color: var(--text-kicker);
+    @apply text-xs font-bold uppercase tracking-[0.28em];
   }
 
   .section-title {
@@ -147,7 +148,7 @@ a {
     border: 1px solid var(--border);
     background: var(--surface);
     box-shadow: var(--shadow);
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(20px);
   }
 
   .surface-strong {
@@ -157,14 +158,18 @@ a {
 
   .interactive-surface {
     transition:
-      transform 220ms ease,
-      border-color 220ms ease,
-      background-color 220ms ease;
+      transform 240ms ease,
+      border-color 240ms ease;
   }
 
+  /* Neutral white hover — no cyan */
   .interactive-surface:hover {
-    transform: translateY(-0.25rem);
-    border-color: rgb(var(--accent-rgb) / 0.45);
+    transform: translateY(-0.2rem);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  :root[data-theme="light"] .interactive-surface:hover {
+    border-color: rgba(15, 23, 42, 0.22);
   }
 
   .text-primary {
@@ -183,15 +188,16 @@ a {
     color: var(--accent);
   }
 
+  /* CTA button — the ONE place cyan lives */
   .accent-bg {
     background: var(--accent);
     color: var(--accent-contrast);
   }
 
   .accent-soft {
-    border-color: rgb(34 211 238 / 0.28);
-    background: var(--accent-soft);
-    color: var(--accent-strong);
+    border-color: var(--border);
+    background: var(--surface-soft);
+    color: var(--text-muted);
   }
 
   .focus-ring {
@@ -202,7 +208,7 @@ a {
   /* ── Scroll reveal ── */
   .reveal {
     opacity: 0;
-    transform: translateY(1.75rem);
+    transform: translateY(1.5rem);
     transition:
       opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
@@ -217,24 +223,13 @@ a {
   .reveal-d4 { transition-delay: 0.4s; }
   .reveal-d5 { transition-delay: 0.5s; }
 
-  /* ── Gradient name ── */
-  .gradient-name {
-    background: linear-gradient(135deg, #a5f3fc 0%, #67e8f9 40%, #e0f2fe 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  :root[data-theme="light"] .gradient-name {
-    background: linear-gradient(135deg, #0c4a6e 0%, #0891b2 55%, #0369a1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* ── Active nav ── */
+  /* ── Active nav — subtle, just color + faint bg ── */
   .nav-active {
     color: var(--accent-strong) !important;
-    background: var(--accent-soft) !important;
+    background: rgba(34, 211, 238, 0.07) !important;
+  }
+  :root[data-theme="light"] .nav-active {
+    background: rgba(8, 145, 178, 0.07) !important;
   }
 
   /* ── Cursor spotlight ── */
@@ -244,15 +239,8 @@ a {
     inset: 0;
     z-index: 0;
     background: radial-gradient(
-      700px circle at var(--cursor-x, -9999px) var(--cursor-y, -9999px),
-      rgba(34, 211, 238, 0.06),
-      transparent 40%
-    );
-  }
-  :root[data-theme="light"] .cursor-spotlight {
-    background: radial-gradient(
-      700px circle at var(--cursor-x, -9999px) var(--cursor-y, -9999px),
-      rgba(8, 145, 178, 0.06),
+      600px circle at var(--cursor-x, -9999px) var(--cursor-y, -9999px),
+      rgba(255, 255, 255, 0.025),
       transparent 40%
     );
   }
@@ -260,26 +248,28 @@ a {
   /* ── Typing cursor ── */
   .typing-cursor {
     display: inline-block;
-    width: 3px;
-    height: 0.85em;
-    background: var(--accent);
+    width: 2px;
+    height: 0.8em;
+    background: rgba(255, 255, 255, 0.6);
     vertical-align: middle;
     margin-left: 3px;
     border-radius: 1px;
     animation: cursor-blink 1s step-end infinite;
   }
 
-  /* ── Tech chip hover ── */
+  /* ── Tech chip hover — white tint, not cyan ── */
   .tech-chip {
     transition:
       border-color 180ms ease,
-      background-color 180ms ease,
-      color 180ms ease;
+      background-color 180ms ease;
   }
   .tech-chip:hover {
-    border-color: rgb(var(--accent-rgb) / 0.4);
-    background: var(--accent-soft);
-    color: var(--accent-strong);
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.07);
+  }
+  :root[data-theme="light"] .tech-chip:hover {
+    border-color: rgba(15, 23, 42, 0.2);
+    background: rgba(15, 23, 42, 0.05);
   }
 }
 

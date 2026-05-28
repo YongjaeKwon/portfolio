@@ -45,7 +45,7 @@
             :class="['reveal surface interactive-surface rounded-xl p-6', `reveal-d${idx + 1}`]"
           >
             <div class="flex gap-4">
-              <div class="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-amber-400/25 bg-[var(--amber-soft)] text-amber-500">
+              <div class="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-white/8 bg-white/4 text-white/45">
                 <component :is="iconMap[item.icon]" class="h-5 w-5" />
               </div>
               <div>
@@ -84,14 +84,6 @@ const iconMap: Record<string, Component> = {
   Smartphone,
 };
 
-const toneClass = (tone: string) => {
-  const classes: Record<string, string> = {
-    cyan: "border-cyan-400/25 bg-[var(--accent-soft)] text-cyan-500",
-    emerald: "border-emerald-400/25 bg-[var(--emerald-soft)] text-emerald-500",
-    amber: "border-amber-400/25 bg-[var(--amber-soft)] text-amber-500",
-    violet: "border-violet-400/25 bg-[var(--violet-soft)] text-violet-500",
-  };
-
-  return classes[tone] ?? classes.cyan;
-};
+const toneClass = (_tone: string) =>
+  "border-white/8 bg-white/4 text-white/45";
 </script>

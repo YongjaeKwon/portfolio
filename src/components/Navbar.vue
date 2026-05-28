@@ -7,7 +7,7 @@
         aria-label="첫 화면으로 이동"
         @click="moveToSection('hero')"
       >
-        <span class="accent-soft grid h-9 w-9 place-items-center rounded-md border text-sm font-black">
+        <span class="grid h-9 w-9 place-items-center rounded-md border border-white/10 bg-white/5 text-sm font-black text-white/70">
           K
         </span>
         <span>
