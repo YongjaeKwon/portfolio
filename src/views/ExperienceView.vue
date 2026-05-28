@@ -1,10 +1,10 @@
 <template>
   <section id="experience" class="py-24">
     <div class="section-shell">
-      <p class="section-kicker">Experience</p>
-      <h2 class="section-title">회사에서 맡고 있는 일</h2>
+      <p class="reveal section-kicker">Experience</p>
+      <h2 class="reveal reveal-d1 section-title">회사에서 맡고 있는 일</h2>
 
-      <div class="surface mt-8 overflow-hidden rounded-xl">
+      <div class="reveal surface mt-8 overflow-hidden rounded-xl">
         <div class="grid gap-0 lg:grid-cols-[0.34fr_0.66fr]">
           <div class="border-b border-[var(--border)] bg-[var(--surface-soft)] p-6 lg:border-b-0 lg:border-r">
             <BriefcaseBusiness class="h-8 w-8 text-cyan-500" />

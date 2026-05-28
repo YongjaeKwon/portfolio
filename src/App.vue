@@ -1,5 +1,6 @@
 <template>
   <div class="app-root">
+    <div class="cursor-spotlight" aria-hidden="true" />
     <Navbar
       :theme="theme"
       @toggle-theme="toggleTheme"
@@ -16,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
+import { onMounted, onBeforeUnmount, ref, watch } from "vue";
 import Navbar from "@/components/Navbar.vue";
 import HomeView from "@/views/HomeView.vue";
 import ProfileCard from "@/components/ProfileCard.vue";
@@ -40,9 +41,34 @@ onMounted(() => {
   const preferredTheme = window.matchMedia("(prefers-color-scheme: light)").matches
     ? "light"
     : "dark";
-
   theme.value = savedTheme === "light" || savedTheme === "dark" ? savedTheme : preferredTheme;
   applyTheme(theme.value);
+
+  // Cursor spotlight
+  const handleMouseMove = (e: MouseEvent) => {
+    document.documentElement.style.setProperty("--cursor-x", `${e.clientX}px`);
+    document.documentElement.style.setProperty("--cursor-y", `${e.clientY}px`);
+  };
+  window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.08, rootMargin: "0px 0px -48px 0px" }
+  );
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+  return () => {
+    window.removeEventListener("mousemove", handleMouseMove);
+    observer.disconnect();
+  };
 });
 
 watch(theme, (nextTheme) => {
