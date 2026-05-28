@@ -10,7 +10,7 @@
           :key="item.title"
           :class="['reveal surface interactive-surface rounded-xl p-6', `reveal-d${idx + 1}`]"
         >
-          <component :is="iconMap[item.icon]" class="h-6 w-6 text-cyan-500" />
+          <component :is="iconMap[item.icon]" class="h-6 w-6 text-white/40" />
           <p class="text-muted mt-5 text-sm font-semibold">{{ item.period }}</p>
           <h3 class="text-primary mt-2 text-xl font-black">{{ item.title }}</h3>
           <p class="text-secondary mt-4 leading-7">{{ item.description }}</p>

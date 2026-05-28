@@ -1,6 +1,6 @@
 <template>
   <section id="hero" class="relative min-h-screen overflow-hidden pb-20 pt-24">
-    <div class="pointer-events-none absolute inset-0 opacity-35">
+    <div class="pointer-events-none absolute inset-0 opacity-20">
       <div class="grid-backdrop absolute inset-0"></div>
     </div>
 
@@ -10,38 +10,41 @@
         <img
           :src="myPhoto"
           alt="권용재 프로필 사진"
-          class="hero-enter mb-6 h-16 w-16 rounded-full object-cover ring-2 ring-[var(--accent)]/30 shadow-lg"
+          class="hero-enter mb-6 h-16 w-16 rounded-full object-cover ring-1 ring-white/15 shadow-lg"
         />
 
-        <div class="hero-enter hero-enter-d1 accent-soft inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-bold uppercase tracking-[0.22em]">
+        <!-- Neutral badge — no cyan bg -->
+        <div class="hero-enter hero-enter-d1 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white/40">
           <Radar class="h-4 w-4" />
           Frontend · Operation UI
         </div>
 
-        <h1 class="gradient-name hero-enter hero-enter-d2 mt-6 max-w-4xl text-5xl font-black leading-[1.05] md:text-7xl">
+        <!-- Pure white — size and weight IS the statement -->
+        <h1 class="hero-enter hero-enter-d2 mt-6 max-w-4xl text-5xl font-black leading-[1.05] text-white md:text-7xl">
           {{ profile.name }}
         </h1>
-        <p class="text-primary hero-enter hero-enter-d3 mt-4 text-2xl font-bold md:text-4xl">
+        <p class="hero-enter hero-enter-d3 mt-4 text-2xl font-bold text-white/80 md:text-4xl">
           {{ displayRole }}<span v-if="showCursor" class="typing-cursor" aria-hidden="true"></span>
         </p>
-        <p class="text-secondary hero-enter hero-enter-d4 mt-6 max-w-3xl text-lg leading-8">
+        <p class="hero-enter hero-enter-d4 text-secondary mt-6 max-w-3xl text-lg leading-8">
           {{ profile.headline }}
         </p>
-        <p class="text-muted hero-enter hero-enter-d4 mt-3 max-w-3xl text-base leading-7">
+        <p class="hero-enter hero-enter-d4 text-muted mt-3 max-w-3xl text-base leading-7">
           {{ profile.target }}
         </p>
 
         <div class="hero-enter hero-enter-d5 mt-8 flex flex-wrap gap-3">
+          <!-- CTA: the ONE place cyan lives -->
           <button
             type="button"
-            class="focus-ring accent-bg inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-black transition hover:brightness-105"
+            class="focus-ring accent-bg inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-black transition hover:brightness-110"
             @click="emit('scroll-to-section', 'projects')"
           >
             프로젝트 보기
             <ArrowRight class="h-4 w-4" />
           </button>
           <a
-            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-bold transition hover:text-[var(--accent-strong)]"
+            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:border-white/20 hover:text-white"
             :href="profile.github"
             target="_blank"
             rel="noreferrer"
@@ -50,7 +53,7 @@
             <ExternalLink class="h-4 w-4" />
           </a>
           <a
-            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-bold transition hover:text-[var(--accent-strong)]"
+            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:border-white/20 hover:text-white"
             :href="`mailto:${profile.email}`"
           >
             Email
@@ -65,8 +68,8 @@
             class="surface rounded-lg p-4"
           >
             <p class="text-muted text-xs font-semibold">{{ stat.label }}</p>
-            <p class="text-primary mt-2 text-lg font-black">
-              {{ animatedStats[idx] }}<span class="accent-text ml-1 text-sm">{{ stat.unit }}</span>
+            <p class="mt-2 text-lg font-black text-white">
+              {{ animatedStats[idx] }}<span class="ml-1 text-sm text-white/40">{{ stat.unit }}</span>
             </p>
           </div>
         </div>
@@ -74,12 +77,13 @@
 
       <!-- Right column: Work Style card -->
       <div class="surface hero-enter hero-enter-d3 relative rounded-xl p-5">
-        <div class="flex items-center justify-between border-b border-[var(--border)] pb-4">
+        <div class="flex items-center justify-between border-b border-white/8 pb-4">
           <div>
-            <p class="text-xs font-bold uppercase tracking-[0.22em] text-amber-500">Work Style</p>
+            <!-- Neutral kicker — no amber -->
+            <p class="section-kicker">Work Style</p>
             <h2 class="text-primary mt-2 text-xl font-black">화면을 만들 때 보는 것</h2>
           </div>
-          <Activity class="accent-text h-6 w-6" />
+          <Activity class="h-6 w-6 text-white/25" />
         </div>
 
         <div class="mt-5 grid gap-3">
@@ -89,12 +93,13 @@
             class="surface-strong interactive-surface rounded-lg p-4"
           >
             <div class="flex gap-4">
-              <div class="accent-soft grid h-10 w-10 shrink-0 place-items-center rounded-md border">
-                <component :is="iconMap[strength.icon]" class="h-5 w-5" />
+              <!-- Neutral icon box — no cyan bg -->
+              <div class="grid h-10 w-10 shrink-0 place-items-center rounded-md border border-white/8 bg-white/5">
+                <component :is="iconMap[strength.icon]" class="h-5 w-5 text-white/50" />
               </div>
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="text-muted text-xs font-black">0{{ index + 1 }}</span>
+                  <span class="text-xs font-black text-white/25">0{{ index + 1 }}</span>
                   <h3 class="text-primary font-bold">{{ strength.title }}</h3>
                 </div>
                 <p class="text-muted mt-2 text-sm leading-6">{{ strength.description }}</p>
@@ -103,10 +108,11 @@
           </div>
         </div>
 
-        <div class="mt-5 rounded-lg border border-amber-400/25 bg-[var(--amber-soft)] p-4">
+        <!-- Amber strip kept as the one personality touch -->
+        <div class="mt-5 rounded-lg border border-amber-400/20 bg-amber-400/5 p-4">
           <div class="flex items-center gap-3">
-            <MousePointer2 class="h-5 w-5 text-amber-500" />
-            <p class="text-primary text-sm font-semibold">
+            <MousePointer2 class="h-4 w-4 text-amber-400/60" />
+            <p class="text-sm font-semibold text-white/55">
               사용자가 막히는 지점을 줄이는 데 신경 씁니다.
             </p>
           </div>
@@ -161,7 +167,6 @@ const animatedStats = computed(() => [
 ]);
 
 onMounted(() => {
-  // Typing animation for role
   const target = profile.role;
   let i = 0;
   showCursor.value = true;
@@ -170,24 +175,17 @@ onMounted(() => {
       displayRole.value = target.slice(0, ++i);
       if (i >= target.length) {
         clearInterval(t);
-        setTimeout(() => {
-          showCursor.value = false;
-        }, 2800);
+        setTimeout(() => { showCursor.value = false; }, 2800);
       }
     }, 75);
   }, 650);
 
-  // Stat counters
   setTimeout(() => {
     const t0 = setInterval(() => {
       if (stat0.value < 4) stat0.value++;
       else clearInterval(t0);
     }, 110);
-
-    setTimeout(() => {
-      stat1.value = "2024.06";
-    }, 350);
-
+    setTimeout(() => { stat1.value = "2024.06"; }, 350);
     const t2 = setInterval(() => {
       if (stat2.value < 2) stat2.value++;
       else clearInterval(t2);
