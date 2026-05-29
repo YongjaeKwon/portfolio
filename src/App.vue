@@ -12,7 +12,9 @@
     <div class="cursor-spotlight" aria-hidden="true" />
     <Navbar
       :theme="theme"
+      :skin="skin"
       @toggle-theme="toggleTheme"
+      @toggle-skin="toggleSkin"
       @scroll-to-section="scrollToSection"
     />
     <HomeView @scroll-to-section="scrollToSection" />
@@ -24,6 +26,12 @@
     <ContactView />
     <Footer />
     <ScrollToTop />
+
+    <!-- 🍁 메이플 모드 전용 마스코트 (기본 모드에선 CSS로 숨김) -->
+    <div class="maple-mascot" aria-hidden="true">
+      <span class="maple-bubble">반가워요!</span>
+      <span class="maple-mob">🍄</span>
+    </div>
   </div>
 </template>
 
@@ -42,12 +50,18 @@ import ScrollToTop from "@/components/ScrollToTop.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
 
 type Theme = "dark" | "light";
+type Skin = "default" | "maple";
 
 const theme = ref<Theme>("dark");
+const skin = ref<Skin>("default");
 
 const applyTheme = (nextTheme: Theme) => {
   document.documentElement.dataset.theme = nextTheme;
   document.documentElement.style.colorScheme = nextTheme;
+};
+
+const applySkin = (nextSkin: Skin) => {
+  document.documentElement.dataset.skin = nextSkin;
 };
 
 onMounted(() => {
@@ -57,6 +71,10 @@ onMounted(() => {
     : "dark";
   theme.value = savedTheme === "light" || savedTheme === "dark" ? savedTheme : preferredTheme;
   applyTheme(theme.value);
+
+  const savedSkin = localStorage.getItem("portfolio-skin");
+  skin.value = savedSkin === "maple" ? "maple" : "default";
+  applySkin(skin.value);
 
   // Cursor spotlight
   const handleMouseMove = (e: MouseEvent) => {
@@ -98,6 +116,15 @@ watch(theme, (nextTheme) => {
   applyTheme(nextTheme);
   localStorage.setItem("portfolio-theme", nextTheme);
 });
+
+watch(skin, (nextSkin) => {
+  applySkin(nextSkin);
+  localStorage.setItem("portfolio-skin", nextSkin);
+});
+
+const toggleSkin = () => {
+  skin.value = skin.value === "maple" ? "default" : "maple";
+};
 
 type ViewTransitionDoc = Document & {
   startViewTransition?: (cb: () => void) => { ready: Promise<void> };

@@ -389,6 +389,176 @@ a {
   .text-amber-400\/60 { color: rgba(146, 64, 14, 0.70) !important; }
 }
 
+/* ════════════════════════════════════════════════════════════════════════
+   🍁 MAPLE SKIN — data-skin="maple" 일 때만 적용되는 메이플스토리 테마
+   기본 디자인은 전혀 건드리지 않고, 변수 오버라이드 + 청키 UI로 통째 재스킨
+   ════════════════════════════════════════════════════════════════════════ */
+:root[data-skin="maple"] {
+  --font-body: "Jua", "Pretendard Variable", sans-serif;
+  --font-display: "Do Hyeon", "Jua", sans-serif;
+
+  --page-bg: #c8ecfb;
+  --page-bg-rgb: 200 236 251;
+  --page-grid: rgba(120, 90, 60, 0.05);
+  --text-primary: #4a3424;
+  --text-secondary: #6b4f3a;
+  --text-muted: #9a7d62;
+  --text-kicker: #c47a35;
+  --surface: #fff8e8;
+  --surface-strong: #fffdf6;
+  --surface-soft: #fdeecb;
+  --border: #e3c293;
+  --border-strong: #b07d45;
+  --accent: #ff8a3d;
+  --accent-strong: #ef5f1e;
+  --accent-contrast: #ffffff;
+  --accent-rgb: 255 138 61;
+  --accent-soft: rgb(255 138 61 / 0.16);
+  --accent-gradient: linear-gradient(135deg, #ffb648, #ff7a2e);
+  --elev-1: 0 3px 0 rgba(176, 125, 69, 0.35);
+  --elev-2: 0 6px 0 rgba(176, 125, 69, 0.4);
+  --elev-3: 0 10px 0 rgba(176, 125, 69, 0.45);
+  --shadow: var(--elev-2);
+}
+
+/* 하늘 + 잔디 배경, 노이즈 제거 */
+:root[data-skin="maple"] body {
+  background:
+    radial-gradient(120% 60% at 50% 118%, #a8e398 0%, rgba(168, 227, 152, 0) 46%),
+    linear-gradient(180deg, #bfe8fb 0%, #e9f7ff 62%);
+}
+:root[data-skin="maple"] body::before { display: none; }
+
+/* 청키 둥근 패널 (퀘스트창 느낌) */
+:root[data-skin="maple"] .surface,
+:root[data-skin="maple"] .surface-strong,
+:root[data-skin="maple"] .nav-panel {
+  border-width: 2.5px;
+  border-style: solid;
+  border-color: var(--border-strong);
+  border-radius: 16px;
+  box-shadow: var(--elev-1);
+  backdrop-filter: none;
+}
+
+:root[data-skin="maple"] .site-header {
+  background: rgb(255 248 232 / 0.92);
+  border-bottom: 2.5px solid var(--border-strong);
+}
+
+/* 알약형 + 청키 하단 그림자 + 누를 때 쫀득 */
+:root[data-skin="maple"] .accent-bg {
+  border-radius: 999px;
+  box-shadow: 0 4px 0 #c14d12;
+}
+:root[data-skin="maple"] .accent-bg:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #c14d12;
+}
+
+/* 제목에 부드러운 그림자 */
+:root[data-skin="maple"] h1,
+:root[data-skin="maple"] .section-title {
+  text-shadow: 2px 2px 0 rgba(176, 125, 69, 0.18);
+}
+
+/* 키커 앞에 별 + 둥근 nav */
+:root[data-skin="maple"] .section-kicker::before { content: "✦ "; }
+:root[data-skin="maple"] .nav-active {
+  color: var(--accent-strong) !important;
+  background: var(--accent-soft) !important;
+  border-radius: 999px;
+}
+
+/* 히어로 그리드 끄고 구름으로 (clouds는 HomeView가 렌더) */
+:root[data-skin="maple"] .grid-backdrop { background-image: none; }
+
+/* 기술 칩 = 아이템 슬롯, 컬러 아이콘 그대로 */
+:root[data-skin="maple"] .tech-chip {
+  border-width: 2px;
+  border-color: var(--border);
+  border-radius: 12px;
+  background: var(--surface-soft);
+}
+:root[data-skin="maple"] .tech-chip svg { filter: none; }
+:root[data-skin="maple"] .filter-chip-active { background: var(--accent-soft) !important; }
+
+:root[data-skin="maple"] .scroll-progress { height: 4px; }
+
+/* white/* 유틸리티를 갈색 계열로 리맵 (cream 배경에서 보이도록) */
+:root[data-skin="maple"] {
+  .bg-white\/3  { background-color: rgba(74, 52, 36, 0.04) !important; }
+  .bg-white\/4  { background-color: rgba(74, 52, 36, 0.05) !important; }
+  .bg-white\/5  { background-color: rgba(74, 52, 36, 0.06) !important; }
+  .bg-white\/8  { background-color: rgba(74, 52, 36, 0.08) !important; }
+  .bg-white\/10 { background-color: rgba(74, 52, 36, 0.10) !important; }
+  .border-white\/6  { border-color: rgba(176, 125, 69, 0.5) !important; }
+  .border-white\/8  { border-color: rgba(176, 125, 69, 0.55) !important; }
+  .border-white\/10 { border-color: rgba(176, 125, 69, 0.6) !important; }
+  .border-white\/15 { border-color: rgba(176, 125, 69, 0.65) !important; }
+  .text-white\/25 { color: rgba(74, 52, 36, 0.45) !important; }
+  .text-white\/30 { color: rgba(74, 52, 36, 0.5) !important; }
+  .text-white\/40 { color: rgba(74, 52, 36, 0.6) !important; }
+  .text-white\/45 { color: rgba(74, 52, 36, 0.65) !important; }
+  .text-white\/50 { color: rgba(74, 52, 36, 0.7) !important; }
+  .text-white\/55 { color: rgba(74, 52, 36, 0.72) !important; }
+  .text-white\/70 { color: rgba(74, 52, 36, 0.82) !important; }
+  .text-white\/80 { color: rgba(74, 52, 36, 0.9) !important; }
+  .text-white     { color: #4a3424 !important; }
+}
+
+/* ── 메이플 전용 장식 (기본 모드에선 숨김) ── */
+.maple-lv-badge,
+.hero-clouds,
+.maple-mascot { display: none; }
+:root[data-skin="maple"] .maple-lv-badge { display: inline-flex; }
+:root[data-skin="maple"] .hero-clouds { display: block; }
+:root[data-skin="maple"] .maple-mascot { display: flex; }
+
+.hero-clouds {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-clouds .cloud {
+  position: absolute;
+  font-size: 2.6rem;
+  opacity: 0.9;
+  animation: cloud-drift linear infinite;
+}
+@keyframes cloud-drift {
+  from { transform: translateX(-14vw); }
+  to   { transform: translateX(114vw); }
+}
+
+.maple-mascot {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 40;
+  align-items: flex-end;
+  gap: 6px;
+  pointer-events: none;
+  animation: mascot-bob 2.4s ease-in-out infinite;
+}
+.maple-mascot .maple-mob { font-size: 2.4rem; line-height: 1; }
+.maple-mascot .maple-bubble {
+  margin-bottom: 1.2rem;
+  border: 2px solid var(--border-strong);
+  border-radius: 12px;
+  background: #fffdf6;
+  padding: 0.35rem 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  box-shadow: 0 3px 0 rgba(176, 125, 69, 0.35);
+}
+@keyframes mascot-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
 /* ── prefers-reduced-motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
