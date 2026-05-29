@@ -485,6 +485,12 @@ a {
 
 :root[data-skin="maple"] .scroll-progress { height: 4px; }
 
+/* 프로필 사진 = 캐릭터 초상화 프레임 */
+:root[data-skin="maple"] .hero-photo {
+  border: 3px solid var(--border-strong);
+  box-shadow: var(--elev-1);
+}
+
 /* white/* 유틸리티를 갈색 계열로 리맵 (cream 배경에서 보이도록) */
 :root[data-skin="maple"] {
   .bg-white\/3  { background-color: rgba(74, 52, 36, 0.04) !important; }

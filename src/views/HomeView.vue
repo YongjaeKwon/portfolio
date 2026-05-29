@@ -14,21 +14,23 @@
     <div class="section-shell relative z-10 grid min-h-[calc(100dvh-6rem)] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
       <!-- Left column -->
       <div>
-        <img
-          :src="myPhoto"
-          alt="권용재 프로필 사진"
-          width="64"
-          height="64"
-          decoding="async"
-          class="hero-enter mb-6 h-16 w-16 rounded-full object-cover ring-1 ring-white/15 shadow-lg"
-        />
-
-        <!-- 🍁 메이플 모드 전용 캐릭터 레벨 뱃지 -->
-        <div
-          class="maple-lv-badge hero-enter mb-3 w-fit items-center gap-2 rounded-full border-2 px-3 py-1 text-sm font-bold"
-          style="border-color: var(--border-strong); background: var(--surface-soft); color: var(--accent-strong)"
-        >
-          ⚔️ Lv.30 · 프론트엔드 전사
+        <!-- 프로필 사진 + (메이플) 캐릭터 레벨 뱃지 — 한 줄, 세로 중앙 정렬 -->
+        <div class="hero-enter mb-7 flex items-center gap-5">
+          <img
+            :src="myPhoto"
+            alt="권용재 프로필 사진"
+            width="112"
+            height="112"
+            decoding="async"
+            class="hero-photo h-28 w-28 shrink-0 rounded-full object-cover ring-1 ring-white/15 shadow-lg"
+          />
+          <!-- 🍁 메이플 모드 전용 캐릭터 레벨 뱃지 -->
+          <div
+            class="maple-lv-badge items-center gap-2 rounded-full border-2 px-4 py-2 text-base font-bold"
+            style="border-color: var(--border-strong); background: var(--surface-soft); color: var(--accent-strong)"
+          >
+            🗡️ Lv.290 도적
+          </div>
         </div>
 
         <!-- Neutral badge — no cyan bg -->
