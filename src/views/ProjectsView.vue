@@ -31,9 +31,6 @@
                 {{ project.period }}<br />
                 {{ project.team }} · {{ project.role }}
               </p>
-              <div class="mt-6 h-1.5 overflow-hidden rounded-full bg-black/10">
-                <div :class="['h-full rounded-full', progressClass(project.accent)]" :style="{ width: `${86 - index * 9}%` }"></div>
-              </div>
             </div>
 
             <div>
@@ -137,9 +134,10 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, ref, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { ArrowRight, CircleCheck, X } from "@lucide/vue";
 import { marked } from "marked";
+import DOMPurify from "dompurify";
 import TechIcon from "@/components/TechIcon.vue";
 import { projects } from "@/data/portfolio";
 
@@ -183,7 +181,8 @@ const openCaseStudy = async (project: Project) => {
 
     const markdown = await response.text();
     const bodyMarkdown = markdown.replace(/^# .+\r?\n+/, "");
-    const html = await marked.parse(bodyMarkdown);
+    const rawHtml = await marked.parse(bodyMarkdown);
+    const html = DOMPurify.sanitize(rawHtml);
     caseStudyCache.set(link.href, html);
     caseStudyHtml.value = html;
     caseStudyStatus.value = "ready";
@@ -208,35 +207,16 @@ watch(activeCaseStudy, (project) => {
   document.body.style.overflow = project ? "hidden" : "";
 });
 
-window.addEventListener("keydown", handleKeydown);
+onMounted(() => {
+  window.addEventListener("keydown", handleKeydown);
+});
 
 onBeforeUnmount(() => {
   window.removeEventListener("keydown", handleKeydown);
   document.body.style.overflow = "";
 });
 
-const accentPanel = (accent: string) => {
-  const classes: Record<string, string> = {
-    cyan:    "border-white/6 bg-white/3",
-    emerald: "border-white/6 bg-white/3",
-    amber:   "border-white/6 bg-white/3",
-    violet:  "border-white/6 bg-white/3",
-    blue:    "border-white/6 bg-white/3",
-  };
-  return classes[accent] ?? classes.cyan;
-};
-
-const progressClass = (accent: string) => {
-  const classes: Record<string, string> = {
-    cyan: "bg-cyan-300",
-    emerald: "bg-emerald-300",
-    amber: "bg-amber-300",
-    violet: "bg-violet-300",
-    blue: "bg-blue-300",
-  };
-
-  return classes[accent] ?? classes.cyan;
-};
+const accentPanel = (_accent: string) => "border-white/6 bg-white/3";
 
 const highlightGridClass = (count: number) => {
   return count > 3 ? "md:grid-cols-2" : "md:grid-cols-3";

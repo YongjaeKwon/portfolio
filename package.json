@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@lucide/vue": "^1.16.0",
+    "@types/dompurify": "^3.0.5",
+    "dompurify": "^3.4.7",
     "marked": "^18.0.4",
     "simple-icons": "^16.21.0",
     "vue": "^3.5.13"
