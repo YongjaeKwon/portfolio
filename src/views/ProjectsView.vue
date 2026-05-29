@@ -48,12 +48,12 @@
       </div>
 
       <!-- ── 프로젝트 목록 (TransitionGroup) ── -->
-      <TransitionGroup name="project-filter" tag="div" class="grid gap-5">
+      <TransitionGroup name="project-filter" tag="div" class="grid gap-5" appear>
         <article
-          v-for="(project, index) in filteredProjects"
+          v-for="project in filteredProjects"
           :key="project.title"
           v-tilt
-          :class="['reveal surface interactive-surface tilt group rounded-xl p-5 md:p-6', `reveal-d${Math.min(index, 4)}`]"
+          class="surface interactive-surface tilt group rounded-xl p-5 md:p-6"
         >
           <div class="grid gap-6 lg:grid-cols-[0.32fr_0.68fr]">
             <div :class="['rounded-lg border p-5', accentPanel(project.accent)]">

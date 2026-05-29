@@ -114,27 +114,41 @@ const navItems = [
 
 const sectionIds = ["hero", ...navItems.map((n) => n.id)];
 
-let observer: IntersectionObserver | null = null;
+// 스크롤 위치 기반 활성 섹션 추적 — 헤더 아래 기준선을 지난 마지막 섹션을 활성화
+let ticking = false;
+
+const updateActive = () => {
+  ticking = false;
+  const line = 110; // 고정 헤더 높이 + 여유
+  let current = sectionIds[0];
+  for (const id of sectionIds) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= line) current = id;
+  }
+  // 페이지 맨 아래에 도달하면 마지막 섹션을 강제 활성화
+  const atBottom =
+    window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+  if (atBottom) current = sectionIds[sectionIds.length - 1];
+
+  activeSection.value = current;
+};
+
+const onScroll = () => {
+  if (!ticking) {
+    ticking = true;
+    requestAnimationFrame(updateActive);
+  }
+};
 
 onMounted(() => {
-  observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          activeSection.value = entry.target.id;
-        }
-      });
-    },
-    { threshold: 0.3, rootMargin: "-80px 0px -40% 0px" }
-  );
-  sectionIds.forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) observer?.observe(el);
-  });
+  updateActive();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
 });
 
 onBeforeUnmount(() => {
-  observer?.disconnect();
+  window.removeEventListener("scroll", onScroll);
+  window.removeEventListener("resize", onScroll);
 });
 
 const toggleMenu = () => {
