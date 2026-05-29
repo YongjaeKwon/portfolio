@@ -14,24 +14,29 @@
       :theme="theme"
       :skin="skin"
       @toggle-theme="toggleTheme"
-      @toggle-skin="toggleSkin"
+      @toggle-skin="toggle"
       @scroll-to-section="scrollToSection"
     />
     <HomeView @scroll-to-section="scrollToSection" />
     <ProfileCard />
+    <div class="maple-divider" aria-hidden="true" />
     <ProjectsView />
+    <div class="maple-divider" aria-hidden="true" />
     <ExperienceView />
+    <div class="maple-divider" aria-hidden="true" />
     <EducationView />
+    <div class="maple-divider" aria-hidden="true" />
     <TechStackView />
+    <div class="maple-divider" aria-hidden="true" />
     <ContactView />
     <Footer />
     <ScrollToTop />
 
-    <!-- 🍁 메이플 모드 전용 마스코트 (기본 모드에선 CSS로 숨김) -->
-    <div class="maple-mascot" aria-hidden="true">
-      <span class="maple-bubble">반가워요!</span>
+    <!-- 🍁 메이플 모드 전용 마스코트 (클릭 시 랜덤 대사) -->
+    <button type="button" class="maple-mascot" aria-label="마스코트와 인사하기" @click="pokeMascot">
+      <span class="maple-bubble">{{ mascotLine }}</span>
       <span class="maple-mob">🍄</span>
-    </div>
+    </button>
   </div>
 </template>
 
@@ -48,20 +53,34 @@ import ContactView from "@/views/ContactView.vue";
 import Footer from "@/components/Footer.vue";
 import ScrollToTop from "@/components/ScrollToTop.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
+import { useSkin } from "@/composables/useSkin";
 
 type Theme = "dark" | "light";
-type Skin = "default" | "maple";
 
 const theme = ref<Theme>("dark");
-const skin = ref<Skin>("default");
+const { skin, toggle, set: setSkin } = useSkin();
 
 const applyTheme = (nextTheme: Theme) => {
   document.documentElement.dataset.theme = nextTheme;
   document.documentElement.style.colorScheme = nextTheme;
 };
 
-const applySkin = (nextSkin: Skin) => {
-  document.documentElement.dataset.skin = nextSkin;
+// ── 마스코트 랜덤 대사 ──
+const mascotLines = [
+  "반가워요!",
+  "이력서 보고 가세요~",
+  "프로젝트 구경할래요?",
+  "Lv.290 도적이래요!",
+  "채용 연락 기다려요 :)",
+  "오늘도 좋은 하루!",
+];
+const mascotLine = ref(mascotLines[0]);
+const pokeMascot = () => {
+  let next = mascotLine.value;
+  while (next === mascotLine.value && mascotLines.length > 1) {
+    next = mascotLines[Math.floor(Math.random() * mascotLines.length)];
+  }
+  mascotLine.value = next;
 };
 
 onMounted(() => {
@@ -73,8 +92,7 @@ onMounted(() => {
   applyTheme(theme.value);
 
   const savedSkin = localStorage.getItem("portfolio-skin");
-  skin.value = savedSkin === "maple" ? "maple" : "default";
-  applySkin(skin.value);
+  setSkin(savedSkin === "maple" ? "maple" : "default");
 
   // Cursor spotlight
   const handleMouseMove = (e: MouseEvent) => {
@@ -117,14 +135,14 @@ watch(theme, (nextTheme) => {
   localStorage.setItem("portfolio-theme", nextTheme);
 });
 
-watch(skin, (nextSkin) => {
-  applySkin(nextSkin);
-  localStorage.setItem("portfolio-skin", nextSkin);
-});
-
-const toggleSkin = () => {
-  skin.value = skin.value === "maple" ? "default" : "maple";
-};
+watch(
+  skin,
+  (nextSkin) => {
+    document.documentElement.dataset.skin = nextSkin;
+    localStorage.setItem("portfolio-skin", nextSkin);
+  },
+  { immediate: false }
+);
 
 type ViewTransitionDoc = Document & {
   startViewTransition?: (cb: () => void) => { ready: Promise<void> };
@@ -135,7 +153,6 @@ const toggleTheme = (origin?: { x: number; y: number }) => {
   const doc = document as ViewTransitionDoc;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // View Transitions 미지원 또는 모션 비선호 시 즉시 전환
   if (typeof doc.startViewTransition !== "function" || reduced) {
     theme.value = next;
     return;

@@ -69,32 +69,39 @@
 
             <div>
               <div class="flex items-start justify-between gap-4">
-                <h3 class="text-primary mt-2 text-2xl font-black">{{ project.title }}</h3>
-                <button
-                  v-if="project.links?.[0]?.type === 'case'"
-                  type="button"
-                  :title="`${project.shortTitle} ${project.links[0].label} 보기`"
-                  :aria-label="`${project.shortTitle} ${project.links[0].label} 보기`"
-                  class="focus-ring surface-strong text-primary mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:-translate-y-0.5 hover:text-[var(--accent-strong)] group-hover:text-[var(--accent-strong)]"
-                  @click="openCaseStudy(project)"
-                >
-                  <ArrowRight class="h-5 w-5 transition group-hover:translate-x-0.5" />
-                </button>
-                <a
-                  v-else-if="project.links?.[0]"
-                  :href="project.links[0].href"
-                  target="_blank"
-                  rel="noreferrer"
-                  :title="`${project.shortTitle} ${project.links[0].label} 열기`"
-                  :aria-label="`${project.shortTitle} ${project.links[0].label} 열기`"
-                  class="focus-ring surface-strong text-primary mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:-translate-y-0.5 hover:text-[var(--accent-strong)] group-hover:text-[var(--accent-strong)]"
-                >
-                  <ArrowRight class="h-5 w-5 transition group-hover:translate-x-0.5" />
-                </a>
+                <div>
+                  <span class="maple-quest-head maple-pixel mb-2">📜 QUEST</span>
+                  <h3 class="text-primary mt-2 text-2xl font-black">{{ project.title }}</h3>
+                </div>
+                <div class="flex shrink-0 items-center gap-2">
+                  <span class="maple-quest-clear maple-pixel">✓ CLEAR</span>
+                  <button
+                    v-if="project.links?.[0]?.type === 'case'"
+                    type="button"
+                    :title="`${project.shortTitle} ${project.links[0].label} 보기`"
+                    :aria-label="`${project.shortTitle} ${project.links[0].label} 보기`"
+                    class="focus-ring surface-strong text-primary mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:-translate-y-0.5 hover:text-[var(--accent-strong)] group-hover:text-[var(--accent-strong)]"
+                    @click="openCaseStudy(project)"
+                  >
+                    <ArrowRight class="h-5 w-5 transition group-hover:translate-x-0.5" />
+                  </button>
+                  <a
+                    v-else-if="project.links?.[0]"
+                    :href="project.links[0].href"
+                    target="_blank"
+                    rel="noreferrer"
+                    :title="`${project.shortTitle} ${project.links[0].label} 열기`"
+                    :aria-label="`${project.shortTitle} ${project.links[0].label} 열기`"
+                    class="focus-ring surface-strong text-primary mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:-translate-y-0.5 hover:text-[var(--accent-strong)] group-hover:text-[var(--accent-strong)]"
+                  >
+                    <ArrowRight class="h-5 w-5 transition group-hover:translate-x-0.5" />
+                  </a>
+                </div>
               </div>
 
               <p class="text-secondary mt-4 max-w-4xl leading-7">{{ project.summary }}</p>
 
+              <p class="maple-label maple-pixel mt-5 -mb-2 text-xs">🎯 목표</p>
               <ul :class="['text-secondary mt-5 grid gap-3 text-sm leading-6', highlightGridClass(project.highlights.length)]">
                 <li
                   v-for="highlight in project.highlights"
@@ -106,6 +113,7 @@
                 </li>
               </ul>
 
+              <p class="maple-label maple-pixel mt-5 -mb-2 text-xs">🎁 보상 아이템</p>
               <div class="mt-5 flex flex-wrap gap-2">
                 <span
                   v-for="stack in project.stack"

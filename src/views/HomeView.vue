@@ -26,7 +26,7 @@
           />
           <!-- 🍁 메이플 모드 전용 캐릭터 레벨 뱃지 -->
           <div
-            class="maple-lv-badge items-center gap-2 rounded-full border-2 px-4 py-2 text-base font-bold"
+            class="maple-lv-badge maple-pixel items-center gap-2 rounded-full border-2 px-4 py-2 text-sm font-bold"
             style="border-color: var(--border-strong); background: var(--surface-soft); color: var(--accent-strong)"
           >
             🗡️ Lv.290 도적
@@ -89,7 +89,8 @@
           </a>
         </div>
 
-        <div ref="statsEl" class="hero-enter hero-enter-d6 mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
+        <!-- 기본 모드: 통계 카드 -->
+        <div ref="statsEl" class="default-stats hero-enter hero-enter-d6 mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
           <div
             v-for="(stat, idx) in heroStats"
             :key="stat.label"
@@ -99,6 +100,28 @@
             <p class="font-mono tnum mt-2 text-lg font-bold text-white">
               {{ animatedStats[idx] }}<span class="ml-1 text-sm text-white/40">{{ stat.unit }}</span>
             </p>
+          </div>
+        </div>
+
+        <!-- 🍁 메이플 모드: HP/MP/EXP 게이지 -->
+        <div class="maple-gauges mt-10 max-w-2xl gap-3">
+          <div v-for="g in mapleGauges" :key="g.key">
+            <div class="mb-1 flex items-center justify-between">
+              <span class="text-secondary text-xs font-bold">{{ g.label }}</span>
+              <span class="maple-pixel text-muted text-xs">{{ g.value }}</span>
+            </div>
+            <div class="maple-gauge-track">
+              <div :class="['maple-gauge-fill', `maple-gauge-${g.key}`]" :style="{ width: g.pct + '%' }"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 🍁 메이플 모드: 도적 스탯 (LUK 메인) -->
+        <div class="maple-statblock mt-4 max-w-2xl grid-cols-4 gap-2">
+          <div v-for="s in thiefStats" :key="s.k" class="surface rounded-lg p-3 text-center">
+            <p class="maple-pixel text-base font-bold" style="color: var(--accent-strong)">{{ s.v }}</p>
+            <p class="text-primary mt-1 text-xs font-bold">{{ s.k }}</p>
+            <p class="text-muted mt-0.5 text-[10px] leading-tight">{{ s.note }}</p>
           </div>
         </div>
       </div>
@@ -170,6 +193,21 @@ import { heroStats, profile, strengths } from "@/data/portfolio";
 import myPhoto from "@/public/my-photo.png";
 
 const statsEl = ref<HTMLElement | null>(null);
+
+// 🍁 메이플 모드 게이지 (HP/MP/EXP) — heroStats 데이터를 게임 UI로 표현
+const mapleGauges = [
+  { key: "hp", label: `HP · ${heroStats[0].label}`, value: heroStats[0].value + heroStats[0].unit, pct: 100 },
+  { key: "exp", label: `EXP · since ${heroStats[1].value}`, value: "64.0%", pct: 64 },
+  { key: "mp", label: `MP · ${heroStats[2].label}`, value: heroStats[2].value + heroStats[2].unit, pct: 100 },
+];
+
+// 🍁 도적 스탯 — 도적은 LUK 메인
+const thiefStats = [
+  { k: "LUK", v: "999", note: "문제해결·운영" },
+  { k: "DEX", v: "820", note: "구현 속도" },
+  { k: "INT", v: "760", note: "학습·탐구" },
+  { k: "STR", v: "540", note: "끈기·체력" },
+];
 
 const emit = defineEmits<{
   "scroll-to-section": [id: string];
