@@ -36,6 +36,17 @@
 
         <button
           type="button"
+          class="focus-ring nav-panel inline-flex h-10 w-10 items-center justify-center rounded-md text-lg leading-none transition hover:-translate-y-0.5"
+          :class="skin === 'maple' ? 'grayscale-0' : 'grayscale'"
+          :aria-label="skin === 'maple' ? '기본 디자인으로 전환' : '메이플 모드로 전환'"
+          :title="skin === 'maple' ? '기본 디자인' : '🍁 메이플 모드'"
+          @click="emit('toggle-skin')"
+        >
+          🍁
+        </button>
+
+        <button
+          type="button"
           class="focus-ring nav-panel text-primary inline-flex h-10 w-10 items-center justify-center rounded-md"
           :aria-label="theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'"
           @click="onToggleTheme"
@@ -89,11 +100,13 @@ import { profile } from "@/data/portfolio";
 
 defineProps<{
   theme: "dark" | "light";
+  skin: "default" | "maple";
 }>();
 
 const emit = defineEmits<{
   "scroll-to-section": [id: string];
   "toggle-theme": [origin?: { x: number; y: number }];
+  "toggle-skin": [];
 }>();
 
 const onToggleTheme = (e: MouseEvent) => {

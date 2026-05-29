@@ -3,6 +3,12 @@
     <!-- Backdrop: 가장자리로 부드럽게 사라지는 미세 그리드 -->
     <div class="pointer-events-none absolute inset-0">
       <div class="grid-backdrop hero-grid-mask absolute inset-0 opacity-20"></div>
+      <!-- 🍁 메이플 모드 전용 구름 (기본 모드에선 CSS로 숨김) -->
+      <div class="hero-clouds" aria-hidden="true">
+        <span class="cloud" style="top: 12%; animation-duration: 42s">☁️</span>
+        <span class="cloud" style="top: 28%; animation-duration: 58s; animation-delay: -22s">⛅</span>
+        <span class="cloud" style="top: 6%; animation-duration: 50s; animation-delay: -38s">☁️</span>
+      </div>
     </div>
 
     <div class="section-shell relative z-10 grid min-h-[calc(100dvh-6rem)] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
@@ -16,6 +22,14 @@
           decoding="async"
           class="hero-enter mb-6 h-16 w-16 rounded-full object-cover ring-1 ring-white/15 shadow-lg"
         />
+
+        <!-- 🍁 메이플 모드 전용 캐릭터 레벨 뱃지 -->
+        <div
+          class="maple-lv-badge hero-enter mb-3 w-fit items-center gap-2 rounded-full border-2 px-3 py-1 text-sm font-bold"
+          style="border-color: var(--border-strong); background: var(--surface-soft); color: var(--accent-strong)"
+        >
+          ⚔️ Lv.30 · 프론트엔드 전사
+        </div>
 
         <!-- Neutral badge — no cyan bg -->
         <div class="hero-enter hero-enter-d1 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white/40">
