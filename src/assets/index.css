@@ -2,16 +2,18 @@
 
 :root {
   color-scheme: dark;
-  font-family:
-    "Pretendard Variable",
-    Pretendard,
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
+
+  /* ── Font system ── */
+  --font-body:
+    "Pretendard Variable", Pretendard, Inter, ui-sans-serif, system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display:
+    "Space Grotesk", "Pretendard Variable", Pretendard, ui-sans-serif, system-ui,
     sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    monospace;
+
+  font-family: var(--font-body);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -21,20 +23,29 @@
   --page-grid: rgba(255, 255, 255, 0.03);
   --text-primary: #f8fafc;
   --text-secondary: #c8cdd6;
-  /* #808896 on #08090d → contrast 5.6:1  (WCAG AA ✓) */
+  /* #808896 on #08090d → 5.6:1 (WCAG AA ✓) */
   --text-muted: #808896;
-  --text-kicker: rgba(255, 255, 255, 0.35);
+  --text-kicker: rgba(255, 255, 255, 0.4);
   --surface: rgba(255, 255, 255, 0.04);
   --surface-strong: rgba(255, 255, 255, 0.06);
   --surface-soft: rgba(255, 255, 255, 0.025);
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.14);
-  --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  --accent: #67e8f9;
-  --accent-strong: #22d3ee;
-  --accent-contrast: #071013;
-  --accent-soft: rgba(34, 211, 238, 0.1);
-  --accent-rgb: 34 211 238;
+
+  /* ── Elevation system ── */
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --elev-2: 0 12px 36px rgba(0, 0, 0, 0.45);
+  --elev-3: 0 24px 64px rgba(0, 0, 0, 0.55);
+  --shadow: var(--elev-3);
+
+  /* ── Accent — refined teal→cyan (not default Tailwind cyan) ── */
+  --accent: #2dd4bf;
+  --accent-strong: #5eead4;
+  --accent-contrast: #042f2a;
+  --accent-rgb: 45 212 191;
+  --accent-soft: rgb(var(--accent-rgb) / 0.1);
+  --accent-gradient: linear-gradient(135deg, #2dd4bf 0%, #22d3ee 100%);
+
   --emerald-soft: rgba(16, 185, 129, 0.1);
   --amber-soft: rgba(245, 158, 11, 0.1);
   --violet-soft: rgba(139, 92, 246, 0.1);
@@ -47,20 +58,24 @@
   --page-grid: rgba(15, 23, 42, 0.04);
   --text-primary: #0f172a;
   --text-secondary: #374151;
-  /* #5d6578 on #fafafa → contrast 5.6:1  (WCAG AA ✓) */
+  /* #5d6578 on #fafafa → 5.6:1 (WCAG AA ✓) */
   --text-muted: #5d6578;
-  --text-kicker: rgba(15, 23, 42, 0.42);
+  --text-kicker: rgba(15, 23, 42, 0.46);
   --surface: rgba(255, 255, 255, 0.9);
   --surface-strong: #ffffff;
   --surface-soft: rgba(15, 23, 42, 0.03);
   --border: rgba(15, 23, 42, 0.09);
   --border-strong: rgba(15, 23, 42, 0.16);
-  --shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
-  --accent: #0891b2;
-  --accent-strong: #0e7490;
+  --elev-1: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --elev-2: 0 12px 36px rgba(15, 23, 42, 0.1);
+  --elev-3: 0 24px 64px rgba(15, 23, 42, 0.12);
+  --shadow: var(--elev-3);
+  --accent: #0d9488;
+  --accent-strong: #0f766e;
   --accent-contrast: #ffffff;
-  --accent-soft: rgba(8, 145, 178, 0.1);
-  --accent-rgb: 8 145 178;
+  --accent-rgb: 13 148 136;
+  --accent-soft: rgb(var(--accent-rgb) / 0.1);
+  --accent-gradient: linear-gradient(135deg, #0d9488 0%, #0891b2 100%);
   --emerald-soft: rgba(5, 150, 105, 0.09);
   --amber-soft: rgba(180, 83, 9, 0.09);
   --violet-soft: rgba(124, 58, 237, 0.09);
@@ -75,19 +90,29 @@ html {
   scroll-margin-top: 5.5rem;
 }
 
-/* Subtle, barely-there atmospheric glow — feel it, don't see it */
+/* Atmospheric glow + ultra-fine noise overlay (kills gradient banding) */
 body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(ellipse 70% 45% at 10% 0%, rgba(34, 211, 238, 0.055), transparent),
+    radial-gradient(ellipse 70% 45% at 10% 0%, rgb(var(--accent-rgb) / 0.06), transparent),
     radial-gradient(ellipse 50% 35% at 90% 10%, rgba(16, 185, 129, 0.03), transparent),
     var(--page-bg);
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 :root[data-theme="light"] body {
   background:
-    radial-gradient(ellipse 70% 45% at 10% 0%, rgba(8, 145, 178, 0.07), transparent),
+    radial-gradient(ellipse 70% 45% at 10% 0%, rgb(var(--accent-rgb) / 0.07), transparent),
     var(--page-bg);
 }
 
@@ -107,6 +132,11 @@ a {
       background-color 220ms ease,
       color 220ms ease;
   }
+
+  /* ── Typography helpers ── */
+  .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+  .font-mono    { font-family: var(--font-mono); }
+  .tnum         { font-variant-numeric: tabular-nums; }
 
   .site-header {
     border-bottom: 1px solid var(--border);
@@ -130,15 +160,17 @@ a {
     @apply mx-auto w-full max-w-6xl px-6;
   }
 
-  /* Muted kicker — whisper, not shout */
+  /* Kicker — display font, the "designed" English label look */
   .section-kicker {
     color: var(--text-kicker);
-    @apply text-xs font-bold uppercase tracking-[0.28em];
+    font-family: var(--font-display);
+    @apply text-xs font-semibold uppercase tracking-[0.28em];
   }
 
   .section-title {
     color: var(--text-primary);
-    @apply mt-3 text-3xl font-bold leading-tight md:text-4xl;
+    font-family: var(--font-display);
+    @apply mt-3 text-3xl font-bold leading-tight tracking-[-0.02em] md:text-4xl;
   }
 
   .section-copy {
@@ -146,10 +178,17 @@ a {
     @apply mt-4 max-w-3xl text-base leading-7;
   }
 
+  /* Section index number — editorial accent */
+  .section-index {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    @apply text-xs font-bold;
+  }
+
   .surface {
     border: 1px solid var(--border);
     background: var(--surface);
-    box-shadow: var(--shadow);
+    box-shadow: var(--elev-1);
     backdrop-filter: blur(20px);
   }
 
@@ -161,13 +200,14 @@ a {
   .interactive-surface {
     transition:
       transform 240ms ease,
-      border-color 240ms ease;
+      border-color 240ms ease,
+      box-shadow 240ms ease;
   }
 
-  /* Neutral white hover — no cyan */
   .interactive-surface:hover {
     transform: translateY(-0.2rem);
     border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: var(--elev-2);
   }
 
   :root[data-theme="light"] .interactive-surface:hover {
@@ -179,9 +219,9 @@ a {
   .text-muted     { color: var(--text-muted); }
   .accent-text    { color: var(--accent); }
 
-  /* CTA button — the ONE place cyan lives */
+  /* CTA button — subtle gradient, the ONE place accent lives loud */
   .accent-bg {
-    background: var(--accent);
+    background: var(--accent-gradient);
     color: var(--accent-contrast);
   }
 
@@ -204,23 +244,17 @@ a {
       opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-d1 { transition-delay: 0.1s; }
   .reveal-d2 { transition-delay: 0.2s; }
   .reveal-d3 { transition-delay: 0.3s; }
   .reveal-d4 { transition-delay: 0.4s; }
   .reveal-d5 { transition-delay: 0.5s; }
 
-  /* ── Active nav — subtle, just color + faint bg ── */
+  /* ── Active nav ── */
   .nav-active {
     color: var(--accent-strong) !important;
-    background: rgba(34, 211, 238, 0.07) !important;
-  }
-  :root[data-theme="light"] .nav-active {
-    background: rgba(8, 145, 178, 0.07) !important;
+    background: rgb(var(--accent-rgb) / 0.08) !important;
   }
 
   /* ── Cursor spotlight ── */
@@ -231,9 +265,21 @@ a {
     z-index: 0;
     background: radial-gradient(
       600px circle at var(--cursor-x, -9999px) var(--cursor-y, -9999px),
-      rgba(255, 255, 255, 0.025),
+      rgb(var(--accent-rgb) / 0.04),
       transparent 40%
     );
+  }
+
+  /* ── Scroll progress bar ── */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    z-index: 60;
+    background: var(--accent-gradient);
+    transform-origin: 0 50%;
+    will-change: transform;
   }
 
   /* ── Typing cursor ── */
@@ -241,18 +287,16 @@ a {
     display: inline-block;
     width: 2px;
     height: 0.8em;
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--accent-strong);
     vertical-align: middle;
     margin-left: 3px;
     border-radius: 1px;
     animation: cursor-blink 1s step-end infinite;
   }
 
-  /* ── Tech chip hover — white tint, not cyan ── */
+  /* ── Tech chip hover ── */
   .tech-chip {
-    transition:
-      border-color 180ms ease,
-      background-color 180ms ease;
+    transition: border-color 180ms ease, background-color 180ms ease;
   }
   .tech-chip:hover {
     border-color: rgba(255, 255, 255, 0.2);
@@ -269,6 +313,16 @@ a {
     color: var(--accent) !important;
   }
 
+  /* Tech 아이콘: 모노크롬 기조 유지 — 평소 grayscale, hover/active 시 브랜드 컬러 */
+  .tech-chip svg {
+    filter: grayscale(1) opacity(0.6);
+    transition: filter 180ms ease;
+  }
+  .tech-chip:hover svg,
+  .filter-chip-active svg {
+    filter: none;
+  }
+
   /* ── Skeleton shimmer ── */
   .skeleton {
     background: linear-gradient(
@@ -279,6 +333,13 @@ a {
     );
     background-size: 200% 100%;
     animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  }
+
+  /* ── 3D tilt card ── */
+  .tilt {
+    transform-style: preserve-3d;
+    transition: transform 160ms ease;
+    will-change: transform;
   }
 }
 
@@ -297,7 +358,7 @@ a {
   100% { background-position: -200% 0; }
 }
 
-.hero-enter          { animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-enter    { animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .hero-enter-d1 { animation-delay: 0.1s; }
 .hero-enter-d2 { animation-delay: 0.2s; }
 .hero-enter-d3 { animation-delay: 0.3s; }
@@ -305,8 +366,7 @@ a {
 .hero-enter-d5 { animation-delay: 0.5s; }
 .hero-enter-d6 { animation-delay: 0.6s; }
 
-/* ── Light mode: remap white/* Tailwind utilities to dark equivalents ──
-   white-opacity utilities are invisible on a light (#fafafa) background. */
+/* ── Light mode: remap white/* Tailwind utilities to dark equivalents ── */
 :root[data-theme="light"] {
   .bg-white\/3  { background-color: rgba(15, 23, 42, 0.03) !important; }
   .bg-white\/4  { background-color: rgba(15, 23, 42, 0.04) !important; }
@@ -318,6 +378,7 @@ a {
   .border-white\/10 { border-color: rgba(15, 23, 42, 0.14) !important; }
   .border-white\/15 { border-color: rgba(15, 23, 42, 0.18) !important; }
   .text-white\/25 { color: rgba(15, 23, 42, 0.35) !important; }
+  .text-white\/30 { color: rgba(15, 23, 42, 0.40) !important; }
   .text-white\/40 { color: rgba(15, 23, 42, 0.50) !important; }
   .text-white\/45 { color: rgba(15, 23, 42, 0.55) !important; }
   .text-white\/50 { color: rgba(15, 23, 42, 0.60) !important; }
@@ -328,7 +389,7 @@ a {
   .text-amber-400\/60 { color: rgba(146, 64, 14, 0.70) !important; }
 }
 
-/* ── prefers-reduced-motion: 모든 애니메이션/트랜지션 최소화 ── */
+/* ── prefers-reduced-motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -336,59 +397,45 @@ a {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  /* reveal 요소는 처음부터 보이게 */
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  /* 커서 spotlight 제거 */
+  .reveal { opacity: 1 !important; transform: none !important; }
   .cursor-spotlight { display: none !important; }
-  /* 스켈레톤 shimmer 정지 */
-  .skeleton {
-    animation: none !important;
-    background: var(--surface-strong) !important;
-  }
+  .skeleton { animation: none !important; background: var(--surface-strong) !important; }
+  .tilt { transform: none !important; }
 }
 
-/* ── 프린트 스타일시트 ── */
+/* ── View Transitions: theme toggle wipe ── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2147483646; }
+
+/* ── Print ── */
 @media print {
-  /* 네비·헤더·인터랙션 요소 숨김 */
   .site-header,
   .cursor-spotlight,
+  .scroll-progress,
   footer,
   [aria-label="맨 위로 이동"],
   .case-study-backdrop {
     display: none !important;
   }
-
-  /* 페이지 배경/색상 초기화 */
-  html, body {
-    background: white !important;
-    color: #0f172a !important;
-  }
-
-  /* reveal 요소 항상 표시 */
+  body::before { display: none !important; }
+  html, body { background: white !important; color: #0f172a !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
-
-  /* 카드 배경 단순화 */
   .surface, .surface-strong {
     background: #f8f9fa !important;
     border-color: #e2e8f0 !important;
     box-shadow: none !important;
   }
-
-  /* 섹션 페이지 분할 방지 */
-  section { page-break-inside: avoid; }
-  article { page-break-inside: avoid; }
-
-  /* 외부 링크 URL 표시 (email/tel/# 제외) */
+  section, article { page-break-inside: avoid; }
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 0.75em;
     color: #64748b;
   }
-
-  /* 폰트 색상 강제 */
   .text-primary   { color: #0f172a !important; }
   .text-secondary { color: #374151 !important; }
   .text-muted     { color: #5d6578 !important; }

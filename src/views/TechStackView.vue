@@ -1,7 +1,10 @@
 <template>
   <section id="techstack" class="py-24">
     <div class="section-shell">
-      <p class="reveal section-kicker">Tech Stack</p>
+      <div class="reveal flex items-center gap-3">
+        <span class="section-index">04</span>
+        <p class="section-kicker">Tech Stack</p>
+      </div>
       <h2 class="reveal reveal-d1 section-title">기술 스택</h2>
       <p class="reveal reveal-d2 section-copy">
         회사 업무에서 사용한 기술과 개인 프로젝트로 다뤄본 기술을 함께 정리했습니다.
@@ -26,12 +29,12 @@
                 v-if="stacksInProjects.has(item)"
                 type="button"
                 :title="`${item}을(를) 사용한 프로젝트 보기`"
-                class="tech-chip surface-strong text-secondary inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
+                class="tech-chip surface-strong text-secondary group inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
                 @click="linkToProjects(item)"
               >
                 <TechIcon :name="item" />
                 {{ item }}
-                <span class="text-white/25 ml-0.5 text-xs">↗</span>
+                <ArrowUpRight class="text-white/30 h-3.5 w-3.5 transition group-hover:text-[var(--accent-strong)]" />
               </button>
               <span
                 v-else
@@ -75,6 +78,7 @@
 
 <script setup lang="ts">
 import {
+  ArrowUpRight,
   Boxes,
   Code,
   Database,

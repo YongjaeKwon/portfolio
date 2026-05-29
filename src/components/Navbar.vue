@@ -7,12 +7,12 @@
         aria-label="첫 화면으로 이동"
         @click="moveToSection('hero')"
       >
-        <span class="grid h-9 w-9 place-items-center rounded-md border border-white/10 bg-white/5 text-sm font-black text-white/70">
+        <span class="font-display accent-bg grid h-9 w-9 place-items-center rounded-md text-sm font-bold transition group-hover:brightness-110">
           K
         </span>
         <span>
           <span class="text-primary block text-sm font-bold leading-none">{{ profile.name }}</span>
-          <span class="text-muted mt-1 hidden text-xs sm:block">Frontend Engineer</span>
+          <span class="text-muted font-display mt-1 hidden text-xs sm:block">Frontend Engineer</span>
         </span>
       </button>
 
@@ -23,7 +23,7 @@
             :key="item.id"
             type="button"
             :class="[
-              'focus-ring rounded px-3 py-2 text-sm font-semibold transition',
+              'focus-ring font-display rounded px-3 py-2 text-sm font-medium transition',
               activeSection === item.id
                 ? 'nav-active'
                 : 'text-muted hover:bg-black/5 hover:text-[var(--accent-strong)]',
@@ -38,7 +38,7 @@
           type="button"
           class="focus-ring nav-panel text-primary inline-flex h-10 w-10 items-center justify-center rounded-md"
           :aria-label="theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'"
-          @click="emit('toggle-theme')"
+          @click="onToggleTheme"
         >
           <Sun v-if="theme === 'dark'" class="h-4 w-4" />
           <Moon v-else class="h-4 w-4" />
@@ -93,8 +93,12 @@ defineProps<{
 
 const emit = defineEmits<{
   "scroll-to-section": [id: string];
-  "toggle-theme": [];
+  "toggle-theme": [origin?: { x: number; y: number }];
 }>();
+
+const onToggleTheme = (e: MouseEvent) => {
+  emit("toggle-theme", { x: e.clientX, y: e.clientY });
+};
 
 const isMenuOpen = ref(false);
 const activeSection = ref("hero");
