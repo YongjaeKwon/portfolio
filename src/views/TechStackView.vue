@@ -20,14 +20,27 @@
             <h3 class="text-primary text-xl font-black">{{ group.title }}</h3>
           </div>
           <div class="mt-5 flex flex-wrap gap-2">
-            <span
-              v-for="item in group.items"
-              :key="item"
-              class="tech-chip surface-strong text-secondary inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
-            >
-              <TechIcon :name="item" />
-              {{ item }}
-            </span>
+            <!-- 프로젝트에 쓰인 기술: 클릭하면 프로젝트 섹션으로 이동 + 필터 적용 -->
+            <template v-for="item in group.items" :key="item">
+              <button
+                v-if="stacksInProjects.has(item)"
+                type="button"
+                :title="`${item}을(를) 사용한 프로젝트 보기`"
+                class="tech-chip surface-strong text-secondary inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
+                @click="linkToProjects(item)"
+              >
+                <TechIcon :name="item" />
+                {{ item }}
+                <span class="text-white/25 ml-0.5 text-xs">↗</span>
+              </button>
+              <span
+                v-else
+                class="tech-chip surface-strong text-secondary inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
+              >
+                <TechIcon :name="item" />
+                {{ item }}
+              </span>
+            </template>
           </div>
         </article>
       </div>
@@ -72,7 +85,23 @@ import {
 } from "@lucide/vue";
 import type { Component } from "vue";
 import TechIcon from "@/components/TechIcon.vue";
-import { jobFit, techGroups } from "@/data/portfolio";
+import { jobFit, projects, techGroups } from "@/data/portfolio";
+import { useProjectFilter } from "@/composables/useProjectFilter";
+
+const { activeFilter } = useProjectFilter();
+
+/** 적어도 한 프로젝트에서 쓰인 스택 집합 — 클릭 가능 여부 판단에 사용 */
+const stacksInProjects = new Set(projects.flatMap((p) => p.stack));
+
+/** 스택 클릭 → 필터 설정 → 프로젝트 섹션으로 스크롤 */
+const linkToProjects = (stack: string) => {
+  activeFilter.value = stack;
+  const el = document.getElementById("projects");
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+    history.replaceState(null, "", "#projects");
+  }
+};
 
 const iconMap: Record<string, Component> = {
   Boxes,

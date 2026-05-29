@@ -21,7 +21,8 @@
   --page-grid: rgba(255, 255, 255, 0.03);
   --text-primary: #f8fafc;
   --text-secondary: #c8cdd6;
-  --text-muted: #6b7280;
+  /* #808896 on #08090d → contrast 5.6:1  (WCAG AA ✓) */
+  --text-muted: #808896;
   --text-kicker: rgba(255, 255, 255, 0.35);
   --surface: rgba(255, 255, 255, 0.04);
   --surface-strong: rgba(255, 255, 255, 0.06);
@@ -46,7 +47,8 @@
   --page-grid: rgba(15, 23, 42, 0.04);
   --text-primary: #0f172a;
   --text-secondary: #374151;
-  --text-muted: #9ca3af;
+  /* #5d6578 on #fafafa → contrast 5.6:1  (WCAG AA ✓) */
+  --text-muted: #5d6578;
   --text-kicker: rgba(15, 23, 42, 0.42);
   --surface: rgba(255, 255, 255, 0.9);
   --surface-strong: #ffffff;
@@ -172,21 +174,10 @@ a {
     border-color: rgba(15, 23, 42, 0.22);
   }
 
-  .text-primary {
-    color: var(--text-primary);
-  }
-
-  .text-secondary {
-    color: var(--text-secondary);
-  }
-
-  .text-muted {
-    color: var(--text-muted);
-  }
-
-  .accent-text {
-    color: var(--accent);
-  }
+  .text-primary   { color: var(--text-primary); }
+  .text-secondary { color: var(--text-secondary); }
+  .text-muted     { color: var(--text-muted); }
+  .accent-text    { color: var(--accent); }
 
   /* CTA button — the ONE place cyan lives */
   .accent-bg {
@@ -271,6 +262,24 @@ a {
     border-color: rgba(15, 23, 42, 0.2);
     background: rgba(15, 23, 42, 0.05);
   }
+
+  /* ── Active filter chip ── */
+  .filter-chip-active {
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
+  }
+
+  /* ── Skeleton shimmer ── */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--surface-strong) 25%,
+      var(--border-strong) 50%,
+      var(--surface-strong) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  }
 }
 
 @keyframes cursor-blink {
@@ -279,19 +288,16 @@ a {
 }
 
 @keyframes hero-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(1.5rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.hero-enter {
-  animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
+
+.hero-enter          { animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .hero-enter-d1 { animation-delay: 0.1s; }
 .hero-enter-d2 { animation-delay: 0.2s; }
 .hero-enter-d3 { animation-delay: 0.3s; }
@@ -300,23 +306,17 @@ a {
 .hero-enter-d6 { animation-delay: 0.6s; }
 
 /* ── Light mode: remap white/* Tailwind utilities to dark equivalents ──
-   white-opacity utilities are invisible on a light (#fafafa) background.
-   These overrides swap rgba(255,255,255,N) → rgba(15,23,42,N) per utility. */
+   white-opacity utilities are invisible on a light (#fafafa) background. */
 :root[data-theme="light"] {
-  /* backgrounds */
   .bg-white\/3  { background-color: rgba(15, 23, 42, 0.03) !important; }
   .bg-white\/4  { background-color: rgba(15, 23, 42, 0.04) !important; }
   .bg-white\/5  { background-color: rgba(15, 23, 42, 0.05) !important; }
   .bg-white\/8  { background-color: rgba(15, 23, 42, 0.08) !important; }
   .bg-white\/10 { background-color: rgba(15, 23, 42, 0.10) !important; }
-
-  /* borders */
   .border-white\/6  { border-color: rgba(15, 23, 42, 0.10) !important; }
   .border-white\/8  { border-color: rgba(15, 23, 42, 0.12) !important; }
   .border-white\/10 { border-color: rgba(15, 23, 42, 0.14) !important; }
   .border-white\/15 { border-color: rgba(15, 23, 42, 0.18) !important; }
-
-  /* text — scale up opacity so text stays readable on light bg */
   .text-white\/25 { color: rgba(15, 23, 42, 0.35) !important; }
   .text-white\/40 { color: rgba(15, 23, 42, 0.50) !important; }
   .text-white\/45 { color: rgba(15, 23, 42, 0.55) !important; }
@@ -325,7 +325,73 @@ a {
   .text-white\/70 { color: rgba(15, 23, 42, 0.75) !important; }
   .text-white\/80 { color: rgba(15, 23, 42, 0.85) !important; }
   .text-white     { color: #0f172a !important; }
-
-  /* amber strip: keep amber tint but fix the text */
   .text-amber-400\/60 { color: rgba(146, 64, 14, 0.70) !important; }
+}
+
+/* ── prefers-reduced-motion: 모든 애니메이션/트랜지션 최소화 ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* reveal 요소는 처음부터 보이게 */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* 커서 spotlight 제거 */
+  .cursor-spotlight { display: none !important; }
+  /* 스켈레톤 shimmer 정지 */
+  .skeleton {
+    animation: none !important;
+    background: var(--surface-strong) !important;
+  }
+}
+
+/* ── 프린트 스타일시트 ── */
+@media print {
+  /* 네비·헤더·인터랙션 요소 숨김 */
+  .site-header,
+  .cursor-spotlight,
+  footer,
+  [aria-label="맨 위로 이동"],
+  .case-study-backdrop {
+    display: none !important;
+  }
+
+  /* 페이지 배경/색상 초기화 */
+  html, body {
+    background: white !important;
+    color: #0f172a !important;
+  }
+
+  /* reveal 요소 항상 표시 */
+  .reveal { opacity: 1 !important; transform: none !important; }
+
+  /* 카드 배경 단순화 */
+  .surface, .surface-strong {
+    background: #f8f9fa !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: none !important;
+  }
+
+  /* 섹션 페이지 분할 방지 */
+  section { page-break-inside: avoid; }
+  article { page-break-inside: avoid; }
+
+  /* 외부 링크 URL 표시 (email/tel/# 제외) */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #64748b;
+  }
+
+  /* 폰트 색상 강제 */
+  .text-primary   { color: #0f172a !important; }
+  .text-secondary { color: #374151 !important; }
+  .text-muted     { color: #5d6578 !important; }
+  .section-kicker { color: #64748b !important; }
+  .text-white     { color: #0f172a !important; }
 }

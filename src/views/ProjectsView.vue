@@ -15,9 +15,39 @@
         </div>
       </div>
 
-      <div class="grid gap-5">
+      <!-- ── 스택 필터 칩 ── -->
+      <div class="reveal mb-6 flex flex-wrap gap-2" role="group" aria-label="프로젝트 스택 필터">
+        <button
+          type="button"
+          :class="[
+            'tech-chip surface-strong inline-flex items-center rounded-md px-3 py-1.5 text-xs font-bold transition',
+            activeFilter === null ? 'filter-chip-active' : 'text-secondary',
+          ]"
+          @click="activeFilter = null"
+        >
+          전체
+          <span class="ml-1.5 text-white/30">{{ projects.length }}</span>
+        </button>
+        <button
+          v-for="opt in filterOptions"
+          :key="opt.name"
+          type="button"
+          :class="[
+            'tech-chip surface-strong inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition',
+            activeFilter === opt.name ? 'filter-chip-active' : 'text-secondary',
+          ]"
+          @click="activeFilter = activeFilter === opt.name ? null : opt.name"
+        >
+          <TechIcon :name="opt.name" />
+          {{ opt.name }}
+          <span class="ml-0.5 text-white/30">{{ opt.count }}</span>
+        </button>
+      </div>
+
+      <!-- ── 프로젝트 목록 (TransitionGroup) ── -->
+      <TransitionGroup name="project-filter" tag="div" class="grid gap-5">
         <article
-          v-for="(project, index) in projects"
+          v-for="(project, index) in filteredProjects"
           :key="project.title"
           :class="['reveal surface interactive-surface group rounded-xl p-5 md:p-6', `reveal-d${Math.min(index, 4)}`]"
         >
@@ -35,9 +65,7 @@
 
             <div>
               <div class="flex items-start justify-between gap-4">
-                <div>
-                  <h3 class="text-primary mt-2 text-2xl font-black">{{ project.title }}</h3>
-                </div>
+                <h3 class="text-primary mt-2 text-2xl font-black">{{ project.title }}</h3>
                 <button
                   v-if="project.links?.[0]?.type === 'case'"
                   type="button"
@@ -84,95 +112,149 @@
                   {{ stack }}
                 </span>
               </div>
-
             </div>
           </div>
         </article>
-      </div>
+      </TransitionGroup>
+
+      <!-- 필터 결과 없음 -->
+      <p v-if="filteredProjects.length === 0" class="text-muted py-12 text-center text-sm">
+        해당 기술을 사용한 프로젝트가 없습니다.
+      </p>
     </div>
 
+    <!-- ── Case Study Modal ── -->
     <Teleport to="body">
       <Transition name="modal">
-      <div
-        v-if="activeCaseStudy"
-        class="case-study-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
-        role="dialog"
-        aria-modal="true"
-        :aria-labelledby="caseStudyTitleId"
-        @click.self="closeCaseStudy"
-      >
-        <div ref="modalRef" class="case-study-modal max-h-[88vh] w-full max-w-4xl overflow-hidden rounded-xl">
-          <div class="flex items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
-            <div>
-              <p class="section-kicker">Case Study</p>
-              <h3 :id="caseStudyTitleId" class="text-primary mt-2 text-2xl font-black">
-                {{ activeCaseStudy.title }}
-              </h3>
+        <div
+          v-if="activeCaseStudy"
+          class="case-study-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          :aria-labelledby="caseStudyTitleId"
+          @click.self="closeCaseStudy"
+        >
+          <div ref="modalRef" class="case-study-modal max-h-[88vh] w-full max-w-4xl overflow-hidden rounded-xl">
+            <div class="flex items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
+              <div>
+                <p class="section-kicker">Case Study</p>
+                <h3 :id="caseStudyTitleId" class="text-primary mt-2 text-2xl font-black">
+                  {{ activeCaseStudy.title }}
+                </h3>
+              </div>
+              <button
+                type="button"
+                class="focus-ring surface-strong text-primary inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:text-[var(--accent-strong)]"
+                aria-label="케이스 스터디 닫기"
+                @click="closeCaseStudy"
+              >
+                <X class="h-5 w-5" />
+              </button>
             </div>
-            <button
-              type="button"
-              class="focus-ring surface-strong text-primary inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:text-[var(--accent-strong)]"
-              aria-label="케이스 스터디 닫기"
-              @click="closeCaseStudy"
-            >
-              <X class="h-5 w-5" />
-            </button>
-          </div>
 
-          <div class="max-h-[calc(88vh-96px)] overflow-y-auto p-5 md:p-8">
-            <p v-if="caseStudyStatus === 'loading'" class="text-secondary leading-7">
-              내용을 불러오는 중입니다.
-            </p>
-            <p v-else-if="caseStudyStatus === 'error'" class="text-secondary leading-7">
-              README를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.
-            </p>
-            <div v-else class="case-study-prose" v-html="caseStudyHtml"></div>
+            <!-- aria-live: 로딩 상태 변화를 스크린리더에 알림 -->
+            <div
+              class="max-h-[calc(88vh-96px)] overflow-y-auto p-5 md:p-8"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <!-- 스켈레톤 로딩 -->
+              <div v-if="caseStudyStatus === 'loading'" class="space-y-5" role="status">
+                <div class="skeleton h-8 w-3/5 rounded-lg"></div>
+                <div class="space-y-2">
+                  <div class="skeleton h-4 w-full rounded"></div>
+                  <div class="skeleton h-4 w-11/12 rounded"></div>
+                  <div class="skeleton h-4 w-4/5 rounded"></div>
+                </div>
+                <div class="skeleton h-5 w-2/5 rounded-lg"></div>
+                <div class="space-y-2">
+                  <div class="skeleton h-4 w-full rounded"></div>
+                  <div class="skeleton h-4 w-5/6 rounded"></div>
+                  <div class="skeleton h-4 w-3/4 rounded"></div>
+                </div>
+                <div class="skeleton h-5 w-1/3 rounded-lg"></div>
+                <div class="space-y-2">
+                  <div class="skeleton h-4 w-full rounded"></div>
+                  <div class="skeleton h-4 w-5/6 rounded"></div>
+                </div>
+                <span class="sr-only">내용을 불러오는 중입니다</span>
+              </div>
+
+              <!-- 에러 + 재시도 버튼 -->
+              <div
+                v-else-if="caseStudyStatus === 'error'"
+                class="flex flex-col items-center gap-4 py-10 text-center"
+              >
+                <p class="text-secondary leading-7">내용을 불러오지 못했습니다.</p>
+                <button
+                  type="button"
+                  class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+                  @click="retryLoad"
+                >
+                  <RotateCw class="h-4 w-4" />
+                  다시 시도
+                </button>
+              </div>
+
+              <div v-else class="case-study-prose" v-html="caseStudyHtml"></div>
+            </div>
           </div>
         </div>
-      </div>
       </Transition>
     </Teleport>
   </section>
 </template>
 
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { ArrowRight, CircleCheck, X } from "@lucide/vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { ArrowRight, CircleCheck, RotateCw, X } from "@lucide/vue";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 import TechIcon from "@/components/TechIcon.vue";
 import { projects } from "@/data/portfolio";
+import { useProjectFilter } from "@/composables/useProjectFilter";
 
 type Project = (typeof projects)[number];
 
+// ── 스택 필터 ──────────────────────────────────────────────────────────────
+const { activeFilter } = useProjectFilter();
+
+/** 2개 이상 프로젝트에서 사용된 스택 (출현 빈도 내림차순, 최대 10개) */
+const filterOptions = computed(() => {
+  const counts = new Map<string, number>();
+  projects.forEach((p) => p.stack.forEach((s) => counts.set(s, (counts.get(s) ?? 0) + 1)));
+  return [...counts.entries()]
+    .filter(([, n]) => n >= 2)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([name, count]) => ({ name, count }));
+});
+
+const filteredProjects = computed(() =>
+  activeFilter.value
+    ? projects.filter((p) => p.stack.includes(activeFilter.value!))
+    : projects
+);
+
+// ── Case Study Modal ────────────────────────────────────────────────────────
 const activeCaseStudy = ref<Project | null>(null);
 const caseStudyHtml = ref("");
 const caseStudyStatus = ref<"idle" | "loading" | "ready" | "error">("idle");
 const caseStudyCache = new Map<string, string>();
 const caseStudyTitleId = "case-study-title";
 
-// Focus management
 const modalRef = ref<HTMLElement | null>(null);
 const triggerEl = ref<HTMLElement | null>(null);
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-marked.use({
-  gfm: true,
-  breaks: false,
-});
+marked.use({ gfm: true, breaks: false });
 
-const openCaseStudy = async (project: Project) => {
-  triggerEl.value = document.activeElement as HTMLElement;
-  activeCaseStudy.value = project;
+const fetchCaseStudy = async (project: Project) => {
   caseStudyHtml.value = "";
   caseStudyStatus.value = "loading";
 
   const link = project.links?.find((item) => item.type === "case");
-
-  if (!link) {
-    caseStudyStatus.value = "error";
-    return;
-  }
+  if (!link) { caseStudyStatus.value = "error"; return; }
 
   try {
     if (caseStudyCache.has(link.href)) {
@@ -180,16 +262,10 @@ const openCaseStudy = async (project: Project) => {
       caseStudyStatus.value = "ready";
       return;
     }
-
     const response = await fetch(link.href);
-
-    if (!response.ok) {
-      throw new Error("Failed to load case study");
-    }
-
+    if (!response.ok) throw new Error("fetch failed");
     const markdown = await response.text();
-    const bodyMarkdown = markdown.replace(/^# .+\r?\n+/, "");
-    const rawHtml = await marked.parse(bodyMarkdown);
+    const rawHtml = await marked.parse(markdown.replace(/^# .+\r?\n+/, ""));
     const html = DOMPurify.sanitize(rawHtml);
     caseStudyCache.set(link.href, html);
     caseStudyHtml.value = html;
@@ -197,6 +273,16 @@ const openCaseStudy = async (project: Project) => {
   } catch {
     caseStudyStatus.value = "error";
   }
+};
+
+const openCaseStudy = (project: Project) => {
+  triggerEl.value = document.activeElement as HTMLElement;
+  activeCaseStudy.value = project;
+  fetchCaseStudy(project);
+};
+
+const retryLoad = () => {
+  if (activeCaseStudy.value) fetchCaseStudy(activeCaseStudy.value);
 };
 
 const closeCaseStudy = () => {
@@ -211,22 +297,15 @@ const handleKeydown = (event: KeyboardEvent) => {
     closeCaseStudy();
     return;
   }
-  // Focus trap — keep Tab key inside modal
   if (event.key === "Tab" && activeCaseStudy.value && modalRef.value) {
     const focusable = [...modalRef.value.querySelectorAll<HTMLElement>(FOCUSABLE)];
-    if (focusable.length === 0) return;
+    if (!focusable.length) return;
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
     if (event.shiftKey) {
-      if (document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      }
+      if (document.activeElement === first) { event.preventDefault(); last.focus(); }
     } else {
-      if (document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
+      if (document.activeElement === last) { event.preventDefault(); first.focus(); }
     }
   }
 };
@@ -234,18 +313,11 @@ const handleKeydown = (event: KeyboardEvent) => {
 watch(activeCaseStudy, (project) => {
   document.body.style.overflow = project ? "hidden" : "";
   if (project) {
-    // Move focus into modal after DOM update
-    nextTick(() => {
-      const first = modalRef.value?.querySelector<HTMLElement>(FOCUSABLE);
-      first?.focus();
-    });
+    nextTick(() => modalRef.value?.querySelector<HTMLElement>(FOCUSABLE)?.focus());
   }
 });
 
-onMounted(() => {
-  window.addEventListener("keydown", handleKeydown);
-});
-
+onMounted(() => window.addEventListener("keydown", handleKeydown));
 onBeforeUnmount(() => {
   window.removeEventListener("keydown", handleKeydown);
   document.body.style.overflow = "";
@@ -253,23 +325,34 @@ onBeforeUnmount(() => {
 
 const accentPanel = (_accent: string) => "border-white/6 bg-white/3";
 
-const highlightGridClass = (count: number) => {
-  return count > 3 ? "md:grid-cols-2" : "md:grid-cols-3";
-};
+const highlightGridClass = (count: number) =>
+  count > 3 ? "md:grid-cols-2" : "md:grid-cols-3";
 </script>
 
 <style scoped>
-/* ── Modal transition ── */
-.modal-enter-active {
-  transition: opacity 0.22s ease;
+/* ── Project filter transition ── */
+.project-filter-enter-active {
+  transition: opacity 0.28s ease, transform 0.28s ease;
 }
-.modal-leave-active {
+.project-filter-leave-active {
   transition: opacity 0.18s ease;
 }
-.modal-enter-from,
-.modal-leave-to {
+.project-filter-enter-from {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.project-filter-leave-to {
   opacity: 0;
 }
+.project-filter-move {
+  transition: transform 0.28s ease;
+}
+
+/* ── Modal transition ── */
+.modal-enter-active { transition: opacity 0.22s ease; }
+.modal-leave-active { transition: opacity 0.18s ease; }
+.modal-enter-from,
+.modal-leave-to     { opacity: 0; }
 .modal-enter-active .case-study-modal {
   animation: modal-panel-in 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -288,7 +371,6 @@ const highlightGridClass = (count: number) => {
 .case-study-backdrop {
   background: rgb(var(--page-bg-rgb) / 0.46);
 }
-
 :root[data-theme="light"] .case-study-backdrop {
   background: rgb(15 23 42 / 0.28);
 }
@@ -299,14 +381,11 @@ const highlightGridClass = (count: number) => {
   box-shadow: var(--shadow);
   color: var(--text-primary);
 }
-
 :root[data-theme="light"] .case-study-modal {
   background: #ffffff;
 }
 
-.case-study-prose {
-  color: var(--text-secondary);
-}
+.case-study-prose { color: var(--text-secondary); }
 
 .case-study-prose :deep(h1) {
   margin: 0 0 1rem;
@@ -315,35 +394,21 @@ const highlightGridClass = (count: number) => {
   font-weight: 900;
   line-height: 1.15;
 }
-
 .case-study-prose :deep(h2) {
   margin: 2rem 0 0.75rem;
   color: var(--text-primary);
   font-size: 1.15rem;
   font-weight: 900;
 }
-
 .case-study-prose :deep(p),
 .case-study-prose :deep(li) {
   color: var(--text-secondary);
   font-size: 0.98rem;
   line-height: 1.8;
 }
-
-.case-study-prose :deep(p) {
-  margin: 0 0 1rem;
-}
-
-.case-study-prose :deep(ul) {
-  margin: 0;
-  padding-left: 1.25rem;
-  list-style: disc;
-}
-
-.case-study-prose :deep(li + li) {
-  margin-top: 0.45rem;
-}
-
+.case-study-prose :deep(p)       { margin: 0 0 1rem; }
+.case-study-prose :deep(ul)      { margin: 0; padding-left: 1.25rem; list-style: disc; }
+.case-study-prose :deep(li + li) { margin-top: 0.45rem; }
 .case-study-prose :deep(blockquote) {
   margin: 0 0 1.5rem;
   border-left: 4px solid var(--accent);
@@ -351,13 +416,11 @@ const highlightGridClass = (count: number) => {
   background: var(--accent-soft);
   padding: 0.9rem 1rem;
 }
-
 .case-study-prose :deep(blockquote p) {
   margin: 0;
   color: var(--text-primary);
   font-size: 0.9rem;
 }
-
 .case-study-prose :deep(code) {
   border: 1px solid var(--border);
   border-radius: 0.35rem;
