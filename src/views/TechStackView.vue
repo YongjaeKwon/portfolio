@@ -10,6 +10,18 @@
         회사 업무에서 사용한 기술과 개인 프로젝트로 다뤄본 기술을 함께 정리했습니다.
       </p>
 
+      <!-- 🍁 메이플 모드: 인벤토리 레어도 범례 -->
+      <div class="maple-legend mt-4 items-center gap-4 text-xs font-bold">
+        <span class="text-secondary flex items-center gap-1.5">
+          <span class="h-3.5 w-3.5 rounded border-2" style="border-color: #f0932b"></span>
+          실무 (유니크)
+        </span>
+        <span class="text-secondary flex items-center gap-1.5">
+          <span class="h-3.5 w-3.5 rounded border-2" style="border-color: #4a90d9"></span>
+          학습 (레어)
+        </span>
+      </div>
+
       <div class="mt-8 grid gap-4 md:grid-cols-2">
         <article
           v-for="(group, idx) in techGroups"
@@ -29,7 +41,7 @@
                 v-if="stacksInProjects.has(item)"
                 type="button"
                 :title="`${item}을(를) 사용한 프로젝트 보기`"
-                class="tech-chip surface-strong text-secondary group inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
+                class="tech-chip rarity-unique surface-strong text-secondary group inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
                 @click="linkToProjects(item)"
               >
                 <TechIcon :name="item" />
@@ -38,7 +50,7 @@
               </button>
               <span
                 v-else
-                class="tech-chip surface-strong text-secondary inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
+                class="tech-chip rarity-rare surface-strong text-secondary inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
               >
                 <TechIcon :name="item" />
                 {{ item }}
