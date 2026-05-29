@@ -9,20 +9,19 @@
 
 ## Summary
 
-운영 중인 B2B·B2G 시스템에서 WebSquare, JSP, Vue.js 기반 화면 개발과 REST API 연동, 권한 조건 반영, 데이터 조회 흐름 개선을 경험했습니다.
+B2B·B2G 운영 시스템에서 관리자 화면, 모바일 업무 화면, REST API 연동, 권한별 조회 조건, MyBatis SQL, 메일·파일·인증 연동을 함께 다뤄온 프론트엔드 중심 웹 개발자입니다.
 
-모바일 AS 접수, 진행상태 조회, 태블릿 전자서명, 개인정보 동의 화면, Vue 기반 관리자 화면처럼 사용자가 실제로 거치는 업무 화면을 개발해왔습니다. 화면만 따로 보지 않고 API 응답, 권한 조건, SQL 조회 흐름이 실제 사용 흐름과 맞는지 함께 확인하며 구현합니다.
+실무에서는 Vue 기반 협력사 포탈, WebSquare/JSP 기반 AS 업무 화면, JSP/Spring MVC 기반 자산관리 화면, Nexacro 기반 물류 운영 화면을 개발했습니다. 단순 화면 구현보다 사용자가 실제로 처리하는 등록, 업로드, 발송, 조회, 이력 확인 흐름이 끊기지 않도록 화면 상태와 서버 데이터 흐름을 함께 확인하며 개발합니다.
 
-개인·팀 프로젝트에서는 React, TypeScript, Next.js, Zustand, React Query, FastAPI, WebSocket, Docker Compose를 활용해 실시간 데이터 대시보드와 개발자 도구형 UI를 만들었습니다. 웹/모바일 플랫폼, 관리자 도구, 데이터 대시보드처럼 운영과 사용자 행동이 맞닿는 화면을 안정적으로 만드는 일에 집중하고 있습니다.
+개인·팀 프로젝트에서는 React, TypeScript, Next.js, Redux, Zustand, React Query, Canvas, FastAPI, WebSocket, Docker Compose를 활용해 실시간 데이터 대시보드, 개발자 도구형 UI, AI 연동 학습 화면을 만들었습니다.
 
 ## Core Skills
 
-- Frontend: HTML5, CSS3, SASS/SCSS, JavaScript, TypeScript, Vue.js, React, Next.js, Zustand, Pinia, React Query, React Hook Form, JSP, WebSquare, Nexacro, jQuery
+- Frontend: HTML5, CSS3, SASS/SCSS, JavaScript, TypeScript, Vue.js, React, Next.js, Zustand, Pinia, Redux, React Query, React Hook Form, Canvas, JSP, WebSquare, Nexacro, jQuery
 - Backend: Java, Spring Boot, Spring MVC, Spring Security, MyBatis, FastAPI, Python, REST API, JWT, WebSocket
 - Database: MariaDB, Oracle, PostgreSQL, Redis, SQLite, PL/SQL
 - Tools: Git, SVN, Maven, Gradle, Docker, Docker Compose, Nginx, Node.js, Vite, TailwindCSS, Chart.js, Tabulator
-- Design Handoff: Figma / Photoshop 시안 확인 및 구현 기준 해석
-- Learning: React / TypeScript 실시간 대시보드 개발, 컨테이너 기반 서비스 분리
+- Strength: 관리자 화면, 업무 단계형 화면, 권한/조회 조건, 파일 업로드, 메일/알림 발송, 엑셀 다운로드, 운영 이슈 대응
 
 ## Experience
 
@@ -31,42 +30,80 @@
 Java/Spring 기반 웹 시스템 개발자  
 2024.06 ~ 재직 중
 
-- 솔루션사업부에서 사수와 2인 체제로 B2B·B2G 운영 시스템 4건의 화면, API, SQL, 외부 연동 기능 개발
-- WebSquare, JSP, Vue.js, Nexacro 기반 화면 개발과 Java/Spring 기반 API 및 데이터 처리 로직 구현
-- 운영 중 발생하는 화면 오류, 데이터 조회 조건 오류, 권한 반영 이슈 대응
-- Spring Boot 3 신규 환경부터 Spring MVC 레거시 환경까지 다양한 기술 환경에서 업무 수행
+- 솔루션사업부에서 B2B·B2G 운영 시스템의 화면, API, SQL, 외부 연동 기능 개발
+- Vue, WebSquare, JSP, Nexacro 기반 관리자/모바일 업무 화면 신규 개발 및 운영 오류 수정
+- Spring Boot 3 신규 환경과 Spring MVC 환경에서 API, MyBatis SQL, 메일·파일·인증 연동 흐름 구현
+- 조회 조건, 권한 반영, 입력 검증, 상태값 불일치 문제를 재현하고 유사 화면까지 함께 점검
 
 ## Projects
 
-### AS / 설치 / 상담 업무관리 시스템 (TSMS)
-
-2025.12 ~ 현재 · 2인 팀 · 프론트엔드 주담당
-
-데스크톱, 모바일, 태블릿에서 사용되는 AS·설치·상담 업무 화면을 개발하며 접수, 동의, 첨부, 전자서명, 진행상태 조회 단계가 끊기지 않도록 구현했습니다.
-
-- WebSquare / JSP 기반 업무 처리 화면 신규 개발 및 운영 오류 수정
-- 모바일 AS 접수, 진행상태 조회, 태블릿 전자서명, 개인정보 동의 화면 구현
-- 입력값 검증, 단계별 선택 흐름, 파일 조회·업로드 UI 개선
-- 외부 REST API 연계 화면 개발 및 메일·문자·알림톡 발송 결과 화면 상태 연동
-- 데이터 조회 조건 오류 및 권한 반영 이슈 수정
-
-사용 기술: JavaScript, WebSquare, JSP, jQuery, Java, Spring, REST API
-
 ### TGS 협력사 포탈 시스템 (PPS)
 
-2025.01 ~ 현재 · 3인 팀 · 백엔드 및 Vue 화면 개발
+2025.02 ~ 현재 · 3인 팀 · 백엔드 및 Vue 화면 개발
 
-Vue.js 기반 관리자 화면과 Spring Boot API를 연동해 협력사 교육 운영에 필요한 등록, 대상자 관리, 파일 업로드, 메일 발송, 제출 현황 조회 화면을 개발했습니다.
+협력사, CE, 교육, 계약, 공지, 설문 데이터를 관리하는 Spring Boot 3 기반 운영 포탈입니다. Vue 화면과 Tabulator 그리드, Spring Boot API, MyBatis SQL을 연결해 운영자가 반복해서 사용하는 교육관리와 협력사 관리 흐름을 개발했습니다.
 
-- Spring Boot 3 기반 백엔드와 Vue.js 기반 관리자 화면 개발
-- 교육 등록, 대상자 엑셀 업로드, 대상자별 메일 발송, 제출 현황 조회 흐름 구현
+- 교육 등록, 대상자 엑셀 업로드, 메일 발송, 제출 현황 조회 흐름 구현
 - 게시판·제안하기·설문에서 쓰이는 댓글·대댓글 UI와 처리 흐름 공통화
-- 파일 업로드·조회 기능과 연계된 화면 및 데이터 처리 로직 개발
-- Google OTP 2단계 인증, IP 기반 인증 예외, 인증 상태별 분기 처리 개선
-- 협력사·CE·교육 데이터의 조회 조건과 화면 상태를 운영 정책에 맞게 개선
+- CE 현황 메일 발송, 발송 이력 저장, 검증 상태별 조회 조건 개선
+- Google OTP 2단계 인증, IP 기반 인증 예외, 공지 읽음 이력 처리 개선
 - MariaDB / Oracle 연동 환경에서 데이터 조회 및 통계 SQL 작성
 
-사용 기술: Vue.js, Java, Spring Boot, MyBatis, MariaDB, Oracle, 인증·보안, 통계 SQL
+사용 기술: Vue.js, JavaScript, Tabulator, Java, Spring Boot, Spring Security, MyBatis, MariaDB, Oracle
+
+### TSMS / IDCMS AS 업무 시스템
+
+2025.09 ~ 현재 · 2인 팀 · 프론트엔드 주담당
+
+AS 접수, 상담, 이관, 배정, 배송, 개인정보 동의, QR 확인, 태블릿 전자서명 업무를 처리하는 WebSquare/JSP 기반 운영 시스템입니다. 데스크톱, 모바일, 태블릿 화면이 같은 업무 데이터를 기준으로 이어지도록 구현했습니다.
+
+- AS 접수·이관·배정, 진행상태 조회, 모바일 접수 화면 개선
+- 개인정보 동의, QR 확인, 무인보관함 접수, 태블릿 전자서명 흐름 구현
+- 배송 일정, 학생 일괄 처리, 라벨/엑셀, 파일 조회·업로드 화면 개선
+- 알림톡·BizTalk·메일 발송 결과와 권한별 조회 조건을 화면 상태로 반영
+- 권한 또는 센터 조건 변경 후 목록과 상세 화면의 조회 범위 점검
+
+사용 기술: JavaScript, WebSquare, JSP, jQuery, Java, Spring MVC, MyBatis, MariaDB, REST API
+
+### 교육청 IT 자산관리 솔루션
+
+2025.09 ~ 2026.03 · 2인 팀 · 백엔드 및 화면 개발
+
+교육청과 학교의 IT 자산을 등록, 현황 조회, 상태 관리, 이력 확인, 유상처리 현황, 대시보드 집계로 관리하는 Spring MVC 기반 업무 시스템입니다.
+
+- 자산관리 대시보드, 자산현황, 유상처리 현황 화면 개발 및 개선
+- 교육청·학교·부서 권한에 따른 데이터 조회 범위와 검색 조건 반영
+- 사업 차수, 기관, 자산 상태 기준의 집계와 목록 조회 SQL 개선
+- 대시보드 클릭 라우팅, 배치 이력, 메뉴 개편, 숫자·일자 포맷 등 운영 이슈 대응
+
+사용 기술: Java, Spring MVC, JSP, MyBatis, MariaDB, Tabulator, REST API
+
+### SR30 물류관리시스템
+
+2024.07 ~ 2025.07 · 3인 팀 · 운영 기능 개선 및 신규 기능 개발
+
+Nexacro와 Spring MVC 기반 물류·서비스 운영 시스템에서 일정, 설문, 재고, 리포트, KPI, 엑셀 다운로드, 관리자 이력 조회 화면을 개선했습니다.
+
+- 일정 공유, 근무 일정, 서비스 리포트, KPI 조회 화면 개선
+- 설문 등록·응답·통계, 운영 설문 데이터 수집 흐름 구현
+- 물류·재고·자재·입출고 및 설치/철거 리포트 화면 개선
+- 개인정보 다운로드, 데이터 삭제, 접근 이력 등 관리자 이력 조회 기능 대응
+- 화면 필터, SQL 조건, 엑셀 다운로드 결과가 같은 기준으로 동작하는지 점검
+
+사용 기술: Nexacro, Java, Spring MVC, MyBatis, PL/SQL, Oracle
+
+### 또잉 영어 학습 서비스 (ddoing)
+
+2023.02 ~ 2023.04 · 6인 팀 · PM 및 프론트엔드·AI 연동
+
+영어가 어려운 아이들을 위한 애니메이션 shadowing 및 Drawing 기반 영어 학습 서비스입니다. React/TypeScript 기반 Drawing Page에서 Canvas 입력, AI 추론 요청, 정답/오답/점수 흐름을 게임 경험으로 연결했습니다.
+
+- Canvas 입력, 타이머, 정답·오답·패스, 게임 완료 화면 흐름 구현
+- 분류 모델 추론 API를 프론트엔드에 연결해 사용자 그림 결과를 학습 상태로 반영
+- Drawing 결과 저장, 점수 요청, 경험치 반영, Hall of Fame 화면 개선
+- PM 역할로 화면 흐름, AI 연동 범위, 학습 데이터 전처리 업무 조율
+
+사용 기술: React, TypeScript, Redux, Vite, TailwindCSS, Canvas, FastAPI, TensorFlow
 
 ### 퀀트 트레이딩 시스템 (quant-core)
 
@@ -93,11 +130,6 @@ Figma, API 명세, 요청 테스트, 유스케이스 테스트, 성능 테스트
 - ReactDOM.createPortal 기반 공통 Modal로 SSR 안전성과 z-index 충돌 해결
 
 사용 기술: Next.js, React, TypeScript, React Query, React Hook Form, Redux Toolkit, TailwindCSS, Axios
-
-### 기타 운영 시스템 경험
-
-- SR30 물류관리시스템: Nexacro / Spring MVC 기반 설문조사 기능, 통계 조회 화면, PL/SQL 작성. 3인 팀에서 업무를 분담했으며 설문 응답률 5%에서 20%로 개선
-- 교육청 IT 자산관리 솔루션: Spring MVC / MyBatis 기반 자산 등록·대여·반납·폐기, P2P 이동/승인 화면 및 권한별 조회 조건, 외부 API 연계 기능 개선
 
 ## Education
 
