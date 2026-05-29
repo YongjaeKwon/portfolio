@@ -1,17 +1,8 @@
 <template>
   <section id="hero" class="relative min-h-[100dvh] overflow-hidden pb-20 pt-24">
-    <!-- Backdrop: grid + signature live-data chart -->
+    <!-- Backdrop: 가장자리로 부드럽게 사라지는 미세 그리드 -->
     <div class="pointer-events-none absolute inset-0">
-      <div class="grid-backdrop absolute inset-0 opacity-20"></div>
-      <div class="hero-chart absolute inset-x-0 bottom-0 h-[42%]">
-        <LiveChart />
-      </div>
-    </div>
-
-    <!-- "LIVE" signature label -->
-    <div class="pointer-events-none absolute bottom-6 left-6 z-10 hidden items-center gap-2 md:flex">
-      <span class="h-2 w-2 animate-pulse rounded-full" :style="{ background: 'var(--accent)' }"></span>
-      <span class="font-mono text-muted text-[10px] uppercase tracking-[0.3em]">live data</span>
+      <div class="grid-backdrop hero-grid-mask absolute inset-0 opacity-20"></div>
     </div>
 
     <div class="section-shell relative z-10 grid min-h-[calc(100dvh-6rem)] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
@@ -160,7 +151,6 @@ import {
 } from "@lucide/vue";
 import type { Component } from "vue";
 import { heroStats, profile, strengths } from "@/data/portfolio";
-import LiveChart from "@/components/LiveChart.vue";
 import myPhoto from "@/public/my-photo.png";
 
 const statsEl = ref<HTMLElement | null>(null);
@@ -254,10 +244,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* 시그니처 차트: 상단으로 갈수록 페이드 — 헤드라인과 겹치지 않게 */
-.hero-chart {
-  opacity: 0.5;
-  -webkit-mask-image: linear-gradient(to top, #000 40%, transparent 100%);
-  mask-image: linear-gradient(to top, #000 40%, transparent 100%);
+/* 그리드가 가장자리로 갈수록 부드럽게 사라지도록 — 딱딱한 전면 그리드 방지 */
+.hero-grid-mask {
+  -webkit-mask-image: radial-gradient(ellipse 85% 65% at 28% 32%, #000 25%, transparent 80%);
+  mask-image: radial-gradient(ellipse 85% 65% at 28% 32%, #000 25%, transparent 80%);
 }
 </style>
