@@ -1,36 +1,30 @@
 <template>
-  <footer id="contact" class="border-t border-[var(--border)] px-6 py-12">
-    <div class="mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-center md:justify-between">
-      <div>
-        <p class="text-primary text-2xl font-black">{{ profile.name }}</p>
-        <p class="text-muted mt-2 text-sm">
-          {{ profile.role }} · {{ profile.location }}
-        </p>
-      </div>
-
-      <div class="flex flex-wrap gap-3">
+  <footer class="border-t border-[var(--border)] px-6 py-6">
+    <div class="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <p class="text-muted text-sm">© 2026 {{ profile.name }} · Frontend Engineer</p>
+      <div class="flex items-center gap-4">
         <a
-          class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-4 py-3 text-sm font-bold transition hover:text-[var(--accent-strong)]"
+          class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
           :href="profile.github"
           target="_blank"
           rel="noreferrer"
         >
           GitHub
-          <ExternalLink class="h-4 w-4" />
         </a>
+        <span class="text-muted/50 text-xs select-none" aria-hidden="true">·</span>
         <a
-          class="focus-ring accent-bg inline-flex items-center gap-2 rounded-md px-4 py-3 text-sm font-black transition hover:brightness-105"
+          class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
           :href="`mailto:${profile.email}`"
         >
-          {{ profile.email }}
-          <Mail class="h-4 w-4" />
+          이메일
         </a>
+        <span class="text-muted/50 text-xs select-none" aria-hidden="true">·</span>
         <a
-          class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-4 py-3 text-sm font-bold transition hover:text-[var(--accent-strong)]"
-          :href="`tel:${profile.phone.replace(/-/g, '')}`"
+          class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+          :href="profile.resume"
+          download
         >
-          {{ profile.phone }}
-          <Phone class="h-4 w-4" />
+          이력서
         </a>
       </div>
     </div>
@@ -38,6 +32,5 @@
 </template>
 
 <script setup lang="ts">
-import { ExternalLink, Mail, Phone } from "@lucide/vue";
 import { profile } from "@/data/portfolio";
 </script>

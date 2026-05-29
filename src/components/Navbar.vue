@@ -56,27 +56,29 @@
       </div>
     </div>
 
-    <nav
-      v-if="isMenuOpen"
-      id="mobile-navigation"
-      class="surface mx-auto mt-3 grid max-w-6xl gap-1 rounded-lg p-2 md:hidden"
-      aria-label="모바일 주요 섹션"
-    >
-      <button
-        v-for="item in navItems"
-        :key="item.id"
-        type="button"
-        :class="[
-          'rounded-md px-3 py-3 text-left text-sm font-semibold',
-          activeSection === item.id
-            ? 'nav-active'
-            : 'text-secondary hover:bg-black/5',
-        ]"
-        @click="mobileMoveToSection(item.id)"
+    <Transition name="menu-down">
+      <nav
+        v-if="isMenuOpen"
+        id="mobile-navigation"
+        class="surface mx-auto mt-3 grid max-w-6xl gap-1 rounded-lg p-2 md:hidden"
+        aria-label="모바일 주요 섹션"
       >
-        {{ item.label }}
-      </button>
-    </nav>
+        <button
+          v-for="item in navItems"
+          :key="item.id"
+          type="button"
+          :class="[
+            'rounded-md px-3 py-3 text-left text-sm font-semibold',
+            activeSection === item.id
+              ? 'nav-active'
+              : 'text-secondary hover:bg-black/5',
+          ]"
+          @click="mobileMoveToSection(item.id)"
+        >
+          {{ item.label }}
+        </button>
+      </nav>
+    </Transition>
   </header>
 </template>
 
@@ -101,6 +103,7 @@ const navItems = [
   { id: "profile", label: "About" },
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
   { id: "techstack", label: "Tech" },
   { id: "contact", label: "Contact" },
 ];
@@ -143,3 +146,17 @@ const mobileMoveToSection = (section: string) => {
   moveToSection(section);
 };
 </script>
+
+<style scoped>
+.menu-down-enter-active {
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.menu-down-leave-active {
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+.menu-down-enter-from,
+.menu-down-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+</style>
