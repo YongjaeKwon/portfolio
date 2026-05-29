@@ -298,3 +298,34 @@ a {
 .hero-enter-d4 { animation-delay: 0.4s; }
 .hero-enter-d5 { animation-delay: 0.5s; }
 .hero-enter-d6 { animation-delay: 0.6s; }
+
+/* ── Light mode: remap white/* Tailwind utilities to dark equivalents ──
+   white-opacity utilities are invisible on a light (#fafafa) background.
+   These overrides swap rgba(255,255,255,N) → rgba(15,23,42,N) per utility. */
+:root[data-theme="light"] {
+  /* backgrounds */
+  .bg-white\/3  { background-color: rgba(15, 23, 42, 0.03) !important; }
+  .bg-white\/4  { background-color: rgba(15, 23, 42, 0.04) !important; }
+  .bg-white\/5  { background-color: rgba(15, 23, 42, 0.05) !important; }
+  .bg-white\/8  { background-color: rgba(15, 23, 42, 0.08) !important; }
+  .bg-white\/10 { background-color: rgba(15, 23, 42, 0.10) !important; }
+
+  /* borders */
+  .border-white\/6  { border-color: rgba(15, 23, 42, 0.10) !important; }
+  .border-white\/8  { border-color: rgba(15, 23, 42, 0.12) !important; }
+  .border-white\/10 { border-color: rgba(15, 23, 42, 0.14) !important; }
+  .border-white\/15 { border-color: rgba(15, 23, 42, 0.18) !important; }
+
+  /* text — scale up opacity so text stays readable on light bg */
+  .text-white\/25 { color: rgba(15, 23, 42, 0.35) !important; }
+  .text-white\/40 { color: rgba(15, 23, 42, 0.50) !important; }
+  .text-white\/45 { color: rgba(15, 23, 42, 0.55) !important; }
+  .text-white\/50 { color: rgba(15, 23, 42, 0.60) !important; }
+  .text-white\/55 { color: rgba(15, 23, 42, 0.65) !important; }
+  .text-white\/70 { color: rgba(15, 23, 42, 0.75) !important; }
+  .text-white\/80 { color: rgba(15, 23, 42, 0.85) !important; }
+  .text-white     { color: #0f172a !important; }
+
+  /* amber strip: keep amber tint but fix the text */
+  .text-amber-400\/60 { color: rgba(146, 64, 14, 0.70) !important; }
+}

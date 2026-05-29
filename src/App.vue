@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import Navbar from "@/components/Navbar.vue";
 import HomeView from "@/views/HomeView.vue";
 import ProfileCard from "@/components/ProfileCard.vue";
@@ -65,6 +65,15 @@ onMounted(() => {
   );
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
+  // Initial hash navigation
+  const initialHash = window.location.hash.slice(1);
+  if (initialHash) {
+    const target = document.getElementById(initialHash);
+    if (target) {
+      setTimeout(() => target.scrollIntoView({ behavior: "instant" as ScrollBehavior }), 80);
+    }
+  }
+
   return () => {
     window.removeEventListener("mousemove", handleMouseMove);
     observer.disconnect();
@@ -84,6 +93,7 @@ const scrollToSection = (id: string) => {
   const section = document.getElementById(id);
   if (section) {
     section.scrollIntoView({ behavior: "smooth" });
+    history.replaceState(null, "", id === "hero" ? location.pathname : `#${id}`);
   }
 };
 </script>
