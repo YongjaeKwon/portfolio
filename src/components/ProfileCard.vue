@@ -39,19 +39,19 @@ const aboutCards = [
     label: "Focus",
     value: "웹/모바일 업무 UI",
     icon: MonitorSmartphone,
-    iconClass: "text-cyan-500",
+    iconClass: "text-white/45",
   },
   {
     label: "Experience",
     value: "운영 시스템 4건",
     icon: Workflow,
-    iconClass: "text-emerald-500",
+    iconClass: "text-white/45",
   },
   {
     label: "Strength",
     value: "API·SQL 흐름 이해",
     icon: Database,
-    iconClass: "text-amber-500",
+    iconClass: "text-white/45",
   },
 ];
 </script>

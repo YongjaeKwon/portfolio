@@ -1,5 +1,13 @@
 <template>
   <div class="app-root">
+    <!-- 접근성: 키보드 사용자를 위한 본문 건너뛰기 -->
+    <a
+      href="#projects"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:px-4 focus:py-2 focus:text-sm focus:font-black accent-bg focus:outline-none"
+    >
+      본문으로 건너뛰기
+    </a>
+
     <div class="cursor-spotlight" aria-hidden="true" />
     <Navbar
       :theme="theme"
@@ -12,7 +20,9 @@
     <ExperienceView />
     <EducationView />
     <TechStackView />
+    <ContactView />
     <Footer />
+    <ScrollToTop />
   </div>
 </template>
 
@@ -25,7 +35,9 @@ import ProjectsView from "@/views/ProjectsView.vue";
 import ExperienceView from "@/views/ExperienceView.vue";
 import TechStackView from "@/views/TechStackView.vue";
 import EducationView from "@/views/EducationView.vue";
+import ContactView from "@/views/ContactView.vue";
 import Footer from "@/components/Footer.vue";
+import ScrollToTop from "@/components/ScrollToTop.vue";
 
 type Theme = "dark" | "light";
 

@@ -59,6 +59,14 @@
             Email
             <Mail class="h-4 w-4" />
           </a>
+          <a
+            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:border-white/20 hover:text-white"
+            :href="profile.resume"
+            download
+          >
+            이력서
+            <FileDown class="h-4 w-4" />
+          </a>
         </div>
 
         <div class="hero-enter hero-enter-d6 mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
@@ -128,6 +136,7 @@ import {
   Activity,
   ArrowRight,
   ExternalLink,
+  FileDown,
   Mail,
   MousePointer2,
   MonitorSmartphone,
@@ -155,18 +164,32 @@ const iconMap: Record<string, Component> = {
 const displayRole = ref("");
 const showCursor = ref(false);
 
-// Stat counter
-const stat0 = ref(0);
-const stat1 = ref("·");
-const stat2 = ref(0);
+// ── Stat counters — data-driven from heroStats ──────────────────────────────
+// Parses "4" → count, "2+" → count+suffix, "2024.06" → text reveal
+type StatAnim =
+  | { kind: "count"; max: number; suffix: string }
+  | { kind: "text"; final: string };
 
-const animatedStats = computed(() => [
-  String(stat0.value),
-  stat1.value,
-  stat2.value + "+",
-]);
+const statAnims: StatAnim[] = heroStats.map(({ value }) => {
+  const m = value.match(/^(\d+)(\+?)$/);
+  if (m) return { kind: "count", max: Number(m[1]), suffix: m[2] ?? "" };
+  return { kind: "text", final: value };
+});
+
+const animatedRaw = ref<(number | string)[]>(
+  statAnims.map((s) => (s.kind === "count" ? 0 : "·"))
+);
+
+const animatedStats = computed(() =>
+  statAnims.map((s, i) =>
+    s.kind === "count"
+      ? String(animatedRaw.value[i]) + s.suffix
+      : String(animatedRaw.value[i])
+  )
+);
 
 onMounted(() => {
+  // Typing
   const target = profile.role;
   let i = 0;
   showCursor.value = true;
@@ -180,16 +203,21 @@ onMounted(() => {
     }, 75);
   }, 650);
 
+  // Stat counters — each numeric stat finishes in ~440 ms
+  const TARGET_MS = 440;
   setTimeout(() => {
-    const t0 = setInterval(() => {
-      if (stat0.value < 4) stat0.value++;
-      else clearInterval(t0);
-    }, 110);
-    setTimeout(() => { stat1.value = "2024.06"; }, 350);
-    const t2 = setInterval(() => {
-      if (stat2.value < 2) stat2.value++;
-      else clearInterval(t2);
-    }, 220);
+    statAnims.forEach((s, idx) => {
+      if (s.kind === "count") {
+        const step = Math.round(TARGET_MS / s.max);
+        let c = 0;
+        const t = setInterval(() => {
+          animatedRaw.value[idx] = ++c;
+          if (c >= s.max) clearInterval(t);
+        }, step);
+      } else {
+        setTimeout(() => { animatedRaw.value[idx] = s.final; }, 350);
+      }
+    });
   }, 700);
 });
 </script>

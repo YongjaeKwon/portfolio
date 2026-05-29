@@ -11,6 +11,10 @@ export const profile = {
   phone: "010-9470-1704",
   github: "https://github.com/YongjaeKwon",
   location: "경기도 용인시 수지구",
+  /** "구직 중" | "재직 중" — 상황에 따라 변경 */
+  status: "구직 중" as const,
+  /** public/resume.pdf 경로에 PDF 이력서 배치 필요 */
+  resume: "/resume.pdf",
 };
 
 export const heroStats = [

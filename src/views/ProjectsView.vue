@@ -92,6 +92,7 @@
     </div>
 
     <Teleport to="body">
+      <Transition name="modal">
       <div
         v-if="activeCaseStudy"
         class="case-study-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
@@ -100,7 +101,7 @@
         :aria-labelledby="caseStudyTitleId"
         @click.self="closeCaseStudy"
       >
-        <div class="case-study-modal max-h-[88vh] w-full max-w-4xl overflow-hidden rounded-xl">
+        <div ref="modalRef" class="case-study-modal max-h-[88vh] w-full max-w-4xl overflow-hidden rounded-xl">
           <div class="flex items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
             <div>
               <p class="section-kicker">Case Study</p>
@@ -129,12 +130,13 @@
           </div>
         </div>
       </div>
+      </Transition>
     </Teleport>
   </section>
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { ArrowRight, CircleCheck, X } from "@lucide/vue";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
@@ -149,12 +151,18 @@ const caseStudyStatus = ref<"idle" | "loading" | "ready" | "error">("idle");
 const caseStudyCache = new Map<string, string>();
 const caseStudyTitleId = "case-study-title";
 
+// Focus management
+const modalRef = ref<HTMLElement | null>(null);
+const triggerEl = ref<HTMLElement | null>(null);
+const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 marked.use({
   gfm: true,
   breaks: false,
 });
 
 const openCaseStudy = async (project: Project) => {
+  triggerEl.value = document.activeElement as HTMLElement;
   activeCaseStudy.value = project;
   caseStudyHtml.value = "";
   caseStudyStatus.value = "loading";
@@ -195,16 +203,43 @@ const closeCaseStudy = () => {
   activeCaseStudy.value = null;
   caseStudyHtml.value = "";
   caseStudyStatus.value = "idle";
+  nextTick(() => triggerEl.value?.focus());
 };
 
 const handleKeydown = (event: KeyboardEvent) => {
   if (event.key === "Escape" && activeCaseStudy.value) {
     closeCaseStudy();
+    return;
+  }
+  // Focus trap — keep Tab key inside modal
+  if (event.key === "Tab" && activeCaseStudy.value && modalRef.value) {
+    const focusable = [...modalRef.value.querySelectorAll<HTMLElement>(FOCUSABLE)];
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey) {
+      if (document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
   }
 };
 
 watch(activeCaseStudy, (project) => {
   document.body.style.overflow = project ? "hidden" : "";
+  if (project) {
+    // Move focus into modal after DOM update
+    nextTick(() => {
+      const first = modalRef.value?.querySelector<HTMLElement>(FOCUSABLE);
+      first?.focus();
+    });
+  }
 });
 
 onMounted(() => {
@@ -224,6 +259,32 @@ const highlightGridClass = (count: number) => {
 </script>
 
 <style scoped>
+/* ── Modal transition ── */
+.modal-enter-active {
+  transition: opacity 0.22s ease;
+}
+.modal-leave-active {
+  transition: opacity 0.18s ease;
+}
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+.modal-enter-active .case-study-modal {
+  animation: modal-panel-in 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-leave-active .case-study-modal {
+  animation: modal-panel-out 0.18s ease forwards;
+}
+@keyframes modal-panel-in {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+@keyframes modal-panel-out {
+  from { opacity: 1; transform: scale(1)    translateY(0); }
+  to   { opacity: 0; transform: scale(0.95) translateY(10px); }
+}
+
 .case-study-backdrop {
   background: rgb(var(--page-bg-rgb) / 0.46);
 }
