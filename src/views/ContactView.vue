@@ -14,7 +14,7 @@
         <!-- 구직 상태 뱃지 -->
         <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5">
           <span class="h-2 w-2 animate-pulse rounded-full bg-emerald-500" aria-hidden="true"></span>
-          <span class="text-xs font-bold text-emerald-500">{{ profile.status }} · 즉시 합류 가능</span>
+          <span class="text-xs font-bold text-emerald-500">{{ profile.status }} · 입사일 협의 가능</span>
         </div>
 
         <h3 class="text-primary text-2xl font-black">프론트엔드 개발자로 합류하고 싶습니다</h3>

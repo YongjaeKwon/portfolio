@@ -92,6 +92,7 @@ const iconMap: Record<string, SimpleIcon> = {
   "React Hook Form": siReacthookform,
   "React Query": siReactquery,
   Redis: siRedis,
+  Redux: siRedux,
   "Redux Toolkit": siRedux,
   "REST API": siSpring,
   "SASS/SCSS": siSass,
