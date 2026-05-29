@@ -1,7 +1,10 @@
 <template>
   <section id="contact" class="py-24">
     <div class="section-shell">
-      <p class="reveal section-kicker">Contact</p>
+      <div class="reveal flex items-center gap-3">
+        <span class="section-index">05</span>
+        <p class="section-kicker">Contact</p>
+      </div>
       <h2 class="reveal reveal-d1 section-title">같이 일하고 싶으시다면</h2>
       <p class="reveal reveal-d2 section-copy">
         프론트엔드 개발자 포지션에 관심을 두고 있습니다. 편하게 연락 주세요.

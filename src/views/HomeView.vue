@@ -1,23 +1,30 @@
 <template>
   <section id="hero" class="relative min-h-[100dvh] overflow-hidden pb-20 pt-24">
-    <div class="pointer-events-none absolute inset-0 opacity-20">
-      <div class="grid-backdrop absolute inset-0"></div>
+    <!-- Backdrop: grid + signature live-data chart -->
+    <div class="pointer-events-none absolute inset-0">
+      <div class="grid-backdrop absolute inset-0 opacity-20"></div>
+      <div class="hero-chart absolute inset-x-0 bottom-0 h-[42%]">
+        <LiveChart />
+      </div>
     </div>
 
-    <div class="section-shell relative grid min-h-[calc(100dvh-6rem)] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
+    <!-- "LIVE" signature label -->
+    <div class="pointer-events-none absolute bottom-6 left-6 z-10 hidden items-center gap-2 md:flex">
+      <span class="h-2 w-2 animate-pulse rounded-full" :style="{ background: 'var(--accent)' }"></span>
+      <span class="font-mono text-muted text-[10px] uppercase tracking-[0.3em]">live data</span>
+    </div>
+
+    <div class="section-shell relative z-10 grid min-h-[calc(100dvh-6rem)] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
       <!-- Left column -->
       <div>
-        <!-- WebP 우선, PNG 폴백. public/my-photo.webp 추가 시 자동 적용됩니다. -->
-        <picture>
-          <source :srcset="myPhotoWebp" type="image/webp" />
-          <img
-            :src="myPhoto"
-            alt="권용재 프로필 사진"
-            width="64"
-            height="64"
-            class="hero-enter mb-6 h-16 w-16 rounded-full object-cover ring-1 ring-white/15 shadow-lg"
-          />
-        </picture>
+        <img
+          :src="myPhoto"
+          alt="권용재 프로필 사진"
+          width="64"
+          height="64"
+          decoding="async"
+          class="hero-enter mb-6 h-16 w-16 rounded-full object-cover ring-1 ring-white/15 shadow-lg"
+        />
 
         <!-- Neutral badge — no cyan bg -->
         <div class="hero-enter hero-enter-d1 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white/40">
@@ -29,7 +36,7 @@
         <h1 class="hero-enter hero-enter-d2 mt-6 max-w-4xl text-5xl font-black leading-[1.05] text-white md:text-7xl">
           {{ profile.name }}
         </h1>
-        <p class="hero-enter hero-enter-d3 mt-4 text-2xl font-bold text-white/80 md:text-4xl">
+        <p class="hero-enter hero-enter-d3 font-display mt-4 text-2xl font-semibold text-white/80 md:text-4xl" lang="en">
           {{ displayRole }}<span v-if="showCursor" class="typing-cursor" aria-hidden="true"></span>
         </p>
         <p class="hero-enter hero-enter-d4 text-secondary mt-6 max-w-3xl text-lg leading-8">
@@ -75,14 +82,14 @@
           </a>
         </div>
 
-        <div class="hero-enter hero-enter-d6 mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
+        <div ref="statsEl" class="hero-enter hero-enter-d6 mt-10 grid max-w-2xl gap-3 sm:grid-cols-3">
           <div
             v-for="(stat, idx) in heroStats"
             :key="stat.label"
             class="surface rounded-lg p-4"
           >
-            <p class="text-muted text-xs font-semibold">{{ stat.label }}</p>
-            <p class="mt-2 text-lg font-black text-white">
+            <p class="text-muted font-display text-xs font-medium">{{ stat.label }}</p>
+            <p class="font-mono tnum mt-2 text-lg font-bold text-white">
               {{ animatedStats[idx] }}<span class="ml-1 text-sm text-white/40">{{ stat.unit }}</span>
             </p>
           </div>
@@ -153,9 +160,10 @@ import {
 } from "@lucide/vue";
 import type { Component } from "vue";
 import { heroStats, profile, strengths } from "@/data/portfolio";
+import LiveChart from "@/components/LiveChart.vue";
 import myPhoto from "@/public/my-photo.png";
-// 동적 바인딩으로 Vite 모듈 해석 우회 — public/my-photo.webp 파일 배치 후 자동 적용
-const myPhotoWebp = "/my-photo.webp";
+
+const statsEl = ref<HTMLElement | null>(null);
 
 const emit = defineEmits<{
   "scroll-to-section": [id: string];
@@ -211,12 +219,12 @@ onMounted(() => {
     }, 75);
   }, 650);
 
-  // Stat counters — each numeric stat finishes in ~440 ms
+  // Stat counters — 뷰포트 진입 시 1회 재생
   const TARGET_MS = 440;
-  setTimeout(() => {
+  const runCounters = () => {
     statAnims.forEach((s, idx) => {
       if (s.kind === "count") {
-        const step = Math.round(TARGET_MS / s.max);
+        const step = Math.max(20, Math.round(TARGET_MS / s.max));
         let c = 0;
         const t = setInterval(() => {
           animatedRaw.value[idx] = ++c;
@@ -226,6 +234,30 @@ onMounted(() => {
         setTimeout(() => { animatedRaw.value[idx] = s.final; }, 350);
       }
     });
-  }, 700);
+  };
+
+  if (statsEl.value) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          runCounters();
+          io.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(statsEl.value);
+  } else {
+    setTimeout(runCounters, 700);
+  }
 });
 </script>
+
+<style scoped>
+/* 시그니처 차트: 상단으로 갈수록 페이드 — 헤드라인과 겹치지 않게 */
+.hero-chart {
+  opacity: 0.5;
+  -webkit-mask-image: linear-gradient(to top, #000 40%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 40%, transparent 100%);
+}
+</style>

@@ -3,7 +3,10 @@
     <div class="section-shell">
       <div class="reveal mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div>
-          <p class="section-kicker">Featured Projects</p>
+          <div class="flex items-center gap-3">
+            <span class="section-index">01</span>
+            <p class="section-kicker">Featured Projects</p>
+          </div>
           <h2 class="section-title">프로젝트 경험</h2>
           <p class="section-copy">
             실제 업무에서 맡았던 화면 개발과 운영 개선 작업을 중심으로 정리했습니다.
@@ -49,7 +52,8 @@
         <article
           v-for="(project, index) in filteredProjects"
           :key="project.title"
-          :class="['reveal surface interactive-surface group rounded-xl p-5 md:p-6', `reveal-d${Math.min(index, 4)}`]"
+          v-tilt
+          :class="['reveal surface interactive-surface tilt group rounded-xl p-5 md:p-6', `reveal-d${Math.min(index, 4)}`]"
         >
           <div class="grid gap-6 lg:grid-cols-[0.32fr_0.68fr]">
             <div :class="['rounded-lg border p-5', accentPanel(project.accent)]">
@@ -327,6 +331,38 @@ const accentPanel = (_accent: string) => "border-white/6 bg-white/3";
 
 const highlightGridClass = (count: number) =>
   count > 3 ? "md:grid-cols-2" : "md:grid-cols-3";
+
+// ── v-tilt: 포인터 기반 미세 3D 기울기 (마우스 기기 + 모션 허용 시에만) ──
+const vTilt = {
+  mounted(el: HTMLElement) {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const noHover = window.matchMedia("(hover: none)").matches;
+    if (reduced || noHover) return;
+
+    const MAX = 2; // deg
+    const onMove = (e: MouseEvent) => {
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transition = "transform 0s";
+      el.style.transform = `perspective(1100px) rotateY(${px * MAX}deg) rotateX(${-py * MAX}deg)`;
+    };
+    const onLeave = () => {
+      el.style.transition = "transform 0.35s ease";
+      el.style.transform = "";
+    };
+    el.addEventListener("mousemove", onMove);
+    el.addEventListener("mouseleave", onLeave);
+    (el as unknown as { __tilt?: unknown }).__tilt = { onMove, onLeave };
+  },
+  unmounted(el: HTMLElement) {
+    const h = (el as unknown as { __tilt?: { onMove: EventListener; onLeave: EventListener } }).__tilt;
+    if (h) {
+      el.removeEventListener("mousemove", h.onMove);
+      el.removeEventListener("mouseleave", h.onLeave);
+    }
+  },
+};
 </script>
 
 <style scoped>

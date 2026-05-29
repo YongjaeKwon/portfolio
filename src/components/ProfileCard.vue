@@ -2,7 +2,10 @@
   <section id="profile" class="py-24">
     <div class="section-shell grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
       <div class="reveal">
-        <p class="section-kicker">About</p>
+        <div class="flex items-center gap-3">
+          <span class="section-index">00</span>
+          <p class="section-kicker">About</p>
+        </div>
         <h2 class="section-title">실제 업무 흐름에 맞춰 구현하는 개발자</h2>
         <p class="section-copy">
           화면, API 응답, 권한 조건, 데이터 조회 흐름을 따로 보지 않고 사용자가 실제로 거치는 순서로 기능을 확인합니다.

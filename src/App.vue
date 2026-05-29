@@ -8,6 +8,7 @@
       본문으로 건너뛰기
     </a>
 
+    <ScrollProgress />
     <div class="cursor-spotlight" aria-hidden="true" />
     <Navbar
       :theme="theme"
@@ -38,6 +39,7 @@ import EducationView from "@/views/EducationView.vue";
 import ContactView from "@/views/ContactView.vue";
 import Footer from "@/components/Footer.vue";
 import ScrollToTop from "@/components/ScrollToTop.vue";
+import ScrollProgress from "@/components/ScrollProgress.vue";
 
 type Theme = "dark" | "light";
 
@@ -97,8 +99,47 @@ watch(theme, (nextTheme) => {
   localStorage.setItem("portfolio-theme", nextTheme);
 });
 
-const toggleTheme = () => {
-  theme.value = theme.value === "dark" ? "light" : "dark";
+type ViewTransitionDoc = Document & {
+  startViewTransition?: (cb: () => void) => { ready: Promise<void> };
+};
+
+const toggleTheme = (origin?: { x: number; y: number }) => {
+  const next: Theme = theme.value === "dark" ? "light" : "dark";
+  const doc = document as ViewTransitionDoc;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // View Transitions 미지원 또는 모션 비선호 시 즉시 전환
+  if (typeof doc.startViewTransition !== "function" || reduced) {
+    theme.value = next;
+    return;
+  }
+
+  const x = origin?.x ?? window.innerWidth - 40;
+  const y = origin?.y ?? 40;
+  const radius = Math.hypot(
+    Math.max(x, window.innerWidth - x),
+    Math.max(y, window.innerHeight - y)
+  );
+
+  const transition = doc.startViewTransition(() => {
+    theme.value = next;
+  });
+
+  transition.ready.then(() => {
+    document.documentElement.animate(
+      {
+        clipPath: [
+          `circle(0px at ${x}px ${y}px)`,
+          `circle(${radius}px at ${x}px ${y}px)`,
+        ],
+      },
+      {
+        duration: 450,
+        easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+        pseudoElement: "::view-transition-new(root)",
+      }
+    );
+  });
 };
 
 const scrollToSection = (id: string) => {
