@@ -1,17 +1,23 @@
 <template>
-  <section id="hero" class="relative min-h-screen overflow-hidden pb-20 pt-24">
+  <section id="hero" class="relative min-h-[100dvh] overflow-hidden pb-20 pt-24">
     <div class="pointer-events-none absolute inset-0 opacity-20">
       <div class="grid-backdrop absolute inset-0"></div>
     </div>
 
-    <div class="section-shell relative grid min-h-[calc(100vh-6rem)] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
+    <div class="section-shell relative grid min-h-[calc(100dvh-6rem)] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
       <!-- Left column -->
       <div>
-        <img
-          :src="myPhoto"
-          alt="권용재 프로필 사진"
-          class="hero-enter mb-6 h-16 w-16 rounded-full object-cover ring-1 ring-white/15 shadow-lg"
-        />
+        <!-- WebP 우선, PNG 폴백. public/my-photo.webp 추가 시 자동 적용됩니다. -->
+        <picture>
+          <source :srcset="myPhotoWebp" type="image/webp" />
+          <img
+            :src="myPhoto"
+            alt="권용재 프로필 사진"
+            width="64"
+            height="64"
+            class="hero-enter mb-6 h-16 w-16 rounded-full object-cover ring-1 ring-white/15 shadow-lg"
+          />
+        </picture>
 
         <!-- Neutral badge — no cyan bg -->
         <div class="hero-enter hero-enter-d1 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white/40">
@@ -148,6 +154,8 @@ import {
 import type { Component } from "vue";
 import { heroStats, profile, strengths } from "@/data/portfolio";
 import myPhoto from "@/public/my-photo.png";
+// 동적 바인딩으로 Vite 모듈 해석 우회 — public/my-photo.webp 파일 배치 후 자동 적용
+const myPhotoWebp = "/my-photo.webp";
 
 const emit = defineEmits<{
   "scroll-to-section": [id: string];
