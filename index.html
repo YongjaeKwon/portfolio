@@ -1,10 +1,61 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue + TS</title>
+    <meta name="theme-color" content="#08090d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+
+    <!-- Display & mono fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&family=Jua&family=Do+Hyeon&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 메이플 모드 픽셀 폰트 (레벨/스탯 숫자용) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/quiple/galmuri/dist/galmuri.css" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("portfolio-theme");
+          const systemTheme = window.matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark";
+          const theme = savedTheme === "light" || savedTheme === "dark" ? savedTheme : systemTheme;
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+          const savedSkin = localStorage.getItem("portfolio-skin");
+          document.documentElement.dataset.skin = savedSkin === "maple" ? "maple" : "default";
+        } catch {
+          document.documentElement.dataset.theme = "dark";
+          document.documentElement.dataset.skin = "default";
+        }
+      })();
+    </script>
+    <meta
+      name="description"
+      content="권용재 웹 개발자 포트폴리오. 운영 시스템, 관리자 도구, 웹·모바일 업무 화면, API·SQL·외부 연동 경험을 역할 관점별로 정리했습니다."
+    />
+    <meta property="og:title" content="권용재 | Web Developer Portfolio" />
+    <meta
+      property="og:description"
+      content="화면, API, SQL, 외부 연동을 함께 보며 운영 업무 흐름을 구현해온 웹 개발자 포트폴리오입니다."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yongjae.dev/" />
+    <meta property="og:image" content="https://yongjae.dev/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="권용재 | Web Developer Portfolio" />
+    <meta name="twitter:description" content="화면, API, SQL, 외부 연동을 함께 보며 운영 업무 흐름을 구현해온 웹 개발자 포트폴리오입니다." />
+    <meta name="twitter:image" content="https://yongjae.dev/og-image.png" />
+    <title>권용재 | Web Developer Portfolio</title>
   </head>
   <body>
     <div id="app"></div>

@@ -13,7 +13,8 @@ node_modules/
 dist/
 dist-ssr
 build/
-#환경 변수 파일
+
+# 환경 변수 파일
 .env
 .env.local
 *.local
@@ -32,3 +33,19 @@ build/
 # 캐시 파일
 .cache/
 .npm/
+
+# 개발 도구 설정
+.claude/
+.ecc/
+
+# 지원 전략/작업 메모는 공개 repo에 남기지 않음
+docs/applications/
+private-applications/
+application-notes/
+portfolio-notes/
+*_WORK_SUMMARY.md
+PORTFOLIO_ROADMAP.md
+PORTFOLIO_WORK_SUMMARY_TOTAL.md
+INTERVIEW_ANSWERS.md
+MODERN_FRONTEND_PROJECT_SPEC.md
+PROJECT_SSAFY_MODAC_DDOING_REVIEW.md
