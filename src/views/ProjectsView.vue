@@ -53,7 +53,8 @@
           v-for="project in filteredProjects"
           :key="project.title"
           v-tilt
-          class="surface interactive-surface tilt group rounded-xl p-5 md:p-6"
+          class="surface interactive-surface tilt group cursor-pointer rounded-xl p-5 md:p-6"
+          @click="openDetail(project)"
         >
           <div class="grid gap-6 lg:grid-cols-[0.32fr_0.68fr]">
             <div class="rounded-lg border border-white/6 bg-white/3 p-5">
@@ -67,78 +68,33 @@
               </p>
             </div>
 
-            <div>
+            <div class="flex flex-col">
               <div class="flex items-start justify-between gap-4">
                 <div>
                   <span class="maple-quest-head maple-pixel mb-2">📜 QUEST</span>
                   <h3 class="text-primary mt-2 text-2xl font-black">{{ project.title }}</h3>
                 </div>
-                <div class="flex shrink-0 items-center gap-2">
-                  <span class="maple-quest-clear maple-pixel">✓ CLEAR</span>
-                  <button
-                    v-if="project.links?.[0]?.type === 'case'"
-                    type="button"
-                    :title="`${project.shortTitle} ${project.links[0].label} 보기`"
-                    :aria-label="`${project.shortTitle} ${project.links[0].label} 보기`"
-                    class="focus-ring surface-strong text-primary mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:-translate-y-0.5 hover:text-[var(--accent-strong)] group-hover:text-[var(--accent-strong)]"
-                    @click="openCaseStudy(project)"
-                  >
-                    <ArrowRight class="h-5 w-5 transition group-hover:translate-x-0.5" />
-                  </button>
-                  <a
-                    v-else-if="project.links?.[0]"
-                    :href="project.links[0].href"
-                    target="_blank"
-                    rel="noreferrer"
-                    :title="`${project.shortTitle} ${project.links[0].label} 열기`"
-                    :aria-label="`${project.shortTitle} ${project.links[0].label} 열기`"
-                    class="focus-ring surface-strong text-primary mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:-translate-y-0.5 hover:text-[var(--accent-strong)] group-hover:text-[var(--accent-strong)]"
-                  >
-                    <ArrowRight class="h-5 w-5 transition group-hover:translate-x-0.5" />
-                  </a>
-                </div>
+                <span class="maple-quest-clear maple-pixel shrink-0">✓ CLEAR</span>
               </div>
 
-              <p class="text-secondary mt-4 max-w-4xl leading-7">{{ project.summary }}</p>
-              <p
-                v-if="'scope' in project && project.scope"
-                class="text-secondary mt-3 text-sm leading-6"
-              >
-                <span class="text-primary font-bold">핵심 담당 범위</span>
-                <span class="mx-2 text-white/20">/</span>
-                {{ project.scope }}
-              </p>
+              <!-- 선택한 Focus 관점에 맞춰 바뀌는 한 줄 컨텍스트 -->
               <p
                 v-if="projectTrackNote(project)"
-                class="surface-strong text-secondary mt-3 rounded-lg px-4 py-3 text-sm leading-6"
+                class="surface-strong text-secondary mt-4 rounded-lg px-4 py-3 text-sm leading-6"
               >
                 <span class="accent-text font-bold">이 관점에서</span>
                 {{ projectTrackNote(project) }}
               </p>
 
-              <img
-                v-if="'image' in project && project.image"
-                :src="project.image.src"
-                :alt="project.image.alt"
-                loading="lazy"
-                decoding="async"
-                class="mt-4 max-h-80 w-full rounded-lg border border-[var(--border)] bg-[var(--surface-soft)] object-contain p-3"
-              />
+              <!-- 핵심 성과 1줄 (전체는 상세에서) -->
+              <p class="maple-label maple-pixel mt-5 -mb-1 text-xs">🎯 목표</p>
+              <p class="text-secondary mt-4 flex items-start gap-2 text-sm leading-6">
+                <CircleCheck class="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
+                {{ project.highlights[0] }}
+              </p>
 
-              <p class="maple-label maple-pixel mt-5 -mb-2 text-xs">🎯 목표</p>
-              <ul :class="['text-secondary mt-5 grid gap-3 text-sm leading-6', highlightGridClass(project.highlights.length)]">
-                <li
-                  v-for="highlight in project.highlights"
-                  :key="highlight"
-                  class="surface-strong rounded-lg p-4"
-                >
-                  <CircleCheck class="mb-3 h-4 w-4 text-emerald-500" />
-                  {{ highlight }}
-                </li>
-              </ul>
-
-              <p class="maple-label maple-pixel mt-5 -mb-2 text-xs">🎁 보상 아이템</p>
-              <div class="mt-5 flex flex-wrap gap-2">
+              <p class="maple-label maple-pixel mt-5 -mb-1 text-xs">🎁 보상 아이템</p>
+              <div class="mt-4 flex flex-wrap gap-2">
                 <span
                   v-for="stack in project.stack"
                   :key="stack"
@@ -148,6 +104,16 @@
                   {{ stack }}
                 </span>
               </div>
+
+              <button
+                type="button"
+                class="focus-ring accent-text mt-6 inline-flex items-center gap-1.5 self-start rounded-md text-sm font-bold transition hover:gap-2.5"
+                :aria-label="`${project.shortTitle} 자세히 보기`"
+                @click.stop="openDetail(project)"
+              >
+                자세히 보기
+                <ArrowRight class="h-4 w-4" />
+              </button>
             </div>
           </div>
         </article>
@@ -159,30 +125,33 @@
       </p>
     </div>
 
-    <!-- ── Case Study Modal ── -->
+    <!-- ── Project Detail Modal ── -->
     <Teleport to="body">
       <Transition name="modal">
         <div
-          v-if="activeCaseStudy"
+          v-if="activeProject"
           class="case-study-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
-          :aria-labelledby="caseStudyTitleId"
-          @click.self="closeCaseStudy"
+          :aria-labelledby="detailTitleId"
+          @click.self="closeDetail"
         >
           <div ref="modalRef" class="case-study-modal max-h-[88vh] w-full max-w-4xl overflow-hidden rounded-xl">
             <div class="flex items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
               <div>
-                <p class="section-kicker">Case Study</p>
-                <h3 :id="caseStudyTitleId" class="text-primary mt-2 text-2xl font-black">
-                  {{ activeCaseStudy.title }}
+                <p class="section-kicker">{{ hasCaseStudy ? "Case Study" : "Project Detail" }}</p>
+                <h3 :id="detailTitleId" class="text-primary mt-2 text-2xl font-black">
+                  {{ activeProject.title }}
                 </h3>
+                <p class="text-muted mt-2 text-sm">
+                  {{ activeProject.period }} · {{ activeProject.team }} · {{ activeProject.role }}
+                </p>
               </div>
               <button
                 type="button"
                 class="focus-ring surface-strong text-primary inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:text-[var(--accent-strong)]"
-                aria-label="케이스 스터디 닫기"
-                @click="closeCaseStudy"
+                aria-label="상세 닫기"
+                @click="closeDetail"
               >
                 <X class="h-5 w-5" />
               </button>
@@ -190,12 +159,12 @@
 
             <!-- aria-live: 로딩 상태 변화를 스크린리더에 알림 -->
             <div
-              class="max-h-[calc(88vh-96px)] overflow-y-auto p-5 md:p-8"
+              class="max-h-[calc(88vh-110px)] overflow-y-auto p-5 md:p-8"
               aria-live="polite"
               aria-atomic="true"
             >
-              <!-- 스켈레톤 로딩 -->
-              <div v-if="caseStudyStatus === 'loading'" class="space-y-5" role="status">
+              <!-- 스켈레톤 로딩 (마크다운 케이스 스터디 불러오는 중) -->
+              <div v-if="detailStatus === 'loading'" class="space-y-5" role="status">
                 <div class="skeleton h-8 w-3/5 rounded-lg"></div>
                 <div class="space-y-2">
                   <div class="skeleton h-4 w-full rounded"></div>
@@ -218,7 +187,7 @@
 
               <!-- 에러 + 재시도 버튼 -->
               <div
-                v-else-if="caseStudyStatus === 'error'"
+                v-else-if="detailStatus === 'error'"
                 class="flex flex-col items-center gap-4 py-10 text-center"
               >
                 <p class="text-secondary leading-7">내용을 불러오지 못했습니다.</p>
@@ -232,7 +201,69 @@
                 </button>
               </div>
 
-              <div v-else class="case-study-prose" v-html="caseStudyHtml"></div>
+              <!-- 마크다운 케이스 스터디 (실무 프로젝트) -->
+              <div v-else-if="detailHtml" class="case-study-prose" v-html="detailHtml"></div>
+
+              <!-- 데이터 기반 구조화 상세 (케이스 스터디가 없는 프로젝트) -->
+              <div v-else class="space-y-7">
+                <img
+                  v-if="'image' in activeProject && activeProject.image"
+                  :src="activeProject.image.src"
+                  :alt="activeProject.image.alt"
+                  decoding="async"
+                  class="max-h-96 w-full rounded-lg border border-[var(--border)] bg-[var(--surface-soft)] object-contain p-3"
+                />
+
+                <p class="text-secondary leading-7">{{ activeProject.summary }}</p>
+
+                <p
+                  v-if="'scope' in activeProject && activeProject.scope"
+                  class="text-secondary text-sm leading-6"
+                >
+                  <span class="text-primary font-bold">핵심 담당 범위</span>
+                  <span class="mx-2 text-white/20">/</span>
+                  {{ activeProject.scope }}
+                </p>
+
+                <div>
+                  <p class="text-primary mb-3 font-black">주요 작업</p>
+                  <ul class="grid gap-3">
+                    <li
+                      v-for="highlight in activeProject.highlights"
+                      :key="highlight"
+                      class="surface-strong text-secondary rounded-lg p-4 text-sm leading-6"
+                    >
+                      <CircleCheck class="mb-3 h-4 w-4 text-emerald-500" />
+                      {{ highlight }}
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <p class="text-primary mb-3 font-black">기술 스택</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      v-for="stack in activeProject.stack"
+                      :key="stack"
+                      class="tech-chip surface-strong text-secondary inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-bold"
+                    >
+                      <TechIcon :name="stack" />
+                      {{ stack }}
+                    </span>
+                  </div>
+                </div>
+
+                <a
+                  v-if="externalLink"
+                  :href="externalLink.href"
+                  target="_blank"
+                  rel="noreferrer"
+                  class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+                >
+                  <ExternalLink class="h-4 w-4" />
+                  {{ externalLink.label }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -243,7 +274,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { ArrowRight, CircleCheck, RotateCw, X } from "@lucide/vue";
+import { ArrowRight, CircleCheck, ExternalLink, RotateCw, X } from "@lucide/vue";
 import TechIcon from "@/components/TechIcon.vue";
 import { focusTracks, projects } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";
@@ -285,18 +316,26 @@ const filteredProjects = computed(() =>
     : orderedProjects.value
 );
 
-// ── Case Study Modal ────────────────────────────────────────────────────────
-const activeCaseStudy = ref<Project | null>(null);
-const caseStudyHtml = ref("");
-const caseStudyStatus = ref<"idle" | "loading" | "ready" | "error">("idle");
+// ── Project Detail Modal ────────────────────────────────────────────────────
+// 모든 프로젝트가 상세 모달을 연다. 마크다운 케이스 스터디(실무 프로젝트)는
+// /case-studies/*.md를 불러와 렌더하고, 그 외 프로젝트는 데이터 기반 구조화 상세를 보여준다.
+const activeProject = ref<Project | null>(null);
+const detailHtml = ref(""); // 마크다운 케이스 스터디 HTML (있는 경우에만)
+const detailStatus = ref<"idle" | "loading" | "ready" | "error">("idle");
 const caseStudyCache = new Map<string, string>();
-const caseStudyTitleId = "case-study-title";
+const detailTitleId = "project-detail-title";
 
 const modalRef = ref<HTMLElement | null>(null);
 const triggerEl = ref<HTMLElement | null>(null);
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-// marked·DOMPurify는 case study 모달을 처음 열 때만 동적 로드 (초기 번들 절감)
+const caseLink = (project: Project) => project.links?.find((item) => item.type === "case");
+const hasCaseStudy = computed(() => !!(activeProject.value && caseLink(activeProject.value)));
+const externalLink = computed(
+  () => activeProject.value?.links?.find((item) => item.type !== "case") ?? null
+);
+
+// marked·DOMPurify는 케이스 스터디를 처음 열 때만 동적 로드 (초기 번들 절감)
 let mdLibs: { parse: (md: string) => string | Promise<string>; sanitize: (html: string) => string } | null = null;
 const loadMarkdownLibs = async () => {
   if (mdLibs) return mdLibs;
@@ -309,58 +348,63 @@ const loadMarkdownLibs = async () => {
   return mdLibs;
 };
 
-const fetchCaseStudy = async (project: Project) => {
-  caseStudyHtml.value = "";
-  caseStudyStatus.value = "loading";
-
-  const link = project.links?.find((item) => item.type === "case");
-  if (!link) { caseStudyStatus.value = "error"; return; }
+const fetchCaseStudy = async (href: string) => {
+  detailHtml.value = "";
+  detailStatus.value = "loading";
 
   try {
-    if (caseStudyCache.has(link.href)) {
-      caseStudyHtml.value = caseStudyCache.get(link.href) ?? "";
-      caseStudyStatus.value = "ready";
+    if (caseStudyCache.has(href)) {
+      detailHtml.value = caseStudyCache.get(href) ?? "";
+      detailStatus.value = "ready";
       return;
     }
     const [{ parse, sanitize }, response] = await Promise.all([
       loadMarkdownLibs(),
-      fetch(link.href),
+      fetch(href),
     ]);
     if (!response.ok) throw new Error("fetch failed");
     const markdown = await response.text();
     const rawHtml = await parse(markdown.replace(/^# .+\r?\n+/, ""));
     const html = sanitize(rawHtml);
-    caseStudyCache.set(link.href, html);
-    caseStudyHtml.value = html;
-    caseStudyStatus.value = "ready";
+    caseStudyCache.set(href, html);
+    detailHtml.value = html;
+    detailStatus.value = "ready";
   } catch {
-    caseStudyStatus.value = "error";
+    detailStatus.value = "error";
   }
 };
 
-const openCaseStudy = (project: Project) => {
+const openDetail = (project: Project) => {
   triggerEl.value = document.activeElement as HTMLElement;
-  activeCaseStudy.value = project;
-  fetchCaseStudy(project);
+  activeProject.value = project;
+  const link = caseLink(project);
+  if (link) {
+    fetchCaseStudy(link.href);
+  } else {
+    // 마크다운이 없는 프로젝트는 데이터 기반 구조화 상세를 즉시 표시
+    detailHtml.value = "";
+    detailStatus.value = "ready";
+  }
 };
 
 const retryLoad = () => {
-  if (activeCaseStudy.value) fetchCaseStudy(activeCaseStudy.value);
+  const link = activeProject.value && caseLink(activeProject.value);
+  if (link) fetchCaseStudy(link.href);
 };
 
-const closeCaseStudy = () => {
-  activeCaseStudy.value = null;
-  caseStudyHtml.value = "";
-  caseStudyStatus.value = "idle";
+const closeDetail = () => {
+  activeProject.value = null;
+  detailHtml.value = "";
+  detailStatus.value = "idle";
   nextTick(() => triggerEl.value?.focus());
 };
 
 const handleKeydown = (event: KeyboardEvent) => {
-  if (event.key === "Escape" && activeCaseStudy.value) {
-    closeCaseStudy();
+  if (event.key === "Escape" && activeProject.value) {
+    closeDetail();
     return;
   }
-  if (event.key === "Tab" && activeCaseStudy.value && modalRef.value) {
+  if (event.key === "Tab" && activeProject.value && modalRef.value) {
     const focusable = [...modalRef.value.querySelectorAll<HTMLElement>(FOCUSABLE)];
     if (!focusable.length) return;
     const first = focusable[0];
@@ -373,7 +417,7 @@ const handleKeydown = (event: KeyboardEvent) => {
   }
 };
 
-watch(activeCaseStudy, (project) => {
+watch(activeProject, (project) => {
   document.body.style.overflow = project ? "hidden" : "";
   if (project) {
     nextTick(() => modalRef.value?.querySelector<HTMLElement>(FOCUSABLE)?.focus());
@@ -389,9 +433,6 @@ onBeforeUnmount(() => {
   window.removeEventListener("keydown", handleKeydown);
   document.body.style.overflow = "";
 });
-
-const highlightGridClass = (count: number) =>
-  count > 3 ? "md:grid-cols-2" : "md:grid-cols-3";
 
 // ── v-tilt: 포인터 기반 미세 3D 기울기 (마우스 기기 + 모션 허용 시에만) ──
 type TiltHandlers = { onMove: (e: MouseEvent) => void; onLeave: () => void };
