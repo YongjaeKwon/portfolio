@@ -3,7 +3,7 @@ import type { FocusTrackId } from "@/data/portfolio";
 
 const trackIds = new Set<FocusTrackId>(["frontend", "product", "fullstack"]);
 
-const DEFAULT_TRACK: FocusTrackId = "product";
+const DEFAULT_TRACK: FocusTrackId = "frontend";
 
 const readTrackFromUrl = (): FocusTrackId => {
   if (typeof window === "undefined") return DEFAULT_TRACK;
