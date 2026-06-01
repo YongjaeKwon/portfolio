@@ -29,7 +29,7 @@
           :class="['reveal surface interactive-surface rounded-xl p-6', `reveal-d${idx + 1}`]"
         >
           <div class="flex items-center gap-3">
-            <div :class="['grid h-11 w-11 place-items-center rounded-lg border', toneClass(group.tone)]">
+            <div class="grid h-11 w-11 place-items-center rounded-lg border border-white/8 bg-white/4 text-white/45">
               <component :is="iconMap[group.icon]" class="h-5 w-5" />
             </div>
             <h3 class="text-primary text-xl font-black">{{ group.title }}</h3>
@@ -134,7 +134,4 @@ const iconMap: Record<string, Component> = {
   Server,
   Smartphone,
 };
-
-const toneClass = (_tone: string) =>
-  "border-white/8 bg-white/4 text-white/45";
 </script>

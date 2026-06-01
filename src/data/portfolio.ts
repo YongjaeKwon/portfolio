@@ -287,56 +287,6 @@ export const focusTracks: Array<{
   },
 ];
 
-export const strengths = [
-  {
-    title: "업무 단계 화면 구현",
-    description: "교육 등록, AS 접수, 개인정보 동의, 전자서명처럼 사용자가 단계별로 진행하는 화면을 구현했습니다.",
-    icon: "MonitorSmartphone",
-  },
-  {
-    title: "운영 데이터 UI",
-    description: "Vue, WebSquare, JSP 화면에서 등록, 업로드, 발송, 조회, 통계, 이력 확인이 이어지는 관리자 기능을 개발했습니다.",
-    icon: "PanelTop",
-  },
-  {
-    title: "상태와 예외 처리",
-    description: "파일, 메일, 문자, 알림톡, WebSocket 응답을 성공·실패·예외 상태에 맞춰 화면에 반영했습니다.",
-    icon: "Workflow",
-  },
-  {
-    title: "데이터 조건 이해",
-    description: "권한, 상태값, 기간, 조직 조건에 따른 MyBatis SQL 문제를 재현하고 화면/API/데이터 흐름을 함께 점검합니다.",
-    icon: "ShieldCheck",
-  },
-];
-
-export const jobFit = [
-  {
-    label: "Vue 관리자 화면 경험",
-    description:
-      "PPS 협력사 포탈에서 Vue 기반 관리자 화면, Tabulator 그리드, Spring Boot API 연동 기능을 개발했습니다.",
-    icon: "Layers",
-  },
-  {
-    label: "API와 SQL 흐름 이해",
-    description:
-      "권한 조건, MyBatis 동적 SQL, 데이터 조회 흐름을 함께 보며 API 응답과 화면 요구사항 사이의 간극을 줄입니다.",
-    icon: "Database",
-  },
-  {
-    label: "업무 흐름 end-to-end 이해",
-    description:
-      "등록, 업로드, 발송, 조회, 이력 확인으로 이어지는 운영 흐름을 화면, API, SQL 관점에서 함께 확인합니다.",
-    icon: "Smartphone",
-  },
-  {
-    label: "상태 중심 화면 구현",
-    description:
-      "외부 API, 인증, WebSocket, 파일 처리 결과를 화면 상태로 연결해 사용자가 현재 상태를 놓치지 않도록 구현합니다.",
-    icon: "RadioTower",
-  },
-];
-
 export const projects = [
   {
     title: "협력사 포탈 시스템",
@@ -346,7 +296,6 @@ export const projects = [
     role: "백엔드 및 Vue 화면 개발",
     scope: "교육관리, 고객사 담당자(CE) 현황, 댓글 공통화, 공지 읽음 이력, OTP 예외, 메일·엑셀 처리",
     category: "Admin Platform",
-    accent: "emerald",
     summary:
       "수십 개 협력사가 사용하는, 협력사·고객사 담당자(CE)·교육·계약·공지·설문 관리용 Spring Boot 3 기반 B2B 운영 포탈입니다. Vue 화면·Tabulator 그리드·Spring Boot API·MyBatis SQL을 전담하며 포탈 전반의 화면을 두루 담당했고, 교육 등록→대상자 업로드→메일 발송→제출 현황 조회까지 이어지는 관리자 업무 흐름을 처음부터 끝까지 구현했습니다.",
     highlights: [
@@ -372,7 +321,6 @@ export const projects = [
     role: "프론트엔드 주담당",
     scope: "모바일 AS 접수, 개인정보 동의, QR 확인, 태블릿 전자서명, 알림톡 결과 처리",
     category: "Mobile Workflow",
-    accent: "cyan",
     summary:
       "일 수십 건의 AS(수리·점검) 접수·상담·이관·배정·배송·동의·서명이 데스크톱·모바일·태블릿에서 이어지는, WebSquare/JSP(기업용 UI 프레임워크) 기반 운영 시스템입니다. 현장 사용자의 QR 확인·전자서명부터 내부 담당자의 상태 조회·알림 발송까지, 디바이스가 달라도 업무 흐름이 끊기지 않도록 프론트엔드를 주담당했습니다.",
     highlights: [
@@ -398,7 +346,6 @@ export const projects = [
     role: "백엔드 및 화면 개발",
     scope: "자산 현황·대시보드, 권한별 조회 범위, 상태 집계, 정기 집계(배치)·유상 수리 처리(유상처리) 화면 개선",
     category: "Asset Management",
-    accent: "blue",
     summary:
       "교육청 단위 대규모 IT 자산을 등록·대여·반납·폐기·이력 관리 단계로 운영하는 Spring MVC 기반 업무 시스템입니다. 교육청→학교→부서 3단계 권한 계층에 따라 조회 범위·대시보드 집계·상태 분기가 달라지는 복잡한 조건을 화면과 SQL에 일관되게 반영했습니다.",
     highlights: [
@@ -424,7 +371,6 @@ export const projects = [
     role: "운영 기능 개선 및 신규 기능 개발",
     scope: "일정, 설문, 물류·재고, 리포트/KPI, 엑셀 다운로드, 관리자 이력 조회 개선",
     category: "Internal Operations",
-    accent: "amber",
     summary:
       "Nexacro(기업용 UI 프레임워크)·Spring MVC 기반 물류·서비스 운영 시스템에서 약 1년간 일정·설문·재고·리포트·KPI·이력 등 20여 개 운영 화면을 개선·신규 개발하고 100여 건의 운영 이슈에 대응했습니다. 운영자가 반복 확인하는 통계 결과가 화면 필터·SQL 조건·엑셀 다운로드에서 동일한 기준으로 나오도록 맞추는 데 집중했습니다.",
     highlights: [
@@ -450,7 +396,6 @@ export const projects = [
     role: "PM 및 프론트엔드·AI 연동",
     scope: "메인 화면, 그림 그리기 화면, 그림 입력(Canvas), AI 판별 API 연동, 점수·경험치 흐름",
     category: "Interactive Learning",
-    accent: "cyan",
     summary:
       "영어가 어려운 아이들이 애니메이션 따라 말하기(shadowing)와 그림 그리기 게임으로 영어 표현과 단어를 학습하는 SSAFY 팀 프로젝트입니다. React/TypeScript 기반 메인 화면과 그림 그리기 화면을 담당하며, 그림 입력(Canvas)→AI 판별 요청→정답/오답/점수/경험치 흐름을 게임 경험으로 연결했습니다.",
     highlights: [
@@ -476,7 +421,6 @@ export const projects = [
     role: "프론트엔드 및 일정 관리",
     scope: "학습방, 피드, 마크다운 학습일지, GitHub 커밋 연동, 실시간 학습방 상태",
     category: "Study Platform",
-    accent: "violet",
     summary:
       "개발자가 학습 내용을 기록하고 공유할 수 있도록 만든 SSAFY 팀 프로젝트입니다. Vue 3/Pinia 기반 화면에서 Todo, Markdown 학습일지, Feed, 학습방, GitHub commit 연동 흐름을 구현했고, WebSocket 기반 실시간 room 기능 일부를 담당했습니다.",
     highlights: [
@@ -502,7 +446,6 @@ export const projects = [
     role: "개인 학습 프로젝트",
     scope: "React 대시보드, FastAPI API, WebSocket, JWT 인증, Docker Compose 서비스 구성",
     category: "Trading Platform",
-    accent: "amber",
     summary:
       "시장 데이터 수집·전략 백테스트·실거래 실행 구조를 직접 만들어 보는 개인 학습 프로젝트입니다. FastAPI 백엔드와 React/TypeScript 대시보드를 6개 컨테이너로 분리해 서비스 구조와 백엔드 설계를 직접 체험하고 있습니다.",
     highlights: [
@@ -528,7 +471,6 @@ export const projects = [
     role: "프론트엔드 개발",
     scope: "성능 테스트 UI, 테스트 대상 서버 URL 소유권 인증, 중첩 입력 폼, 공통 모달 컴포넌트",
     category: "Next.js Tooling",
-    accent: "violet",
     summary:
       "Figma, API 명세, 요청 테스트, 유스케이스 테스트, 성능 테스트를 한 공간에서 연결한 SSAFY 팀 프로젝트입니다. Next.js와 TypeScript 기반으로 성능 테스트 UI, BaseURL 인증 가드, 공통 Modal 컴포넌트를 구현했고 심화 프로젝트 우수상을 수상했습니다.",
     highlights: [
@@ -586,25 +528,21 @@ export const techGroups = [
   {
     title: "Frontend",
     icon: "Code",
-    tone: "cyan",
     items: ["HTML5", "CSS3", "SASS/SCSS", "JavaScript", "TypeScript", "Vue.js", "React", "Next.js", "Zustand", "Pinia", "Redux", "React Query", "React Hook Form", "Canvas", "JSP", "WebSquare", "Nexacro", "jQuery"],
   },
   {
     title: "Backend",
     icon: "Server",
-    tone: "emerald",
     items: ["Java", "Spring Boot", "Spring MVC", "Spring Security", "MyBatis", "FastAPI", "Python", "REST API", "JWT", "WebSocket"],
   },
   {
     title: "Database",
     icon: "Database",
-    tone: "amber",
     items: ["MariaDB", "Oracle", "PostgreSQL", "Redis", "SQLite", "PL/SQL"],
   },
   {
     title: "Tools & Libraries",
     icon: "Boxes",
-    tone: "violet",
     items: ["Git", "SVN", "Maven", "Gradle", "Docker", "Docker Compose", "Nginx", "Node.js", "Vite", "TailwindCSS", "Chart.js", "Tabulator", "Figma"],
   },
 ];

@@ -29,7 +29,7 @@
             class="maple-lv-badge maple-pixel items-center gap-2 rounded-full border-2 px-4 py-2 text-sm font-bold"
             style="border-color: var(--border-strong); background: var(--surface-soft); color: var(--accent-strong)"
           >
-            🗡️ Lv.290 도적
+            🗡️ Lv.{{ mapleLevel }} 운영 도적
           </div>
         </div>
 
@@ -55,13 +55,12 @@
 
         <div class="hero-enter hero-enter-d5 mt-6 max-w-3xl">
           <p class="section-kicker">Focus</p>
-          <div class="mt-3 flex flex-wrap gap-2" role="tablist" aria-label="경험 관점 선택">
+          <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="경험 관점 선택">
             <button
               v-for="track in focusTracks"
               :key="track.id"
               type="button"
-              role="tab"
-              :aria-selected="activeTrack === track.id"
+              :aria-pressed="activeTrack === track.id"
               :class="[
                 'focus-ring tech-chip surface-strong rounded-md px-3 py-2 text-sm font-bold transition',
                 activeTrack === track.id ? 'filter-chip-active' : 'text-secondary hover:text-primary',
@@ -136,7 +135,8 @@
           </div>
         </div>
 
-        <!-- 🍁 메이플 모드: 도적 스탯 (LUK 메인) -->
+        <!-- 🍁 메이플 모드: 도적 스탯 (LUK 메인) — 실제 직무 강점을 능력치로 표현 -->
+        <p class="maple-label maple-pixel mt-5 -mb-2 max-w-2xl text-xs">📊 능력치 · 직무 강점</p>
         <div class="maple-statblock mt-4 max-w-2xl grid-cols-4 gap-2">
           <div v-for="s in thiefStats" :key="s.k" class="surface rounded-lg p-3 text-center">
             <p class="maple-pixel text-base font-bold" style="color: var(--accent-strong)">{{ s.v }}</p>
@@ -219,19 +219,39 @@ const activeTrackData = computed(
   () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
 );
 
-// 🍁 메이플 모드 게이지 (HP/MP/EXP) — heroStats 데이터를 게임 UI로 표현
+// 🍁 메이플 캐릭터 정보 — 실제 경력·실적 데이터를 게임 UI로 변환 (임의 수치 X)
+// 경력 시작(heroStats[1] = "2024.06")에서 현재까지의 개월 수를 매번 계산해 레벨/EXP로 사용
+const [careerStartYear, careerStartMonth] = heroStats[1].value.split(".").map(Number);
+const now = new Date();
+const careerMonths = Math.max(
+  1,
+  (now.getFullYear() - careerStartYear) * 12 + (now.getMonth() + 1 - careerStartMonth)
+);
+// 레벨 = 누적 경력 개월 수 (정직하게 경력에서 산출)
+const mapleLevel = careerMonths;
+
+// EXP = 시니어(5년차) 목표 대비 누적 경력 진행률 — 항상 채워지고 꾸준히 성장
+const SENIOR_GOAL_MONTHS = 60;
+const expPct = Math.min(100, Math.round((careerMonths / SENIOR_GOAL_MONTHS) * 100));
+
+// 게이지: HP=투입 시스템, MP=운영 이슈 대응, EXP=시니어까지 경력 진행률
 const mapleGauges = [
   { key: "hp", label: `HP · ${heroStats[0].label}`, value: heroStats[0].value + heroStats[0].unit, pct: 100 },
-  { key: "exp", label: `EXP · since ${heroStats[1].value}`, value: "64.0%", pct: 64 },
   { key: "mp", label: `MP · ${heroStats[2].label}`, value: heroStats[2].value + heroStats[2].unit, pct: 100 },
+  {
+    key: "exp",
+    label: "EXP · 5년차 시니어까지",
+    value: `${careerMonths} / ${SENIOR_GOAL_MONTHS}개월`,
+    pct: expPct,
+  },
 ];
 
-// 🍁 도적 스탯 — 도적은 LUK 메인
+// 도적 스탯(LUK 메인) — 실제 직무 강점에 매핑, 수치는 레벨에 맞춘 그럴듯한 분배
 const thiefStats = [
-  { k: "LUK", v: "999", note: "문제해결·운영" },
-  { k: "DEX", v: "820", note: "구현 속도" },
-  { k: "INT", v: "760", note: "학습·탐구" },
-  { k: "STR", v: "540", note: "끈기·체력" },
+  { k: "LUK", v: "64", note: "문제 해결·정합성" },
+  { k: "DEX", v: "48", note: "화면·API 구현" },
+  { k: "INT", v: "35", note: "새 스택 학습" },
+  { k: "STR", v: "22", note: "운영 대응 끈기" },
 ];
 
 const emit = defineEmits<{
