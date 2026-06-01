@@ -1,8 +1,8 @@
 # Yongjae Kwon Portfolio
 
-프론트엔드 개발자로서 실무 경험과 개인 프로젝트를 정리한 포트폴리오입니다.
+웹 개발자로서 실무 경험과 개인 프로젝트를 정리한 포트폴리오입니다.
 
-운영 중인 B2B·B2G 시스템에서 쌓은 관리자 화면 개발, REST API 연동, Vue.js 화면 개발, 권한·조회 조건 처리, MyBatis SQL 점검, 메일·파일·인증 연동 경험을 프론트엔드 직무 관점으로 보여주는 것을 목표로 합니다. 개인·팀 프로젝트에서는 React, TypeScript, Next.js, Redux, Zustand, React Query, Canvas, FastAPI, WebSocket, Docker Compose를 활용해 실시간 데이터 대시보드, 개발자 도구형 UI, AI 연동 학습 화면을 다뤘습니다.
+운영 중인 B2B·B2G 시스템에서 쌓은 관리자 화면 개발, REST API 연동, Vue.js 화면 개발, 권한·조회 조건 처리, MyBatis SQL 점검, 메일·파일·인증 연동 경험을 역할 관점별로 보여주는 것을 목표로 합니다. 개인·팀 프로젝트에서는 React, TypeScript, Next.js, Redux, Zustand, React Query, Canvas, FastAPI, WebSocket, Docker Compose를 활용해 실시간 데이터 대시보드, 개발자 도구형 UI, AI 연동 학습 화면을 다뤘습니다.
 
 ## Design Direction
 
@@ -18,7 +18,7 @@
 
 ## Positioning
 
-**웹 프론트엔드 개발자**
+**운영 흐름을 이해하는 웹 개발자**
 
 - 운영자가 반복해서 쓰는 관리자 화면과 업무 단계형 화면 개발 경험
 - 등록, 업로드, 발송, 조회, 이력 확인이 이어지는 업무 흐름 구현 경험
@@ -26,6 +26,18 @@
 - REST API, 인증, 메일, 파일, 알림 발송 결과와 화면 상태 연결 경험
 - 권한, 조직, 기간, 상태값에 따른 조회 조건과 MyBatis SQL 흐름 이해
 - React / TypeScript / Next.js 기반 실시간 데이터 대시보드와 개발자 도구형 UI 경험
+
+## Application Tracks
+
+하나의 배포 사이트 안에서 지원 방향에 맞는 내용을 보여주기 위해 `track` 쿼리 파라미터를 사용합니다.
+
+| 지원 방향 | URL | 이력서 |
+| --- | --- | --- |
+| Frontend | `/` | `public/resume.pdf` |
+| Product Engineer | `/?track=product` | `public/resume-product.pdf` |
+| Fullstack Web Developer | `/?track=fullstack` | `public/resume-fullstack.pdf` |
+
+지원 목적에 따라 Frontend, Product Engineer, Fullstack 관점으로 같은 경험을 다르게 탐색할 수 있습니다. 개별 공고 분석 메모는 로컬 또는 비공개 문서로 관리합니다.
 
 ## Featured Projects
 
@@ -134,8 +146,9 @@ src/
   data/portfolio.ts  포트폴리오 프로필, 프로젝트, 기술 데이터
   views/             섹션 단위 화면
 docs/
-  frontend-resume-draft.md   이력서 상세 초안
   frontend-resume-submit.md  제출용 간결 이력서
+  frontend-resume-product.md Product Engineer용 이력서
+  frontend-resume-fullstack.md Fullstack용 이력서
 ```
 
 ## Getting Started
@@ -161,4 +174,4 @@ Vite 기반 정적 사이트이므로 Vercel 또는 Netlify에 배포할 수 있
 
 ## Resume
 
-제출용 이력서 초안은 [docs/frontend-resume-submit.md](docs/frontend-resume-submit.md)에 정리되어 있습니다.
+제출용 이력서 초안은 [docs/frontend-resume-submit.md](docs/frontend-resume-submit.md)에 정리되어 있습니다. 역할 관점별 이력서 초안을 함께 관리합니다.

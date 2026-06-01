@@ -36,7 +36,7 @@
         <!-- Neutral badge — no cyan bg -->
         <div class="hero-enter hero-enter-d1 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white/40">
           <Radar class="h-4 w-4" />
-          Frontend · Operation UI
+          {{ activeTrackData.badge }}
         </div>
 
         <!-- Pure white — size and weight IS the statement -->
@@ -47,11 +47,31 @@
           {{ displayRole }}<span v-if="showCursor" class="typing-cursor" aria-hidden="true"></span>
         </p>
         <p class="hero-enter hero-enter-d4 text-secondary mt-6 max-w-3xl text-lg leading-8">
-          {{ profile.headline }}
+          {{ activeTrackData.headline }}
         </p>
         <p class="hero-enter hero-enter-d4 text-muted mt-3 max-w-3xl text-base leading-7">
-          {{ profile.target }}
+          {{ activeTrackData.target }}
         </p>
+
+        <div class="hero-enter hero-enter-d5 mt-6 max-w-3xl">
+          <p class="section-kicker">Focus</p>
+          <div class="mt-3 flex flex-wrap gap-2" role="tablist" aria-label="경험 관점 선택">
+            <button
+              v-for="track in focusTracks"
+              :key="track.id"
+              type="button"
+              role="tab"
+              :aria-selected="activeTrack === track.id"
+              :class="[
+                'focus-ring tech-chip surface-strong rounded-md px-3 py-2 text-sm font-bold transition',
+                activeTrack === track.id ? 'filter-chip-active' : 'text-secondary hover:text-primary',
+              ]"
+              @click="setActiveTrack(track.id)"
+            >
+              {{ track.label }}
+            </button>
+          </div>
+        </div>
 
         <div class="hero-enter hero-enter-d5 mt-8 flex flex-wrap gap-3">
           <!-- CTA: the ONE place cyan lives -->
@@ -64,7 +84,7 @@
             <ArrowRight class="h-4 w-4" />
           </button>
           <a
-            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:border-white/20 hover:text-white"
+            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
             :href="profile.github"
             target="_blank"
             rel="noreferrer"
@@ -73,15 +93,15 @@
             <ExternalLink class="h-4 w-4" />
           </a>
           <a
-            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:border-white/20 hover:text-white"
+            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
             :href="`mailto:${profile.email}`"
           >
             Email
             <Mail class="h-4 w-4" />
           </a>
           <a
-            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:border-white/20 hover:text-white"
-            :href="profile.resume"
+            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+            :href="activeTrackData.resume"
             download
           >
             이력서
@@ -132,14 +152,14 @@
           <div>
             <!-- Neutral kicker — no amber -->
             <p class="section-kicker">Work Style</p>
-            <h2 class="text-primary mt-2 text-xl font-black">화면을 만들 때 보는 것</h2>
+            <h2 class="text-primary mt-2 text-xl font-black">{{ activeTrackData.workStyleTitle }}</h2>
           </div>
           <Activity class="h-6 w-6 text-white/25" />
         </div>
 
         <div class="mt-5 grid gap-3">
           <div
-            v-for="(strength, index) in strengths"
+            v-for="(strength, index) in activeTrackData.strengths"
             :key="strength.title"
             class="surface-strong interactive-surface rounded-lg p-4"
           >
@@ -164,7 +184,7 @@
           <div class="flex items-center gap-3">
             <MousePointer2 class="h-4 w-4 text-amber-400/60" />
             <p class="text-sm font-semibold text-white/55">
-              사용자가 막히는 지점을 줄이는 데 신경 씁니다.
+              {{ activeTrackData.workStyleNote }}
             </p>
           </div>
         </div>
@@ -174,7 +194,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import {
   Activity,
   ArrowRight,
@@ -189,10 +209,15 @@ import {
   Workflow,
 } from "@lucide/vue";
 import type { Component } from "vue";
-import { heroStats, profile, strengths } from "@/data/portfolio";
+import { focusTracks, heroStats, profile } from "@/data/portfolio";
+import { useFocusTrack } from "@/composables/useFocusTrack";
 import myPhoto from "@/public/my-photo.png";
 
 const statsEl = ref<HTMLElement | null>(null);
+const { activeTrack, setActiveTrack } = useFocusTrack();
+const activeTrackData = computed(
+  () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
+);
 
 // 🍁 메이플 모드 게이지 (HP/MP/EXP) — heroStats 데이터를 게임 UI로 표현
 const mapleGauges = [
@@ -223,6 +248,26 @@ const iconMap: Record<string, Component> = {
 // Typing animation
 const displayRole = ref("");
 const showCursor = ref(false);
+let roleTimer: ReturnType<typeof setInterval> | undefined;
+let roleDelay: ReturnType<typeof setTimeout> | undefined;
+
+const startRoleTyping = (target: string, delay = 0) => {
+  if (roleTimer) clearInterval(roleTimer);
+  if (roleDelay) clearTimeout(roleDelay);
+  displayRole.value = "";
+  showCursor.value = true;
+  roleDelay = setTimeout(() => {
+    let i = 0;
+    roleTimer = setInterval(() => {
+      displayRole.value = target.slice(0, ++i);
+      if (i >= target.length && roleTimer) {
+        clearInterval(roleTimer);
+        roleTimer = undefined;
+        setTimeout(() => { showCursor.value = false; }, 2200);
+      }
+    }, 55);
+  }, delay);
+};
 
 // ── Stat counters — data-driven from heroStats ──────────────────────────────
 // Parses "4" → count, "2+" → count+suffix, "2024.06" → text reveal
@@ -248,20 +293,13 @@ const animatedStats = computed(() =>
   )
 );
 
+// 카운터 타이머/옵저버 — unmount 시 모두 정리 (누수 방지)
+const counterIntervals: ReturnType<typeof setInterval>[] = [];
+const counterTimeouts: ReturnType<typeof setTimeout>[] = [];
+let statsIO: IntersectionObserver | undefined;
+
 onMounted(() => {
-  // Typing
-  const target = profile.role;
-  let i = 0;
-  showCursor.value = true;
-  setTimeout(() => {
-    const t = setInterval(() => {
-      displayRole.value = target.slice(0, ++i);
-      if (i >= target.length) {
-        clearInterval(t);
-        setTimeout(() => { showCursor.value = false; }, 2800);
-      }
-    }, 75);
-  }, 650);
+  startRoleTyping(activeTrackData.value.role, 650);
 
   // Stat counters — 뷰포트 진입 시 1회 재생
   const TARGET_MS = 440;
@@ -274,26 +312,40 @@ onMounted(() => {
           animatedRaw.value[idx] = ++c;
           if (c >= s.max) clearInterval(t);
         }, step);
+        counterIntervals.push(t);
       } else {
-        setTimeout(() => { animatedRaw.value[idx] = s.final; }, 350);
+        counterTimeouts.push(setTimeout(() => { animatedRaw.value[idx] = s.final; }, 350));
       }
     });
   };
 
   if (statsEl.value) {
-    const io = new IntersectionObserver(
+    statsIO = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
           runCounters();
-          io.disconnect();
+          statsIO?.disconnect();
         }
       },
       { threshold: 0.4 }
     );
-    io.observe(statsEl.value);
+    statsIO.observe(statsEl.value);
   } else {
-    setTimeout(runCounters, 700);
+    counterTimeouts.push(setTimeout(runCounters, 700));
   }
+});
+
+watch(
+  () => activeTrackData.value.role,
+  (role) => startRoleTyping(role)
+);
+
+onBeforeUnmount(() => {
+  if (roleTimer) clearInterval(roleTimer);
+  if (roleDelay) clearTimeout(roleDelay);
+  counterIntervals.forEach(clearInterval);
+  counterTimeouts.forEach(clearTimeout);
+  statsIO?.disconnect();
 });
 </script>
 
