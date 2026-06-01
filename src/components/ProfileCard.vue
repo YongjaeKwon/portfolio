@@ -39,19 +39,19 @@ import { profile } from "@/data/portfolio";
 
 const aboutCards = [
   {
-    label: "Focus",
+    label: "주요 분야",
     value: "웹/모바일 업무 UI",
     icon: MonitorSmartphone,
     iconClass: "text-white/45",
   },
   {
-    label: "Experience",
+    label: "경험",
     value: "운영 시스템 4건",
     icon: Workflow,
     iconClass: "text-white/45",
   },
   {
-    label: "Strength",
+    label: "강점",
     value: "API·SQL 흐름 이해",
     icon: Database,
     iconClass: "text-white/45",

@@ -1,6 +1,6 @@
 # 권용재
 
-Business Flow Web Developer / 업무 흐름 중심 웹 개발자
+Business Systems Web Developer / 업무 시스템·관리자 도구 웹 개발자
 
 - Email: koj185364@naver.com
 - Phone: Available on request
