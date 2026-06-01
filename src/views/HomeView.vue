@@ -29,7 +29,7 @@
             class="maple-lv-badge maple-pixel items-center gap-2 rounded-full border-2 px-4 py-2 text-sm font-bold"
             style="border-color: var(--border-strong); background: var(--surface-soft); color: var(--accent-strong)"
           >
-            🗡️ Lv.{{ mapleLevel }} 운영 도적
+            💻 Lv.{{ mapleLevel }} 개발자
           </div>
         </div>
 
@@ -135,12 +135,12 @@
           </div>
         </div>
 
-        <!-- 🍁 메이플 모드: 도적 스탯 (LUK 메인) — 실제 직무 강점을 능력치로 표현 -->
+        <!-- 🍁 메이플 모드: 개발자 스탯 — 실제 직무 강점을 능력치로 표현 -->
         <p class="maple-label maple-pixel mt-5 -mb-2 max-w-2xl text-xs">📊 능력치 · 직무 강점</p>
         <div class="maple-statblock mt-4 max-w-2xl grid-cols-4 gap-2">
-          <div v-for="s in thiefStats" :key="s.k" class="surface rounded-lg p-3 text-center">
-            <p class="maple-pixel text-base font-bold" style="color: var(--accent-strong)">{{ s.v }}</p>
-            <p class="text-primary mt-1 text-xs font-bold">{{ s.k }}</p>
+          <div v-for="s in developerStats" :key="s.k" class="surface rounded-lg p-3 text-center">
+            <p class="text-primary text-xs font-bold">{{ s.k }}</p>
+            <p class="maple-pixel mt-1 text-base font-bold" style="color: var(--accent-strong)">{{ s.v }}</p>
             <p class="text-muted mt-0.5 text-[10px] leading-tight">{{ s.note }}</p>
           </div>
         </div>
@@ -219,16 +219,31 @@ const activeTrackData = computed(
   () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
 );
 
-// 🍁 메이플 캐릭터 정보 — 실제 경력·실적 데이터를 게임 UI로 변환 (임의 수치 X)
-// 경력 시작(heroStats[1] = "2024.06")에서 현재까지의 개월 수를 매번 계산해 레벨/EXP로 사용
+// 🍁 메이플 캐릭터 정보 — 실제 경력·실적 데이터를 게임 UI로 변환
+// 생일 정보가 공개 번들에 포함되므로 실제 생년월일 반영 시 이 값만 교체합니다.
+const LEVEL_BIRTH_DATE = "1995-06-01";
+
+const calculateKoreanAge = (birthDateText: string) => {
+  const birthDate = new Date(`${birthDateText}T00:00:00`);
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const birthdayThisYear = new Date(
+    today.getFullYear(),
+    birthDate.getMonth(),
+    birthDate.getDate()
+  );
+  if (today < birthdayThisYear) age -= 1;
+  return Math.max(0, age);
+};
+
+// 경력 시작(heroStats[1] = "2024.06")에서 현재까지의 개월 수를 EXP로 사용
 const [careerStartYear, careerStartMonth] = heroStats[1].value.split(".").map(Number);
 const now = new Date();
 const careerMonths = Math.max(
   1,
   (now.getFullYear() - careerStartYear) * 12 + (now.getMonth() + 1 - careerStartMonth)
 );
-// 레벨 = 누적 경력 개월 수 (정직하게 경력에서 산출)
-const mapleLevel = careerMonths;
+const mapleLevel = calculateKoreanAge(LEVEL_BIRTH_DATE);
 
 // EXP = 시니어(5년차) 목표 대비 누적 경력 진행률 — 항상 채워지고 꾸준히 성장
 const SENIOR_GOAL_MONTHS = 60;
@@ -246,12 +261,12 @@ const mapleGauges = [
   },
 ];
 
-// 도적 스탯(LUK 메인) — 실제 직무 강점에 매핑, 수치는 레벨에 맞춘 그럴듯한 분배
-const thiefStats = [
-  { k: "LUK", v: "64", note: "문제 해결·정합성" },
-  { k: "DEX", v: "48", note: "화면·API 구현" },
-  { k: "INT", v: "35", note: "새 스택 학습" },
-  { k: "STR", v: "22", note: "운영 대응 끈기" },
+// Lv.31 기준 총 166 AP로 보수 분배: 화면 구현과 API/SQL 이해를 주력으로 반영
+const developerStats = [
+  { k: "STR", v: "28", note: "운영 대응·완주력" },
+  { k: "DEX", v: "56", note: "화면·API 구현" },
+  { k: "INT", v: "48", note: "SQL·흐름 분석" },
+  { k: "LUK", v: "34", note: "이슈 재현·정합성" },
 ];
 
 const emit = defineEmits<{

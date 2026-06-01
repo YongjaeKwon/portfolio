@@ -660,7 +660,7 @@ a {
 .maple-gauge-mp { background: linear-gradient(90deg, #4a90d9, #54a0ff); }
 .maple-gauge-exp { background: linear-gradient(90deg, #f6c945, #ffe178); }
 
-/* ── 도적 스탯 블록 (STR/DEX/INT/LUK) ── */
+/* ── 개발자 스탯 블록 (STR/DEX/INT/LUK) ── */
 .maple-statblock { display: none; }
 :root[data-skin="maple"] .maple-statblock { display: grid; }
 

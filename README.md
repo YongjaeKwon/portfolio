@@ -19,7 +19,7 @@
 | --- | --- |
 | Live Portfolio | [portfolio-six-inky-14.vercel.app](https://portfolio-six-inky-14.vercel.app/) |
 | Frontend Resume | [resume.pdf](https://portfolio-six-inky-14.vercel.app/resume.pdf) |
-| Product Resume | [resume-product.pdf](https://portfolio-six-inky-14.vercel.app/resume-product.pdf) |
+| Business Flow Resume | [resume-product.pdf](https://portfolio-six-inky-14.vercel.app/resume-product.pdf) |
 | Fullstack Resume | [resume-fullstack.pdf](https://portfolio-six-inky-14.vercel.app/resume-fullstack.pdf) |
 
 ## Recruiter Snapshot
@@ -28,7 +28,7 @@
 | --- | --- |
 | Positioning | 운영자가 반복해서 쓰는 업무 흐름을 화면, API, SQL, 외부 연동까지 연결해 구현합니다. |
 | Core Stack | Vue, React, TypeScript, Java, Spring Boot, Spring MVC, MyBatis, MariaDB, Oracle |
-| Best-fit Roles | Frontend Developer, Web Developer, Product-minded Full-stack Developer |
+| Best-fit Roles | Frontend Developer, Business Flow Web Developer, Full-stack Web Developer |
 | Project Signals | 실무 운영 시스템 4개, OSS/개인 프로젝트 4개, 역할별 이력서 3종 |
 | Privacy | 배포 사이트와 PDF 이력서는 직접 링크용으로 공개하되, 검색 노출을 막기 위해 `noindex` 헤더를 적용했습니다. |
 
@@ -60,7 +60,7 @@
 
 ## Positioning
 
-**운영 흐름을 이해하는 웹 개발자**
+**업무 흐름을 잘 이해하는 웹 개발자**
 
 - 운영자가 반복해서 쓰는 관리자 화면과 업무 단계형 화면 개발 경험
 - 등록, 업로드, 발송, 조회, 이력 확인이 이어지는 업무 흐름 구현 경험
@@ -76,10 +76,10 @@
 | 지원 방향 | URL | 이력서 |
 | --- | --- | --- |
 | Frontend | `/` | `public/resume.pdf` |
-| Product Engineer | `/?track=product` | `public/resume-product.pdf` |
+| Business Flow Web Developer | `/?track=product` | `public/resume-product.pdf` |
 | Fullstack Web Developer | `/?track=fullstack` | `public/resume-fullstack.pdf` |
 
-지원 목적에 따라 Frontend, Product Engineer, Fullstack 관점으로 같은 경험을 다르게 탐색할 수 있습니다. 개별 공고 분석 메모는 로컬 또는 비공개 문서로 관리합니다.
+지원 목적에 따라 Frontend, Business Flow, Fullstack 관점으로 같은 경험을 다르게 탐색할 수 있습니다. 개별 공고 분석 메모는 로컬 또는 비공개 문서로 관리합니다.
 
 ## Featured Projects
 
@@ -189,7 +189,7 @@ src/
   views/             섹션 단위 화면
 docs/
   frontend-resume-submit.md  제출용 간결 이력서
-  frontend-resume-product.md Product Engineer용 이력서
+  frontend-resume-product.md 업무 흐름 중심 이력서
   frontend-resume-fullstack.md Fullstack용 이력서
 ```
 
