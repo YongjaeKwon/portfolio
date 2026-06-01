@@ -127,22 +127,22 @@ export const focusTracks: Array<{
   },
   {
     id: "product",
-    label: "Product",
-    role: "Product Engineer",
-    badge: "Product · Business Flow",
+    label: "Business Flow",
+    role: "Business Flow Web Developer",
+    badge: "Business Flow · Admin Tools",
     headline:
-      "운영자가 끝내야 하는 업무를 먼저 이해하고, 그 흐름이 끊기지 않도록 웹 기능으로 만듭니다.",
+      "사용자가 끝내야 하는 업무 단위를 먼저 이해하고, 화면·API·데이터가 같은 기준으로 이어지게 만듭니다.",
     target:
-      "운영 포탈·관리자 도구·서비스 운영 화면에서 화면·API·SQL·외부 연동을 함께 보며, 반복 운영 흐름이 실제로 완료되는지 기준으로 개발합니다.",
+      "B2B·B2G 포탈, 관리자 도구, 업무 시스템에서 조회·발송·이력·통계가 실제 처리 순서대로 맞물리도록 개발합니다.",
     resume: "/resume-product.pdf",
     workStyleTitle: "업무 흐름을 정리할 때 보는 것",
     workStyleNote: "운영자 입장에서 '이 기능이 끝났다'는 기준을 먼저 찾습니다. 저장 성공이 아니라, 후속 확인까지 완료되는 지점입니다.",
-    contactTitle: "운영 흐름을 이해하는 웹 개발자로 합류하고 싶습니다",
+    contactTitle: "업무 흐름을 잘 이해하는 웹 개발자로 합류하고 싶습니다",
     contactDescription:
       "기능을 화면 단위로만 나누지 않고, 운영자가 어떤 업무를 언제 끝냈다고 볼 수 있는지를 먼저 확인합니다. 공지·발송·조회·이력처럼 반복되는 흐름을 화면과 데이터 기준으로 풀어낸 경험이 있습니다.",
     projectIntro:
       "반복 운영 업무 완료, 이슈 재현·대응, 데이터 정합성 확인 역량이 잘 드러나는 순서로 정리했습니다.",
-    fitTitle: "프로덕트 엔지니어 관점의 강점",
+    fitTitle: "업무 흐름 중심 웹 개발자의 강점",
     fitDescription:
       "요구사항을 기능 목록이 아닌 업무 완료 기준으로 봅니다. 사용자가 어떤 결과를 확인해야 그 업무가 끝나는지를 기준으로 화면과 데이터를 설계합니다.",
     strengths: [

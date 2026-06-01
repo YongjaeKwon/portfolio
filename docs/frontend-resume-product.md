@@ -1,6 +1,6 @@
 # 권용재
 
-Product Engineer / 운영형 웹 개발자
+Business Flow Web Developer / 업무 흐름 중심 웹 개발자
 
 - Email: koj185364@naver.com
 - Phone: Available on request
@@ -9,7 +9,7 @@ Product Engineer / 운영형 웹 개발자
 
 ## Summary
 
-B2B·B2G 운영 시스템에서 관리자 화면, 모바일 업무 화면, REST API 연동, MyBatis SQL, 메일·파일·인증·알림 연동을 함께 다뤄온 운영형 웹 개발자입니다.
+B2B·B2G 업무 시스템에서 관리자 화면, 모바일 업무 화면, REST API 연동, MyBatis SQL, 메일·파일·인증·알림 연동을 함께 다뤄온 웹 개발자입니다.
 
 운영 포탈, 관리자 도구, 데이터 확인 화면처럼 반복 업무와 상태 관리가 중요한 환경에서 강점이 있습니다. 사용자가 실제로 처리하는 등록, 업로드, 발송, 조회, 이력 확인 흐름을 기준으로 화면 상태, API 응답, SQL 조회 조건, 외부 연동 결과가 끊기지 않도록 구현해왔습니다.
 
