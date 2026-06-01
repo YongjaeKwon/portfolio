@@ -5,9 +5,9 @@
         <span class="section-index">05</span>
         <p class="section-kicker">Contact</p>
       </div>
-      <h2 class="reveal reveal-d1 section-title">같이 일하고 싶으시다면</h2>
+      <h2 class="reveal reveal-d1 section-title">함께 일하고 싶으시다면</h2>
       <p class="reveal reveal-d2 section-copy">
-        프론트엔드 개발자 포지션에 관심을 두고 있습니다. 편하게 연락 주세요.
+        위에서 선택한 관점 그대로 — 실무에 빠르게 녹아들 수 있는 팀을 찾고 있습니다. 이력서를 먼저 보셔도 좋고, 이메일로 바로 연락주셔도 됩니다.
       </p>
 
       <div class="reveal reveal-d3 surface mt-10 rounded-xl p-8">
@@ -17,10 +17,9 @@
           <span class="text-xs font-bold text-emerald-500">{{ profile.status }} · 입사일 협의 가능</span>
         </div>
 
-        <h3 class="text-primary text-2xl font-black">프론트엔드 개발자로 합류하고 싶습니다</h3>
+        <h3 class="text-primary text-2xl font-black">{{ activeTrackData.contactTitle }}</h3>
         <p class="text-secondary mt-4 max-w-2xl leading-7">
-          웹·모바일 업무 화면을 실제 사용 흐름에 맞게 구현하는 데 강점이 있습니다.
-          Vue, React, TypeScript 환경 모두 가능하며, API와 데이터 흐름을 함께 이해하며 개발합니다.
+          {{ activeTrackData.contactDescription }}
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3">
@@ -42,7 +41,7 @@
           </a>
           <a
             class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
-            :href="profile.resume"
+            :href="activeTrackData.resume"
             download
           >
             <FileDown class="h-4 w-4" />
@@ -56,5 +55,12 @@
 
 <script setup lang="ts">
 import { ExternalLink, FileDown, Mail } from "@lucide/vue";
-import { profile } from "@/data/portfolio";
+import { computed } from "vue";
+import { focusTracks, profile } from "@/data/portfolio";
+import { useFocusTrack } from "@/composables/useFocusTrack";
+
+const { activeTrack } = useFocusTrack();
+const activeTrackData = computed(
+  () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
+);
 </script>

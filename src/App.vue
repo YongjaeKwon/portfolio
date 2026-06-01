@@ -2,7 +2,7 @@
   <div class="app-root">
     <!-- 접근성: 키보드 사용자를 위한 본문 건너뛰기 -->
     <a
-      href="#projects"
+      href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:px-4 focus:py-2 focus:text-sm focus:font-black accent-bg focus:outline-none"
     >
       본문으로 건너뛰기
@@ -17,18 +17,20 @@
       @toggle-skin="toggle"
       @scroll-to-section="scrollToSection"
     />
-    <HomeView @scroll-to-section="scrollToSection" />
-    <ProfileCard />
-    <div class="maple-divider" aria-hidden="true" />
-    <ProjectsView />
-    <div class="maple-divider" aria-hidden="true" />
-    <ExperienceView />
-    <div class="maple-divider" aria-hidden="true" />
-    <EducationView />
-    <div class="maple-divider" aria-hidden="true" />
-    <TechStackView />
-    <div class="maple-divider" aria-hidden="true" />
-    <ContactView />
+    <main id="main">
+      <HomeView @scroll-to-section="scrollToSection" />
+      <ProfileCard />
+      <div class="maple-divider" aria-hidden="true" />
+      <ProjectsView />
+      <div class="maple-divider" aria-hidden="true" />
+      <ExperienceView />
+      <div class="maple-divider" aria-hidden="true" />
+      <EducationView />
+      <div class="maple-divider" aria-hidden="true" />
+      <TechStackView />
+      <div class="maple-divider" aria-hidden="true" />
+      <ContactView />
+    </main>
     <Footer />
     <ScrollToTop />
 
@@ -41,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import Navbar from "@/components/Navbar.vue";
 import HomeView from "@/views/HomeView.vue";
 import ProfileCard from "@/components/ProfileCard.vue";
@@ -59,6 +61,8 @@ type Theme = "dark" | "light";
 
 const theme = ref<Theme>("dark");
 const { skin, toggle, set: setSkin } = useSkin();
+
+let cleanup: (() => void) | undefined;
 
 const applyTheme = (nextTheme: Theme) => {
   document.documentElement.dataset.theme = nextTheme;
@@ -124,11 +128,13 @@ onMounted(() => {
     }
   }
 
-  return () => {
+  cleanup = () => {
     window.removeEventListener("mousemove", handleMouseMove);
     observer.disconnect();
   };
 });
+
+onBeforeUnmount(() => cleanup?.());
 
 watch(theme, (nextTheme) => {
   applyTheme(nextTheme);
@@ -145,18 +151,22 @@ watch(
 );
 
 type ViewTransitionDoc = Document & {
-  startViewTransition?: (cb: () => void) => { ready: Promise<void> };
+  startViewTransition?: (cb: () => void) => { ready: Promise<void>; finished: Promise<void> };
 };
+
+let themeTransitioning = false;
 
 const toggleTheme = (origin?: { x: number; y: number }) => {
   const next: Theme = theme.value === "dark" ? "light" : "dark";
   const doc = document as ViewTransitionDoc;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (typeof doc.startViewTransition !== "function" || reduced) {
+  // 폴백·모션 비선호·이미 전환 중이면 애니메이션 없이 즉시 전환 (연타 경합 방지)
+  if (typeof doc.startViewTransition !== "function" || reduced || themeTransitioning) {
     theme.value = next;
     return;
   }
+  themeTransitioning = true;
 
   const x = origin?.x ?? window.innerWidth - 40;
   const y = origin?.y ?? 40;
@@ -168,6 +178,8 @@ const toggleTheme = (origin?: { x: number; y: number }) => {
   const transition = doc.startViewTransition(() => {
     theme.value = next;
   });
+
+  transition.finished.finally(() => { themeTransitioning = false; });
 
   transition.ready.then(() => {
     document.documentElement.animate(
@@ -190,7 +202,8 @@ const scrollToSection = (id: string) => {
   const section = document.getElementById(id);
   if (section) {
     section.scrollIntoView({ behavior: "smooth" });
-    history.replaceState(null, "", id === "hero" ? location.pathname : `#${id}`);
+    const hash = id === "hero" ? "" : `#${id}`;
+    history.replaceState(null, "", `${location.pathname}${location.search}${hash}`);
   }
 };
 </script>

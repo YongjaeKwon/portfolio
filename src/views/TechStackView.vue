@@ -7,7 +7,7 @@
       </div>
       <h2 class="reveal reveal-d1 section-title">기술 스택</h2>
       <p class="reveal reveal-d2 section-copy">
-        회사 업무에서 사용한 기술과 개인 프로젝트로 다뤄본 기술을 함께 정리했습니다.
+        {{ activeTrackData.fitDescription }}
       </p>
 
       <!-- 🍁 메이플 모드: 인벤토리 레어도 범례 -->
@@ -62,13 +62,13 @@
 
       <div class="mt-14">
         <p class="section-kicker">Strengths</p>
-        <h3 class="text-primary mt-3 text-2xl font-black md:text-3xl">프론트엔드 개발자로서의 강점</h3>
+        <h3 class="text-primary mt-3 text-2xl font-black md:text-3xl">{{ activeTrackData.fitTitle }}</h3>
         <p class="text-muted mt-3 max-w-3xl leading-7">
-          화면 구현을 중심으로 일해왔고, API와 데이터 흐름을 함께 본 경험이 있습니다.
+          {{ activeTrackData.target }}
         </p>
         <div class="mt-6 grid gap-4 md:grid-cols-2">
           <article
-            v-for="(item, idx) in jobFit"
+            v-for="(item, idx) in activeTrackData.fitItems"
             :key="item.label"
             :class="['reveal surface interactive-surface rounded-xl p-6', `reveal-d${idx + 1}`]"
           >
@@ -99,12 +99,18 @@ import {
   Server,
   Smartphone,
 } from "@lucide/vue";
+import { computed } from "vue";
 import type { Component } from "vue";
 import TechIcon from "@/components/TechIcon.vue";
-import { jobFit, projects, techGroups } from "@/data/portfolio";
+import { focusTracks, projects, techGroups } from "@/data/portfolio";
+import { useFocusTrack } from "@/composables/useFocusTrack";
 import { useProjectFilter } from "@/composables/useProjectFilter";
 
 const { activeFilter } = useProjectFilter();
+const { activeTrack } = useFocusTrack();
+const activeTrackData = computed(
+  () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
+);
 
 /** 적어도 한 프로젝트에서 쓰인 스택 집합 — 클릭 가능 여부 판단에 사용 */
 const stacksInProjects = new Set(projects.flatMap((p) => p.stack));
@@ -115,7 +121,7 @@ const linkToProjects = (stack: string) => {
   const el = document.getElementById("projects");
   if (el) {
     el.scrollIntoView({ behavior: "smooth" });
-    history.replaceState(null, "", "#projects");
+    history.replaceState(null, "", `${location.pathname}${location.search}#projects`);
   }
 };
 

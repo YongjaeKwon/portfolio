@@ -1,7 +1,7 @@
 <template>
   <footer class="border-t border-[var(--border)] px-6 py-6">
     <div class="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <p class="text-muted text-sm">© 2026 {{ profile.name }} · Frontend Engineer</p>
+      <p class="text-muted text-sm">© 2026 {{ profile.name }} · {{ activeTrackData.role }}</p>
       <div class="flex items-center gap-4">
         <a
           class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
@@ -21,7 +21,7 @@
         <span class="text-muted/50 text-xs select-none" aria-hidden="true">·</span>
         <a
           class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
-          :href="profile.resume"
+          :href="activeTrackData.resume"
           download
         >
           이력서
@@ -32,5 +32,12 @@
 </template>
 
 <script setup lang="ts">
-import { profile } from "@/data/portfolio";
+import { computed } from "vue";
+import { focusTracks, profile } from "@/data/portfolio";
+import { useFocusTrack } from "@/composables/useFocusTrack";
+
+const { activeTrack } = useFocusTrack();
+const activeTrackData = computed(
+  () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
+);
 </script>

@@ -12,7 +12,7 @@
         </span>
         <span>
           <span class="text-primary block text-sm font-bold leading-none">{{ profile.name }}</span>
-          <span class="text-muted font-display mt-1 hidden text-xs sm:block">Frontend Engineer</span>
+          <span class="text-muted font-display mt-1 hidden text-xs sm:block">{{ activeTrackData.role }}</span>
         </span>
       </button>
 
@@ -39,7 +39,7 @@
           class="focus-ring nav-panel inline-flex h-10 w-10 items-center justify-center rounded-md text-lg leading-none transition hover:-translate-y-0.5"
           :class="skin === 'maple' ? 'grayscale-0' : 'grayscale'"
           :aria-label="skin === 'maple' ? '기본 디자인으로 전환' : '메이플 모드로 전환'"
-          :title="skin === 'maple' ? '기본 디자인' : '🍁 메이플 모드'"
+          :title="skin === 'maple' ? '기본 디자인으로 돌아가기' : '🍁 메이플스토리 스킨 (직접 만든 이스터에그)'"
           @click="emit('toggle-skin')"
         >
           🍁
@@ -95,8 +95,9 @@
 
 <script setup lang="ts">
 import { Menu, Moon, Sun } from "@lucide/vue";
-import { onMounted, onBeforeUnmount, ref } from "vue";
-import { profile } from "@/data/portfolio";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { focusTracks, profile } from "@/data/portfolio";
+import { useFocusTrack } from "@/composables/useFocusTrack";
 
 defineProps<{
   theme: "dark" | "light";
@@ -115,6 +116,10 @@ const onToggleTheme = (e: MouseEvent) => {
 
 const isMenuOpen = ref(false);
 const activeSection = ref("hero");
+const { activeTrack } = useFocusTrack();
+const activeTrackData = computed(
+  () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
+);
 
 const navItems = [
   { id: "profile", label: "About" },

@@ -9,12 +9,12 @@
           </div>
           <h2 class="section-title">프로젝트 경험</h2>
           <p class="section-copy">
-            실제 업무에서 맡았던 화면 개발과 운영 개선 작업을 중심으로 정리했습니다.
+            {{ activeTrackData.projectIntro }}
           </p>
         </div>
         <div class="surface hidden rounded-lg p-4 md:block">
-          <p class="text-muted text-xs font-semibold uppercase tracking-[0.2em]">Main Work</p>
-          <p class="accent-text mt-2 text-sm font-bold">UI · API · Operation</p>
+          <p class="text-muted text-xs font-semibold uppercase tracking-[0.2em]">Focus</p>
+          <p class="accent-text mt-2 text-sm font-bold">{{ activeTrackData.label }}</p>
         </div>
       </div>
 
@@ -29,7 +29,7 @@
           @click="activeFilter = null"
         >
           전체
-          <span class="ml-1.5 text-white/30">{{ projects.length }}</span>
+          <span class="ml-1.5 text-white/30">{{ orderedProjects.length }}</span>
         </button>
         <button
           v-for="opt in filterOptions"
@@ -100,6 +100,30 @@
               </div>
 
               <p class="text-secondary mt-4 max-w-4xl leading-7">{{ project.summary }}</p>
+              <p
+                v-if="'scope' in project && project.scope"
+                class="text-secondary mt-3 text-sm leading-6"
+              >
+                <span class="text-primary font-bold">핵심 담당 범위</span>
+                <span class="mx-2 text-white/20">/</span>
+                {{ project.scope }}
+              </p>
+              <p
+                v-if="projectTrackNote(project)"
+                class="surface-strong text-secondary mt-3 rounded-lg px-4 py-3 text-sm leading-6"
+              >
+                <span class="accent-text font-bold">이 관점에서</span>
+                {{ projectTrackNote(project) }}
+              </p>
+
+              <img
+                v-if="'image' in project && project.image"
+                :src="project.image.src"
+                :alt="project.image.alt"
+                loading="lazy"
+                decoding="async"
+                class="mt-4 max-h-80 w-full rounded-lg border border-[var(--border)] bg-[var(--surface-soft)] object-contain p-3"
+              />
 
               <p class="maple-label maple-pixel mt-5 -mb-2 text-xs">🎯 목표</p>
               <ul :class="['text-secondary mt-5 grid gap-3 text-sm leading-6', highlightGridClass(project.highlights.length)]">
@@ -220,21 +244,34 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { ArrowRight, CircleCheck, RotateCw, X } from "@lucide/vue";
-import { marked } from "marked";
-import DOMPurify from "dompurify";
 import TechIcon from "@/components/TechIcon.vue";
-import { projects } from "@/data/portfolio";
+import { focusTracks, projects } from "@/data/portfolio";
+import { useFocusTrack } from "@/composables/useFocusTrack";
 import { useProjectFilter } from "@/composables/useProjectFilter";
 
 type Project = (typeof projects)[number];
 
 // ── 스택 필터 ──────────────────────────────────────────────────────────────
 const { activeFilter } = useProjectFilter();
+const { activeTrack } = useFocusTrack();
+const activeTrackData = computed(
+  () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
+);
+
+const orderedProjects = computed(() => {
+  const order = new Map(activeTrackData.value.projectOrder.map((shortTitle, idx) => [shortTitle, idx]));
+  return [...projects].sort(
+    (a, b) => (order.get(a.shortTitle) ?? 999) - (order.get(b.shortTitle) ?? 999)
+  );
+});
+
+const projectTrackNote = (project: Project) =>
+  activeTrackData.value.projectAngles[project.shortTitle] ?? "";
 
 /** 2개 이상 프로젝트에서 사용된 스택 (출현 빈도 내림차순, 최대 10개) */
 const filterOptions = computed(() => {
   const counts = new Map<string, number>();
-  projects.forEach((p) => p.stack.forEach((s) => counts.set(s, (counts.get(s) ?? 0) + 1)));
+  orderedProjects.value.forEach((p) => p.stack.forEach((s) => counts.set(s, (counts.get(s) ?? 0) + 1)));
   return [...counts.entries()]
     .filter(([, n]) => n >= 2)
     .sort((a, b) => b[1] - a[1])
@@ -244,8 +281,8 @@ const filterOptions = computed(() => {
 
 const filteredProjects = computed(() =>
   activeFilter.value
-    ? projects.filter((p) => p.stack.includes(activeFilter.value!))
-    : projects
+    ? orderedProjects.value.filter((p) => p.stack.includes(activeFilter.value!))
+    : orderedProjects.value
 );
 
 // ── Case Study Modal ────────────────────────────────────────────────────────
@@ -259,7 +296,18 @@ const modalRef = ref<HTMLElement | null>(null);
 const triggerEl = ref<HTMLElement | null>(null);
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-marked.use({ gfm: true, breaks: false });
+// marked·DOMPurify는 case study 모달을 처음 열 때만 동적 로드 (초기 번들 절감)
+let mdLibs: { parse: (md: string) => string | Promise<string>; sanitize: (html: string) => string } | null = null;
+const loadMarkdownLibs = async () => {
+  if (mdLibs) return mdLibs;
+  const [{ marked }, { default: DOMPurify }] = await Promise.all([
+    import("marked"),
+    import("dompurify"),
+  ]);
+  marked.use({ gfm: true, breaks: false });
+  mdLibs = { parse: (md) => marked.parse(md), sanitize: (html) => DOMPurify.sanitize(html) };
+  return mdLibs;
+};
 
 const fetchCaseStudy = async (project: Project) => {
   caseStudyHtml.value = "";
@@ -274,11 +322,14 @@ const fetchCaseStudy = async (project: Project) => {
       caseStudyStatus.value = "ready";
       return;
     }
-    const response = await fetch(link.href);
+    const [{ parse, sanitize }, response] = await Promise.all([
+      loadMarkdownLibs(),
+      fetch(link.href),
+    ]);
     if (!response.ok) throw new Error("fetch failed");
     const markdown = await response.text();
-    const rawHtml = await marked.parse(markdown.replace(/^# .+\r?\n+/, ""));
-    const html = DOMPurify.sanitize(rawHtml);
+    const rawHtml = await parse(markdown.replace(/^# .+\r?\n+/, ""));
+    const html = sanitize(rawHtml);
     caseStudyCache.set(link.href, html);
     caseStudyHtml.value = html;
     caseStudyStatus.value = "ready";
@@ -327,6 +378,10 @@ watch(activeCaseStudy, (project) => {
   if (project) {
     nextTick(() => modalRef.value?.querySelector<HTMLElement>(FOCUSABLE)?.focus());
   }
+});
+
+watch(activeTrack, () => {
+  activeFilter.value = null;
 });
 
 onMounted(() => window.addEventListener("keydown", handleKeydown));

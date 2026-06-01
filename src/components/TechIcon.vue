@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import {
   siApachemaven,
   siAxios,
@@ -73,7 +74,7 @@ const iconMap: Record<string, SimpleIcon> = {
   Docker: siDocker,
   "Docker Compose": siDocker,
   FastAPI: siFastapi,
-  "Figma 시안 확인": siFigma,
+  Figma: siFigma,
   Git: siGit,
   Gradle: siGradle,
   CSS3: siCss,
@@ -111,6 +112,8 @@ const iconMap: Record<string, SimpleIcon> = {
   "Vue.js": siVuedotjs,
 };
 
-const icon = iconMap[props.name];
-const fallback = props.name.replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase();
+const icon = computed(() => iconMap[props.name]);
+const fallback = computed(() =>
+  props.name.replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase()
+);
 </script>
