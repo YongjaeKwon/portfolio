@@ -3,7 +3,7 @@
 프론트엔드 개발자
 
 - Email: koj185364@naver.com
-- Phone: 010-9470-1704
+- Phone: Available on request
 - GitHub: https://github.com/YongjaeKwon
 - Location: 경기도 용인시 수지구
 

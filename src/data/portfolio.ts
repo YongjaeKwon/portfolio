@@ -8,7 +8,7 @@ export const profile = {
   target:
     "관리자 도구, B2B 포탈, 데이터 대시보드처럼 복잡한 상태·권한 조건을 사용자가 이해하기 쉬운 웹 기능으로 정리하는 팀에서 기여하고 싶습니다.",
   email: "koj185364@naver.com",
-  phone: "010-9470-1704",
+  phone: "",
   github: "https://github.com/YongjaeKwon",
   location: "경기도 용인시 수지구",
   /** "이직 준비 중" | "구직 중" | "재직 중" — 상황에 따라 변경 */
