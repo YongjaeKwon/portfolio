@@ -2,7 +2,18 @@
   "name": "portfolio",
   "private": true,
   "version": "0.0.0",
+  "description": "Role-focused portfolio for B2B/B2G operations UI, API integration, and full-stack web projects.",
   "type": "module",
+  "homepage": "https://portfolio-six-inky-14.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YongjaeKwon/portfolio.git"
+  },
+  "author": "Yongjae Kwon <koj185364@naver.com>",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
