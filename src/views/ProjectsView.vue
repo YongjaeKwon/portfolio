@@ -56,7 +56,7 @@
           class="surface interactive-surface tilt group rounded-xl p-5 md:p-6"
         >
           <div class="grid gap-6 lg:grid-cols-[0.32fr_0.68fr]">
-            <div :class="['rounded-lg border p-5', accentPanel(project.accent)]">
+            <div class="rounded-lg border border-white/6 bg-white/3 p-5">
               <p class="text-xs font-black uppercase tracking-[0.22em] opacity-80">
                 {{ project.category }}
               </p>
@@ -390,12 +390,13 @@ onBeforeUnmount(() => {
   document.body.style.overflow = "";
 });
 
-const accentPanel = (_accent: string) => "border-white/6 bg-white/3";
-
 const highlightGridClass = (count: number) =>
   count > 3 ? "md:grid-cols-2" : "md:grid-cols-3";
 
 // ── v-tilt: 포인터 기반 미세 3D 기울기 (마우스 기기 + 모션 허용 시에만) ──
+type TiltHandlers = { onMove: (e: MouseEvent) => void; onLeave: () => void };
+const tiltHandlers = new WeakMap<HTMLElement, TiltHandlers>();
+
 const vTilt = {
   mounted(el: HTMLElement) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -416,13 +417,14 @@ const vTilt = {
     };
     el.addEventListener("mousemove", onMove);
     el.addEventListener("mouseleave", onLeave);
-    (el as unknown as { __tilt?: unknown }).__tilt = { onMove, onLeave };
+    tiltHandlers.set(el, { onMove, onLeave });
   },
   unmounted(el: HTMLElement) {
-    const h = (el as unknown as { __tilt?: { onMove: EventListener; onLeave: EventListener } }).__tilt;
+    const h = tiltHandlers.get(el);
     if (h) {
       el.removeEventListener("mousemove", h.onMove);
       el.removeEventListener("mouseleave", h.onLeave);
+      tiltHandlers.delete(el);
     }
   },
 };
