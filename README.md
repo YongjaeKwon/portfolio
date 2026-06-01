@@ -11,7 +11,7 @@
 
 > B2B/B2G 운영 UI, API 연동, 권한/상태 기반 조회, SQL 흐름을 함께 이해하는 웹 개발자 포트폴리오
 
-운영 중인 B2B·B2G 시스템에서 쌓은 관리자 화면 개발, REST API 연동, Vue.js 화면 개발, 권한·조회 조건 처리, MyBatis SQL 점검, 메일·파일·인증 연동 경험을 역할 관점별로 보여주는 것을 목표로 합니다. 개인·팀 프로젝트에서는 React, TypeScript, Next.js, Redux, Zustand, React Query, Canvas, FastAPI, WebSocket, Docker Compose를 활용해 실시간 데이터 대시보드, 개발자 도구형 UI, AI 연동 학습 화면을 다뤘습니다.
+운영 중인 B2B·B2G 시스템에서 쌓은 관리자 화면 개발, REST API 연동, Vue.js 화면 개발, 권한·조회 조건 처리, MyBatis SQL 점검, 메일·파일·인증 연동 경험을 Frontend, API & Data, Fullstack 관점으로 정리했습니다. 개인·팀 프로젝트에서는 React, TypeScript, Next.js, Redux, Zustand, React Query, Canvas, FastAPI, WebSocket, Docker Compose를 활용해 실시간 데이터 대시보드, 개발자 도구형 UI, AI 연동 학습 화면을 만들었습니다.
 
 ## Quick Links
 
