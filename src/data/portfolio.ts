@@ -23,7 +23,7 @@ export const heroStats = [
   { label: "운영 이슈 대응", value: "100", unit: "+건" },
 ];
 
-export type FocusTrackId = "frontend" | "product" | "fullstack";
+export type FocusTrackId = "frontend" | "api-data" | "fullstack";
 
 export const focusTracks: Array<{
   id: FocusTrackId;
@@ -126,83 +126,83 @@ export const focusTracks: Array<{
     },
   },
   {
-    id: "product",
-    label: "Business Systems",
-    role: "Business Systems Web Developer",
-    badge: "Business Systems · Admin Tools",
+    id: "api-data",
+    label: "API & Data",
+    role: "API & Data Web Developer",
+    badge: "API & Data · Spring/MyBatis",
     headline:
-      "사용자가 끝내야 하는 업무 단위를 먼저 이해하고, 화면·API·데이터가 같은 기준으로 이어지게 만듭니다.",
+      "화면 요구사항을 API 응답, SQL 조건, 권한·상태값까지 따라가며 데이터 흐름으로 검증합니다.",
     target:
-      "B2B·B2G 포탈, 관리자 도구, 업무 시스템에서 조회·발송·이력·통계가 실제 처리 순서대로 맞물리도록 개발합니다.",
-    resume: "/resume-product.pdf",
-    workStyleTitle: "업무 흐름을 정리할 때 보는 것",
-    workStyleNote: "운영자 입장에서 '이 기능이 끝났다'는 기준을 먼저 찾습니다. 저장 성공이 아니라, 후속 확인까지 완료되는 지점입니다.",
-    contactTitle: "업무 흐름을 잘 이해하는 웹 개발자로 합류하고 싶습니다",
+      "Spring/MyBatis 기반 API, 조회 조건, 데이터 정합성, 메일·파일·인증 같은 외부 연동 결과가 화면과 같은 기준으로 동작하게 만듭니다.",
+    resume: "/resume-api-data.pdf",
+    workStyleTitle: "API와 데이터를 확인할 때 보는 것",
+    workStyleNote: "화면의 오류처럼 보여도 원인은 API 응답, SQL 조건, 권한 분기, 외부 연동 결과에 있을 수 있어 레이어를 나눠 확인합니다.",
+    contactTitle: "API와 데이터 흐름을 함께 보는 웹 개발자로 합류하고 싶습니다",
     contactDescription:
-      "기능을 화면 단위로만 나누지 않고, 운영자가 어떤 업무를 언제 끝냈다고 볼 수 있는지를 먼저 확인합니다. 공지·발송·조회·이력처럼 반복되는 흐름을 화면과 데이터 기준으로 풀어낸 경험이 있습니다.",
+      "프론트엔드 구현을 중심으로 일해왔지만, 실무에서는 Spring/MyBatis API, SQL 조회 조건, 권한·상태값, 메일·파일·인증 연동까지 함께 확인했습니다. 화면과 서버 데이터가 같은 기준으로 동작하는지를 끝까지 검증합니다.",
     projectIntro:
-      "반복 운영 업무 완료, 이슈 재현·대응, 데이터 정합성 확인 역량이 잘 드러나는 순서로 정리했습니다.",
-    fitTitle: "업무 시스템 웹 개발자로서의 강점",
+      "API 연동, SQL 조건 검증, 데이터 정합성, 외부 연동 처리 역량이 잘 드러나는 순서로 정리했습니다.",
+    fitTitle: "API & Data 관점의 강점",
     fitDescription:
-      "요구사항을 기능 목록이 아닌 업무 완료 기준으로 봅니다. 사용자가 어떤 결과를 확인해야 그 업무가 끝나는지를 기준으로 화면과 데이터를 설계합니다.",
+      "화면에서 시작된 요구사항을 API 응답, SQL 조회 조건, 권한·상태값, 외부 연동 결과까지 내려가며 확인합니다.",
     strengths: [
       {
-        title: "업무 완료 기준 설계",
-        description: "교육 등록·AS 접수·발송·통계처럼 운영자가 '끝났다'고 볼 수 있는 업무 단위를 기준으로 화면과 데이터 흐름을 구성합니다.",
+        title: "API 응답 구조 확인",
+        description: "화면 요구사항에 맞춰 Controller·Service·Mapper 흐름을 확인하고, 응답 구조가 화면 상태와 맞는지 직접 검증했습니다.",
         icon: "Workflow",
       },
       {
-        title: "운영 이슈 재현 및 원인 추적",
-        description: "특정 권한·상태값·기간 조건에서만 발생하는 조회 오류나 발송 실패를 재현하고, 화면·API·SQL 중 어디서 어긋나는지 좁힙니다.",
+        title: "MyBatis SQL 조건 검증",
+        description: "권한·조직·기간·상태값 조건이 SQL과 화면 필터에서 동일하게 동작하는지 확인해 데이터 불일치를 줄였습니다.",
         icon: "ShieldCheck",
       },
       {
-        title: "데이터 정합성 확인",
-        description: "목록·대시보드·엑셀·발송 이력이 동일한 기준으로 집계되는지, 화면과 SQL을 함께 비교하는 습관이 있습니다.",
+        title: "데이터 정합성 추적",
+        description: "목록·대시보드·엑셀·발송 이력이 같은 기준으로 집계되는지 화면 결과와 SQL 결과를 함께 비교합니다.",
         icon: "PanelTop",
       },
       {
-        title: "비개발 요구사항 구조화",
-        description: "운영자가 말하는 불편함을 화면 조건·API 파라미터·저장·조회 흐름으로 변환해 팀과 공유하고 구현합니다.",
+        title: "외부 연동 결과 처리",
+        description: "메일·파일·엑셀·OTP·알림 발송처럼 실패 케이스가 있는 기능에서 요청, 처리, 결과 표시 흐름을 함께 구현했습니다.",
         icon: "MonitorSmartphone",
       },
     ],
     fitItems: [
       {
-        label: "운영 포탈 경험",
+        label: "Spring/MyBatis 실무 경험",
         description:
-          "PPS에서 교육, 공지, 설문, 메일, 엑셀, 제출 현황이 이어지는 반복 운영 흐름을 구현했습니다.",
+          "PPS, IT 자산관리, TSMS에서 화면 요구사항에 맞춰 Java API와 MyBatis SQL을 함께 확인했습니다.",
         icon: "Layers",
       },
       {
-        label: "조건 기반 운영 흐름 처리",
+        label: "조건 기반 조회 처리",
         description:
-          "마감, 대상자, 발송, 읽음 이력, 상태별 조회처럼 조건이 많은 업무 흐름을 처리한 경험이 있습니다.",
+          "권한, 조직, 기간, 상태값, 대상자 조건이 조회 결과와 대시보드 집계에 일관되게 반영되는지 점검했습니다.",
         icon: "RadioTower",
       },
       {
-        label: "데이터와 화면 연결",
+        label: "데이터와 화면 정합성",
         description:
           "대시보드, 리포트, 엑셀 다운로드, 이력 조회가 같은 기준으로 보이도록 API와 SQL 흐름을 함께 확인했습니다.",
         icon: "Database",
       },
       {
-        label: "학습과 적응력",
+        label: "FastAPI 백엔드 학습",
         description:
-          "Vue, WebSquare, JSP, Nexacro, React, FastAPI처럼 환경이 다른 프로젝트에서 필요한 기술을 빠르게 익혀 적용했습니다.",
+          "quant-core에서 FastAPI, PostgreSQL, Redis, WebSocket, Docker Compose를 직접 구성하며 백엔드 구조를 넓히고 있습니다.",
         icon: "Smartphone",
       },
     ],
-    projectOrder: ["PPS", "TSMS", "SR30", "IT Asset", "quant-core", "ddoing", "MODAC", "SSAFAST"],
+    projectOrder: ["PPS", "IT Asset", "TSMS", "quant-core", "SR30", "SSAFAST", "MODAC", "ddoing"],
     projectAngles: {
-      PPS: "운영자가 대상자, 공지, 설문, 발송 결과를 반복 확인하는 흐름을 하나로 연결했습니다. 대상, 마감, 발송, 결과 확인이 중요한 반복 업무에 연결되는 경험입니다.",
-      TSMS: "현장 사용자의 접수와 내부 담당자의 상태 확인이 이어지도록 모바일·태블릿·관리자 화면의 기준을 맞춘 서비스 운영 경험입니다.",
-      SR30: "레거시 운영 시스템에서 리포트, KPI, 설문, 엑셀처럼 운영자가 반복 확인하는 데이터 화면을 개선한 경험입니다.",
-      "IT Asset": "권한별 조회, 상태별 집계, 대시보드 클릭 흐름처럼 조직 단위 운영 데이터를 다룬 경험입니다.",
-      "quant-core": "FastAPI와 데이터 대시보드 구조를 학습하며 시계열 데이터, 업무 지표, 운영 지표 확인 역량을 보강한 프로젝트입니다.",
-      ddoing: "PM 역할로 화면 흐름과 AI 연동 범위를 조율해 사용자가 학습을 끝까지 진행할 수 있는 제품 흐름을 만든 경험입니다.",
-      MODAC: "개발자 학습 기록과 공유라는 제품 흐름을 Todo, Markdown, Feed, room 기능으로 연결한 경험입니다.",
-      SSAFAST: "개발자 협업 도구의 핵심 흐름을 성능 테스트와 인증 가드 UI로 구현한 제품형 프로젝트입니다.",
+      PPS: "Vue 화면부터 Spring Boot API, MyBatis SQL, 메일·엑셀·OTP 연동까지 같은 교육·대상자 기준으로 맞춘 대표 API & Data 경험입니다.",
+      "IT Asset": "권한별 조회 범위, 대시보드 집계, 상태별 목록 SQL을 함께 맞춘 데이터 조건 처리 경험입니다.",
+      TSMS: "모바일·태블릿 화면과 Spring MVC API, MyBatis SQL, 알림톡·파일·서명 흐름을 함께 확인한 경험입니다.",
+      "quant-core": "FastAPI, PostgreSQL, Redis, WebSocket, Docker Compose를 직접 구성하며 백엔드와 데이터 흐름을 학습한 프로젝트입니다.",
+      SR30: "Nexacro 화면과 Spring MVC, Oracle SQL, 엑셀/리포트 결과가 같은 기준으로 동작하도록 개선한 경험입니다.",
+      SSAFAST: "Next.js 화면에서 API 테스트 입력, 요청 파라미터, 실행 결과를 구조화한 개발자 도구형 프로젝트입니다.",
+      MODAC: "Vue 3 프론트엔드와 WebSocket room 흐름을 다루며 실시간 상태 연결 구조를 익힌 프로젝트입니다.",
+      ddoing: "React 화면과 FastAPI 기반 AI 추론 서버의 요청·응답을 연결해본 경험입니다.",
     },
   },
   {
