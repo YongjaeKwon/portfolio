@@ -593,11 +593,9 @@ a {
 
 /* ── 퀘스트 로그 (프로젝트) ── */
 .maple-quest-head,
-.maple-quest-clear,
-.maple-reward-label { display: none; }
+.maple-quest-clear { display: none; }
 :root[data-skin="maple"] .maple-quest-head { display: inline-flex; }
 :root[data-skin="maple"] .maple-quest-clear { display: inline-flex; }
-:root[data-skin="maple"] .maple-reward-label { display: block; }
 :root[data-skin="maple"] .maple-quest-head {
   align-items: center;
   gap: 6px;
