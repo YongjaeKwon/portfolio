@@ -1,7 +1,721 @@
 @import "tailwindcss";
 
+:root {
+  color-scheme: dark;
+
+  /* ── Font system ── */
+  --font-body:
+    "Pretendard Variable", Pretendard, Inter, ui-sans-serif, system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display:
+    "Space Grotesk", "Pretendard Variable", Pretendard, ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    monospace;
+
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --page-bg: #08090d;
+  --page-bg-rgb: 8 9 13;
+  --page-grid: rgba(255, 255, 255, 0.03);
+  --text-primary: #f8fafc;
+  --text-secondary: #c8cdd6;
+  /* #808896 on #08090d → 5.6:1 (WCAG AA ✓) */
+  --text-muted: #808896;
+  --text-kicker: rgba(255, 255, 255, 0.4);
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(255, 255, 255, 0.06);
+  --surface-soft: rgba(255, 255, 255, 0.025);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  /* ── Elevation system ── */
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --elev-2: 0 12px 36px rgba(0, 0, 0, 0.45);
+  --elev-3: 0 24px 64px rgba(0, 0, 0, 0.55);
+  --shadow: var(--elev-3);
+
+  /* ── Accent — refined teal→cyan (not default Tailwind cyan) ── */
+  --accent: #2dd4bf;
+  --accent-strong: #5eead4;
+  --accent-contrast: #042f2a;
+  --accent-rgb: 45 212 191;
+  --accent-soft: rgb(var(--accent-rgb) / 0.1);
+  --accent-gradient: linear-gradient(135deg, #2dd4bf 0%, #22d3ee 100%);
+
+  --emerald-soft: rgba(16, 185, 129, 0.1);
+  --amber-soft: rgba(245, 158, 11, 0.1);
+  --violet-soft: rgba(139, 92, 246, 0.1);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --page-bg: #fafafa;
+  --page-bg-rgb: 250 250 250;
+  --page-grid: rgba(15, 23, 42, 0.04);
+  --text-primary: #0f172a;
+  --text-secondary: #374151;
+  /* #5d6578 on #fafafa → 5.6:1 (WCAG AA ✓) */
+  --text-muted: #5d6578;
+  --text-kicker: rgba(15, 23, 42, 0.46);
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-strong: #ffffff;
+  --surface-soft: rgba(15, 23, 42, 0.03);
+  --border: rgba(15, 23, 42, 0.09);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --elev-1: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --elev-2: 0 12px 36px rgba(15, 23, 42, 0.1);
+  --elev-3: 0 24px 64px rgba(15, 23, 42, 0.12);
+  --shadow: var(--elev-3);
+  --accent: #0d9488;
+  --accent-strong: #0f766e;
+  --accent-contrast: #ffffff;
+  --accent-rgb: 13 148 136;
+  --accent-soft: rgb(var(--accent-rgb) / 0.1);
+  --accent-gradient: linear-gradient(135deg, #0d9488 0%, #0891b2 100%);
+  --emerald-soft: rgba(5, 150, 105, 0.09);
+  --amber-soft: rgba(180, 83, 9, 0.09);
+  --violet-soft: rgba(124, 58, 237, 0.09);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--page-bg);
+}
+
+[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Atmospheric glow + ultra-fine noise overlay (kills gradient banding) */
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(ellipse 70% 45% at 10% 0%, rgb(var(--accent-rgb) / 0.06), transparent),
+    radial-gradient(ellipse 50% 35% at 90% 10%, rgba(16, 185, 129, 0.03), transparent),
+    var(--page-bg);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:root[data-theme="light"] body {
+  background:
+    radial-gradient(ellipse 70% 45% at 10% 0%, rgb(var(--accent-rgb) / 0.07), transparent),
+    var(--page-bg);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @layer components {
-  .btn {
-    @apply px-4 py-2 bg-blue-500 text-white rounded-lg;
+  .app-root {
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: transparent;
+    color: var(--text-primary);
+    transition:
+      background-color 220ms ease,
+      color 220ms ease;
   }
+
+  /* ── Typography helpers ── */
+  .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+  .font-mono    { font-family: var(--font-mono); }
+  .tnum         { font-variant-numeric: tabular-nums; }
+
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    background: rgb(var(--page-bg-rgb) / 0.85);
+    color: var(--text-primary);
+  }
+
+  .nav-panel {
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .grid-backdrop {
+    background-image:
+      linear-gradient(var(--page-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--page-grid) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-6xl px-6;
+  }
+
+  /* Kicker — display font, the "designed" English label look */
+  .section-kicker {
+    color: var(--text-kicker);
+    font-family: var(--font-display);
+    @apply text-xs font-semibold uppercase tracking-[0.28em];
+  }
+
+  .section-title {
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    @apply mt-3 text-3xl font-bold leading-tight tracking-[-0.02em] md:text-4xl;
+  }
+
+  .section-copy {
+    color: var(--text-muted);
+    @apply mt-4 max-w-3xl text-base leading-7;
+  }
+
+  /* Section index number — editorial accent */
+  .section-index {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    @apply text-xs font-bold;
+  }
+
+  .surface {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--elev-1);
+    backdrop-filter: blur(20px);
+  }
+
+  .surface-strong {
+    border: 1px solid var(--border);
+    background: var(--surface-strong);
+  }
+
+  .interactive-surface {
+    transition:
+      transform 240ms ease,
+      border-color 240ms ease,
+      box-shadow 240ms ease;
+  }
+
+  .interactive-surface:hover {
+    transform: translateY(-0.2rem);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: var(--elev-2);
+  }
+
+  :root[data-theme="light"] .interactive-surface:hover {
+    border-color: rgba(15, 23, 42, 0.22);
+  }
+
+  .text-primary   { color: var(--text-primary); }
+  .text-secondary { color: var(--text-secondary); }
+  .text-muted     { color: var(--text-muted); }
+  .accent-text    { color: var(--accent); }
+
+  /* CTA button — subtle gradient, the ONE place accent lives loud */
+  .accent-bg {
+    background: var(--accent-gradient);
+    color: var(--accent-contrast);
+  }
+
+  .accent-soft {
+    border-color: var(--border);
+    background: var(--surface-soft);
+    color: var(--text-muted);
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4;
+    outline-color: var(--accent);
+  }
+
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition:
+      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+  .reveal-d4 { transition-delay: 0.4s; }
+  .reveal-d5 { transition-delay: 0.5s; }
+
+  /* ── Active nav ── */
+  .nav-active {
+    color: var(--accent-strong) !important;
+    background: rgb(var(--accent-rgb) / 0.08) !important;
+  }
+
+  /* ── Cursor spotlight ── */
+  .cursor-spotlight {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(
+      600px circle at var(--cursor-x, -9999px) var(--cursor-y, -9999px),
+      rgb(var(--accent-rgb) / 0.04),
+      transparent 40%
+    );
+  }
+
+  /* ── Scroll progress bar ── */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    z-index: 60;
+    background: var(--accent-gradient);
+    transform-origin: 0 50%;
+    will-change: transform;
+  }
+
+  /* ── Typing cursor ── */
+  .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 0.8em;
+    background: var(--accent-strong);
+    vertical-align: middle;
+    margin-left: 3px;
+    border-radius: 1px;
+    animation: cursor-blink 1s step-end infinite;
+  }
+
+  /* ── Tech chip hover ── */
+  .tech-chip {
+    transition: border-color 180ms ease, background-color 180ms ease;
+  }
+  .tech-chip:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.07);
+  }
+  :root[data-theme="light"] .tech-chip:hover {
+    border-color: rgba(15, 23, 42, 0.2);
+    background: rgba(15, 23, 42, 0.05);
+  }
+
+  /* ── Active filter chip ── */
+  .filter-chip-active {
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
+  }
+
+  /* Tech 아이콘: 모노크롬 기조 유지 — 평소 grayscale, hover/active 시 브랜드 컬러 */
+  .tech-chip svg {
+    filter: grayscale(1) opacity(0.6);
+    transition: filter 180ms ease;
+  }
+  .tech-chip:hover svg,
+  .filter-chip-active svg {
+    filter: none;
+  }
+
+  /* ── Skeleton shimmer ── */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--surface-strong) 25%,
+      var(--border-strong) 50%,
+      var(--surface-strong) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  }
+
+  /* ── 3D tilt card ── */
+  .tilt {
+    transform-style: preserve-3d;
+    transition: transform 160ms ease;
+    will-change: transform;
+  }
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.hero-enter    { animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-enter-d1 { animation-delay: 0.1s; }
+.hero-enter-d2 { animation-delay: 0.2s; }
+.hero-enter-d3 { animation-delay: 0.3s; }
+.hero-enter-d4 { animation-delay: 0.4s; }
+.hero-enter-d5 { animation-delay: 0.5s; }
+.hero-enter-d6 { animation-delay: 0.6s; }
+
+/* ── Light mode: remap white/* Tailwind utilities to dark equivalents ── */
+:root[data-theme="light"] {
+  .bg-white\/3  { background-color: rgba(15, 23, 42, 0.03) !important; }
+  .bg-white\/4  { background-color: rgba(15, 23, 42, 0.04) !important; }
+  .bg-white\/5  { background-color: rgba(15, 23, 42, 0.05) !important; }
+  .bg-white\/8  { background-color: rgba(15, 23, 42, 0.08) !important; }
+  .bg-white\/10 { background-color: rgba(15, 23, 42, 0.10) !important; }
+  .border-white\/6  { border-color: rgba(15, 23, 42, 0.10) !important; }
+  .border-white\/8  { border-color: rgba(15, 23, 42, 0.12) !important; }
+  .border-white\/10 { border-color: rgba(15, 23, 42, 0.14) !important; }
+  .border-white\/15 { border-color: rgba(15, 23, 42, 0.18) !important; }
+  .text-white\/25 { color: rgba(15, 23, 42, 0.35) !important; }
+  .text-white\/30 { color: rgba(15, 23, 42, 0.40) !important; }
+  .text-white\/40 { color: rgba(15, 23, 42, 0.50) !important; }
+  .text-white\/45 { color: rgba(15, 23, 42, 0.55) !important; }
+  .text-white\/50 { color: rgba(15, 23, 42, 0.60) !important; }
+  .text-white\/55 { color: rgba(15, 23, 42, 0.65) !important; }
+  .text-white\/70 { color: rgba(15, 23, 42, 0.75) !important; }
+  .text-white\/80 { color: rgba(15, 23, 42, 0.85) !important; }
+  .text-white     { color: #0f172a !important; }
+  .text-amber-400\/60 { color: rgba(146, 64, 14, 0.70) !important; }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   🍁 MAPLE SKIN — data-skin="maple" 일 때만 적용되는 메이플스토리 테마
+   기본 디자인은 전혀 건드리지 않고, 변수 오버라이드 + 청키 UI로 통째 재스킨
+   ════════════════════════════════════════════════════════════════════════ */
+:root[data-skin="maple"] {
+  --font-body: "Jua", "Pretendard Variable", sans-serif;
+  --font-display: "Do Hyeon", "Jua", sans-serif;
+
+  --page-bg: #c8ecfb;
+  --page-bg-rgb: 200 236 251;
+  --page-grid: rgba(120, 90, 60, 0.05);
+  --text-primary: #4a3424;
+  --text-secondary: #6b4f3a;
+  --text-muted: #9a7d62;
+  --text-kicker: #c47a35;
+  --surface: #fff8e8;
+  --surface-strong: #fffdf6;
+  --surface-soft: #fdeecb;
+  --border: #e3c293;
+  --border-strong: #b07d45;
+  --accent: #ff8a3d;
+  --accent-strong: #ef5f1e;
+  --accent-contrast: #ffffff;
+  --accent-rgb: 255 138 61;
+  --accent-soft: rgb(255 138 61 / 0.16);
+  --accent-gradient: linear-gradient(135deg, #ffb648, #ff7a2e);
+  --elev-1: 0 3px 0 rgba(176, 125, 69, 0.35);
+  --elev-2: 0 6px 0 rgba(176, 125, 69, 0.4);
+  --elev-3: 0 10px 0 rgba(176, 125, 69, 0.45);
+  --shadow: var(--elev-2);
+}
+
+/* 하늘 + 잔디 배경, 노이즈 제거 */
+:root[data-skin="maple"] body {
+  background:
+    radial-gradient(120% 60% at 50% 118%, #a8e398 0%, rgba(168, 227, 152, 0) 46%),
+    linear-gradient(180deg, #bfe8fb 0%, #e9f7ff 62%);
+}
+:root[data-skin="maple"] body::before { display: none; }
+
+/* 청키 둥근 패널 (퀘스트창 느낌) */
+:root[data-skin="maple"] .surface,
+:root[data-skin="maple"] .surface-strong,
+:root[data-skin="maple"] .nav-panel {
+  border-width: 2.5px;
+  border-style: solid;
+  border-color: var(--border-strong);
+  border-radius: 16px;
+  box-shadow: var(--elev-1);
+  backdrop-filter: none;
+}
+
+:root[data-skin="maple"] .site-header {
+  background: rgb(255 248 232 / 0.92);
+  border-bottom: 2.5px solid var(--border-strong);
+}
+
+/* 알약형 + 청키 하단 그림자 + 누를 때 쫀득 */
+:root[data-skin="maple"] .accent-bg {
+  border-radius: 999px;
+  box-shadow: 0 4px 0 #c14d12;
+}
+:root[data-skin="maple"] .accent-bg:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #c14d12;
+}
+
+/* 제목에 부드러운 그림자 */
+:root[data-skin="maple"] h1,
+:root[data-skin="maple"] .section-title {
+  text-shadow: 2px 2px 0 rgba(176, 125, 69, 0.18);
+}
+
+/* 키커 앞에 별 + 둥근 nav */
+:root[data-skin="maple"] .section-kicker::before { content: "✦ "; }
+:root[data-skin="maple"] .nav-active {
+  color: var(--accent-strong) !important;
+  background: var(--accent-soft) !important;
+  border-radius: 999px;
+}
+
+/* 히어로 그리드 끄고 구름으로 (clouds는 HomeView가 렌더) */
+:root[data-skin="maple"] .grid-backdrop { background-image: none; }
+
+/* 기술 칩 = 아이템 슬롯, 컬러 아이콘 그대로 */
+:root[data-skin="maple"] .tech-chip {
+  border-width: 2px;
+  border-color: var(--border);
+  border-radius: 12px;
+  background: var(--surface-soft);
+}
+:root[data-skin="maple"] .tech-chip svg { filter: none; }
+:root[data-skin="maple"] .filter-chip-active { background: var(--accent-soft) !important; }
+
+:root[data-skin="maple"] .scroll-progress { height: 4px; }
+
+/* 프로필 사진 = 캐릭터 초상화 프레임 */
+:root[data-skin="maple"] .hero-photo {
+  border: 3px solid var(--border-strong);
+  box-shadow: var(--elev-1);
+}
+
+/* white/* 유틸리티를 갈색 계열로 리맵 (cream 배경에서 보이도록) */
+:root[data-skin="maple"] {
+  .bg-white\/3  { background-color: rgba(74, 52, 36, 0.04) !important; }
+  .bg-white\/4  { background-color: rgba(74, 52, 36, 0.05) !important; }
+  .bg-white\/5  { background-color: rgba(74, 52, 36, 0.06) !important; }
+  .bg-white\/8  { background-color: rgba(74, 52, 36, 0.08) !important; }
+  .bg-white\/10 { background-color: rgba(74, 52, 36, 0.10) !important; }
+  .border-white\/6  { border-color: rgba(176, 125, 69, 0.5) !important; }
+  .border-white\/8  { border-color: rgba(176, 125, 69, 0.55) !important; }
+  .border-white\/10 { border-color: rgba(176, 125, 69, 0.6) !important; }
+  .border-white\/15 { border-color: rgba(176, 125, 69, 0.65) !important; }
+  .text-white\/25 { color: rgba(74, 52, 36, 0.45) !important; }
+  .text-white\/30 { color: rgba(74, 52, 36, 0.5) !important; }
+  .text-white\/40 { color: rgba(74, 52, 36, 0.6) !important; }
+  .text-white\/45 { color: rgba(74, 52, 36, 0.65) !important; }
+  .text-white\/50 { color: rgba(74, 52, 36, 0.7) !important; }
+  .text-white\/55 { color: rgba(74, 52, 36, 0.72) !important; }
+  .text-white\/70 { color: rgba(74, 52, 36, 0.82) !important; }
+  .text-white\/80 { color: rgba(74, 52, 36, 0.9) !important; }
+  .text-white     { color: #4a3424 !important; }
+}
+
+/* ── 메이플 전용 장식 (기본 모드에선 숨김) ── */
+.maple-lv-badge,
+.hero-clouds,
+.maple-mascot { display: none; }
+:root[data-skin="maple"] .maple-lv-badge { display: inline-flex; }
+:root[data-skin="maple"] .hero-clouds { display: block; }
+:root[data-skin="maple"] .maple-mascot { display: flex; }
+
+.hero-clouds {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-clouds .cloud {
+  position: absolute;
+  font-size: 2.6rem;
+  opacity: 0.9;
+  animation: cloud-drift linear infinite;
+}
+@keyframes cloud-drift {
+  from { transform: translateX(-14vw); }
+  to   { transform: translateX(114vw); }
+}
+
+.maple-mascot {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 40;
+  align-items: flex-end;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  animation: mascot-bob 2.4s ease-in-out infinite;
+}
+.maple-mascot .maple-mob {
+  font-size: 2.4rem;
+  line-height: 1;
+  transition: transform 160ms ease;
+}
+.maple-mascot:hover .maple-mob { transform: scale(1.15) rotate(-6deg); }
+.maple-mascot:active .maple-mob { transform: scale(0.92); }
+.maple-mascot .maple-bubble {
+  margin-bottom: 1.2rem;
+  border: 2px solid var(--border-strong);
+  border-radius: 12px;
+  background: #fffdf6;
+  padding: 0.35rem 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  box-shadow: 0 3px 0 rgba(176, 125, 69, 0.35);
+}
+@keyframes mascot-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* ── 픽셀 폰트 (레벨/스탯 숫자) ── */
+:root[data-skin="maple"] {
+  --font-pixel: "Galmuri11", "JetBrains Mono", monospace;
+}
+:root[data-skin="maple"] .maple-pixel { font-family: var(--font-pixel); }
+
+/* ── 잔디 발판 구분선 (섹션 사이) ── */
+.maple-divider { display: none; }
+:root[data-skin="maple"] .maple-divider {
+  display: block;
+  height: 14px;
+  margin: -8px 0 0;
+  background:
+    radial-gradient(circle at 9px 14px, #8fd14f 9px, transparent 10px) 0 0 / 18px 14px repeat-x;
+  opacity: 0.75;
+}
+
+/* ── 퀘스트 로그 (프로젝트) ── */
+.maple-quest-head,
+.maple-quest-clear,
+.maple-reward-label { display: none; }
+:root[data-skin="maple"] .maple-quest-head { display: inline-flex; }
+:root[data-skin="maple"] .maple-quest-clear { display: inline-flex; }
+:root[data-skin="maple"] .maple-reward-label { display: block; }
+:root[data-skin="maple"] .maple-quest-head {
+  align-items: center;
+  gap: 6px;
+  border: 2px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface-soft);
+  padding: 2px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+:root[data-skin="maple"] .maple-quest-clear {
+  align-items: center;
+  gap: 4px;
+  transform: rotate(-8deg);
+  border: 2px solid #2fa86b;
+  border-radius: 8px;
+  padding: 2px 8px;
+  color: #2fa86b;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+/* 메이플 전용 라벨 (목표/보상 등) */
+.maple-label { display: none; }
+:root[data-skin="maple"] .maple-label {
+  display: block;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+/* ── 인벤토리 슬롯 레어도 (기술 스택) ── */
+:root[data-skin="maple"] .rarity-unique {
+  border-color: #f0932b !important;
+  box-shadow: inset 0 0 0 1px rgba(240, 147, 43, 0.4);
+}
+:root[data-skin="maple"] .rarity-rare {
+  border-color: #4a90d9 !important;
+  box-shadow: inset 0 0 0 1px rgba(74, 144, 217, 0.4);
+}
+.maple-legend { display: none; }
+:root[data-skin="maple"] .maple-legend { display: flex; }
+
+/* ── HP/MP/EXP 게이지 (히어로 스탯) ── */
+.maple-gauges { display: none; }
+:root[data-skin="maple"] .maple-gauges { display: grid; }
+:root[data-skin="maple"] .default-stats { display: none; }
+
+.maple-gauge-track {
+  height: 14px;
+  border: 2px solid var(--border-strong);
+  border-radius: 999px;
+  background: #f0e2c4;
+  overflow: hidden;
+}
+.maple-gauge-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.maple-gauge-hp { background: linear-gradient(90deg, #ff6b6b, #ff9f43); }
+.maple-gauge-mp { background: linear-gradient(90deg, #4a90d9, #54a0ff); }
+.maple-gauge-exp { background: linear-gradient(90deg, #f6c945, #ffe178); }
+
+/* ── 도적 스탯 블록 (STR/DEX/INT/LUK) ── */
+.maple-statblock { display: none; }
+:root[data-skin="maple"] .maple-statblock { display: grid; }
+
+/* ── prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .cursor-spotlight { display: none !important; }
+  .skeleton { animation: none !important; background: var(--surface-strong) !important; }
+  .tilt { transform: none !important; }
+}
+
+/* ── View Transitions: theme toggle wipe ── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2147483646; }
+
+/* ── Print ── */
+@media print {
+  .site-header,
+  .cursor-spotlight,
+  .scroll-progress,
+  footer,
+  [aria-label="맨 위로 이동"],
+  .case-study-backdrop {
+    display: none !important;
+  }
+  body::before { display: none !important; }
+  html, body { background: white !important; color: #0f172a !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .surface, .surface-strong {
+    background: #f8f9fa !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: none !important;
+  }
+  section, article { page-break-inside: avoid; }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #64748b;
+  }
+  .text-primary   { color: #0f172a !important; }
+  .text-secondary { color: #374151 !important; }
+  .text-muted     { color: #5d6578 !important; }
+  .section-kicker { color: #64748b !important; }
+  .text-white     { color: #0f172a !important; }
 }

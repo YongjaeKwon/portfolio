@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 160" role="img" aria-label="PPS 업무 흐름: 화면(Vue)에서 API(Spring Boot), 데이터(MyBatis SQL), 외부 연동(메일·엑셀·OTP)까지 같은 교육·대상자 키로 일치">
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#10b981" />
+    </marker>
+    <style>
+      .box { fill: rgba(100,116,139,0.10); stroke: #64748b; stroke-width: 1.4; }
+      .box-accent { fill: rgba(16,185,129,0.12); stroke: #10b981; stroke-width: 1.6; }
+      .t { font-family: 'Space Grotesk', system-ui, sans-serif; fill: #64748b; }
+      .title { font-weight: 700; font-size: 15px; fill: #475569; }
+      .sub { font-size: 11px; fill: #64748b; }
+      .cap { font-size: 12px; font-weight: 600; fill: #10b981; }
+      .conn { stroke: #10b981; stroke-width: 1.6; }
+    </style>
+  </defs>
+
+  <!-- 1. 화면 -->
+  <rect class="box-accent" x="8" y="24" width="160" height="62" rx="10" />
+  <text class="t title" x="88" y="50" text-anchor="middle">화면</text>
+  <text class="t sub" x="88" y="70" text-anchor="middle">Vue</text>
+
+  <line class="conn" x1="168" y1="55" x2="196" y2="55" marker-end="url(#arrow)" />
+
+  <!-- 2. API -->
+  <rect class="box" x="200" y="24" width="160" height="62" rx="10" />
+  <text class="t title" x="280" y="50" text-anchor="middle">API</text>
+  <text class="t sub" x="280" y="70" text-anchor="middle">Spring Boot</text>
+
+  <line class="conn" x1="360" y1="55" x2="388" y2="55" marker-end="url(#arrow)" />
+
+  <!-- 3. 데이터 -->
+  <rect class="box" x="392" y="24" width="160" height="62" rx="10" />
+  <text class="t title" x="472" y="50" text-anchor="middle">데이터</text>
+  <text class="t sub" x="472" y="70" text-anchor="middle">MyBatis · SQL</text>
+
+  <line class="conn" x1="552" y1="55" x2="580" y2="55" marker-end="url(#arrow)" />
+
+  <!-- 4. 외부 연동 -->
+  <rect class="box" x="584" y="24" width="168" height="62" rx="10" />
+  <text class="t title" x="668" y="50" text-anchor="middle">외부 연동</text>
+  <text class="t sub" x="668" y="70" text-anchor="middle">메일 · 엑셀 · OTP</text>
+
+  <!-- 하단 정합성 캡션 -->
+  <line x1="88" y1="104" x2="668" y2="104" stroke="#64748b" stroke-width="1" stroke-dasharray="4 4" opacity="0.5" />
+  <text class="t cap" x="380" y="128" text-anchor="middle">같은 교육·대상자 키로 화면·API·SQL·발송 이력을 끝까지 일치</text>
+</svg>
