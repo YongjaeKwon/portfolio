@@ -5,7 +5,7 @@
         <div>
           <div class="flex items-center gap-3">
             <span class="section-index">01</span>
-            <p class="section-kicker">Featured Projects</p>
+            <p class="section-kicker">주요 프로젝트</p>
           </div>
           <h2 class="section-title">프로젝트 경험</h2>
           <p class="section-copy">
@@ -13,7 +13,7 @@
           </p>
         </div>
         <div class="surface hidden rounded-lg p-4 md:block">
-          <p class="text-muted text-xs font-semibold uppercase tracking-[0.2em]">Focus</p>
+          <p class="text-muted text-xs font-semibold uppercase tracking-[0.2em]">지원 관점</p>
           <p class="accent-text mt-2 text-sm font-bold">{{ activeTrackData.label }}</p>
         </div>
       </div>
@@ -26,6 +26,7 @@
             'tech-chip surface-strong inline-flex items-center rounded-md px-3 py-1.5 text-xs font-bold transition',
             activeFilter === null ? 'filter-chip-active' : 'text-secondary',
           ]"
+          :aria-pressed="activeFilter === null"
           @click="activeFilter = null"
         >
           전체
@@ -39,6 +40,7 @@
             'tech-chip surface-strong inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition',
             activeFilter === opt.name ? 'filter-chip-active' : 'text-secondary',
           ]"
+          :aria-pressed="activeFilter === opt.name"
           @click="activeFilter = activeFilter === opt.name ? null : opt.name"
         >
           <TechIcon :name="opt.name" />
@@ -53,8 +55,7 @@
           v-for="project in filteredProjects"
           :key="project.title"
           v-tilt
-          class="surface interactive-surface tilt group cursor-pointer rounded-xl p-5 md:p-6"
-          @click="openDetail(project)"
+          class="surface interactive-surface tilt group rounded-xl p-5 md:p-6"
         >
           <div class="grid gap-6 lg:grid-cols-[0.32fr_0.68fr]">
             <div class="rounded-lg border border-white/6 bg-white/3 p-5">
@@ -77,12 +78,11 @@
                 <span class="maple-quest-clear maple-pixel shrink-0">✓ CLEAR</span>
               </div>
 
-              <!-- 선택한 Focus 관점에 맞춰 바뀌는 한 줄 컨텍스트 -->
+              <!-- 선택한 지원 관점에 맞춰 바뀌는 한 줄 컨텍스트 -->
               <p
                 v-if="projectTrackNote(project)"
                 class="surface-strong text-secondary mt-4 rounded-lg px-4 py-3 text-sm leading-6"
               >
-                <span class="accent-text font-bold">이 관점에서</span>
                 {{ projectTrackNote(project) }}
               </p>
 
@@ -109,7 +109,7 @@
                 type="button"
                 class="focus-ring accent-text mt-6 inline-flex items-center gap-1.5 self-start rounded-md text-sm font-bold transition hover:gap-2.5"
                 :aria-label="`${project.shortTitle} 자세히 보기`"
-                @click.stop="openDetail(project)"
+                @click="openDetail(project)"
               >
                 자세히 보기
                 <ArrowRight class="h-4 w-4" />

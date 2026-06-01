@@ -93,7 +93,6 @@ html {
 /* Atmospheric glow + ultra-fine noise overlay (kills gradient banding) */
 body {
   margin: 0;
-  min-width: 320px;
   background:
     radial-gradient(ellipse 70% 45% at 10% 0%, rgb(var(--accent-rgb) / 0.06), transparent),
     radial-gradient(ellipse 50% 35% at 90% 10%, rgba(16, 185, 129, 0.03), transparent),

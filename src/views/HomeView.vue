@@ -54,7 +54,7 @@
         </p>
 
         <div class="hero-enter hero-enter-d5 mt-6 max-w-3xl">
-          <p class="section-kicker">Focus</p>
+          <p class="section-kicker">지원 관점</p>
           <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="경험 관점 선택">
             <button
               v-for="track in focusTracks"
@@ -146,12 +146,12 @@
         </div>
       </div>
 
-      <!-- Right column: Work Style card -->
+      <!-- Right column: 업무 방식 카드 -->
       <div class="surface hero-enter hero-enter-d3 relative rounded-xl p-5">
         <div class="flex items-center justify-between border-b border-white/8 pb-4">
           <div>
             <!-- Neutral kicker — no amber -->
-            <p class="section-kicker">Work Style</p>
+            <p class="section-kicker">업무 방식</p>
             <h2 class="text-primary mt-2 text-xl font-black">{{ activeTrackData.workStyleTitle }}</h2>
           </div>
           <Activity class="h-6 w-6 text-white/25" />
@@ -219,22 +219,8 @@ const activeTrackData = computed(
   () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
 );
 
-// 🍁 메이플 캐릭터 정보 — 실제 경력·실적 데이터를 게임 UI로 변환
-// 생일 정보가 공개 번들에 포함되므로 실제 생년월일 반영 시 이 값만 교체합니다.
-const LEVEL_BIRTH_DATE = "1995-06-01";
-
-const calculateKoreanAge = (birthDateText: string) => {
-  const birthDate = new Date(`${birthDateText}T00:00:00`);
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const birthdayThisYear = new Date(
-    today.getFullYear(),
-    birthDate.getMonth(),
-    birthDate.getDate()
-  );
-  if (today < birthdayThisYear) age -= 1;
-  return Math.max(0, age);
-};
+// 🍁 메이플 캐릭터 정보 — 공개 번들에 생년월일을 넣지 않고 현재 만 나이 레벨만 표시
+const mapleLevel = 31;
 
 // 경력 시작(heroStats[1] = "2024.06")에서 현재까지의 개월 수를 EXP로 사용
 const [careerStartYear, careerStartMonth] = heroStats[1].value.split(".").map(Number);
@@ -243,8 +229,6 @@ const careerMonths = Math.max(
   1,
   (now.getFullYear() - careerStartYear) * 12 + (now.getMonth() + 1 - careerStartMonth)
 );
-const mapleLevel = calculateKoreanAge(LEVEL_BIRTH_DATE);
-
 // EXP = 시니어(5년차) 목표 대비 누적 경력 진행률 — 항상 채워지고 꾸준히 성장
 const SENIOR_GOAL_MONTHS = 60;
 const expPct = Math.min(100, Math.round((careerMonths / SENIOR_GOAL_MONTHS) * 100));
@@ -255,7 +239,7 @@ const mapleGauges = [
   { key: "mp", label: `MP · ${heroStats[2].label}`, value: heroStats[2].value + heroStats[2].unit, pct: 100 },
   {
     key: "exp",
-    label: "EXP · 5년차 시니어까지",
+    label: "EXP · 실무 경력 진행",
     value: `${careerMonths} / ${SENIOR_GOAL_MONTHS}개월`,
     pct: expPct,
   },

@@ -127,9 +127,9 @@ export const focusTracks: Array<{
   },
   {
     id: "product",
-    label: "Business Flow",
-    role: "Business Flow Web Developer",
-    badge: "Business Flow · Admin Tools",
+    label: "Business Systems",
+    role: "Business Systems Web Developer",
+    badge: "Business Systems · Admin Tools",
     headline:
       "사용자가 끝내야 하는 업무 단위를 먼저 이해하고, 화면·API·데이터가 같은 기준으로 이어지게 만듭니다.",
     target:
@@ -142,7 +142,7 @@ export const focusTracks: Array<{
       "기능을 화면 단위로만 나누지 않고, 운영자가 어떤 업무를 언제 끝냈다고 볼 수 있는지를 먼저 확인합니다. 공지·발송·조회·이력처럼 반복되는 흐름을 화면과 데이터 기준으로 풀어낸 경험이 있습니다.",
     projectIntro:
       "반복 운영 업무 완료, 이슈 재현·대응, 데이터 정합성 확인 역량이 잘 드러나는 순서로 정리했습니다.",
-    fitTitle: "업무 흐름 중심 웹 개발자의 강점",
+    fitTitle: "업무 시스템 웹 개발자로서의 강점",
     fitDescription:
       "요구사항을 기능 목록이 아닌 업무 완료 기준으로 봅니다. 사용자가 어떤 결과를 확인해야 그 업무가 끝나는지를 기준으로 화면과 데이터를 설계합니다.",
     strengths: [
