@@ -1,8 +1,50 @@
 # Yongjae Kwon Portfolio
 
-웹 개발자로서 실무 경험과 개인 프로젝트를 정리한 포트폴리오입니다.
+<p align="center">
+  <img src="https://img.shields.io/badge/Vue%203-42b883?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue 3" />
+  <img src="https://img.shields.io/badge/TypeScript-3178c6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Vite-646cff?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+</p>
+
+운영 시스템과 관리자 도구 경험을 역할 관점별로 보여주는 Vue 3 + TypeScript + Vite 포트폴리오입니다.
+
+> B2B/B2G 운영 UI, API 연동, 권한/상태 기반 조회, SQL 흐름을 함께 이해하는 웹 개발자 포트폴리오
 
 운영 중인 B2B·B2G 시스템에서 쌓은 관리자 화면 개발, REST API 연동, Vue.js 화면 개발, 권한·조회 조건 처리, MyBatis SQL 점검, 메일·파일·인증 연동 경험을 역할 관점별로 보여주는 것을 목표로 합니다. 개인·팀 프로젝트에서는 React, TypeScript, Next.js, Redux, Zustand, React Query, Canvas, FastAPI, WebSocket, Docker Compose를 활용해 실시간 데이터 대시보드, 개발자 도구형 UI, AI 연동 학습 화면을 다뤘습니다.
+
+## Quick Links
+
+| Link | URL |
+| --- | --- |
+| Live Portfolio | [portfolio-six-inky-14.vercel.app](https://portfolio-six-inky-14.vercel.app/) |
+| Frontend Resume | [resume.pdf](https://portfolio-six-inky-14.vercel.app/resume.pdf) |
+| Product Resume | [resume-product.pdf](https://portfolio-six-inky-14.vercel.app/resume-product.pdf) |
+| Fullstack Resume | [resume-fullstack.pdf](https://portfolio-six-inky-14.vercel.app/resume-fullstack.pdf) |
+
+## Recruiter Snapshot
+
+| Item | Detail |
+| --- | --- |
+| Positioning | 운영자가 반복해서 쓰는 업무 흐름을 화면, API, SQL, 외부 연동까지 연결해 구현합니다. |
+| Core Stack | Vue, React, TypeScript, Java, Spring Boot, Spring MVC, MyBatis, MariaDB, Oracle |
+| Best-fit Roles | Frontend Developer, Web Developer, Product-minded Full-stack Developer |
+| Project Signals | 실무 운영 시스템 4개, OSS/개인 프로젝트 4개, 역할별 이력서 3종 |
+| Privacy | 배포 사이트와 PDF 이력서는 직접 링크용으로 공개하되, 검색 노출을 막기 위해 `noindex` 헤더를 적용했습니다. |
+
+## Preview
+
+![Portfolio social preview](public/og-image.png)
+
+## Project Visuals
+
+| ddoing | MODAC |
+| --- | --- |
+| <img src="public/projects/ddoing.png" width="360" alt="또잉 Drawing 영어 학습 게임 화면" /> | <img src="public/projects/modac.png" width="360" alt="MODAC 학습방 화면" /> |
+
+| quant-core | SSAFAST |
+| --- | --- |
+| <img src="public/projects/quant-core.png" width="360" alt="quant-core 전략 분석 차트 화면" /> | <img src="public/projects/ssafast.png" width="360" alt="SSAFAST 성능 테스트 결과 화면" /> |
 
 ## Design Direction
 

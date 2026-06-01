@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
 
+# Indexing is blocked by the meta robots tag and Vercel X-Robots-Tag header.
