@@ -1,7 +1,13 @@
 import { ref } from "vue";
 import type { FocusTrackId } from "@/data/portfolio";
 
-const trackIds = new Set<FocusTrackId>(["frontend", "product", "fullstack"]);
+const trackIds = new Set<FocusTrackId>(["frontend", "api-data", "fullstack"]);
+const legacyTrackAliases: Record<string, FocusTrackId> = {
+  product: "api-data",
+  "business-flow": "api-data",
+  "business-systems": "api-data",
+  backend: "api-data",
+};
 
 const DEFAULT_TRACK: FocusTrackId = "frontend";
 
@@ -22,8 +28,8 @@ const readTrackFromUrl = (): FocusTrackId => {
   const normalized = value?.toLowerCase();
   const track = trackIds.has(normalized as FocusTrackId)
     ? (normalized as FocusTrackId)
-    : DEFAULT_TRACK;
-  if (value !== null && (value !== track || track === DEFAULT_TRACK)) {
+    : legacyTrackAliases[normalized ?? ""] ?? DEFAULT_TRACK;
+  if (value !== null && (normalized !== track || track === DEFAULT_TRACK)) {
     replaceTrackInUrl(track);
   }
   return track;
