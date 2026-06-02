@@ -73,9 +73,11 @@
               <div class="flex items-start justify-between gap-4">
                 <div>
                   <span class="maple-quest-head maple-pixel mb-2">📜 QUEST</span>
+                  <span class="ow-match-head mb-2">▶ COMPETITIVE</span>
                   <h3 class="text-primary mt-2 text-2xl font-black">{{ project.title }}</h3>
                 </div>
                 <span class="maple-quest-clear maple-pixel shrink-0">✓ CLEAR</span>
+                <span class="ow-victory shrink-0">VICTORY</span>
               </div>
 
               <!-- 선택한 지원 관점에 맞춰 바뀌는 한 줄 컨텍스트 -->
@@ -88,12 +90,14 @@
 
               <!-- 핵심 성과 1줄 (전체는 상세에서) -->
               <p class="maple-label maple-pixel mt-5 -mb-1 text-xs">🎯 목표</p>
+              <p class="ow-label mt-5 -mb-1 text-xs">⌖ ELIMINATIONS</p>
               <p class="text-secondary mt-4 flex items-start gap-2 text-sm leading-6">
                 <CircleCheck class="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
                 {{ project.highlights[0] }}
               </p>
 
               <p class="maple-label maple-pixel mt-5 -mb-1 text-xs">🎁 보상 아이템</p>
+              <p class="ow-label mt-5 -mb-1 text-xs">▲ CAREER PROGRESS</p>
               <div class="mt-4 flex flex-wrap gap-2">
                 <span
                   v-for="stack in project.stack"
