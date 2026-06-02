@@ -37,11 +37,11 @@
         <button
           type="button"
           class="focus-ring nav-panel inline-flex h-10 w-10 items-center justify-center rounded-md text-lg leading-none transition hover:-translate-y-0.5"
-          :class="skin === 'maple' ? 'grayscale-0' : 'grayscale'"
-          :aria-label="skin === 'maple' ? '기본 디자인으로 전환' : '메이플 모드로 전환'"
+          :aria-label="`스킨 전환 (현재: ${skinName})`"
+          :title="`스킨: ${skinName} · 클릭하여 전환`"
           @click="emit('toggle-skin')"
         >
-          🍁
+          {{ skinIcon }}
         </button>
 
         <button
@@ -98,9 +98,9 @@ import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { focusTracks, profile } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";
 
-defineProps<{
+const props = defineProps<{
   theme: "dark" | "light";
-  skin: "default" | "maple";
+  skin: "default" | "maple" | "overwatch";
 }>();
 
 const emit = defineEmits<{
@@ -108,6 +108,14 @@ const emit = defineEmits<{
   "toggle-theme": [origin?: { x: number; y: number }];
   "toggle-skin": [];
 }>();
+
+const skinMeta = {
+  default: { icon: "🎨", name: "기본" },
+  maple: { icon: "🍁", name: "메이플" },
+  overwatch: { icon: "🟠", name: "오버워치" },
+} as const;
+const skinIcon = computed(() => skinMeta[props.skin].icon);
+const skinName = computed(() => skinMeta[props.skin].name);
 
 const onToggleTheme = (e: MouseEvent) => {
   emit("toggle-theme", { x: e.clientX, y: e.clientY });

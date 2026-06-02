@@ -96,7 +96,7 @@ onMounted(() => {
   applyTheme(theme.value);
 
   const savedSkin = localStorage.getItem("portfolio-skin");
-  setSkin(savedSkin === "maple" ? "maple" : "default");
+  setSkin(savedSkin === "maple" || savedSkin === "overwatch" ? savedSkin : "default");
 
   // Cursor spotlight
   const handleMouseMove = (e: MouseEvent) => {
