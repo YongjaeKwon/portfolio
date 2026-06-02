@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/resume-product.pdf",
+      "destination": "/resume-api-data.pdf",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

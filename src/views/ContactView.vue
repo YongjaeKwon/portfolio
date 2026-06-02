@@ -7,7 +7,7 @@
       </div>
       <h2 class="reveal reveal-d1 section-title">함께 일하고 싶으시다면</h2>
       <p class="reveal reveal-d2 section-copy">
-        위에서 선택한 관점 그대로 — 실무에 빠르게 녹아들 수 있는 팀을 찾고 있습니다. 이력서를 먼저 보셔도 좋고, 이메일로 바로 연락주셔도 됩니다.
+        운영 시스템과 관리자 도구를 빠르게 이해하고 구현할 수 있는 웹 개발자로 합류하고 싶습니다. 이력서 검토 후 편하게 이메일로 연락 주세요.
       </p>
 
       <div class="reveal reveal-d3 surface mt-10 rounded-xl p-8">
@@ -45,7 +45,7 @@
             download
           >
             <FileDown class="h-4 w-4" />
-            이력서 다운로드
+            {{ activeTrackData.resumeLabel }}
           </a>
         </div>
       </div>
