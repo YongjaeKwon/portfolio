@@ -68,9 +68,9 @@
         </p>
         <div class="mt-6 grid gap-4 md:grid-cols-2">
           <article
-            v-for="(item, idx) in activeTrackData.fitItems"
+            v-for="item in activeTrackData.fitItems"
             :key="item.label"
-            :class="['reveal surface interactive-surface rounded-xl p-6', `reveal-d${idx + 1}`]"
+            class="surface interactive-surface rounded-xl p-6"
           >
             <div class="flex gap-4">
               <div class="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-white/8 bg-white/4 text-white/45">

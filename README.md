@@ -67,7 +67,7 @@
 - Vue.js, WebSquare, JSP, Nexacro 기반 실무 화면 개발 경험
 - REST API, 인증, 메일, 파일, 알림 발송 결과와 화면 상태 연결 경험
 - 권한, 조직, 기간, 상태값에 따른 조회 조건과 MyBatis SQL 흐름 이해
-- React / TypeScript / Next.js 기반 실시간 데이터 대시보드와 개발자 도구형 UI 경험
+- React / TypeScript / Next.js 기반 실시간 데이터 대시보드와 개발자 도구형 UI 구현
 
 ## Application Tracks
 

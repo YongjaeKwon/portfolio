@@ -57,16 +57,16 @@ export const focusTracks: Array<{
       "API 응답, 권한 조건, SQL 조회 결과까지 함께 확인해 화면과 데이터가 어긋나지 않게 만듭니다.",
     resume: "/resume.pdf",
     resumeLabel: "Frontend 이력서 PDF",
-    workStyleTitle: "화면 상태를 설계할 때 보는 것",
+    workStyleTitle: "업무 화면을 구현할 때 먼저 확인하는 것",
     workStyleNote: "버튼 하나가 잘못된 상태를 노출하면 운영자는 업무를 멈춥니다. 그래서 상태와 예외를 구현 전에 먼저 나열합니다.",
     contactTitle: "프론트엔드 개발자로 합류하고 싶습니다",
     contactDescription:
       "Vue 기반 관리자 화면과 운영 업무 UI를 주력으로 개발해왔습니다. 이력서 검토 후 편하게 이메일로 연락 주세요.",
     projectIntro:
       "화면 설계, 상태 관리, API 연동, 예외 흐름 처리 역량이 잘 드러나는 순서로 정리했습니다.",
-    fitTitle: "프론트엔드 포지션과 맞는 이유",
+    fitTitle: "운영 UI를 안정적으로 구현하는 강점",
     fitDescription:
-      "사용자가 실제로 조작하는 화면을 기준으로, 상태 전환과 API 응답이 어긋나지 않도록 구현해왔습니다.",
+      "검색, 등록, 업로드, 발송처럼 사용자가 반복하는 화면에서 상태 전환과 API 결과가 같은 기준으로 보이도록 구현했습니다.",
     strengths: [
       {
         title: "단계형 화면 상태 설계",
@@ -74,8 +74,8 @@ export const focusTracks: Array<{
         icon: "MonitorSmartphone",
       },
       {
-        title: "API 응답 → UI 반영",
-        description: "성공·실패·대기·예외 응답을 화면 메시지와 버튼 상태로 연결합니다. 운영자가 결과를 확인하지 못하면 업무가 멈추기 때문입니다.",
+        title: "API 결과를 화면 상태로 연결",
+        description: "성공, 실패, 대기, 예외 상황을 운영자가 바로 이해할 수 있도록 메시지, 버튼 상태, 재조회 흐름으로 나눠 반영합니다.",
         icon: "Workflow",
       },
       {
@@ -117,14 +117,14 @@ export const focusTracks: Array<{
     ],
     projectOrder: ["PPS", "TSMS", "ddoing", "SSAFAST", "quant-core", "IT Asset", "MODAC", "SR30"],
     projectAngles: {
-      PPS: "교육 등록, 대상자 업로드, 메일 발송, 제출 현황 조회가 이어지는 화면에서 버튼 상태, 그리드 결과, API 응답 기준을 함께 맞춘 대표 프론트엔드 경험입니다.",
-      TSMS: "모바일 접수, QR 동의, 태블릿 서명처럼 사용자가 직접 진행하는 단계형 화면에서 상태 전환과 예외 처리를 다룬 경험입니다.",
-      ddoing: "Canvas 입력과 AI 추론 응답을 정답 판정, 점수, 게임 완료 화면으로 연결하며 React 화면 상태를 설계한 경험입니다.",
-      SSAFAST: "Next.js와 React Hook Form으로 중첩 입력 폼, 인증 가드, 성능 테스트 결과 화면을 구성한 개발자 도구형 UI 경험입니다.",
+      PPS: "교육 등록, 대상자 업로드, 메일 발송, 제출 현황 조회가 이어지는 화면에서 버튼 상태, 그리드 결과, API 응답 기준을 함께 맞췄습니다.",
+      TSMS: "모바일 접수, QR 동의, 태블릿 서명처럼 사용자가 직접 진행하는 단계형 화면에서 상태 전환과 예외 처리를 구현했습니다.",
+      ddoing: "Canvas 입력과 AI 추론 응답을 정답 판정, 점수, 게임 완료 화면으로 연결해 React 화면 상태를 구현했습니다.",
+      SSAFAST: "Next.js와 React Hook Form으로 중첩 입력 폼, 인증 가드, 성능 테스트 결과 화면을 구성했습니다.",
       "quant-core": "React/TypeScript 대시보드와 WebSocket 상태 갱신을 학습하며 실시간 데이터 UI 구조를 보강한 프로젝트입니다.",
-      "IT Asset": "권한과 상태 조건이 많은 관리자 화면에서 필터, 대시보드, 상세 목록의 조회 기준을 맞춘 경험입니다.",
-      MODAC: "Vue 3, Pinia, WebSocket 기반 팀 프로젝트로 실시간 room 상태와 학습 기록 화면을 구현한 경험입니다.",
-      SR30: "레거시 환경에서도 목록, 리포트, 엑셀 다운로드 결과가 화면 필터와 같은 기준으로 동작하도록 개선한 경험입니다.",
+      "IT Asset": "권한과 상태 조건이 많은 관리자 화면에서 필터, 대시보드, 상세 목록의 조회 기준을 맞췄습니다.",
+      MODAC: "Vue 3, Pinia, WebSocket 기반 팀 프로젝트에서 실시간 room 상태와 학습 기록 화면을 구현했습니다.",
+      SR30: "레거시 환경에서도 목록, 리포트, 엑셀 다운로드 결과가 화면 필터와 같은 기준으로 동작하도록 정리했습니다.",
     },
   },
   {
@@ -145,7 +145,7 @@ export const focusTracks: Array<{
       "프론트엔드 구현을 중심으로 일해왔지만, Spring/MyBatis API와 SQL 조회 조건까지 함께 확인했습니다. 이력서 검토 후 편하게 이메일로 연락 주세요.",
     projectIntro:
       "API 연동, SQL 조건 검증, 데이터 정합성, 외부 연동 처리 역량이 잘 드러나는 순서로 정리했습니다.",
-    fitTitle: "API & Data 관점의 강점",
+    fitTitle: "API/Data 연동에서 드러나는 강점",
     fitDescription:
       "화면에서 시작된 요구사항을 API 응답, SQL 조회 조건, 권한·상태값, 외부 연동 결과까지 내려가며 확인합니다.",
     strengths: [
@@ -198,14 +198,14 @@ export const focusTracks: Array<{
     ],
     projectOrder: ["PPS", "IT Asset", "TSMS", "quant-core", "SR30", "SSAFAST", "MODAC", "ddoing"],
     projectAngles: {
-      PPS: "Vue 화면부터 Spring Boot API, MyBatis SQL, 메일·엑셀·인증 연동까지 같은 교육·대상자 기준으로 맞춘 대표 API & Data 경험입니다.",
-      "IT Asset": "권한별 조회 범위, 대시보드 집계, 상태별 목록 SQL을 함께 맞춘 데이터 조건 처리 경험입니다.",
-      TSMS: "모바일·태블릿 화면과 Spring MVC API, MyBatis SQL, 알림톡·파일·서명 흐름을 함께 확인한 경험입니다.",
+      PPS: "Vue 화면부터 Spring Boot API, MyBatis SQL, 메일·엑셀·인증 연동까지 같은 교육·대상자 기준으로 맞췄습니다.",
+      "IT Asset": "권한별 조회 범위, 대시보드 집계, 상태별 목록 SQL을 함께 정리했습니다.",
+      TSMS: "모바일·태블릿 화면과 Spring MVC API, MyBatis SQL, 알림톡·파일·서명 흐름을 함께 확인했습니다.",
       "quant-core": "FastAPI, PostgreSQL, Redis, WebSocket, Docker Compose를 직접 구성하며 백엔드와 데이터 흐름을 학습한 프로젝트입니다.",
-      SR30: "Nexacro 화면과 Spring MVC, Oracle SQL, 엑셀/리포트 결과가 같은 기준으로 동작하도록 개선한 경험입니다.",
+      SR30: "Nexacro 화면과 Spring MVC, Oracle SQL, 엑셀/리포트 결과가 같은 기준으로 동작하도록 개선했습니다.",
       SSAFAST: "Next.js 화면에서 API 테스트 입력, 요청 파라미터, 실행 결과를 구조화한 개발자 도구형 프로젝트입니다.",
       MODAC: "Vue 3 프론트엔드와 WebSocket room 흐름을 다루며 실시간 상태 연결 구조를 익힌 프로젝트입니다.",
-      ddoing: "React 화면과 FastAPI 기반 AI 추론 서버의 요청·응답을 연결해본 경험입니다.",
+      ddoing: "React 화면과 FastAPI 기반 AI 추론 서버의 요청·응답을 연결했습니다.",
     },
   },
   {
@@ -225,8 +225,8 @@ export const focusTracks: Array<{
     contactDescription:
       "화면 요구사항에서 출발해 API 응답·Service 처리·MyBatis SQL·파일·메일·인증 연동까지 함께 확인합니다. 이력서 검토 후 편하게 이메일로 연락 주세요.",
     projectIntro:
-      "화면·API·SQL·인증·파일·메일 연동을 함께 다룬 경험이 드러나는 순서로 정리했습니다.",
-    fitTitle: "풀스택형 웹 개발 관점의 강점",
+      "화면·API·SQL·인증·파일·메일 연동을 함께 다룬 역량이 드러나는 순서로 정리했습니다.",
+    fitTitle: "Spring/API 연동에서 드러나는 강점",
     fitDescription:
       "한 레이어만 떼어 보지 않고, 화면에서 발생한 문제가 API·Service·SQL·외부 연동 중 어디서 생기는지 따라가며 해결합니다.",
     strengths: [
@@ -279,14 +279,14 @@ export const focusTracks: Array<{
     ],
     projectOrder: ["PPS", "IT Asset", "TSMS", "quant-core", "SR30", "SSAFAST", "MODAC", "ddoing"],
     projectAngles: {
-      PPS: "Vue 화면부터 Spring Boot Controller/Service, MyBatis SQL, 메일·엑셀·인증 연동까지 함께 다룬 가장 강한 Spring/API 연동 근거입니다.",
-      "IT Asset": "권한별 조회 범위, 대시보드 집계, 상태별 목록 SQL을 함께 맞춘 데이터 중심 업무 경험입니다.",
-      TSMS: "모바일·태블릿 화면과 Java/Spring MVC API, 외부 메시지·파일·서명 흐름을 함께 확인한 경험입니다.",
+      PPS: "Vue 화면부터 Spring Boot Controller/Service, MyBatis SQL, 메일·엑셀·인증 연동까지 함께 다뤘습니다.",
+      "IT Asset": "권한별 조회 범위, 대시보드 집계, 상태별 목록 SQL을 함께 정리했습니다.",
+      TSMS: "모바일·태블릿 화면과 Java/Spring MVC API, 외부 메시지·파일·서명 흐름을 함께 확인했습니다.",
       "quant-core": "FastAPI, PostgreSQL, Redis, WebSocket, Docker Compose를 직접 구성하며 백엔드 구조를 학습한 프로젝트입니다.",
-      SR30: "Nexacro 화면과 Spring MVC, Oracle SQL, 엑셀/리포트 결과를 함께 맞춘 운영 개선 경험입니다.",
-      SSAFAST: "Next.js 프론트엔드와 API 테스트 도구의 입력/실행/결과 흐름을 설계한 경험입니다.",
+      SR30: "Nexacro 화면과 Spring MVC, Oracle SQL, 엑셀/리포트 결과를 같은 기준으로 맞췄습니다.",
+      SSAFAST: "Next.js 프론트엔드와 API 테스트 도구의 입력/실행/결과 흐름을 설계했습니다.",
       MODAC: "Vue 3 프론트엔드와 WebSocket room 흐름을 다루며 실시간 기능의 연결 구조를 익힌 프로젝트입니다.",
-      ddoing: "React 화면과 FastAPI 기반 AI 추론 서버의 요청/응답을 연결해본 경험입니다.",
+      ddoing: "React 화면과 FastAPI 기반 AI 추론 서버의 요청/응답을 연결했습니다.",
     },
   },
 ];
