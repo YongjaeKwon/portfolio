@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&family=Jua&family=Do+Hyeon&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&family=Jua&family=Do+Hyeon&family=Rajdhani:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <!-- 메이플 모드 픽셀 폰트 (레벨/스탯 숫자용) -->
@@ -29,7 +29,8 @@
           document.documentElement.dataset.theme = theme;
           document.documentElement.style.colorScheme = theme;
           const savedSkin = localStorage.getItem("portfolio-skin");
-          document.documentElement.dataset.skin = savedSkin === "maple" ? "maple" : "default";
+          document.documentElement.dataset.skin =
+            savedSkin === "maple" || savedSkin === "overwatch" ? savedSkin : "default";
         } catch {
           document.documentElement.dataset.theme = "dark";
           document.documentElement.dataset.skin = "default";

@@ -5,14 +5,18 @@
  */
 import { computed, ref } from "vue";
 
-export type Skin = "default" | "maple";
+export type Skin = "default" | "maple" | "overwatch";
+
+/** 버튼 한 번에 순환되는 순서: 기본 → 메이플 → 오버워치 → 기본 ... */
+export const SKIN_ORDER: Skin[] = ["default", "maple", "overwatch"];
 
 const skin = ref<Skin>("default");
 
 export function useSkin() {
   const isMaple = computed(() => skin.value === "maple");
   const toggle = () => {
-    skin.value = skin.value === "maple" ? "default" : "maple";
+    const i = SKIN_ORDER.indexOf(skin.value);
+    skin.value = SKIN_ORDER[(i + 1) % SKIN_ORDER.length];
   };
   const set = (s: Skin) => {
     skin.value = s;
