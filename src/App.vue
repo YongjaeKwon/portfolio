@@ -72,10 +72,10 @@ const applyTheme = (nextTheme: Theme) => {
 // ── 마스코트 랜덤 대사 ──
 const mascotLines = [
   "반가워요!",
-  "이력서 보고 가세요~",
-  "프로젝트 구경할래요?",
+  "이력서 PDF를 확인해 주세요",
+  "실무 프로젝트를 살펴보세요",
   "업무 흐름 정리 중!",
-  "채용 연락 기다려요 :)",
+  "이메일 연락 환영합니다",
   "오늘도 좋은 하루!",
 ];
 const mascotLine = ref(mascotLines[0]);

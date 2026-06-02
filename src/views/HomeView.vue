@@ -79,7 +79,7 @@
             class="focus-ring accent-bg inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-black transition hover:brightness-110"
             @click="emit('scroll-to-section', 'projects')"
           >
-            프로젝트 보기
+            실무 프로젝트 보기
             <ArrowRight class="h-4 w-4" />
           </button>
           <a
@@ -88,14 +88,14 @@
             target="_blank"
             rel="noreferrer"
           >
-            GitHub
+            GitHub 코드 보기
             <ExternalLink class="h-4 w-4" />
           </a>
           <a
             class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
             :href="`mailto:${profile.email}`"
           >
-            Email
+            이메일로 연락하기
             <Mail class="h-4 w-4" />
           </a>
           <a
@@ -103,7 +103,7 @@
             :href="activeTrackData.resume"
             download
           >
-            이력서
+            {{ activeTrackData.resumeLabel }}
             <FileDown class="h-4 w-4" />
           </a>
         </div>

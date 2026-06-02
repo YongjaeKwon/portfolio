@@ -111,7 +111,7 @@
                 :aria-label="`${project.shortTitle} 자세히 보기`"
                 @click="openDetail(project)"
               >
-                자세히 보기
+                담당 업무와 성과 보기
                 <ArrowRight class="h-4 w-4" />
               </button>
             </div>

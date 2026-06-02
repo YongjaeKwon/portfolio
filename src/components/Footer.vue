@@ -24,7 +24,7 @@
           :href="activeTrackData.resume"
           download
         >
-          이력서
+          이력서 PDF
         </a>
       </div>
     </div>
