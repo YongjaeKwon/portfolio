@@ -663,6 +663,206 @@ a {
 .maple-statblock { display: none; }
 :root[data-skin="maple"] .maple-statblock { display: grid; }
 
+/* ════════════════════════════════════════════════════════════════════════
+   🟠 OVERWATCH SKIN — data-skin="overwatch" : 오버워치 HUD 스타일
+   다크 네이비 + 시그니처 오렌지, Rajdhani 콘덴스드 폰트, 각진 HUD 패널
+   ════════════════════════════════════════════════════════════════════════ */
+:root[data-skin="overwatch"] {
+  --font-display: "Rajdhani", "Pretendard Variable", sans-serif;
+  --page-bg: #0b1120;
+  --page-bg-rgb: 11 17 32;
+  --page-grid: rgba(120, 160, 220, 0.05);
+  --text-primary: #eef4fc;
+  --text-secondary: #b9c7de;
+  --text-muted: #8195b6;
+  --text-kicker: #fa9c1e;
+  --surface: rgba(38, 54, 86, 0.42);
+  --surface-strong: rgba(45, 63, 99, 0.62);
+  --surface-soft: rgba(38, 54, 86, 0.24);
+  --border: rgba(126, 158, 210, 0.22);
+  --border-strong: rgba(250, 156, 30, 0.55);
+  --accent: #fa9c1e;
+  --accent-strong: #ffb648;
+  --accent-contrast: #1a1206;
+  --accent-rgb: 250 156 30;
+  --accent-soft: rgba(250, 156, 30, 0.12);
+  --accent-gradient: linear-gradient(135deg, #fa9c1e, #f0741e);
+  --elev-1: 0 2px 16px rgba(0, 0, 0, 0.5);
+  --elev-2: 0 16px 44px rgba(0, 0, 0, 0.6);
+  --elev-3: 0 26px 64px rgba(0, 0, 0, 0.72);
+  --shadow: var(--elev-2);
+}
+
+/* 다크 네이비 + 상단 오렌지 글로우 */
+:root[data-skin="overwatch"] body {
+  background:
+    radial-gradient(60% 50% at 50% -8%, rgba(250, 156, 30, 0.1), transparent 60%),
+    linear-gradient(180deg, #0c1326 0%, #0a0f1c 100%);
+}
+/* HUD 스캔라인 오버레이 */
+:root[data-skin="overwatch"] body::before {
+  display: block;
+  opacity: 0.04;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.6) 0,
+    rgba(255, 255, 255, 0.6) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* 각진 HUD 패널 + 상단 오렌지 액센트 라인 */
+:root[data-skin="overwatch"] .surface,
+:root[data-skin="overwatch"] .surface-strong,
+:root[data-skin="overwatch"] .nav-panel {
+  border-radius: 4px;
+  border-color: var(--border);
+  backdrop-filter: blur(10px);
+}
+:root[data-skin="overwatch"] .surface {
+  border-top: 2px solid rgba(250, 156, 30, 0.55);
+}
+
+:root[data-skin="overwatch"] .site-header {
+  background: rgba(8, 13, 26, 0.85);
+  border-bottom: 1px solid rgba(250, 156, 30, 0.35);
+}
+
+/* 콘덴스드 디스플레이 폰트 + 넓은 자간 */
+:root[data-skin="overwatch"] .section-kicker { letter-spacing: 0.32em; }
+
+/* CTA: 각진 + 오렌지 글로우 */
+:root[data-skin="overwatch"] .accent-bg {
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15), 0 8px 22px rgba(250, 156, 30, 0.35);
+}
+
+/* nav-active: 각진 오렌지 밑줄 HUD */
+:root[data-skin="overwatch"] .nav-active {
+  color: var(--accent) !important;
+  background: rgba(250, 156, 30, 0.1) !important;
+  border-radius: 3px;
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+/* 칩: HUD 태그, 컬러 아이콘 */
+:root[data-skin="overwatch"] .tech-chip {
+  border-radius: 3px;
+  border-color: rgba(126, 158, 210, 0.3);
+}
+:root[data-skin="overwatch"] .tech-chip svg { filter: none; }
+:root[data-skin="overwatch"] .filter-chip-active { background: rgba(250, 156, 30, 0.12) !important; }
+
+/* 카드 호버 오렌지 글로우 */
+:root[data-skin="overwatch"] .interactive-surface:hover {
+  border-color: rgba(250, 156, 30, 0.6);
+  box-shadow: 0 0 0 1px rgba(250, 156, 30, 0.3), var(--elev-2);
+}
+
+:root[data-skin="overwatch"] .grid-backdrop { opacity: 0.4; }
+
+/* white/* 유틸리티: 라이트 테마+오버워치 조합에서도 흰색 유지 (오버워치는 항상 다크) */
+:root[data-skin="overwatch"] {
+  .bg-white\/3  { background-color: rgba(255, 255, 255, 0.03) !important; }
+  .bg-white\/4  { background-color: rgba(255, 255, 255, 0.04) !important; }
+  .bg-white\/5  { background-color: rgba(255, 255, 255, 0.05) !important; }
+  .bg-white\/8  { background-color: rgba(255, 255, 255, 0.08) !important; }
+  .bg-white\/10 { background-color: rgba(255, 255, 255, 0.10) !important; }
+  .border-white\/6  { border-color: rgba(255, 255, 255, 0.08) !important; }
+  .border-white\/8  { border-color: rgba(255, 255, 255, 0.10) !important; }
+  .border-white\/10 { border-color: rgba(255, 255, 255, 0.14) !important; }
+  .border-white\/15 { border-color: rgba(255, 255, 255, 0.18) !important; }
+  .text-white\/25 { color: rgba(255, 255, 255, 0.3) !important; }
+  .text-white\/30 { color: rgba(255, 255, 255, 0.35) !important; }
+  .text-white\/40 { color: rgba(255, 255, 255, 0.45) !important; }
+  .text-white\/45 { color: rgba(255, 255, 255, 0.5) !important; }
+  .text-white\/50 { color: rgba(255, 255, 255, 0.6) !important; }
+  .text-white\/55 { color: rgba(255, 255, 255, 0.62) !important; }
+  .text-white\/70 { color: rgba(255, 255, 255, 0.78) !important; }
+  .text-white\/80 { color: rgba(255, 255, 255, 0.88) !important; }
+  .text-white     { color: #ffffff !important; }
+}
+
+/* ── 오버워치 게임 UI 요소 ── (기본/메이플에선 숨김, 오버워치에서만 표시) */
+.ow-role-badge,
+.ow-stats,
+.ow-match-head,
+.ow-victory,
+.ow-label { display: none; }
+:root[data-skin="overwatch"] .ow-role-badge { display: inline-flex; }
+:root[data-skin="overwatch"] .ow-stats { display: block; }
+:root[data-skin="overwatch"] .ow-match-head { display: inline-flex; }
+:root[data-skin="overwatch"] .ow-victory { display: inline-flex; }
+:root[data-skin="overwatch"] .ow-label { display: block; }
+:root[data-skin="overwatch"] .default-stats { display: none; }
+
+/* 육각형 HUD 배경 (히어로) */
+:root[data-skin="overwatch"] .grid-backdrop {
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill='none' stroke='%23fa9c1e' stroke-opacity='0.16'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5z'/%3E%3Cpath d='M14 0l14 8.06v16.12L14 32 0 24.18V8.06L14 0z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 28px 49px;
+}
+
+/* 역할군 배지 (평행사변형 HUD) */
+.ow-role-badge {
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px 8px 14px;
+  background: linear-gradient(135deg, rgba(250, 156, 30, 0.2), rgba(250, 156, 30, 0.04));
+  border: 1px solid rgba(250, 156, 30, 0.5);
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+.ow-role-icon { font-size: 1.4rem; color: var(--accent); line-height: 1; }
+.ow-role-text { display: flex; flex-direction: column; line-height: 1.15; font-family: "Rajdhani", sans-serif; }
+.ow-role-text b { font-size: 1.05rem; font-weight: 700; letter-spacing: 0.14em; color: var(--text-primary); }
+.ow-role-text small { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; color: var(--accent-strong); }
+
+/* 필드 상태 헤더 + 궁극기 */
+.ow-stats-head { display: flex; align-items: center; justify-content: space-between; }
+.ow-stats-title { font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.2em; color: var(--accent); }
+.ow-ult { display: inline-flex; align-items: center; gap: 6px; font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.1em; color: var(--text-secondary); }
+.ow-ult b { color: var(--accent); }
+.ow-ult-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: ow-pulse 1.2s ease-in-out infinite; }
+@keyframes ow-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.65); } }
+
+/* 분절 체력/방어구/보호막 바 (OW 시그니처 사선 세그먼트) */
+.ow-bar { display: flex; gap: 3px; height: 14px; }
+.ow-seg {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transform: skewX(-18deg);
+}
+.ow-bar-health .ow-seg-on { background: #e9eef7; border-color: #ffffff; box-shadow: 0 0 6px rgba(233, 238, 247, 0.5); }
+.ow-bar-armor  .ow-seg-on { background: #fa9c1e; border-color: #ffb648; box-shadow: 0 0 6px rgba(250, 156, 30, 0.6); }
+.ow-bar-shield .ow-seg-on { background: #54a0ff; border-color: #7ab8ff; box-shadow: 0 0 6px rgba(84, 160, 255, 0.6); }
+
+/* COMPETITIVE 헤드 + ELIMINATIONS/CAREER 라벨 */
+.ow-match-head { align-items: center; gap: 6px; font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--accent); }
+.ow-label { font-family: "Rajdhani", sans-serif; font-weight: 700; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; }
+
+/* VICTORY 도장 */
+.ow-victory {
+  align-items: center;
+  transform: rotate(-6deg);
+  padding: 4px 16px;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  color: #fff;
+  background: linear-gradient(135deg, #fa9c1e, #f0741e);
+  clip-path: polygon(7px 0, 100% 0, calc(100% - 7px) 100%, 0 100%);
+  box-shadow: 0 4px 16px rgba(250, 156, 30, 0.4);
+}
+
+/* 기술 칩 = 각진 어빌리티 슬롯 */
+:root[data-skin="overwatch"] .tech-chip {
+  border-radius: 0;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
 /* ── prefers-reduced-motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

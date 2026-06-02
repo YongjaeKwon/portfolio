@@ -31,6 +31,14 @@
           >
             💻 Lv.{{ mapleLevel }} 개발자
           </div>
+          <!-- 🟠 오버워치 모드 전용 역할군 배지 -->
+          <div class="ow-role-badge">
+            <span class="ow-role-icon" aria-hidden="true">◈</span>
+            <span class="ow-role-text">
+              <b>DAMAGE</b>
+              <small>엔도서먼트 Lv.{{ mapleLevel >= 5 ? 5 : mapleLevel }}</small>
+            </span>
+          </div>
         </div>
 
         <!-- Neutral badge — no cyan bg -->
@@ -144,6 +152,29 @@
             <p class="text-muted mt-0.5 text-[10px] leading-tight">{{ s.note }}</p>
           </div>
         </div>
+
+        <!-- 🟠 오버워치 모드: 필드 상태 — 체력/방어구/보호막 분절 바 + 궁극기 -->
+        <div class="ow-stats mt-10 max-w-2xl">
+          <div class="ow-stats-head">
+            <span class="ow-stats-title">◤ FIELD STATUS ◢</span>
+            <span class="ow-ult"><span class="ow-ult-dot"></span>ULTIMATE <b>READY</b></span>
+          </div>
+          <div class="mt-3 grid gap-2.5">
+            <div v-for="bar in owBars" :key="bar.label">
+              <div class="mb-1 flex items-center justify-between">
+                <span class="text-secondary text-[11px] font-bold uppercase tracking-wider">{{ bar.label }}</span>
+                <span class="font-mono text-muted text-xs">{{ bar.value }}</span>
+              </div>
+              <div :class="['ow-bar', `ow-bar-${bar.type}`]">
+                <span
+                  v-for="n in bar.seg"
+                  :key="n"
+                  :class="['ow-seg', { 'ow-seg-on': n <= bar.filled }]"
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Right column: 업무 방식 카드 -->
@@ -251,6 +282,13 @@ const developerStats = [
   { k: "DEX", v: "56", note: "화면·API 구현" },
   { k: "INT", v: "48", note: "SQL·흐름 분석" },
   { k: "LUK", v: "34", note: "이슈 재현·정합성" },
+];
+
+// 🟠 오버워치 필드 상태 — 체력(흰)/방어구(주황)/보호막(파랑) 분절 바
+const owBars = [
+  { type: "health", label: `HEALTH · ${heroStats[0].label}`, value: heroStats[0].value + heroStats[0].unit, seg: 8, filled: 8 },
+  { type: "armor", label: "ARMOR · 운영 안정성", value: heroStats[1].value, seg: 8, filled: 7 },
+  { type: "shield", label: `SHIELD · ${heroStats[2].label}`, value: heroStats[2].value + heroStats[2].unit, seg: 8, filled: 6 },
 ];
 
 const emit = defineEmits<{
