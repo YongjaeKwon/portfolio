@@ -31,12 +31,12 @@
           >
             💻 Lv.{{ mapleLevel }} 개발자
           </div>
-          <!-- 🟠 오버워치 모드 전용 역할군 배지 -->
+          <!-- 🟠 오버워치 모드 전용 역할군 배지 — FLEX = 화면·API·SQL을 두루 소화하는 올라운더 -->
           <div class="ow-role-badge">
             <span class="ow-role-icon" aria-hidden="true">◈</span>
             <span class="ow-role-text">
-              <b>DAMAGE</b>
-              <small>엔도서먼트 Lv.{{ mapleLevel >= 5 ? 5 : mapleLevel }}</small>
+              <b>FLEX</b>
+              <small>화면부터 API·SQL까지 다루는 웹 개발자</small>
             </span>
           </div>
         </div>
@@ -62,8 +62,8 @@
         </p>
 
         <div class="hero-enter hero-enter-d5 mt-6 max-w-3xl">
-          <p class="section-kicker">지원 관점</p>
-          <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="경험 관점 선택">
+          <p class="section-kicker">직무 관점</p>
+          <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="직무 관점 선택">
             <button
               v-for="track in focusTracks"
               :key="track.id"
@@ -87,7 +87,7 @@
             class="focus-ring accent-bg inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-black transition hover:brightness-110"
             @click="emit('scroll-to-section', 'projects')"
           >
-            실무 프로젝트 보기
+            프로젝트 구경하기
             <ArrowRight class="h-4 w-4" />
           </button>
           <a
@@ -159,6 +159,7 @@
             <span class="ow-stats-title">◤ FIELD STATUS ◢</span>
             <span class="ow-ult"><span class="ow-ult-dot"></span>ULTIMATE <b>READY</b></span>
           </div>
+          <p class="ow-stats-legend">전투 능력치는 실제 직무 지표입니다 — 체력(투입 프로젝트)·방어구(실무 경력)·보호막(운영 이슈 대응)</p>
           <div class="mt-3 grid gap-2.5">
             <div v-for="bar in owBars" :key="bar.label">
               <div class="mb-1 flex items-center justify-between">
@@ -172,6 +173,26 @@
                   :class="['ow-seg', { 'ow-seg-on': n <= bar.filled }]"
                 ></span>
               </div>
+            </div>
+          </div>
+
+          <!-- 어빌리티 HUD: 키바인드 타일 + 쿨다운 + 궁극기 차지 (OW 하단 HUD) -->
+          <p class="ow-abilities-cap">⌖ ABILITIES · 보유 기술 (Q 궁극기 = 화면·데이터 정합성)</p>
+          <div class="ow-abilities mt-2">
+            <div v-for="ability in owAbilities" :key="ability.key" class="ow-ability" :title="ability.name">
+              <span class="ow-ability-frame">
+                <component :is="ability.icon" class="h-5 w-5" />
+              </span>
+              <span class="ow-key">{{ ability.key }}</span>
+              <span class="ow-ability-name">{{ ability.name }}</span>
+            </div>
+            <div class="ow-ultimate is-ready" title="궁극기 충전 완료">
+              <span class="ow-ult-badge">
+                <Zap class="h-5 w-5" />
+                <span class="ow-ult-charge">100%</span>
+              </span>
+              <span class="ow-key ow-key-ult">Q</span>
+              <span class="ow-ability-name">{{ owUltimate.name }}</span>
             </div>
           </div>
         </div>
@@ -229,6 +250,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import {
   Activity,
   ArrowRight,
+  Database,
   ExternalLink,
   FileDown,
   Mail,
@@ -238,6 +260,7 @@ import {
   Radar,
   ShieldCheck,
   Workflow,
+  Zap,
 } from "@lucide/vue";
 import type { Component } from "vue";
 import { focusTracks, heroStats, profile } from "@/data/portfolio";
@@ -287,9 +310,17 @@ const developerStats = [
 // 🟠 오버워치 필드 상태 — 체력(흰)/방어구(주황)/보호막(파랑) 분절 바
 const owBars = [
   { type: "health", label: `HEALTH · ${heroStats[0].label}`, value: heroStats[0].value + heroStats[0].unit, seg: 8, filled: 8 },
-  { type: "armor", label: "ARMOR · 운영 안정성", value: heroStats[1].value, seg: 8, filled: 7 },
+  { type: "armor", label: "ARMOR · 실무 경력", value: heroStats[1].value, seg: 8, filled: 7 },
   { type: "shield", label: `SHIELD · ${heroStats[2].label}`, value: heroStats[2].value + heroStats[2].unit, seg: 8, filled: 6 },
 ];
+
+// 🟠 오버워치 어빌리티 HUD — 직무 역량을 스킬 슬롯으로 (키바인드 + 궁극기)
+const owAbilities = [
+  { key: "LSHIFT", name: "화면 구현", icon: MonitorSmartphone },
+  { key: "E", name: "API 연동", icon: Workflow },
+  { key: "F", name: "SQL 분석", icon: Database },
+];
+const owUltimate = { key: "Q", name: "정합성 검증" };
 
 const emit = defineEmits<{
   "scroll-to-section": [id: string];
