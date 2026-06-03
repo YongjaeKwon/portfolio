@@ -17,7 +17,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "resumes:pdf": "node scripts/generate-resumes.mjs"
   },
   "dependencies": {
     "@lucide/vue": "^1.16.0",
