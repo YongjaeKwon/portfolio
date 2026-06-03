@@ -1,5 +1,5 @@
 import { execFileSync, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -7,6 +7,11 @@ import { marked } from "marked";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const cacheDir = path.join(rootDir, ".cache", "resumes");
+
+// 회사 맞춤 이력서는 docs/applications/*.md 에 두고 .cache 로만 출력한다.
+// public/ 으로 나가지 않으므로 공개 URL이 생기지 않고, docs/applications/ 는 gitignore 된다.
+const applicationsDir = path.join(rootDir, "docs", "applications");
+const applicationsOutDir = path.join(rootDir, ".cache", "applications");
 
 const resumes = [
   {
@@ -256,12 +261,33 @@ function printPdf(browser, htmlPath, outputPath) {
   }
 }
 
+function collectApplicationResumes() {
+  if (!existsSync(applicationsDir)) {
+    return [];
+  }
+
+  return readdirSync(applicationsDir)
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => {
+      const slug = path.basename(file, ".md");
+      return {
+        source: path.join("docs", "applications", file),
+        html: `application-${slug}.html`,
+        output: path.join(".cache", "applications", `${slug}.pdf`),
+        title: `권용재 - 프론트엔드 엔지니어 (${slug})`,
+      };
+    });
+}
+
 mkdirSync(cacheDir, { recursive: true });
+mkdirSync(applicationsOutDir, { recursive: true });
 
 const browser = findBrowser();
 console.log(`Using browser: ${browser}`);
 
-for (const resume of resumes) {
+const allResumes = [...resumes, ...collectApplicationResumes()];
+
+for (const resume of allResumes) {
   const sourcePath = path.join(rootDir, resume.source);
   const htmlPath = path.join(cacheDir, resume.html);
   const outputPath = path.join(rootDir, resume.output);
