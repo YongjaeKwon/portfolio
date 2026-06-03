@@ -10,6 +10,11 @@
 
     <ScrollProgress />
     <div class="cursor-spotlight" aria-hidden="true" />
+    <!-- 🟠 오버워치 모드 전용 FPS 조준선(레티클) — 마우스를 따라다님 -->
+    <div class="ow-reticle" aria-hidden="true">
+      <span class="ow-reticle-ring"></span>
+      <span class="ow-reticle-dot"></span>
+    </div>
     <Navbar
       :theme="theme"
       :skin="skin"

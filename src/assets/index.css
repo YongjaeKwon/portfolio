@@ -834,9 +834,9 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.1);
   transform: skewX(-18deg);
 }
-.ow-bar-health .ow-seg-on { background: #e9eef7; border-color: #ffffff; box-shadow: 0 0 6px rgba(233, 238, 247, 0.5); }
-.ow-bar-armor  .ow-seg-on { background: #fa9c1e; border-color: #ffb648; box-shadow: 0 0 6px rgba(250, 156, 30, 0.6); }
-.ow-bar-shield .ow-seg-on { background: #54a0ff; border-color: #7ab8ff; box-shadow: 0 0 6px rgba(84, 160, 255, 0.6); }
+.ow-bar-health .ow-seg-on { background: #f4f4ee; border-color: #ffffff; box-shadow: 0 0 6px rgba(244, 244, 238, 0.55); }
+.ow-bar-armor  .ow-seg-on { background: #f0a23c; border-color: #ffc16b; box-shadow: 0 0 6px rgba(240, 162, 60, 0.6); }
+.ow-bar-shield .ow-seg-on { background: #33b6e8; border-color: #7ad3ff; box-shadow: 0 0 6px rgba(51, 182, 232, 0.6); }
 
 /* COMPETITIVE 헤드 + ELIMINATIONS/CAREER 라벨 */
 .ow-match-head { align-items: center; gap: 6px; font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--accent); }
@@ -861,6 +861,247 @@ a {
 :root[data-skin="overwatch"] .tech-chip {
   border-radius: 0;
   clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+/* ════════════ FPS HUD 강화 (오버워치 전용) ════════════ */
+
+/* ── ① FPS 조준선(레티클) 커서 — 마우스를 따라다니는 HUD 오버레이 ── */
+.ow-reticle { display: none; }
+:root[data-skin="overwatch"] .ow-reticle {
+  display: block;
+  position: fixed;
+  left: var(--cursor-x, -200px);
+  top: var(--cursor-y, -200px);
+  width: 46px;
+  height: 46px;
+  z-index: 70;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.7));
+}
+/* 4선 십자(중앙 갭) — 세로/가로 한 쌍씩 */
+:root[data-skin="overwatch"] .ow-reticle::before,
+:root[data-skin="overwatch"] .ow-reticle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+}
+:root[data-skin="overwatch"] .ow-reticle::before {
+  width: 2px;
+  height: 46px;
+  background: linear-gradient(180deg, #fff 0 13px, transparent 13px 33px, #fff 33px 46px);
+}
+:root[data-skin="overwatch"] .ow-reticle::after {
+  width: 46px;
+  height: 2px;
+  background: linear-gradient(90deg, #fff 0 13px, transparent 13px 33px, #fff 33px 46px);
+}
+.ow-reticle-ring {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid rgba(250, 156, 30, 0.6);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(250, 156, 30, 0.5), inset 0 0 5px rgba(250, 156, 30, 0.25);
+  animation: ow-reticle-spin 7s linear infinite;
+}
+.ow-reticle-ring::before,
+.ow-reticle-ring::after {
+  content: "";
+  position: absolute;
+  background: rgba(250, 156, 30, 0.85);
+}
+/* 링 위/아래 작은 액센트 틱 */
+.ow-reticle-ring::before { top: -4px; left: 50%; width: 2px; height: 4px; transform: translateX(-50%); }
+.ow-reticle-ring::after  { bottom: -4px; left: 50%; width: 2px; height: 4px; transform: translateX(-50%); }
+.ow-reticle-dot {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 5px #fff;
+}
+@keyframes ow-reticle-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── ② 타깃팅 코너 브래킷 — 카드 호버 시 lock-on 스냅 ── */
+:root[data-skin="overwatch"] .interactive-surface { position: relative; }
+:root[data-skin="overwatch"] .interactive-surface::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  background:
+    linear-gradient(var(--accent), var(--accent)) left top / 15px 2px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) left top / 2px 15px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right top / 15px 2px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right top / 2px 15px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) left bottom / 15px 2px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) left bottom / 2px 15px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 15px 2px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 2px 15px no-repeat;
+}
+:root[data-skin="overwatch"] .interactive-surface:hover::after {
+  opacity: 0.95;
+  transform: scale(1);
+}
+
+/* 능력치/어빌리티 의미 캡션 — 게임 지표가 무엇을 뜻하는지 명시 */
+.ow-stats-legend {
+  margin-top: 7px;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+.ow-abilities-cap {
+  margin-top: 18px;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── ③ 어빌리티 HUD — 키바인드 타일 + 궁극기 차지 ── */
+.ow-abilities { display: none; }
+:root[data-skin="overwatch"] .ow-abilities {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+}
+.ow-ability,
+.ow-ultimate {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 1px 8px;
+}
+.ow-ability-frame,
+.ow-ult-badge {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  color: var(--accent-strong);
+  background: linear-gradient(150deg, rgba(250, 156, 30, 0.18), rgba(38, 54, 86, 0.5));
+  border: 1.5px solid rgba(250, 156, 30, 0.5);
+  /* 우상단·좌하단 모서리 컷 = 테크 타일 */
+  clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 11px 100%, 0 calc(100% - 11px));
+}
+.ow-key {
+  align-self: end;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  background: rgba(8, 13, 26, 0.85);
+  border: 1px solid rgba(126, 158, 210, 0.3);
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+.ow-ability-name {
+  align-self: start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+/* 궁극기: 더 강한 프레임 + READY 펄스 */
+.ow-ult-badge {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  background: linear-gradient(150deg, #fa9c1e, #f0741e);
+  border-color: #ffd089;
+  box-shadow: 0 0 14px rgba(250, 156, 30, 0.5);
+}
+.ow-ult-charge {
+  position: absolute;
+  bottom: -2px;
+  right: 1px;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 0.6rem;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+.ow-key-ult { color: var(--accent-strong); border-color: rgba(250, 156, 30, 0.5); }
+.ow-ultimate.is-ready .ow-ult-badge::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1.5px solid rgba(255, 200, 120, 0.9);
+  clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 11px 100%, 0 calc(100% - 11px));
+  animation: ow-ult-pulse 1.3s ease-out infinite;
+}
+@keyframes ow-ult-pulse {
+  0%   { opacity: 0.9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.35); }
+}
+
+/* ── ④ 히어로 영웅선택 연출 — 이름 밑줄 + 각진 초상화 + 타깃 브래킷 ── */
+:root[data-skin="overwatch"] #hero h1 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.4rem;
+}
+:root[data-skin="overwatch"] #hero h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 72px;
+  height: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+:root[data-skin="overwatch"] .hero-photo {
+  border-radius: 4px !important;
+  border: 2px solid rgba(250, 156, 30, 0.6) !important;
+  box-shadow: 0 0 0 1px rgba(8, 13, 26, 0.8), 0 0 18px rgba(250, 156, 30, 0.3) !important;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+/* ── ⑤ 네비 토글: 조준선 아이콘 오렌지 + 미세 글로우 ── */
+.ow-skin-toggle {
+  color: var(--accent);
+  border-color: rgba(250, 156, 30, 0.5) !important;
+  box-shadow: inset 0 0 8px rgba(250, 156, 30, 0.15);
+}
+
+/* ── ⑥ 분위기: 가장자리 비네팅(주목도 집중) ── */
+:root[data-skin="overwatch"] .app-root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(5, 9, 16, 0.55) 100%);
+}
+
+/* 모션 비선호 시 레티클 회전·궁극기 펄스 정지 */
+@media (prefers-reduced-motion: reduce) {
+  .ow-reticle-ring { animation: none !important; }
+  .ow-ultimate.is-ready .ow-ult-badge::after { animation: none !important; opacity: 0 !important; }
 }
 
 /* ── prefers-reduced-motion ── */
