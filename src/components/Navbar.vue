@@ -34,17 +34,40 @@
           </button>
         </nav>
 
+        <!-- 스킨 순환 토글: 현재 아이콘 유지 + 다음 스킨 코너 피크 + 3단계 위치 점 -->
         <button
           type="button"
-          class="focus-ring nav-panel inline-flex h-10 w-10 items-center justify-center rounded-md text-lg leading-none transition hover:-translate-y-0.5"
-          :aria-label="`스킨 전환 (현재: ${skinName})`"
-          :title="`스킨: ${skinName} · 클릭하여 전환`"
+          class="skin-toggle focus-ring nav-panel relative inline-flex h-10 w-10 items-center justify-center rounded-md transition hover:-translate-y-0.5"
+          :class="{ 'ow-skin-toggle': skin === 'overwatch' }"
+          :aria-label="`현재 스킨: ${skinName}. 클릭하면 ${nextSkinName} 스킨으로 전환합니다`"
+          :title="`스킨: ${skinName} · 클릭하면 ${nextSkinName}(으)로 전환`"
           @click="emit('toggle-skin')"
         >
-          {{ skinIcon }}
+          <component
+            v-if="skinMeta[skin].comp"
+            :is="skinMeta[skin].comp"
+            class="skin-ico skin-ico--current h-5 w-5"
+          />
+          <span v-else class="skin-ico skin-ico--current text-lg leading-none">{{ skinMeta[skin].emoji }}</span>
+          <!-- 다음 스킨 미리보기 (hover/focus 시 노출) -->
+          <span class="skin-peek" aria-hidden="true">
+            <component v-if="skinMeta[nextSkin].comp" :is="skinMeta[nextSkin].comp" class="h-3 w-3" />
+            <span v-else class="text-[11px] leading-none">{{ skinMeta[nextSkin].emoji }}</span>
+          </span>
+          <!-- 3단계 위치 인디케이터 (터치 포함 항상 노출) -->
+          <span class="skin-dots" aria-hidden="true">
+            <span
+              v-for="s in SKIN_ORDER"
+              :key="s"
+              class="skin-dot"
+              :class="{ 'is-active': s === skin }"
+            ></span>
+          </span>
         </button>
 
+        <!-- 다크/라이트 토글은 기본 테마에서만 의미가 있어 default 스킨에서만 노출 -->
         <button
+          v-if="skin === 'default'"
           type="button"
           class="focus-ring nav-panel text-primary inline-flex h-10 w-10 items-center justify-center rounded-md"
           :aria-label="theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'"
@@ -93,14 +116,15 @@
 </template>
 
 <script setup lang="ts">
-import { Menu, Moon, Sun } from "@lucide/vue";
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { Crosshair, Menu, Moon, Sparkles, Sun } from "@lucide/vue";
+import { computed, onBeforeUnmount, onMounted, ref, type Component } from "vue";
 import { focusTracks, profile } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";
+import { SKIN_ORDER, type Skin } from "@/composables/useSkin";
 
 const props = defineProps<{
   theme: "dark" | "light";
-  skin: "default" | "maple" | "overwatch";
+  skin: Skin;
 }>();
 
 const emit = defineEmits<{
@@ -109,13 +133,19 @@ const emit = defineEmits<{
   "toggle-skin": [];
 }>();
 
-const skinMeta = {
-  default: { icon: "🎨", name: "기본" },
-  maple: { icon: "🍁", name: "메이플" },
-  overwatch: { icon: "🟠", name: "오버워치" },
-} as const;
-const skinIcon = computed(() => skinMeta[props.skin].icon);
+// 스킨별 메타: 기본=Sparkles, 메이플=단풍잎 이모지, 오버워치=Crosshair (이모지/컴포넌트 혼용)
+type SkinMetaEntry = { name: string; comp?: Component; emoji?: string };
+const skinMeta: Record<Skin, SkinMetaEntry> = {
+  default: { comp: Sparkles, name: "기본" },
+  maple: { emoji: "🍁", name: "메이플" },
+  overwatch: { comp: Crosshair, name: "오버워치" },
+};
 const skinName = computed(() => skinMeta[props.skin].name);
+// 다음 스킨은 항상 실제 상태에서 계산 — hover 미리보기·aria-label과 절대 어긋나지 않음
+const nextSkin = computed<Skin>(
+  () => SKIN_ORDER[(SKIN_ORDER.indexOf(props.skin) + 1) % SKIN_ORDER.length]
+);
+const nextSkinName = computed(() => skinMeta[nextSkin.value].name);
 
 const onToggleTheme = (e: MouseEvent) => {
   emit("toggle-theme", { x: e.clientX, y: e.clientY });
@@ -191,6 +221,69 @@ const mobileMoveToSection = (section: string) => {
 </script>
 
 <style scoped>
+/* ── 스킨 순환 토글 ── */
+.skin-toggle {
+  overflow: visible;
+}
+.skin-ico--current {
+  color: var(--accent);
+  margin-bottom: 4px; /* 하단 위치 점과 균형 */
+  transition: opacity 0.18s ease;
+}
+/* 다음 스킨 코너 피크 — hover/focus에서만, 레이아웃 시프트 0 */
+.skin-peek {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  color: var(--text-primary);
+  background: var(--surface-strong);
+  border: 1px solid var(--border-strong);
+  opacity: 0;
+  transform: scale(0.6);
+  transform-origin: top right;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+  pointer-events: none;
+}
+.skin-toggle:hover .skin-peek,
+.skin-toggle:focus-visible .skin-peek {
+  opacity: 1;
+  transform: scale(1);
+}
+/* 3단계 위치 인디케이터 */
+.skin-dots {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  display: flex;
+  gap: 3px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.skin-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.45;
+  transition: background 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+}
+.skin-dot.is-active {
+  background: var(--accent);
+  opacity: 1;
+  transform: scale(1.25);
+}
+@media (prefers-reduced-motion: reduce) {
+  .skin-ico--current,
+  .skin-peek {
+    transition: none;
+  }
+}
+
 .menu-down-enter-active {
   transition: opacity 0.18s ease, transform 0.18s ease;
 }
