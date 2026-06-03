@@ -9,9 +9,9 @@
 
 운영 시스템과 관리자 도구 경험을 역할 관점별로 보여주는 Vue 3 + TypeScript + Vite 포트폴리오입니다.
 
-> Vue 기반 운영/관리자 화면을 구현하고 API 응답, 권한 조건, SQL 조회 흐름까지 함께 확인하는 프론트엔드 개발자 포트폴리오
+> Vue 기반 운영/관리자 화면을 구현하고 API 응답, 권한 조건, SQL 조회 흐름까지 직접 확인하는 웹 개발자 포트폴리오
 
-운영 중인 B2B·B2G 시스템에서 쌓은 관리자 화면 개발, REST API 연동, Vue.js 화면 개발, 권한·조회 조건 처리, MyBatis SQL 점검, 메일·파일·인증 연동 경험을 Frontend, API & Data, Spring/API 관점으로 정리했습니다. 개인·팀 프로젝트에서는 React, TypeScript, Next.js, Redux, Zustand, React Query, Canvas, FastAPI, WebSocket, Docker Compose를 활용해 실시간 데이터 대시보드, 개발자 도구형 UI, AI 연동 학습 화면을 만들었습니다.
+운영 중인 B2B·B2G 시스템에서 쌓은 관리자 화면 개발, REST API 연동, Vue.js 화면 개발, 권한·조회 조건 처리, MyBatis SQL 점검, 메일·파일·인증 연동 경험을 Front-end, Back-end, Fullstack 관점으로 정리했습니다. 개인·팀 프로젝트에서는 React, TypeScript, Next.js, Redux, Zustand, React Query, Canvas, FastAPI, WebSocket, Docker Compose를 활용해 실시간 데이터 대시보드, 개발자 도구형 UI, AI 연동 학습 화면을 만들었습니다.
 
 ## Quick Links
 
@@ -19,7 +19,7 @@
 | --- | --- |
 | Live Portfolio | [portfolio-six-inky-14.vercel.app](https://portfolio-six-inky-14.vercel.app/) |
 | Primary Resume - Frontend | [resume.pdf](https://portfolio-six-inky-14.vercel.app/resume.pdf) |
-| Optional Resume - API/Data | [resume-api-data.pdf](https://portfolio-six-inky-14.vercel.app/resume-api-data.pdf) |
+| Optional Resume - Backend | [resume-backend.pdf](https://portfolio-six-inky-14.vercel.app/resume-backend.pdf) |
 | Optional Resume - Spring/API | [resume-fullstack.pdf](https://portfolio-six-inky-14.vercel.app/resume-fullstack.pdf) |
 
 ## Recruiter Snapshot
@@ -42,9 +42,9 @@
 | --- | --- |
 | <img src="public/projects/ddoing.png" width="360" alt="또잉 Drawing 영어 학습 게임 화면" /> | <img src="public/projects/modac.png" width="360" alt="MODAC 학습방 화면" /> |
 
-| quant-core | SSAFAST |
+| quant-lab (quant-core 공개용) | SSAFAST |
 | --- | --- |
-| <img src="public/projects/quant-core.png" width="360" alt="quant-core 전략 분석 차트 화면" /> | <img src="public/projects/ssafast.png" width="360" alt="SSAFAST 성능 테스트 결과 화면" /> |
+| <img src="public/projects/quant-core.png" width="360" alt="quant-core 개인 프로젝트 화면" /> | <img src="public/projects/ssafast.png" width="360" alt="SSAFAST 성능 테스트 결과 화면" /> |
 
 ## Design Direction
 
@@ -76,10 +76,10 @@
 | 지원 방향 | URL | 이력서 |
 | --- | --- | --- |
 | Frontend | `/` | `public/resume.pdf` |
-| API & Data Web Developer | `/?track=api-data` | `public/resume-api-data.pdf` |
-| Spring/API Web Developer | `/?track=fullstack` | `public/resume-fullstack.pdf` |
+| Backend Developer | `/?track=api-data` | `public/resume-backend.pdf` |
+| Fullstack Web Developer | `/?track=fullstack` | `public/resume-fullstack.pdf` |
 
-지원 목적에 따라 Frontend, API & Data, Spring/API 관점으로 같은 경험을 다르게 탐색할 수 있습니다. 개별 공고 분석 메모는 로컬 또는 비공개 문서로 관리합니다.
+지원 목적에 따라 Front-end, Back-end, Fullstack 관점으로 같은 경험을 다르게 탐색할 수 있습니다. 개별 공고 분석 메모는 로컬 또는 비공개 문서로 관리합니다.
 
 ## Featured Projects
 
@@ -189,7 +189,7 @@ src/
   views/             섹션 단위 화면
 docs/
   frontend-resume-submit.md  제출용 간결 이력서
-  frontend-resume-api-data.md API & Data 이력서
+  frontend-resume-backend.md  Backend 이력서
   frontend-resume-fullstack.md Spring/API 관점 이력서
 ```
 
