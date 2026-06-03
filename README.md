@@ -42,9 +42,9 @@
 | --- | --- |
 | <img src="public/projects/ddoing.png" width="360" alt="또잉 Drawing 영어 학습 게임 화면" /> | <img src="public/projects/modac.png" width="360" alt="MODAC 학습방 화면" /> |
 
-| quant-core | SSAFAST |
+| quant-lab (quant-core 공개용) | SSAFAST |
 | --- | --- |
-| <img src="public/projects/quant-core.png" width="360" alt="quant-core 전략 분석 차트 화면" /> | <img src="public/projects/ssafast.png" width="360" alt="SSAFAST 성능 테스트 결과 화면" /> |
+| <img src="public/projects/quant-core.png" width="360" alt="quant-core 개인 프로젝트 화면" /> | <img src="public/projects/ssafast.png" width="360" alt="SSAFAST 성능 테스트 결과 화면" /> |
 
 ## Design Direction
 
