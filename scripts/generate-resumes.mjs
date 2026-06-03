@@ -16,9 +16,9 @@ const resumes = [
     title: "권용재 - 프론트엔드 개발자",
   },
   {
-    source: "docs/frontend-resume-api-data.md",
-    html: "resume-api-data.html",
-    output: "public/resume-api-data.pdf",
+    source: "docs/frontend-resume-backend.md",
+    html: "resume-backend.html",
+    output: "public/resume-backend.pdf",
     title: "권용재 - 백엔드 개발자 / Backend Developer",
   },
   {

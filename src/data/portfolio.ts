@@ -136,7 +136,7 @@ export const focusTracks: Array<{
       "화면 뒤에서 데이터가 정확히 흐르도록 만듭니다.",
     target:
       "Controller·Service·Mapper 전 구간을 직접 구현하고, 권한·조회 조건과 메일·파일·인증 연동을 서버에서 처리해 요청부터 응답까지 책임집니다.",
-    resume: "/resume-api-data.pdf",
+    resume: "/resume-backend.pdf",
     resumeLabel: "백엔드 이력서",
     workStyleTitle: "API와 SQL을 구현할 때 먼저 확인하는 것",
     workStyleNote: "같은 증상이라도 원인은 API 응답, SQL 조건, 권한 분기, 외부 연동 중 어디든 있을 수 있어 계층을 분리해 재현·확인한 뒤 수정합니다.",
