@@ -465,7 +465,7 @@ export const projects = [
       alt: "quant-core - 암호화폐 시세 국면 감지 리포트 차트 화면",
     },
     links: [
-      { label: "GitHub 저장소 보기", href: "https://github.com/YongjaeKwon/quant-core", type: "github" },
+      { label: "quant-lab 공개 저장소 보기", href: "https://github.com/YongjaeKwon/quant-lab", type: "github" },
     ],
   },
   {
