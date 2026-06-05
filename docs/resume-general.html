@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>권용재 - 프론트엔드 중심 웹 개발자</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  :root {
+    --ink: #1f2937;
+    --ink-strong: #0f172a;
+    --muted: #64748b;
+    --accent: #2563eb;
+    --accent-dark: #1e3a8a;
+    --rule: #e2e8f0;
+    --chip-bg: #eef2ff;
+    --chip-ink: #3949c0;
+    --tech-bg: #f1f5f9;
+    --tech-ink: #475569;
+    --callout-bg: #f5f8ff;
+  }
+  @page { size: A4; margin: 11mm 12mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--ink); background: #fff;
+    font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+    font-size: 9.6px; line-height: 1.45;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .resume { max-width: 186mm; margin: 0 auto; }
+
+  .hd { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; border-bottom: 2px solid var(--accent); padding-bottom: 9px; margin-bottom: 11px; }
+  .hd-main { flex: 1; min-width: 0; }
+  .hd-top { display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap; }
+  .hd h1 { margin: 0; font-size: 26px; font-weight: 800; color: var(--ink-strong); letter-spacing: -0.3px; }
+  .hd .role { font-size: 12px; font-weight: 700; color: var(--accent); }
+  .contact { display: flex; flex-wrap: wrap; gap: 3px 14px; margin-top: 7px; color: var(--muted); font-size: 9.2px; }
+  .contact span { display: inline-flex; align-items: center; gap: 4px; }
+  .contact svg { width: 11px; height: 11px; color: var(--accent); flex: 0 0 auto; }
+  .contact a { color: var(--muted); text-decoration: none; }
+  .photo { flex: 0 0 auto; width: 80px; height: 100px; border-radius: 6px; object-fit: cover; border: 1px solid var(--rule); }
+
+  h2 {
+    display: flex; align-items: center; gap: 7px;
+    margin: 12px 0 6px; font-size: 11.5px; font-weight: 800;
+    color: var(--accent-dark); letter-spacing: 0.4px; text-transform: uppercase;
+  }
+  h2::before { content: ""; width: 4px; height: 13px; background: var(--accent); border-radius: 2px; flex: 0 0 auto; }
+  h2::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+
+  .summary { margin: 0 0 9px; color: var(--ink); }
+  .callout { background: var(--callout-bg); border: 1px solid #dce6fb; border-left: 3px solid var(--accent); border-radius: 7px; padding: 9px 12px 9px 13px; }
+  .callout .lbl { font-size: 9px; font-weight: 800; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+  .callout ul { margin: 0; padding: 0; list-style: none; }
+  .callout li { position: relative; padding-left: 13px; margin: 3px 0; }
+  .callout li::before { content: ""; position: absolute; left: 2px; top: 6px; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+
+  .skills { display: flex; flex-direction: column; gap: 4px; }
+  .srow { display: flex; align-items: flex-start; gap: 8px; }
+  .scat { flex: 0 0 84px; font-size: 8.7px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.3px; padding-top: 2.5px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 3px 4px; }
+  .chip { display: inline-block; background: var(--chip-bg); color: var(--chip-ink); font-size: 8.6px; font-weight: 600; padding: 1.5px 7px; border-radius: 999px; }
+
+  .exp { margin: 4px 0 2px; }
+  .exp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .exp-co { font-size: 11.6px; font-weight: 800; color: var(--ink-strong); }
+  .exp-role { font-size: 9px; color: var(--muted); margin-top: 1px; }
+  .exp-desc { color: var(--ink); margin: 3px 0 4px; }
+  .meta { font-size: 8.6px; color: var(--muted); white-space: nowrap; flex: 0 0 auto; }
+  ul.b { margin: 3px 0 5px; padding: 0; list-style: none; }
+  ul.b > li { position: relative; padding-left: 12px; margin: 2.6px 0; }
+  ul.b > li::before { content: ""; position: absolute; left: 1px; top: 6px; width: 4px; height: 4px; border-radius: 1px; background: var(--accent); transform: rotate(45deg); }
+  .sys-lbl { font-size: 8.7px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; margin: 4px 0 3px; }
+  .sys { display: flex; flex-direction: column; gap: 3px; }
+  .sys .item { break-inside: avoid; padding-left: 10px; position: relative; }
+  .sys .item::before { content: ""; position: absolute; left: 0; top: 5px; width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
+  .sys .item b { color: var(--accent-dark); font-weight: 700; }
+  .sys .stack { color: var(--muted); font-size: 8.5px; }
+
+  .proj { margin: 7px 0; break-inside: avoid; }
+  .trio { break-inside: avoid; }
+  .proj-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .proj-title { font-size: 11.2px; font-weight: 800; color: var(--ink-strong); }
+  .proj-desc { color: var(--muted); margin: 2px 0 4px; }
+  .tech { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
+  .tch { display: inline-block; background: var(--tech-bg); color: var(--tech-ink); font-size: 8.2px; font-weight: 600; padding: 1px 6px; border-radius: 4px; }
+  strong { color: var(--ink-strong); font-weight: 700; }
+
+  .trio { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 14px; }
+  .trio h2 { margin-top: 6px; }
+  .ent { margin: 2px 0 6px; }
+  .ent .t { font-weight: 700; color: var(--ink-strong); }
+  .ent .s { color: var(--muted); font-size: 8.9px; }
+  .ent .x { color: var(--accent-dark); font-size: 8.8px; }
+</style>
+</head>
+<body>
+<main class="resume">
+
+  <header class="hd">
+    <div class="hd-main">
+      <div class="hd-top">
+        <h1>권용재</h1>
+        <span class="role">프론트엔드 중심 웹 개발자 · Vue · React</span>
+      </div>
+      <div class="contact">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>koj185364@naver.com</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>010-9470-1704</span>
+        <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.2-3.37-1.2-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>github.com/YongjaeKwon</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg><a href="https://portfolio-six-inky-14.vercel.app">portfolio-six-inky-14.vercel.app</a></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>경기도 용인시</span>
+      </div>
+    </div>
+    <!-- 사진을 넣으려면: <img class="photo" src="./profile.jpg" alt="권용재" /> 추가 -->
+  </header>
+
+  <p class="summary">Vue와 React로 웹 화면을 만들어 온 프론트엔드 개발자입니다. 약 2년간 실무에서 운영 시스템의 관리자·모바일 화면을 개발하고, 사내 시스템 간 API 연동과 운영 대응까지 맡았습니다. 개인·팀 프로젝트에서는 React와 Next.js로 실시간 대시보드와 협업 도구를 만들었습니다. 화면을 그리는 데서 멈추지 않고 API와 SQL 결과까지 대조해 데이터가 어긋나지 않게 맞추는 편이며, 반복되는 작업은 자동화로 덜어내는 걸 좋아합니다.</p>
+
+  <div class="callout">
+    <div class="lbl">핵심 강점</div>
+    <ul>
+      <li><strong>Vue · React 모두 사용</strong> — 실무에서는 Vue·WebSquare로 운영 화면을, 개인·팀 프로젝트에서는 React·Next.js로 개발했습니다. 프레임워크에 매이지 않아 전환이 빠릅니다.</li>
+      <li><strong>퍼블리싱 · 디자인 시스템</strong> — HTML·CSS(SCSS)·반응형에 익숙하고, CSS 토큰 기반의 테마 시스템을 직접 설계해 운영합니다.</li>
+      <li><strong>풀스택 폭 · 운영</strong> — 화면·API·SQL을 직접 대조해 정합성을 맞추고, Spring 백엔드와 SQL부터 Docker·CI·테스트까지 다뤄 봤습니다.</li>
+    </ul>
+  </div>
+
+  <h2>Core Skills</h2>
+  <div class="skills">
+    <div class="srow"><div class="scat">Frontend</div><div class="chips"><span class="chip">TypeScript</span><span class="chip">JavaScript (ES6+)</span><span class="chip">Vue.js (2·3)</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">HTML5</span><span class="chip">CSS3 · SCSS</span><span class="chip">TailwindCSS</span></div></div>
+    <div class="srow"><div class="scat">상태·데이터</div><div class="chips"><span class="chip">TanStack Query</span><span class="chip">Zustand</span><span class="chip">Pinia</span><span class="chip">Redux Toolkit</span><span class="chip">React Hook Form</span><span class="chip">RESTful API</span></div></div>
+    <div class="srow"><div class="scat">UI·시각화</div><div class="chips"><span class="chip">CSS 디자인 토큰</span><span class="chip">반응형</span><span class="chip">Recharts</span><span class="chip">Canvas</span><span class="chip">MUI</span></div></div>
+    <div class="srow"><div class="scat">Backend</div><div class="chips"><span class="chip">Java</span><span class="chip">Spring Boot · MVC</span><span class="chip">Spring Security</span><span class="chip">MyBatis</span><span class="chip">Python · FastAPI</span></div></div>
+    <div class="srow"><div class="scat">Database</div><div class="chips"><span class="chip">MySQL</span><span class="chip">MariaDB</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">SQLD</span></div></div>
+    <div class="srow"><div class="scat">도구</div><div class="chips"><span class="chip">Docker</span><span class="chip">GitHub Actions CI</span><span class="chip">Vite · Webpack</span><span class="chip">Node.js</span><span class="chip">Vitest</span><span class="chip">Git · SVN</span></div></div>
+  </div>
+
+  <h2>Production Experience</h2>
+  <div class="exp">
+    <div class="exp-head"><div><div class="exp-co">유한책임회사 티지나래</div><div class="exp-role">프론트엔드 중심 웹 개발자 · 솔루션사업부</div></div><div class="meta">2024.06 ~ 재직 중</div></div>
+    <div class="exp-desc">여러 B2B·B2G 운영 시스템의 화면을 만들고, API·SQL 연동과 운영 오류 대응을 함께 담당했습니다.</div>
+    <ul class="b">
+      <li>Vue·WebSquare로 관리자·모바일·태블릿 화면을 신규 개발하고, 화면 크기에 맞춰 반응형으로 구현했습니다.</li>
+      <li>Spring Boot·Spring Security로 로그인·권한과 메일·파일 등 외부 연동을 구현하고, MariaDB·MySQL에서 집계 SQL을 작성했습니다.</li>
+      <li>협력사 포탈·자산 시스템과 API로 데이터를 연계하고, 알림톡·SMS 발송 등 외부 연동을 구현했습니다.</li>
+      <li>운영 중 화면 값이 실제 데이터와 어긋나는 문제를 API와 SQL 결과를 직접 대조해 원인을 찾아 고쳤습니다.</li>
+    </ul>
+    <div class="sys-lbl">주요 시스템</div>
+    <div class="sys">
+      <div class="item"><b>B2B 협력사 운영 포탈 (PPS)</b> — 교육 등록부터 메일 발송·제출 현황까지 하나의 업무 흐름으로 연결, 2단계 인증·권한 처리 <span class="stack">(Vue, Spring Boot, MyBatis)</span></div>
+      <div class="item"><b>통합 현장서비스 관리 시스템 (TSMS)</b> — 협력사·A/S·자산·물류 등 다수 모듈의 WebSquare 화면을 개발·유지보수하고, 협력사 포탈(PPS) API 연동·알림톡 발송·무인보관함 A/S 접수 등 기능을 구현 <span class="stack">(WebSquare, JavaScript, Spring MVC, MyBatis)</span></div>
+      <div class="item"><b>교육청 IT 자산관리 (asstMng)</b> — 자산 현황·권한별 조회 화면을 개발하고, TSMS와 API 연동으로 자산 데이터를 연계 <span class="stack">(Spring MVC, JSP, MyBatis)</span></div>
+    </div>
+  </div>
+
+  <h2>Projects</h2>
+
+  <div class="proj">
+    <div class="proj-head"><div class="proj-title">개발자 포트폴리오 — 디자인 토큰 & 테마 스킨</div><div class="meta">2025 ~ 현재 · 개인</div></div>
+    <div class="proj-desc">Vue 3·TypeScript 포트폴리오. 디자인 토큰 시스템과 문서 자동화를 직접 설계·운영.</div>
+    <ul class="b">
+      <li>약 100개 CSS 토큰으로 라이트/다크 테마와 스킨을 전환하는 디자인 시스템을 직접 설계했습니다.</li>
+      <li>반복되던 문서 생성 작업을 Node.js 스크립트로 자동화했습니다.</li>
+    </ul>
+    <div class="tech"><span class="tch">Vue 3</span><span class="tch">TypeScript</span><span class="tch">Vite</span><span class="tch">CSS 디자인 토큰</span><span class="tch">Node.js</span></div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-head"><div class="proj-title">API 설계·테스트 협업 플랫폼 (SSAFAST)</div><div class="meta">2023.04 ~ 2023.05 · 6인 팀 · FE · SSAFY 자율(우수상)</div></div>
+    <div class="proj-desc">API 명세와 요청·성능 테스트를 한 공간에 연결한 협업 플랫폼. Next.js·TS로 프론트 단독 구현.</div>
+    <ul class="b">
+      <li>성능 테스트 화면을 단독으로 구현하고, TanStack Query로 서버 상태를, React Hook Form으로 중첩 입력 폼을 다뤘습니다.</li>
+      <li>Next.js SSR과 인증 가드로 미인증 서버의 부하 테스트 실행을 막았습니다.</li>
+    </ul>
+    <div class="tech"><span class="tch">Next.js</span><span class="tch">React</span><span class="tch">TypeScript</span><span class="tch">TanStack Query</span><span class="tch">React Hook Form</span></div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-head"><div class="proj-title">퀀트 트레이딩 시스템 (quant-core)</div><div class="meta">2026.03 ~ 현재 · 개인 · 단독</div></div>
+    <div class="proj-desc">React/TypeScript 대시보드와 FastAPI 백엔드를 직접 설계한 풀스택 프로젝트.</div>
+    <ul class="b">
+      <li>React·TypeScript 실시간 대시보드를 만들고, 자작 fetch 레이어를 TanStack Query로 옮겼습니다. 체결 이벤트는 WebSocket으로 실시간 반영했습니다.</li>
+      <li>JWT 기반 인증 보안을 직접 구현해 테스트로 검증했고, Docker와 GitHub Actions CI로 배포·품질을 자동화했습니다.</li>
+    </ul>
+    <div class="tech"><span class="tch">React</span><span class="tch">TypeScript</span><span class="tch">TanStack Query</span><span class="tch">FastAPI</span><span class="tch">Docker</span><span class="tch">GitHub Actions</span></div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-head"><div class="proj-title">또잉 영어 학습 서비스 (ddoing)</div><div class="meta">2023.02 ~ 2023.04 · 6인 팀 · FE · SSAFY</div></div>
+    <div class="proj-desc">Drawing 기반 아동 영어 학습 서비스. Canvas 입력을 AI 추론과 연결.</div>
+    <ul class="b">
+      <li>Canvas로 드로잉 입력을 직접 구현하고, 그림을 추론 API에 연동해 결과를 게임 상태(점수·경험치)에 반영했습니다.</li>
+    </ul>
+    <div class="tech"><span class="tch">React</span><span class="tch">TypeScript</span><span class="tch">Redux Toolkit</span><span class="tch">MUI</span><span class="tch">Canvas</span></div>
+  </div>
+
+  <div class="trio">
+    <div>
+      <h2>Education</h2>
+      <div class="ent"><div class="t">아주대학교</div><div class="s">e-비즈니스학과 · 학사 편입 졸업 · 학점 3.67 / 4.5</div><div class="s">2018.03 ~ 2020.08</div></div>
+      <div class="ent"><div class="t">삼성 청년 SW 아카데미 (SSAFY)</div><div class="s">소프트웨어 엔지니어 과정 1년 수료</div><div class="x">2학기 자율 프로젝트 우수상 · 2022.07 ~ 2023.06</div></div>
+    </div>
+    <div>
+      <h2>Certificates</h2>
+      <div class="ent"><div class="t">SQLD</div><div class="s">SQL 개발자 · 2024.09 취득</div></div>
+    </div>
+    <div>
+      <h2>병역</h2>
+      <div class="ent"><div class="t">군필 · 해병대</div><div class="s">2016.01 ~ 2017.10</div></div>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
