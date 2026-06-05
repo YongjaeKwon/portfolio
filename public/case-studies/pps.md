@@ -124,4 +124,4 @@
 
 ## 사용 기술
 
-Vue.js, JavaScript, Tabulator, Chart.js, Java, Spring Boot, Spring Security, MyBatis, MariaDB, Oracle, Git
+Vue.js, JavaScript, Tabulator, Chart.js, Java, Spring Boot, Spring Security, MyBatis, MariaDB, Git

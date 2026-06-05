@@ -2,12 +2,12 @@
   "redirects": [
     {
       "source": "/resume-product.pdf",
-      "destination": "/resume-backend.pdf",
+      "destination": "/resume.pdf",
       "permanent": false
     },
     {
       "source": "/resume-api-data.pdf",
-      "destination": "/resume-backend.pdf",
+      "destination": "/resume.pdf",
       "permanent": false
     }
   ],
