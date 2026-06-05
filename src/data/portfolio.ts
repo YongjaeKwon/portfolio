@@ -105,13 +105,13 @@ export const focusTracks: Array<{
       {
         label: "멀티 디바이스 대응",
         description:
-          "AS 업무 시스템(TSMS)에서 데스크톱·모바일·태블릿 3종 디바이스의 10여 개 화면을, 같은 업무 번호 기준으로 끊김 없이 이어지도록 jQuery로 구현했습니다.",
+          "AS·현장 서비스 운영 시스템(TSMS)에서 데스크톱·모바일·태블릿 3종 디바이스의 10여 개 화면을, 같은 업무 번호 기준으로 끊김 없이 이어지도록 WebSquare·jQuery로 구현했습니다.",
         icon: "Smartphone",
       },
       {
         label: "스택 확장력",
         description:
-          "실무는 Vue·jQuery 중심이지만, 개인 프로젝트(quant-core)에서 FastAPI·PostgreSQL·Redis·Docker 6개 컨테이너와 실시간 대시보드를 직접 구성하며 백엔드까지 스스로 넓혔습니다.",
+          "실무는 Vue·WebSquare·jQuery 중심이지만, 개인 프로젝트(quant-core)에서 FastAPI·PostgreSQL·Redis·Docker 6개 컨테이너와 실시간 대시보드를 직접 구성하며 백엔드까지 스스로 넓혔습니다.",
         icon: "Server",
       },
     ],
@@ -155,7 +155,7 @@ export const projects = [
     ],
   },
   {
-    title: "AS 업무 시스템",
+    title: "AS·현장 서비스 운영 시스템",
     shortTitle: "TSMS",
     period: "2025.09 ~ 현재",
     team: "2인 팀",
@@ -209,7 +209,7 @@ export const projects = [
     shortTitle: "ddoing",
     period: "2023.02 ~ 2023.04",
     team: "6인 팀",
-    role: "PM 및 프론트엔드·AI 연동",
+    role: "프론트엔드·AI 연동 (기획 겸임)",
     scope: "메인 화면, 그림 그리기 화면, 그림 입력(Canvas), AI 판별 API 연동, 점수·경험치 흐름",
     category: "Interactive Learning",
     summary:
@@ -218,7 +218,7 @@ export const projects = [
       "그림 그리기 화면, 그림 입력(Canvas), 타이머, 정답·오답·패스, 게임 완료까지 화면 흐름 구현",
       "이미지 분류 AI 모델의 판별 API를 프론트엔드에 연결해, 사용자가 그린 그림 결과를 학습 게임 상태로 반영",
       "명예의 전당, 마이페이지 등 학습 결과와 진행 상태를 보여주는 화면 개선",
-      "PM 역할로 화면 흐름과 AI 연동 범위를 조율하고 학습 데이터 전처리 업무에 참여",
+      "기획을 겸해 화면 흐름과 AI 연동 범위를 조율하고 학습 데이터 전처리 업무에 참여",
     ],
     stack: ["React", "TypeScript", "Redux", "Vite", "TailwindCSS", "Canvas", "FastAPI", "TensorFlow"],
     image: {
