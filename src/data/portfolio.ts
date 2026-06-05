@@ -105,13 +105,13 @@ export const focusTracks: Array<{
       {
         label: "멀티 디바이스 대응",
         description:
-          "AS·현장 서비스 운영 시스템(TSMS)에서 데스크톱·모바일·태블릿 3종 디바이스의 10여 개 화면을, 같은 업무 번호 기준으로 끊김 없이 이어지도록 jQuery로 구현했습니다.",
+          "AS·현장 서비스 운영 시스템(TSMS)에서 데스크톱·모바일·태블릿 3종 디바이스의 10여 개 화면을, 같은 업무 번호 기준으로 끊김 없이 이어지도록 WebSquare·jQuery로 구현했습니다.",
         icon: "Smartphone",
       },
       {
         label: "스택 확장력",
         description:
-          "실무는 Vue·jQuery 중심이지만, 개인 프로젝트(quant-core)에서 FastAPI·PostgreSQL·Redis·Docker 6개 컨테이너와 실시간 대시보드를 직접 구성하며 백엔드까지 스스로 넓혔습니다.",
+          "실무는 Vue·WebSquare·jQuery 중심이지만, 개인 프로젝트(quant-core)에서 FastAPI·PostgreSQL·Redis·Docker 6개 컨테이너와 실시간 대시보드를 직접 구성하며 백엔드까지 스스로 넓혔습니다.",
         icon: "Server",
       },
     ],
