@@ -23,7 +23,7 @@ export const heroStats = [
   { label: "운영 이슈 대응", value: "100", unit: "+건" },
 ];
 
-export type FocusTrackId = "frontend" | "api-data" | "fullstack";
+export type FocusTrackId = "frontend";
 
 export const focusTracks: Array<{
   id: FocusTrackId;
@@ -93,7 +93,7 @@ export const focusTracks: Array<{
       {
         label: "데이터 정합성",
         description:
-          "같은 조건으로 조회해도 화면마다 다르게 나오던 통계를 재현해, 화면 필터·SQL 집계·엑셀 다운로드가 같은 값을 내도록 기준을 통일했습니다. (물류 레거시 약 1년·운영 이슈 100여 건)",
+          "같은 조건으로 조회해도 화면마다 다르게 나오던 집계를, 화면 필터·SQL·엑셀 다운로드가 같은 값을 내도록 기준을 통일해 맞춰 왔습니다.",
         icon: "Database",
       },
       {
@@ -124,167 +124,6 @@ export const focusTracks: Array<{
       "quant-core": "React/TypeScript 대시보드와 WebSocket 상태 갱신을 학습하며 실시간 데이터 UI 구조를 보강한 프로젝트입니다.",
       "IT Asset": "권한과 상태 조건이 많은 관리자 화면에서 필터, 대시보드, 상세 목록의 조회 기준을 맞췄습니다.",
       MODAC: "Vue 3, Pinia, WebSocket 기반 팀 프로젝트에서 실시간 room 상태와 학습 기록 화면을 구현했습니다.",
-    },
-  },
-  {
-    id: "api-data",
-    label: "Back-end",
-    role: "Backend Developer",
-    badge: "Spring MVC · MyBatis · MariaDB·MySQL",
-    headline:
-      "화면 뒤에서 데이터가 정확히 흐르도록 만듭니다.",
-    target:
-      "Controller·Service·Mapper 전 구간을 직접 구현하고, 권한·조회 조건과 메일·파일·인증 연동을 서버에서 처리해 요청부터 응답까지 책임집니다.",
-    resume: "/resume.pdf",
-    resumeLabel: "이력서 다운로드",
-    workStyleTitle: "API와 SQL을 구현할 때 먼저 확인하는 것",
-    workStyleNote: "같은 증상이라도 원인은 API 응답, SQL 조건, 권한 분기, 외부 연동 중 어디든 있을 수 있어 계층을 분리해 재현·확인한 뒤 수정합니다.",
-    contactTitle: "프론트엔드 화면과 함께 Spring·MyBatis 백엔드도 다루고 싶습니다",
-    contactDescription:
-      "운영 시스템에서 Spring MVC API와 MyBatis 데이터 접근 계층을 직접 구현하며, 요청·조건·권한이 맞물리는 지점을 다뤄 왔습니다. 프론트 화면을 중심으로 하되 백엔드·데이터까지 함께 맡을 수 있습니다.",
-    projectIntro:
-      "API와 SQL을 깊게 들여다본 프로젝트 순으로 보여드립니다.",
-    fitTitle: "요청부터 응답까지 서버에서 끝냅니다",
-    fitDescription:
-      "API 응답 구조와 조회 조건, 권한 분기, 외부 연동을 서버에서 직접 구현하며 데이터 정합성을 지킵니다.",
-    strengths: [
-      {
-        title: "Controller·Service·Mapper 레이어 구현",
-        description: "요청 처리를 Controller·Service·Mapper로 나눠 직접 구현하고, 응답 구조와 처리 결과가 요구사항과 맞는지 검증했습니다.",
-        icon: "Workflow",
-      },
-      {
-        title: "MyBatis 동적 SQL 조건 처리",
-        description: "권한·조직·기간·상태값에 따라 분기되는 동적 SQL을 작성하고, 조건 누락이나 중복으로 결과가 어긋나지 않는지 확인해 데이터 불일치를 줄였습니다.",
-        icon: "ShieldCheck",
-      },
-      {
-        title: "집계 쿼리 정합성 검증",
-        description: "목록·대시보드·엑셀·발송 이력의 집계 수치가 어긋나지 않도록, SQL 결과를 기준값과 직접 대조하며 쿼리의 정확성을 확인했습니다.",
-        icon: "PanelTop",
-      },
-      {
-        title: "외부 연동 예외 처리",
-        description: "메일·파일·엑셀·인증·알림처럼 실패가 잦은 연동을, 요청·처리·실패 케이스까지 분기해 서버에서 응답으로 처리했습니다.",
-        icon: "MonitorSmartphone",
-      },
-    ],
-    fitItems: [
-      {
-        label: "API 응답 구조 설계",
-        description:
-          "요구사항에 맞춰 Controller·Service·Mapper로 응답 구조를 직접 설계하고, 처리 결과가 스펙과 맞는지 확인했습니다.",
-        icon: "Layers",
-      },
-      {
-        label: "조건 정합성 추적",
-        description:
-          "권한·조직·기간·상태값 조건이 화면 필터와 집계 SQL에 똑같이 걸리는지 따라가, 상위기관 수치가 부풀던 불일치를 잡았습니다.",
-        icon: "RadioTower",
-      },
-      {
-        label: "집계 수치 검증",
-        description:
-          "대시보드·리포트·엑셀·이력 조회의 집계 수치가 서로 다르지 않도록, SQL 결과를 기준값과 직접 대조했습니다.",
-        icon: "Database",
-      },
-      {
-        label: "외부 연동 처리",
-        description:
-          "메일·파일·엑셀·인증·알림 발송처럼 실패가 있는 연동을, 요청·처리·결과 응답까지 서버에서 구현했습니다.",
-        icon: "Server",
-      },
-    ],
-    projectOrder: ["PPS", "IT Asset", "TSMS", "quant-core", "SSAFAST", "MODAC", "ddoing"],
-    projectAngles: {
-      PPS: "Vue 화면부터 Spring Boot API, MyBatis SQL, 메일·엑셀·인증 연동까지 같은 교육·대상자 키로 묶었습니다.",
-      "IT Asset": "권한별 조회 범위, 대시보드 집계, 상태별 목록 SQL을 함께 정리했습니다.",
-      TSMS: "모바일·태블릿 화면과 Spring MVC API, MyBatis SQL, 알림톡·파일·서명 흐름을 직접 확인했습니다.",
-      "quant-core": "FastAPI, PostgreSQL, Redis, WebSocket, Docker Compose를 직접 구성하며 백엔드와 데이터 흐름을 학습한 프로젝트입니다.",
-      SSAFAST: "Next.js 화면에서 API 테스트 입력, 요청 파라미터, 실행 결과를 구조화한 개발자 도구형 프로젝트입니다.",
-      MODAC: "Vue 3 프론트엔드와 WebSocket room 흐름을 다루며 실시간 상태 연결 구조를 익힌 프로젝트입니다.",
-      ddoing: "React 화면과 FastAPI 기반 AI 추론 서버의 요청·응답을 연결했습니다.",
-    },
-  },
-  {
-    id: "fullstack",
-    label: "Full-stack",
-    role: "Fullstack Web Developer",
-    badge: "Vue · Spring · MyBatis",
-    headline:
-      "화면 요구사항부터 API·SQL·연동까지, 끝까지 책임지고 만들어냅니다.",
-    target:
-      "프론트엔드를 중심으로 Spring·MyBatis·DB 조건까지 직접 점검해, 화면과 서버 데이터가 어긋나지 않게 합니다.",
-    resume: "/resume.pdf",
-    resumeLabel: "이력서 다운로드",
-    workStyleTitle: "기능 흐름을 추적할 때 먼저 확인하는 것",
-    workStyleNote: "화면 버그는 대부분 화면 밖에서 생깁니다. API 응답·SQL 조건·연동 결과 중 어디가 어긋났는지 레이어를 하나씩 내려가며 좁힙니다.",
-    contactTitle: "프론트엔드를 중심으로 화면부터 API·SQL까지 이어서 다룹니다",
-    contactDescription:
-      "화면 요구사항에서 출발해 API·Service·SQL·외부 연동까지 흐름을 직접 따라가며 구현합니다. 프론트와 서버 사이가 자주 비는 팀에서 양쪽을 이어 주는 역할에 잘 맞습니다.",
-    projectIntro:
-      "화면부터 API·SQL·연동까지 한 번에 다룬 프로젝트 순으로 보여드립니다.",
-    fitTitle: "화면과 서버를 같은 눈으로 봅니다",
-    fitDescription:
-      "한 레이어에 갇히지 않습니다. 화면·API·Service·SQL·외부 연동을 같은 사람이 보기 때문에, 레이어 사이에서 어긋난 문제를 빠르게 좁힙니다.",
-    strengths: [
-      {
-        title: "화면 기준으로 API 응답 설계",
-        description: "화면이 필요로 하는 데이터 형태를 먼저 정하고, 거기에 맞춰 Controller·Service·Mapper의 응답 구조를 잡았습니다. 프론트가 받아서 그대로 쓸 수 있는 형태로 서버를 설계합니다.",
-        icon: "Workflow",
-      },
-      {
-        title: "화면 필터와 SQL 조건 일치",
-        description: "권한·기관·상태·기간 같은 조건은 화면 필터와 MyBatis SQL 양쪽에 똑같이 걸려야 합니다. 두 곳의 조건이 어긋나 데이터가 새거나 빠지는 일이 없도록 운영 전에 맞춰 둡니다.",
-        icon: "ShieldCheck",
-      },
-      {
-        title: "실패할 수 있는 연동 마무리",
-        description: "메일·파일·엑셀·인증·알림은 성공뿐 아니라 실패도 처리해야 하는 기능입니다. 서버의 요청·처리부터 화면의 결과·오류 안내까지 한 흐름으로 만들어, 실패해도 사용자가 상황을 알 수 있게 했습니다.",
-        icon: "PanelTop",
-      },
-      {
-        title: "FastAPI 백엔드 직접 구성 (개인)",
-        description: "개인 프로젝트에서 FastAPI·PostgreSQL·Redis·WebSocket을 Docker Compose 6개 컨테이너로 직접 구성했습니다. 실무 스택(Spring)과 다른 방식의 백엔드도 처음부터 세워 봤습니다.",
-        icon: "MonitorSmartphone",
-      },
-    ],
-    fitItems: [
-      {
-        label: "화면↔API 데이터 정합",
-        description:
-          "화면에서 막힌 문제를 Controller·Service·Mapper까지 직접 수정하며, 응답 구조가 화면 상태와 맞는지 검증했습니다.",
-        icon: "Layers",
-      },
-      {
-        label: "실패하는 연동 처리",
-        description:
-          "인증·파일·엑셀·메일·알림처럼 실패가 잦은 연동에서, 요청부터 결과 표시까지 화면과 서버 양쪽을 직접 다뤘습니다.",
-        icon: "RadioTower",
-      },
-      {
-        label: "조건 기반 데이터 점검",
-        description:
-          "권한·조직·상태·기간 조건이 조회 결과와 대시보드 집계에 일관되게 반영되는지 점검해 데이터 불일치를 줄였습니다.",
-        icon: "Database",
-      },
-      {
-        label: "FastAPI 직접 구성 (개인)",
-        description:
-          "개인 프로젝트(quant-core)에서 FastAPI·PostgreSQL·Redis·Docker 6개 컨테이너를 직접 설계·구성했습니다.",
-        icon: "Server",
-      },
-    ],
-
-    projectOrder: ["PPS", "IT Asset", "TSMS", "quant-core", "SSAFAST", "MODAC", "ddoing"],
-    projectAngles: {
-      PPS: "Vue 화면부터 Spring Boot Controller/Service, MyBatis SQL, 메일·엑셀·인증 연동까지 직접 다뤘습니다.",
-      "IT Asset": "권한별 조회 범위, 대시보드 집계, 상태별 목록 SQL을 함께 정리했습니다.",
-      TSMS: "모바일·태블릿 화면과 Java/Spring MVC API, 외부 메시지·파일·서명 흐름을 직접 확인했습니다.",
-      "quant-core": "FastAPI, PostgreSQL, Redis, WebSocket, Docker Compose를 직접 구성하며 백엔드 구조를 학습한 프로젝트입니다.",
-      SSAFAST: "Next.js 프론트엔드와 API 테스트 도구의 입력/실행/결과 흐름을 설계했습니다.",
-      MODAC: "Vue 3 프론트엔드와 WebSocket room 흐름을 다루며 실시간 기능의 연결 구조를 익힌 프로젝트입니다.",
-      ddoing: "React 화면과 FastAPI 기반 AI 추론 서버의 요청/응답을 연결했습니다.",
     },
   },
 ];
