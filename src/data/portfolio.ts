@@ -105,7 +105,7 @@ export const focusTracks: Array<{
       {
         label: "멀티 디바이스 대응",
         description:
-          "AS 업무 시스템(TSMS)에서 데스크톱·모바일·태블릿 3종 디바이스의 10여 개 화면을, 같은 업무 번호 기준으로 끊김 없이 이어지도록 jQuery로 구현했습니다.",
+          "AS·현장 서비스 운영 시스템(TSMS)에서 데스크톱·모바일·태블릿 3종 디바이스의 10여 개 화면을, 같은 업무 번호 기준으로 끊김 없이 이어지도록 jQuery로 구현했습니다.",
         icon: "Smartphone",
       },
       {
@@ -155,7 +155,7 @@ export const projects = [
     ],
   },
   {
-    title: "AS 업무 시스템",
+    title: "AS·현장 서비스 운영 시스템",
     shortTitle: "TSMS",
     period: "2025.09 ~ 현재",
     team: "2인 팀",
