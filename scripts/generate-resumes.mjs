@@ -15,22 +15,11 @@ const applicationsOutDir = path.join(rootDir, ".cache", "applications");
 
 const resumes = [
   {
-    source: "docs/frontend-resume-submit.md",
+    // 새 디자인(스타일드 HTML) 공통 이력서 — 사이트의 기본 다운로드(public/resume.pdf)
+    source: "docs/resume-general.html",
     html: "resume.html",
     output: "public/resume.pdf",
-    title: "권용재 - 프론트엔드 개발자",
-  },
-  {
-    source: "docs/frontend-resume-backend.md",
-    html: "resume-backend.html",
-    output: "public/resume-backend.pdf",
-    title: "권용재 - 백엔드 개발자 / Backend Developer",
-  },
-  {
-    source: "docs/frontend-resume-fullstack.md",
-    html: "resume-fullstack.html",
-    output: "public/resume-fullstack.pdf",
-    title: "권용재 - 풀스택 웹 개발자 / Fullstack Web Developer",
+    title: "권용재 - 프론트엔드 엔지니어",
   },
 ];
 
@@ -241,7 +230,7 @@ function printPdf(browser, htmlPath, outputPath) {
       "--no-pdf-header-footer",
       "--allow-file-access-from-files",
       "--run-all-compositor-stages-before-draw",
-      "--virtual-time-budget=1000",
+      "--virtual-time-budget=8000",
       `--print-to-pdf=${outputPath}`,
       pathToFileURL(htmlPath).href,
     ],
@@ -291,9 +280,11 @@ for (const resume of allResumes) {
   const sourcePath = path.join(rootDir, resume.source);
   const htmlPath = path.join(cacheDir, resume.html);
   const outputPath = path.join(rootDir, resume.output);
-  const markdown = readFileSync(sourcePath, "utf8");
+  const raw = readFileSync(sourcePath, "utf8");
+  // .html 소스는 완성된 문서이므로 그대로, .md 소스는 마크다운→HTML로 변환
+  const html = resume.source.endsWith(".html") ? raw : renderHtml(raw, resume.title);
 
-  writeFileSync(htmlPath, renderHtml(markdown, resume.title), "utf8");
+  writeFileSync(htmlPath, html, "utf8");
   printPdf(browser, htmlPath, outputPath);
   console.log(`Generated ${resume.output}`);
 }

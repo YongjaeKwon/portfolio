@@ -4,7 +4,7 @@ export const profile = {
   headline:
     "운영자가 매일 쓰는 업무 화면을 만들고, 화면에 뜨는 값이 실제 데이터와 어긋나지 않게 챙깁니다.",
   summary:
-    "B2B·B2G 운영 시스템에서 관리자·모바일 업무 화면을 만들어 온 프론트엔드 개발자입니다. 화면만 보는 게 아니라 Spring/MyBatis API와 SQL 조회 조건까지 직접 열어 보며 데이터가 맞는지 확인합니다. Vue·WebSquare·JSP·Nexacro로 등록·업로드·발송·조회처럼 운영자가 매일 반복하는 업무가 중간에 끊기지 않게 구현해 왔습니다.",
+    "B2B·B2G 운영 시스템에서 관리자·모바일 업무 화면을 만들어 온 프론트엔드 개발자입니다. 화면만 보는 게 아니라 Spring/MyBatis API와 SQL 조회 조건까지 직접 열어 보며 데이터가 맞는지 확인합니다. Vue·WebSquare·JSP로 등록·업로드·발송·조회처럼 운영자가 매일 반복하는 업무가 중간에 끊기지 않게 구현해 왔습니다.",
   target:
     "관리자 도구, B2B 포탈, 데이터 대시보드처럼 복잡한 상태·권한 조건을 사용자가 이해하기 쉬운 화면으로 정리하는 팀에서 기여하고 싶습니다.",
   email: "koj185364@naver.com",
@@ -18,7 +18,7 @@ export const profile = {
 };
 
 export const heroStats = [
-  { label: "투입 프로젝트", value: "4", unit: "개" },
+  { label: "투입 프로젝트", value: "3", unit: "개" },
   { label: "실무 경력", value: "2024.06", unit: "~" },
   { label: "운영 이슈 대응", value: "100", unit: "+건" },
 ];
@@ -56,7 +56,7 @@ export const focusTracks: Array<{
     target:
       "API 응답과 권한 조건, SQL 조회 결과까지 직접 확인해 화면에 보이는 값과 실제 데이터를 일치시킵니다.",
     resume: "/resume.pdf",
-    resumeLabel: "프론트엔드 이력서",
+    resumeLabel: "이력서 다운로드",
     workStyleTitle: "화면을 구현할 때 먼저 확인하는 것",
     workStyleNote: "버튼 하나가 잘못된 상태를 노출하면 운영자는 업무를 멈춥니다. 그래서 상태와 예외를 구현 전에 먼저 나열합니다.",
     contactTitle: "프론트엔드 개발자로 합류하고 싶습니다",
@@ -115,7 +115,7 @@ export const focusTracks: Array<{
         icon: "Server",
       },
     ],
-    projectOrder: ["PPS", "TSMS", "ddoing", "SSAFAST", "quant-core", "IT Asset", "MODAC", "SR30"],
+    projectOrder: ["PPS", "TSMS", "ddoing", "SSAFAST", "quant-core", "IT Asset", "MODAC"],
     projectAngles: {
       PPS: "교육 등록→대상자 업로드→메일 발송→제출 현황 조회로 이어지는 화면에서, 버튼 상태와 그리드 결과, API 응답을 하나의 기준으로 묶었습니다.",
       TSMS: "모바일 접수, QR 동의, 태블릿 서명처럼 사용자가 직접 진행하는 단계형 화면에서 상태 전환과 예외 처리를 구현했습니다.",
@@ -124,25 +124,24 @@ export const focusTracks: Array<{
       "quant-core": "React/TypeScript 대시보드와 WebSocket 상태 갱신을 학습하며 실시간 데이터 UI 구조를 보강한 프로젝트입니다.",
       "IT Asset": "권한과 상태 조건이 많은 관리자 화면에서 필터, 대시보드, 상세 목록의 조회 기준을 맞췄습니다.",
       MODAC: "Vue 3, Pinia, WebSocket 기반 팀 프로젝트에서 실시간 room 상태와 학습 기록 화면을 구현했습니다.",
-      SR30: "목록·리포트·엑셀 다운로드가 제각각 조건을 쓰던 레거시 화면을, 화면 필터와 똑같이 맞물리게 정리했습니다.",
     },
   },
   {
     id: "api-data",
     label: "Back-end",
     role: "Backend Developer",
-    badge: "Spring MVC · MyBatis · MariaDB·Oracle",
+    badge: "Spring MVC · MyBatis · MariaDB·MySQL",
     headline:
       "화면 뒤에서 데이터가 정확히 흐르도록 만듭니다.",
     target:
       "Controller·Service·Mapper 전 구간을 직접 구현하고, 권한·조회 조건과 메일·파일·인증 연동을 서버에서 처리해 요청부터 응답까지 책임집니다.",
-    resume: "/resume-backend.pdf",
-    resumeLabel: "백엔드 이력서",
+    resume: "/resume.pdf",
+    resumeLabel: "이력서 다운로드",
     workStyleTitle: "API와 SQL을 구현할 때 먼저 확인하는 것",
     workStyleNote: "같은 증상이라도 원인은 API 응답, SQL 조건, 권한 분기, 외부 연동 중 어디든 있을 수 있어 계층을 분리해 재현·확인한 뒤 수정합니다.",
-    contactTitle: "Spring·MyBatis로 운영 시스템의 백엔드를 맡는 개발자로 합류하고 싶습니다",
+    contactTitle: "프론트엔드 화면과 함께 Spring·MyBatis 백엔드도 다루고 싶습니다",
     contactDescription:
-      "운영 시스템에서 Spring MVC API와 MyBatis 데이터 접근 계층을 직접 구현하고, 요청·조건·권한이 맞물리는 지점을 책임져 왔습니다. 백엔드와 데이터를 맡길 자리에서 바로 일할 수 있습니다.",
+      "운영 시스템에서 Spring MVC API와 MyBatis 데이터 접근 계층을 직접 구현하며, 요청·조건·권한이 맞물리는 지점을 다뤄 왔습니다. 프론트 화면을 중심으로 하되 백엔드·데이터까지 함께 맡을 수 있습니다.",
     projectIntro:
       "API와 SQL을 깊게 들여다본 프로젝트 순으로 보여드립니다.",
     fitTitle: "요청부터 응답까지 서버에서 끝냅니다",
@@ -196,13 +195,12 @@ export const focusTracks: Array<{
         icon: "Server",
       },
     ],
-    projectOrder: ["PPS", "IT Asset", "TSMS", "quant-core", "SR30", "SSAFAST", "MODAC", "ddoing"],
+    projectOrder: ["PPS", "IT Asset", "TSMS", "quant-core", "SSAFAST", "MODAC", "ddoing"],
     projectAngles: {
       PPS: "Vue 화면부터 Spring Boot API, MyBatis SQL, 메일·엑셀·인증 연동까지 같은 교육·대상자 키로 묶었습니다.",
       "IT Asset": "권한별 조회 범위, 대시보드 집계, 상태별 목록 SQL을 함께 정리했습니다.",
       TSMS: "모바일·태블릿 화면과 Spring MVC API, MyBatis SQL, 알림톡·파일·서명 흐름을 직접 확인했습니다.",
       "quant-core": "FastAPI, PostgreSQL, Redis, WebSocket, Docker Compose를 직접 구성하며 백엔드와 데이터 흐름을 학습한 프로젝트입니다.",
-      SR30: "Nexacro 화면과 Spring MVC, Oracle SQL, 엑셀/리포트 결과가 서로 어긋나지 않도록 개선했습니다.",
       SSAFAST: "Next.js 화면에서 API 테스트 입력, 요청 파라미터, 실행 결과를 구조화한 개발자 도구형 프로젝트입니다.",
       MODAC: "Vue 3 프론트엔드와 WebSocket room 흐름을 다루며 실시간 상태 연결 구조를 익힌 프로젝트입니다.",
       ddoing: "React 화면과 FastAPI 기반 AI 추론 서버의 요청·응답을 연결했습니다.",
@@ -217,13 +215,13 @@ export const focusTracks: Array<{
       "화면 요구사항부터 API·SQL·연동까지, 끝까지 책임지고 만들어냅니다.",
     target:
       "프론트엔드를 중심으로 Spring·MyBatis·DB 조건까지 직접 점검해, 화면과 서버 데이터가 어긋나지 않게 합니다.",
-    resume: "/resume-fullstack.pdf",
-    resumeLabel: "풀스택 이력서",
+    resume: "/resume.pdf",
+    resumeLabel: "이력서 다운로드",
     workStyleTitle: "기능 흐름을 추적할 때 먼저 확인하는 것",
     workStyleNote: "화면 버그는 대부분 화면 밖에서 생깁니다. API 응답·SQL 조건·연동 결과 중 어디가 어긋났는지 레이어를 하나씩 내려가며 좁힙니다.",
-    contactTitle: "화면부터 API·SQL까지 다루는 풀스택 웹 개발자로 합류하고 싶습니다",
+    contactTitle: "프론트엔드를 중심으로 화면부터 API·SQL까지 이어서 다룹니다",
     contactDescription:
-      "화면 요구사항에서 출발해 API·Service·SQL·외부 연동까지 한 사람이 끌고 갑니다. 프론트와 서버 사이가 자주 비는 팀, 한 명이 양쪽을 다 봐 주길 바라는 팀에 잘 맞습니다.",
+      "화면 요구사항에서 출발해 API·Service·SQL·외부 연동까지 흐름을 직접 따라가며 구현합니다. 프론트와 서버 사이가 자주 비는 팀에서 양쪽을 이어 주는 역할에 잘 맞습니다.",
     projectIntro:
       "화면부터 API·SQL·연동까지 한 번에 다룬 프로젝트 순으로 보여드립니다.",
     fitTitle: "화면과 서버를 같은 눈으로 봅니다",
@@ -278,13 +276,12 @@ export const focusTracks: Array<{
       },
     ],
 
-    projectOrder: ["PPS", "IT Asset", "TSMS", "quant-core", "SR30", "SSAFAST", "MODAC", "ddoing"],
+    projectOrder: ["PPS", "IT Asset", "TSMS", "quant-core", "SSAFAST", "MODAC", "ddoing"],
     projectAngles: {
       PPS: "Vue 화면부터 Spring Boot Controller/Service, MyBatis SQL, 메일·엑셀·인증 연동까지 직접 다뤘습니다.",
       "IT Asset": "권한별 조회 범위, 대시보드 집계, 상태별 목록 SQL을 함께 정리했습니다.",
       TSMS: "모바일·태블릿 화면과 Java/Spring MVC API, 외부 메시지·파일·서명 흐름을 직접 확인했습니다.",
       "quant-core": "FastAPI, PostgreSQL, Redis, WebSocket, Docker Compose를 직접 구성하며 백엔드 구조를 학습한 프로젝트입니다.",
-      SR30: "Nexacro 화면과 Spring MVC, Oracle SQL, 엑셀/리포트 결과의 수치를 하나로 맞췄습니다.",
       SSAFAST: "Next.js 프론트엔드와 API 테스트 도구의 입력/실행/결과 흐름을 설계했습니다.",
       MODAC: "Vue 3 프론트엔드와 WebSocket room 흐름을 다루며 실시간 기능의 연결 구조를 익힌 프로젝트입니다.",
       ddoing: "React 화면과 FastAPI 기반 AI 추론 서버의 요청/응답을 연결했습니다.",
@@ -309,7 +306,7 @@ export const projects = [
       "메일·엑셀 업로드처럼 'API 성공 ≠ 업무 완료'인 기능에서 발송 이력·실패 대상·결과 재조회까지 운영자가 확인할 수 있는 상태로 분리",
       "2단계 인증, 접근 예외, 사용자 유형별 접근 조건이 서버 판단과 화면 접근에서 어긋나지 않도록 케이스를 나눠, 로그인이 잘못 분기되던 문제 제거",
     ],
-    stack: ["Vue.js", "JavaScript", "Tabulator", "Chart.js", "Java", "Spring Boot", "Spring Security", "MyBatis", "MariaDB", "Oracle"],
+    stack: ["Vue.js", "JavaScript", "Tabulator", "Chart.js", "Java", "Spring Boot", "Spring Security", "MyBatis", "MariaDB"],
     image: {
       src: "/projects/pps-flow.svg",
       alt: "PPS 업무 흐름 다이어그램: 화면(Vue)→API(Spring Boot)→데이터(MyBatis SQL)→외부 연동(메일·엑셀·인증)을 같은 교육·대상자 키로 일치",
@@ -366,31 +363,6 @@ export const projects = [
     },
     links: [
       { label: "케이스 스터디 보기", href: "/case-studies/it-asset.md", type: "case" },
-    ],
-  },
-  {
-    title: "물류관리 시스템",
-    shortTitle: "SR30",
-    period: "2024.07 ~ 2025.07",
-    team: "3인 팀",
-    role: "운영 기능 개선 및 신규 기능 개발",
-    scope: "일정, 설문, 물류·재고, 리포트/KPI, 엑셀 다운로드, 관리자 이력 조회 개선",
-    category: "Internal Operations",
-    summary:
-      "Nexacro(기업용 UI 프레임워크)·Spring MVC 기반 물류·서비스 운영 시스템에서 약 1년간 일정·설문·재고·리포트·KPI·이력 등 20여 개 운영 화면을 개선·신규 개발하고 100여 건의 운영 이슈에 대응했습니다. 운영자가 매일 확인하는 통계가 화면 필터로 보든 엑셀로 받든 같은 값이 나오도록 맞추는 데 집중했습니다.",
-    highlights: [
-      "같은 센터·기간·상태로 조회해도 화면마다 통계가 다르게 나오던 문제를, 화면 필터·SQL 집계·엑셀 다운로드가 한 가지 조건을 쓰도록 통일",
-      "레거시 특성상 목록·상세·통계·엑셀이 조건을 따로 갖던 구조에서, 연관된 2~3개 유사 화면까지 짚어가며 점검해 수치 신뢰성 확보",
-      "설문 등록·응답·통계에서 응답 상태와 집계 결과가 어긋나지 않게 SQL 조건 점검",
-      "개인정보 다운로드·삭제·접근 이력 등 감사와 연결되는 화면에서 검색 조건·결과 누락을 신중히 검증",
-    ],
-    stack: ["Nexacro", "Java", "Spring MVC", "MyBatis", "PL/SQL", "Oracle", "Excel"],
-    image: {
-      src: "/projects/sr30-flow.svg",
-      alt: "SR30 업무 흐름 다이어그램: 화면(Nexacro)→API(Spring MVC)→데이터(MyBatis·PL/SQL·Oracle)→엑셀 다운로드까지 한 기준으로 연결",
-    },
-    links: [
-      { label: "케이스 스터디 보기", href: "/case-studies/sr30.md", type: "case" },
     ],
   },
   {
@@ -500,9 +472,9 @@ export const experience = {
   company: "유한책임회사 티지나래",
   period: "2024.06 ~ 재직 중",
   description:
-    "2024.06부터 솔루션사업부에서 B2B·B2G 운영 시스템 4개 프로젝트에 투입돼 관리자 화면, API 연동, 권한·조회 조건, 메일·파일·인증 흐름을 개발했습니다. 운영 이슈 100건 이상을 대응하며 실제 사용자가 반복 처리하는 업무 화면을 안정화했습니다.",
+    "2024.06부터 솔루션사업부에서 B2B·B2G 운영 시스템 여러 프로젝트에 투입돼 관리자 화면, API 연동, 권한·조회 조건, 메일·파일·인증 흐름을 개발했습니다. 운영 이슈 100건 이상을 대응하며 실제 사용자가 반복 처리하는 업무 화면을 안정화했습니다.",
   bullets: [
-    "Vue·WebSquare·JSP·Nexacro 기반 관리자·모바일 업무 화면 신규 개발 및 운영 오류 수정",
+    "Vue·WebSquare·JSP 기반 관리자·모바일 업무 화면 신규 개발 및 운영 오류 수정",
     "Spring Boot 3·Spring MVC 환경에서 API·MyBatis SQL·메일·파일·인증 연동 구현",
     "조회 조건·권한 반영·상태값 불일치 문제를 재현하고, 유사 화면까지 범위를 넓혀 점검",
   ],
@@ -533,7 +505,7 @@ export const techGroups = [
   {
     title: "Frontend",
     icon: "Code",
-    items: ["HTML5", "CSS3", "SASS/SCSS", "JavaScript", "jQuery", "TypeScript", "Vue.js", "React", "Next.js", "WebSquare", "JSP", "Nexacro", "Zustand", "Pinia", "Redux", "React Query", "React Hook Form", "Canvas"],
+    items: ["HTML5", "CSS3", "SASS/SCSS", "JavaScript", "jQuery", "TypeScript", "Vue.js", "React", "Next.js", "WebSquare", "JSP", "Zustand", "Pinia", "Redux", "React Query", "React Hook Form", "Canvas"],
   },
   {
     title: "Backend",
@@ -543,7 +515,7 @@ export const techGroups = [
   {
     title: "Database",
     icon: "Database",
-    items: ["MariaDB", "Oracle", "PostgreSQL", "Redis", "SQLite", "PL/SQL"],
+    items: ["MySQL", "MariaDB", "PostgreSQL", "Redis", "SQLite"],
   },
   {
     title: "Tools & Libraries",
