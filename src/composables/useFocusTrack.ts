@@ -41,10 +41,6 @@ const readTrackFromUrl = (): FocusTrackId => {
 const activeTrack = ref<FocusTrackId>(readTrackFromUrl());
 let listening = false;
 
-const writeTrackToUrl = (track: FocusTrackId) => {
-  replaceTrackInUrl(track);
-};
-
 export function useFocusTrack() {
   if (typeof window !== "undefined" && !listening) {
     window.addEventListener("popstate", () => {
@@ -53,10 +49,5 @@ export function useFocusTrack() {
     listening = true;
   }
 
-  const setActiveTrack = (track: FocusTrackId) => {
-    activeTrack.value = track;
-    writeTrackToUrl(track);
-  };
-
-  return { activeTrack, setActiveTrack };
+  return { activeTrack };
 }

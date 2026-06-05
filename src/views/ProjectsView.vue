@@ -12,10 +12,6 @@
             {{ activeTrackData.projectIntro }}
           </p>
         </div>
-        <div class="surface hidden rounded-lg p-4 md:block">
-          <p class="text-muted text-xs font-semibold uppercase tracking-[0.2em]">직무 관점</p>
-          <p class="accent-text mt-2 text-sm font-bold">{{ activeTrackData.label }}</p>
-        </div>
       </div>
 
       <!-- ── 스택 필터 칩 ── -->
