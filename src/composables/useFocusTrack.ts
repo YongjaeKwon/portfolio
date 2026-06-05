@@ -1,12 +1,15 @@
 import { ref } from "vue";
 import type { FocusTrackId } from "@/data/portfolio";
 
-const trackIds = new Set<FocusTrackId>(["frontend", "api-data", "fullstack"]);
+const trackIds = new Set<FocusTrackId>(["frontend"]);
+// 과거 공유된 ?track= 링크는 모두 단일 트랙(frontend)으로 흡수
 const legacyTrackAliases: Record<string, FocusTrackId> = {
-  product: "api-data",
-  "business-flow": "api-data",
-  "business-systems": "api-data",
-  backend: "api-data",
+  product: "frontend",
+  "business-flow": "frontend",
+  "business-systems": "frontend",
+  backend: "frontend",
+  "api-data": "frontend",
+  fullstack: "frontend",
 };
 
 const DEFAULT_TRACK: FocusTrackId = "frontend";

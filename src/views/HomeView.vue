@@ -61,25 +61,6 @@
           {{ activeTrackData.target }}
         </p>
 
-        <div class="hero-enter hero-enter-d5 mt-6 max-w-3xl">
-          <p class="section-kicker">직무 관점</p>
-          <div class="mt-3 flex flex-wrap gap-2" role="group" aria-label="직무 관점 선택">
-            <button
-              v-for="track in focusTracks"
-              :key="track.id"
-              type="button"
-              :aria-pressed="activeTrack === track.id"
-              :class="[
-                'focus-ring tech-chip surface-strong rounded-md px-3 py-2 text-sm font-bold transition',
-                activeTrack === track.id ? 'filter-chip-active' : 'text-secondary hover:text-primary',
-              ]"
-              @click="setActiveTrack(track.id)"
-            >
-              {{ track.label }}
-            </button>
-          </div>
-        </div>
-
         <div class="hero-enter hero-enter-d5 mt-8 flex flex-wrap gap-3">
           <!-- CTA: the ONE place cyan lives -->
           <button
@@ -268,7 +249,7 @@ import { useFocusTrack } from "@/composables/useFocusTrack";
 import myPhoto from "@/public/my-photo.png";
 
 const statsEl = ref<HTMLElement | null>(null);
-const { activeTrack, setActiveTrack } = useFocusTrack();
+const { activeTrack } = useFocusTrack();
 const activeTrackData = computed(
   () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
 );
