@@ -4,7 +4,7 @@ export const profile = {
   headline:
     "운영자가 매일 쓰는 업무 화면을 만들고, 화면에 뜨는 값이 실제 데이터와 어긋나지 않게 챙깁니다.",
   summary:
-    "B2B·B2G 운영 시스템에서 관리자·모바일 업무 화면을 만들어 온 프론트엔드 개발자입니다. 화면만 보는 게 아니라 Spring/MyBatis API와 SQL 조회 조건까지 직접 열어 보며 데이터가 맞는지 확인합니다. Vue·WebSquare·JSP로 등록·업로드·발송·조회처럼 운영자가 매일 반복하는 업무가 중간에 끊기지 않게 구현해 왔습니다.",
+    "B2B·B2G 운영 시스템에서 관리자·모바일 업무 화면을 만들어 온 프론트엔드 개발자입니다. 화면만 보는 게 아니라 Spring/MyBatis API와 SQL 조회 조건까지 직접 열어 보며 데이터가 맞는지 확인합니다. Vue·WebSquare·JSP로 등록·업로드·발송·조회처럼 운영자가 매일 반복하는 업무가 중간에 끊기지 않게 구현해 왔습니다. 개인·팀 프로젝트에서는 React·TypeScript·Next.js로 실시간 대시보드와 개발 도구 UI를 만들며 TanStack Query, Sentry, 테스트, CI까지 직접 구성했습니다.",
   target:
     "관리자 도구, B2B 포탈, 데이터 대시보드처럼 복잡한 상태·권한 조건을 사용자가 이해하기 쉬운 화면으로 정리하는 팀에서 기여하고 싶습니다.",
   email: "koj185364@naver.com",
@@ -134,7 +134,7 @@ export const projects = [
     shortTitle: "PPS",
     period: "2025.02 ~ 현재",
     team: "3인 팀",
-    role: "백엔드 및 Vue 화면 개발",
+    role: "Vue 화면 및 Spring Boot API 개발",
     scope: "교육관리, 고객사 담당자 현황, 댓글 공통화, 공지 읽음 이력, 인증 예외, 메일·엑셀 처리",
     category: "Admin Platform",
     summary:
@@ -184,7 +184,7 @@ export const projects = [
     shortTitle: "IT Asset",
     period: "2025.09 ~ 2026.03",
     team: "2인 팀",
-    role: "백엔드 및 화면 개발",
+    role: "화면 및 집계 SQL 개발",
     scope: "자산 현황·대시보드, 권한별 조회 범위, 상태 집계, 정기 집계 배치, 유상 수리 처리 화면 개선",
     category: "Asset Management",
     summary:
@@ -259,7 +259,7 @@ export const projects = [
     shortTitle: "quant-core",
     period: "2026.03 ~ 현재",
     team: "개인 프로젝트",
-    role: "개인 학습 프로젝트",
+    role: "풀스택 단독 개발",
     scope: "React 대시보드, FastAPI API, WebSocket, JWT 인증, Docker Compose 서비스 구성",
     category: "Trading Platform",
     summary:
@@ -268,7 +268,7 @@ export const projects = [
       "access/refresh 토큰 분리와 Redis 블랙리스트로 로그아웃 시 access 토큰을 무효화하는 인증 구조를 직접 구현하며 학습",
       "WebSocket으로 보유 종목(포지션)·체결 결과를 대시보드에 실시간 반영하는 구조 구성",
       "과거 데이터를 학습/검증 구간으로 나눠(Walk-Forward) 과최적화를 줄이는 백테스트 방식을 적용하고, 시뮬레이션 기준 손익(PnL)을 산출",
-      "PostgreSQL·Redis·API·UI·Collector·Backup 6개 컨테이너를 Docker Compose로 직접 구성",
+      "PostgreSQL·Redis 등 6개 컨테이너를 Docker Compose로 구성하고, Sentry ErrorBoundary 모니터링·Vitest 테스트·GitHub Actions CI 적용",
     ],
     stack: ["React", "TypeScript", "Zustand", "Recharts", "FastAPI", "Python", "PostgreSQL", "Redis", "Docker", "Nginx", "WebSocket", "JWT"],
     image: {
@@ -288,14 +288,14 @@ export const projects = [
     scope: "성능 테스트 UI, 테스트 대상 서버 URL 소유권 인증, 중첩 입력 폼, 공통 모달 컴포넌트",
     category: "Next.js Tooling",
     summary:
-      "Figma, API 명세, 요청 테스트, 유스케이스 테스트, 성능 테스트를 한 공간에서 연결한 SSAFY 팀 프로젝트입니다. Next.js와 TypeScript 기반으로 성능 테스트 UI, BaseURL 인증 가드, 공통 Modal 컴포넌트를 구현했고 심화 프로젝트 우수상을 수상했습니다.",
+      "Figma, API 명세, 요청 테스트, 유스케이스 테스트, 성능 테스트를 한 공간에서 연결한 SSAFY 팀 프로젝트입니다. Next.js와 TypeScript 기반으로 성능 테스트 UI, BaseURL 인증 가드, 공통 Modal 컴포넌트를 구현했고 자율 프로젝트 우수상을 수상했습니다.",
     highlights: [
       "성능 테스트 UI 전체 구현: API 선택, 값 입력, 실행, 응답 시간 분포(p50/p95/p99)와 처리량(throughput) 결과 표시",
       "테스트 대상 서버 URL이 본인 소유인지 확인하는 인증 단계 구현: 프레임워크별 인증 코드 안내와 여러 URL 검증",
       "React Hook Form으로 여러 단계가 중첩된 요청 입력 폼과 상태 동기화 처리",
       "공통 모달을 React Portal로 구현해, 서버 렌더링(SSR) 환경 안전성과 다른 요소에 가려지는(z-index) 문제 해결",
     ],
-    stack: ["Next.js", "React", "TypeScript", "React Query", "React Hook Form", "Redux Toolkit", "TailwindCSS", "Axios", "Docker", "Nginx"],
+    stack: ["Next.js", "React", "TypeScript", "TanStack Query", "React Hook Form", "Redux Toolkit", "TailwindCSS", "Axios", "Docker", "Nginx"],
     image: {
       src: "/projects/ssafast.png",
       alt: "SSAFAST - API 명세 목록과 진행률을 보여주는 워크스페이스 메인 화면",
@@ -323,7 +323,7 @@ export const education = [
   {
     title: "삼성 청년 SW 아카데미 (SSAFY)",
     period: "2022.07 ~ 2023.06",
-    description: "1년 과정 수료, Next.js 기반 API 협업 플랫폼으로 2학기 심화 프로젝트 우수상 수상",
+    description: "1년 과정 수료, Next.js 기반 API 협업 플랫폼으로 2학기 자율 프로젝트 우수상 수상",
     icon: "Award",
   },
   {
@@ -359,6 +359,6 @@ export const techGroups = [
   {
     title: "Tools & Libraries",
     icon: "Boxes",
-    items: ["Git", "SVN", "Maven", "Gradle", "Docker", "Docker Compose", "Nginx", "Node.js", "Vite", "TailwindCSS", "Chart.js", "Tabulator", "Figma"],
+    items: ["Git", "SVN", "Maven", "Gradle", "Docker", "Docker Compose", "Nginx", "Node.js", "Vite", "GitHub Actions", "Vitest", "Sentry", "TailwindCSS", "Chart.js", "Tabulator", "Figma"],
   },
 ];
