@@ -11,7 +11,7 @@
 
 > Vue 기반 운영/관리자 화면을 구현하고 API 응답, 권한 조건, SQL 조회 흐름까지 직접 확인하는 프론트엔드 개발자 포트폴리오
 
-운영 중인 B2B·B2G 시스템에서 쌓은 관리자 화면 개발, REST API 연동, Vue.js 화면 개발, 권한·조회 조건 처리, MyBatis SQL 점검, 메일·파일·인증 연동 경험을 프론트엔드 관점으로 정리했습니다. 개인·팀 프로젝트에서는 React, TypeScript, Next.js, Redux, Zustand, React Query, Canvas, FastAPI, WebSocket, Docker Compose를 활용해 실시간 데이터 대시보드, 개발자 도구형 UI, AI 연동 학습 화면을 만들었습니다.
+운영 중인 B2B·B2G 시스템에서 Vue 기반 관리자·모바일 화면을 개발하고, REST API 연동, 권한·조회 조건 처리, 화면 값과 SQL 결과의 정합성 검증까지 담당한 경험을 프론트엔드 관점으로 정리했습니다. 개인·팀 프로젝트에서는 React·TypeScript·Next.js로 실시간 데이터 대시보드와 개발자 도구형 UI를 만들었고, TanStack Query, WebSocket, Sentry 모니터링, Vitest 테스트, Docker, GitHub Actions CI를 직접 구성해 봤습니다.
 
 ## Quick Links
 
@@ -48,14 +48,13 @@
 
 현재 UI는 `platform dashboard`를 컨셉으로 구성했습니다. 일반적인 포트폴리오보다 운영 콘솔, 관리자 도구, 데이터 대시보드에 가까운 인상을 주기 위해 다음 기준을 적용했습니다.
 
+- CSS 디자인 토큰 기반 테마 시스템 — 기본/메이플/오버워치 3종 스킨을 `data-skin` 속성과 스코프 격리된 토큰으로 전환
 - 다크/라이트 모드 지원
-- 그리드 배경과 콘솔형 카드로 플랫폼/운영툴 분위기 표현
+- 모바일 화면에서 버튼, 카드, 텍스트가 좁은 폭에서도 읽히도록 반응형 구성
 - 단일 액센트 철학 — 액센트 컬러는 CTA 버튼과 활성 내비게이션에만 사용, 나머지는 뉴트럴
 - 프로젝트를 단순 카드 나열이 아니라 case study 패널로 구성
-- 기술스택과 직무 적합성 영역에 아이콘과 칩 UI 적용
+- 그리드 배경과 콘솔형 카드, 칩 UI로 플랫폼/운영툴 분위기 표현
 - 커서 spotlight, 스크롤 reveal 애니메이션, 타이핑 효과로 생동감 부여
-- 모바일 화면에서 버튼, 카드, 텍스트가 좁은 폭에서도 읽히도록 반응형 구성
-- 기본/메이플/오버워치 3종 테마 스킨을 `data-skin` 속성과 스코프 격리된 CSS 토큰으로 전환
 
 ## Positioning
 
@@ -67,6 +66,7 @@
 - REST API, 인증, 메일, 파일, 알림 발송 결과와 화면 상태 연결 경험
 - 권한, 조직, 기간, 상태값에 따른 조회 조건과 MyBatis SQL 흐름 이해
 - React / TypeScript / Next.js 기반 실시간 데이터 대시보드와 개발자 도구형 UI 구현
+- Sentry 에러 모니터링, Vitest 테스트, GitHub Actions CI를 개인 프로젝트에서 직접 구성한 경험
 
 ## Featured Projects
 
