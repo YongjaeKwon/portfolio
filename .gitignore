@@ -34,6 +34,12 @@ build/
 .cache/
 .npm/
 
+# Playwright E2E 산출물
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
 # 개발 도구 설정
 .claude/
 .ecc/
