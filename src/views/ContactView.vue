@@ -7,14 +7,14 @@
       </div>
       <h2 class="reveal reveal-d1 section-title">함께 일하고 싶으시다면</h2>
       <p class="reveal reveal-d2 section-copy">
-        운영 시스템과 관리자 도구를 이해하고 직접 만드는 웹 개발자입니다. 이력서 보신 뒤 편하게 이메일로 연락 주세요.
+        운영 시스템과 관리자 도구의 업무 흐름을 이해하며 화면을 만드는 웹 개발자입니다. 이력서와 프로젝트 내용을 검토하신 뒤 이메일로 연락 주세요.
       </p>
 
-      <div class="reveal reveal-d3 surface mt-10 rounded-xl p-8">
-        <!-- 구직 상태 뱃지 -->
-        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5">
-          <span class="h-2 w-2 animate-pulse rounded-full bg-emerald-500" aria-hidden="true"></span>
-          <span class="text-xs font-bold text-emerald-500">{{ profile.status }} · 입사일 협의 가능</span>
+      <div class="reveal reveal-d3 fresh-cta-panel mt-10 rounded-[2rem] p-8">
+        <div class="fresh-aurora" aria-hidden="true"></div>
+        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--fresh-border)] bg-white/60 px-3 py-1.5">
+          <span class="h-2 w-2 rounded-full bg-[var(--fresh-blue)]" aria-hidden="true"></span>
+          <span class="text-xs font-bold text-[var(--fresh-blue-strong)]">Portfolio & Resume</span>
         </div>
 
         <h3 class="text-primary text-2xl font-black">{{ activeTrackData.contactTitle }}</h3>
@@ -24,14 +24,14 @@
 
         <div class="mt-8 flex flex-wrap gap-3">
           <a
-            class="focus-ring accent-bg inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-black transition hover:brightness-110"
+            class="focus-ring fresh-button inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-black transition hover:-translate-y-0.5 hover:brightness-105"
             :href="`mailto:${profile.email}`"
           >
             <Mail class="h-4 w-4" />
             이메일 보내기
           </a>
           <a
-            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+            class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
             :href="profile.github"
             target="_blank"
             rel="noreferrer"
@@ -40,7 +40,7 @@
             GitHub
           </a>
           <a
-            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+            class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
             :href="activeTrackData.resume"
             download
           >

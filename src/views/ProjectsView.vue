@@ -19,7 +19,7 @@
         <button
           type="button"
           :class="[
-            'tech-chip surface-strong inline-flex items-center rounded-md px-3 py-1.5 text-xs font-bold transition',
+            'tech-chip fresh-list-item inline-flex items-center rounded-full px-3 py-1.5 text-xs font-bold transition',
             activeFilter === null ? 'filter-chip-active' : 'text-secondary',
           ]"
           :aria-pressed="activeFilter === null"
@@ -33,7 +33,7 @@
           :key="opt.name"
           type="button"
           :class="[
-            'tech-chip surface-strong inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-bold transition',
+            'tech-chip fresh-list-item inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition',
             activeFilter === opt.name ? 'filter-chip-active' : 'text-secondary',
           ]"
           :aria-pressed="activeFilter === opt.name"
@@ -51,17 +51,17 @@
           v-for="project in filteredProjects"
           :key="project.title"
           v-tilt
-          class="surface interactive-surface tilt group rounded-xl p-5 md:p-6"
+          class="fresh-orb-card interactive-surface tilt group rounded-[2rem] p-5 md:p-6"
         >
           <div class="grid gap-6 lg:grid-cols-[0.32fr_0.68fr]">
-            <div class="rounded-lg border border-white/6 bg-white/3 p-5">
+            <div class="fresh-list-item rounded-[1.5rem] p-5">
               <p class="text-xs font-black uppercase tracking-[0.22em] opacity-80">
                 {{ project.category }}
               </p>
               <h3 class="text-primary mt-4 text-3xl font-black">{{ project.shortTitle }}</h3>
               <p class="text-secondary mt-4 text-sm leading-6">
                 {{ project.period }}<br />
-                {{ project.team }} · {{ project.role }}
+                {{ project.scope }}
               </p>
             </div>
 
@@ -79,7 +79,7 @@
               <!-- 선택한 지원 관점에 맞춰 바뀌는 한 줄 컨텍스트 -->
               <p
                 v-if="projectTrackNote(project)"
-                class="surface-strong text-secondary mt-4 rounded-lg px-4 py-3 text-sm leading-6"
+                class="fresh-list-item text-secondary mt-4 rounded-2xl px-4 py-3 text-sm leading-6"
               >
                 {{ projectTrackNote(project) }}
               </p>
@@ -98,7 +98,7 @@
                 <span
                   v-for="stack in project.stack"
                   :key="stack"
-                  class="tech-chip surface-strong text-secondary inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-bold"
+                  class="tech-chip fresh-list-item text-secondary inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold"
                 >
                   <TechIcon :name="stack" />
                   {{ stack }}
@@ -107,11 +107,11 @@
 
               <button
                 type="button"
-                class="focus-ring accent-text mt-6 inline-flex items-center gap-1.5 self-start rounded-md text-sm font-bold transition hover:gap-2.5"
-                :aria-label="`${project.shortTitle} 자세히 보기`"
+                class="focus-ring fresh-button mt-6 inline-flex items-center gap-1.5 self-start rounded-full px-4 py-2 text-sm font-bold transition hover:gap-2.5"
+                :aria-label="`${project.shortTitle} 구현 내용 보기`"
                 @click="openDetail(project)"
               >
-                담당 업무와 성과 보기
+                구현 내용 보기
                 <ArrowRight class="h-4 w-4" />
               </button>
             </div>
@@ -144,7 +144,7 @@
                   {{ activeProject.title }}
                 </h3>
                 <p class="text-muted mt-2 text-sm">
-                  {{ activeProject.period }} · {{ activeProject.team }} · {{ activeProject.role }}
+                  {{ activeProject.period }} · {{ activeProject.category }}
                 </p>
               </div>
               <button
@@ -220,7 +220,7 @@
                   v-if="'scope' in activeProject && activeProject.scope"
                   class="text-secondary text-sm leading-6"
                 >
-                  <span class="text-primary font-bold">핵심 담당 범위</span>
+                  <span class="text-primary font-bold">구현한 것</span>
                   <span class="mx-2 text-white/20">/</span>
                   {{ activeProject.scope }}
                 </p>

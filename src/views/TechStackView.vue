@@ -3,9 +3,9 @@
     <div class="section-shell">
       <div class="reveal flex items-center gap-3">
         <span class="section-index">04</span>
-        <p class="section-kicker">Tech Stack</p>
+        <p class="section-kicker">Skills</p>
       </div>
-      <h2 class="reveal reveal-d1 section-title">기술 스택</h2>
+      <h2 class="reveal reveal-d1 section-title">주요 기술 경험</h2>
       <p class="reveal reveal-d2 section-copy">
         {{ activeTrackData.fitDescription }}
       </p>
@@ -26,10 +26,10 @@
         <article
           v-for="(group, idx) in techGroups"
           :key="group.title"
-          :class="['reveal surface interactive-surface rounded-xl p-6', `reveal-d${idx + 1}`]"
+          :class="['reveal fresh-card interactive-surface rounded-[2rem] p-6', `reveal-d${idx + 1}`]"
         >
           <div class="flex items-center gap-3">
-            <div class="grid h-11 w-11 place-items-center rounded-lg border border-white/8 bg-white/4 text-white/45">
+            <div class="grid h-11 w-11 place-items-center rounded-2xl border border-[var(--fresh-border)] bg-[var(--fresh-blue-soft)] text-[var(--fresh-blue)]">
               <component :is="iconMap[group.icon]" class="h-5 w-5" />
             </div>
             <h3 class="text-primary text-xl font-black">{{ group.title }}</h3>
@@ -41,7 +41,7 @@
                 v-if="stacksInProjects.has(item)"
                 type="button"
                 :title="`${item}을(를) 사용한 프로젝트 보기`"
-                class="tech-chip rarity-unique surface-strong text-secondary group inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
+                class="tech-chip rarity-unique fresh-list-item text-secondary group inline-flex cursor-pointer items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold"
                 @click="linkToProjects(item)"
               >
                 <TechIcon :name="item" />
@@ -50,7 +50,7 @@
               </button>
               <span
                 v-else
-                class="tech-chip rarity-rare surface-strong text-secondary inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
+                class="tech-chip rarity-rare fresh-list-item text-secondary inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold"
               >
                 <TechIcon :name="item" />
                 {{ item }}
@@ -70,10 +70,10 @@
           <article
             v-for="item in activeTrackData.fitItems"
             :key="item.label"
-            class="surface interactive-surface rounded-xl p-6"
+            class="fresh-card interactive-surface rounded-[2rem] p-6"
           >
             <div class="flex gap-4">
-              <div class="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-white/8 bg-white/4 text-white/45">
+              <div class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-[var(--fresh-border)] bg-[var(--fresh-blue-soft)] text-[var(--fresh-blue)]">
                 <component :is="iconMap[item.icon]" class="h-5 w-5" />
               </div>
               <div>

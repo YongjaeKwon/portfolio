@@ -18,7 +18,7 @@
             <span class="h-1.5 w-1.5 rounded-full" :style="{ background: 'var(--accent)' }"></span>
           </span>
 
-          <div class="surface interactive-surface rounded-xl p-6 md:p-7">
+          <div class="fresh-card interactive-surface rounded-[2rem] p-6 md:p-7">
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
               <BriefcaseBusiness class="h-5 w-5 text-white/40" />
               <span class="font-mono tnum text-muted text-sm font-semibold">{{ experience.period }}</span>
@@ -32,7 +32,7 @@
               <li
                 v-for="bullet in experience.bullets"
                 :key="bullet"
-                class="surface-strong rounded-lg p-4"
+                class="fresh-list-item rounded-2xl p-4"
               >
                 <Workflow class="mb-3 h-4 w-4 text-white/40" />
                 {{ bullet }}

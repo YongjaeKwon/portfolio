@@ -1,5 +1,5 @@
 <template>
-  <section id="hero" class="relative min-h-[100dvh] overflow-hidden pb-20 pt-24">
+  <section id="hero" class="fresh-mesh relative min-h-[100dvh] overflow-hidden pb-20 pt-24">
     <!-- Backdrop: 가장자리로 부드럽게 사라지는 미세 그리드 -->
     <div class="pointer-events-none absolute inset-0">
       <div class="grid-backdrop hero-grid-mask absolute inset-0 opacity-20"></div>
@@ -42,17 +42,17 @@
         </div>
 
         <!-- Neutral badge — no cyan bg -->
-        <div class="hero-enter hero-enter-d1 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white/40">
+        <div class="hero-enter hero-enter-d1 inline-flex items-center gap-2 rounded-full border border-[var(--fresh-border)] bg-white/70 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[var(--fresh-blue-strong)] shadow-sm">
           <Radar class="h-4 w-4" />
           {{ activeTrackData.badge }}
         </div>
 
         <!-- Pure white — size and weight IS the statement -->
-        <h1 class="hero-enter hero-enter-d2 mt-6 max-w-4xl text-5xl font-black leading-[1.05] text-white md:text-7xl">
+        <h1 class="hero-enter hero-enter-d2 mt-6 max-w-4xl text-5xl font-black leading-[1.05] text-primary md:text-7xl">
           {{ profile.name }}
         </h1>
-        <p class="hero-enter hero-enter-d3 font-display mt-4 text-2xl font-semibold text-white/80 md:text-4xl" lang="en">
-          {{ displayRole }}<span v-if="showCursor" class="typing-cursor" aria-hidden="true"></span>
+        <p class="hero-enter hero-enter-d3 font-display mt-4 text-2xl font-semibold text-secondary md:text-4xl" lang="en">
+          {{ activeTrackData.role }}
         </p>
         <p class="hero-enter hero-enter-d4 text-secondary mt-6 max-w-3xl text-lg leading-8">
           {{ activeTrackData.headline }}
@@ -65,14 +65,14 @@
           <!-- CTA: the ONE place cyan lives -->
           <button
             type="button"
-            class="focus-ring accent-bg inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-black transition hover:brightness-110"
+            class="focus-ring fresh-button inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-black transition hover:-translate-y-0.5 hover:brightness-105"
             @click="emit('scroll-to-section', 'projects')"
           >
             프로젝트 구경하기
             <ArrowRight class="h-4 w-4" />
           </button>
           <a
-            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+            class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
             :href="profile.github"
             target="_blank"
             rel="noreferrer"
@@ -81,14 +81,14 @@
             <ExternalLink class="h-4 w-4" />
           </a>
           <a
-            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+            class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
             :href="`mailto:${profile.email}`"
           >
             이메일로 연락하기
             <Mail class="h-4 w-4" />
           </a>
           <a
-            class="focus-ring nav-panel text-primary inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+            class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
             :href="activeTrackData.resume"
             download
           >
@@ -102,11 +102,11 @@
           <div
             v-for="(stat, idx) in heroStats"
             :key="stat.label"
-            class="surface rounded-lg p-4"
+            class="fresh-list-item rounded-2xl p-4"
           >
             <p class="text-muted font-display text-xs font-medium">{{ stat.label }}</p>
-            <p class="font-mono tnum mt-2 text-lg font-bold text-white">
-              {{ animatedStats[idx] }}<span class="ml-1 text-sm text-white/40">{{ stat.unit }}</span>
+            <p class="font-mono tnum mt-2 text-lg font-bold text-primary">
+              {{ animatedStats[idx] }}<span class="ml-1 text-sm text-muted">{{ stat.unit }}</span>
             </p>
           </div>
         </div>
@@ -180,30 +180,30 @@
       </div>
 
       <!-- Right column: 업무 방식 카드 -->
-      <div class="surface hero-enter hero-enter-d3 relative rounded-xl p-5">
-        <div class="flex items-center justify-between border-b border-white/8 pb-4">
+      <div class="fresh-phone hero-enter hero-enter-d3 relative rounded-[2rem] p-5 md:p-6">
+        <div class="flex items-center justify-between border-b border-[var(--fresh-border)] pb-4">
           <div>
             <!-- Neutral kicker — no amber -->
             <p class="section-kicker">업무 방식</p>
             <h2 class="text-primary mt-2 text-xl font-black">{{ activeTrackData.workStyleTitle }}</h2>
           </div>
-          <Activity class="h-6 w-6 text-white/25" />
+          <Activity class="h-6 w-6 text-[var(--fresh-blue)]/50" />
         </div>
 
         <div class="mt-5 grid gap-3">
           <div
             v-for="(strength, index) in activeTrackData.strengths"
             :key="strength.title"
-            class="surface-strong interactive-surface rounded-lg p-4"
+            class="fresh-list-item interactive-surface rounded-2xl p-4"
           >
             <div class="flex gap-4">
               <!-- Neutral icon box — no cyan bg -->
-              <div class="grid h-10 w-10 shrink-0 place-items-center rounded-md border border-white/8 bg-white/5">
-                <component :is="iconMap[strength.icon]" class="h-5 w-5 text-white/50" />
+              <div class="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-[var(--fresh-border)] bg-[var(--fresh-blue-soft)]">
+                <component :is="iconMap[strength.icon]" class="h-5 w-5 text-[var(--fresh-blue)]" />
               </div>
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-black text-white/25">0{{ index + 1 }}</span>
+                  <span class="text-xs font-black text-[var(--fresh-blue)]/45">0{{ index + 1 }}</span>
                   <h3 class="text-primary font-bold">{{ strength.title }}</h3>
                 </div>
                 <p class="text-muted mt-2 text-sm leading-6">{{ strength.description }}</p>
@@ -213,10 +213,10 @@
         </div>
 
         <!-- Amber strip kept as the one personality touch -->
-        <div class="mt-5 rounded-lg border border-amber-400/20 bg-amber-400/5 p-4">
+        <div class="mt-5 rounded-2xl border border-[var(--fresh-border)] bg-[var(--fresh-blue-soft)] p-4">
           <div class="flex items-center gap-3">
-            <MousePointer2 class="h-4 w-4 text-amber-400/60" />
-            <p class="text-sm font-semibold text-white/55">
+            <MousePointer2 class="h-4 w-4 text-[var(--fresh-blue)]" />
+            <p class="text-sm font-semibold text-secondary">
               {{ activeTrackData.workStyleNote }}
             </p>
           </div>
@@ -227,7 +227,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import {
   Activity,
   ArrowRight,
@@ -257,8 +257,8 @@ const activeTrackData = computed(
 // 🍁 메이플 캐릭터 정보 — 공개 번들에 생년월일을 넣지 않고 현재 만 나이 레벨만 표시
 const mapleLevel = 31;
 
-// 경력 시작(heroStats[1] = "2024.06")에서 현재까지의 개월 수를 EXP로 사용
-const [careerStartYear, careerStartMonth] = heroStats[1].value.split(".").map(Number);
+// Legacy skin-only stats. Keep safe even when the visible stats are text labels.
+const [careerStartYear, careerStartMonth] = [2024, 6];
 const now = new Date();
 const careerMonths = Math.max(
   1,
@@ -270,8 +270,8 @@ const expPct = Math.min(100, Math.round((careerMonths / SENIOR_GOAL_MONTHS) * 10
 
 // 게이지: HP=투입 시스템, MP=운영 이슈 대응, EXP=시니어까지 경력 진행률
 const mapleGauges = [
-  { key: "hp", label: `HP · ${heroStats[0].label}`, value: heroStats[0].value + heroStats[0].unit, pct: 100 },
-  { key: "mp", label: `MP · ${heroStats[2].label}`, value: heroStats[2].value + heroStats[2].unit, pct: 100 },
+  { key: "hp", label: "HP · 운영 UI", value: "실무", pct: 100 },
+  { key: "mp", label: "MP · API·SQL", value: "협업", pct: 100 },
   {
     key: "exp",
     label: "EXP · 실무 경력 진행",
@@ -290,9 +290,9 @@ const developerStats = [
 
 // 🟠 오버워치 필드 상태 — 체력(흰)/방어구(주황)/보호막(파랑) 분절 바
 const owBars = [
-  { type: "health", label: `HEALTH · ${heroStats[0].label}`, value: heroStats[0].value + heroStats[0].unit, seg: 8, filled: 8 },
-  { type: "armor", label: "ARMOR · 실무 경력", value: heroStats[1].value, seg: 8, filled: 7 },
-  { type: "shield", label: `SHIELD · ${heroStats[2].label}`, value: heroStats[2].value + heroStats[2].unit, seg: 8, filled: 6 },
+  { type: "health", label: "HEALTH · 운영 UI", value: "실무", seg: 8, filled: 8 },
+  { type: "armor", label: "ARMOR · Vue/WebSquare", value: "주력", seg: 8, filled: 7 },
+  { type: "shield", label: "SHIELD · API·SQL", value: "협업", seg: 8, filled: 6 },
 ];
 
 // 🟠 오버워치 어빌리티 HUD — 직무 역량을 스킬 슬롯으로 (키바인드 + 궁극기)
@@ -312,30 +312,6 @@ const iconMap: Record<string, Component> = {
   PanelTop,
   ShieldCheck,
   Workflow,
-};
-
-// Typing animation
-const displayRole = ref("");
-const showCursor = ref(false);
-let roleTimer: ReturnType<typeof setInterval> | undefined;
-let roleDelay: ReturnType<typeof setTimeout> | undefined;
-
-const startRoleTyping = (target: string, delay = 0) => {
-  if (roleTimer) clearInterval(roleTimer);
-  if (roleDelay) clearTimeout(roleDelay);
-  displayRole.value = "";
-  showCursor.value = true;
-  roleDelay = setTimeout(() => {
-    let i = 0;
-    roleTimer = setInterval(() => {
-      displayRole.value = target.slice(0, ++i);
-      if (i >= target.length && roleTimer) {
-        clearInterval(roleTimer);
-        roleTimer = undefined;
-        setTimeout(() => { showCursor.value = false; }, 2200);
-      }
-    }, 55);
-  }, delay);
 };
 
 // ── Stat counters — data-driven from heroStats ──────────────────────────────
@@ -368,8 +344,6 @@ const counterTimeouts: ReturnType<typeof setTimeout>[] = [];
 let statsIO: IntersectionObserver | undefined;
 
 onMounted(() => {
-  startRoleTyping(activeTrackData.value.role, 650);
-
   // Stat counters — 뷰포트 진입 시 1회 재생
   const TARGET_MS = 440;
   const runCounters = () => {
@@ -404,14 +378,7 @@ onMounted(() => {
   }
 });
 
-watch(
-  () => activeTrackData.value.role,
-  (role) => startRoleTyping(role)
-);
-
 onBeforeUnmount(() => {
-  if (roleTimer) clearInterval(roleTimer);
-  if (roleDelay) clearTimeout(roleDelay);
   counterIntervals.forEach(clearInterval);
   counterTimeouts.forEach(clearTimeout);
   statsIO?.disconnect();
