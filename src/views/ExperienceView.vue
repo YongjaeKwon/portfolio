@@ -5,22 +5,19 @@
         <span class="section-index">02</span>
         <p class="section-kicker">Experience</p>
       </div>
-      <h2 class="reveal reveal-d1 section-title">회사에서 맡고 있는 일</h2>
+      <h2 class="reveal reveal-d1 section-title">회사에서 맡아온 일</h2>
 
-      <!-- Timeline -->
       <div class="relative mt-10">
-        <!-- vertical connector -->
         <div class="absolute bottom-3 left-[7px] top-3 w-px bg-[var(--border-strong)]"></div>
 
         <div class="reveal reveal-d2 relative pl-9">
-          <!-- node -->
           <span class="absolute left-0 top-2 grid h-4 w-4 place-items-center rounded-full border border-[var(--accent)] bg-[var(--page-bg)]">
             <span class="h-1.5 w-1.5 rounded-full" :style="{ background: 'var(--accent)' }"></span>
           </span>
 
           <div class="fresh-card interactive-surface rounded-[2rem] p-6 md:p-7">
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-              <BriefcaseBusiness class="h-5 w-5 text-white/40" />
+              <BriefcaseBusiness class="h-5 w-5 text-[var(--fresh-blue)]" />
               <span class="font-mono tnum text-muted text-sm font-semibold">{{ experience.period }}</span>
             </div>
             <h3 class="text-primary mt-3 text-2xl font-black">{{ experience.title }}</h3>
@@ -34,7 +31,7 @@
                 :key="bullet"
                 class="fresh-list-item rounded-2xl p-4"
               >
-                <Workflow class="mb-3 h-4 w-4 text-white/40" />
+                <Workflow class="mb-3 h-4 w-4 text-[var(--fresh-blue)]" />
                 {{ bullet }}
               </li>
             </ul>

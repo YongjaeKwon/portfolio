@@ -5,9 +5,9 @@
         <span class="section-index">05</span>
         <p class="section-kicker">Contact</p>
       </div>
-      <h2 class="reveal reveal-d1 section-title">함께 일하고 싶으시다면</h2>
+      <h2 class="reveal reveal-d1 section-title">더 이야기해보고 싶다면</h2>
       <p class="reveal reveal-d2 section-copy">
-        운영 시스템과 관리자 도구의 업무 흐름을 이해하며 화면을 만드는 웹 개발자입니다. 이력서와 프로젝트 내용을 검토하신 뒤 이메일로 연락 주세요.
+        운영 중인 업무 시스템을 이해하고, 필요한 기능을 차분하게 붙이는 일을 해왔습니다. 포트폴리오와 이력서를 보고 궁금한 점이 있다면 편하게 연락 주세요.
       </p>
 
       <div class="reveal reveal-d3 fresh-cta-panel mt-10 rounded-[2rem] p-8">

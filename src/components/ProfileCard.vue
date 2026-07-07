@@ -6,9 +6,9 @@
           <span class="section-index">00</span>
           <p class="section-kicker">About</p>
         </div>
-        <h2 class="section-title">업무가 보이는 화면을 만드는 개발자</h2>
+        <h2 class="section-title">운영 중인 업무 시스템을 다뤄왔습니다</h2>
         <p class="section-copy">
-          사용자가 어떤 순서로 일하는지 먼저 보고, 화면과 데이터 기준이 같은 방향을 가리키도록 맞춥니다.
+          화면을 새로 만드는 일뿐 아니라, 기존 구조 안에서 어떤 값이 어디서 오고 어떻게 보여야 하는지 확인하는 일을 중요하게 봅니다.
         </p>
       </div>
 
@@ -23,7 +23,7 @@
             :key="item.label"
             class="fresh-list-item interactive-surface rounded-2xl p-5"
           >
-            <component :is="item.icon" class="h-5 w-5" :class="item.iconClass" />
+            <component :is="item.icon" class="h-5 w-5 text-[var(--fresh-blue)]" />
             <p class="text-muted mt-4 text-sm font-semibold">{{ item.label }}</p>
             <p class="text-primary mt-2 font-black">{{ item.value }}</p>
           </article>
@@ -39,22 +39,19 @@ import { profile } from "@/data/portfolio";
 
 const aboutCards = [
   {
-    label: "주요 분야",
-    value: "웹/모바일 업무 UI",
-    icon: MonitorSmartphone,
-    iconClass: "text-white/45",
-  },
-  {
-    label: "경험",
-    value: "포탈·자산·AS",
+    label: "주요 경험",
+    value: "포탈·A/S·자산",
     icon: Workflow,
-    iconClass: "text-white/45",
   },
   {
-    label: "강점",
-    value: "데이터 기준 정리",
+    label: "화면 환경",
+    value: "Vue·WebSquare·JSP",
+    icon: MonitorSmartphone,
+  },
+  {
+    label: "확인 기준",
+    value: "목록·엑셀·대시보드",
     icon: Database,
-    iconClass: "text-white/45",
   },
 ];
 </script>

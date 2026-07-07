@@ -39,6 +39,7 @@
           class="focus-ring nav-panel fresh-card text-primary rounded-full px-3 py-2 text-sm font-semibold md:hidden"
           :aria-expanded="isMenuOpen"
           aria-controls="mobile-navigation"
+          aria-label="메뉴 열기"
           @click="toggleMenu"
         >
           <Menu class="h-4 w-4" />
@@ -98,20 +99,18 @@ const navItems = [
   { id: "contact", label: "Contact" },
 ];
 
-const sectionIds = ["hero", ...navItems.map((n) => n.id)];
-
-// 스크롤 위치 기반 활성 섹션 추적 — 헤더 아래 기준선을 지난 마지막 섹션을 활성화
+const sectionIds = ["hero", ...navItems.map((item) => item.id)];
 let ticking = false;
 
 const updateActive = () => {
   ticking = false;
-  const line = 110; // 고정 헤더 높이 + 여유
+  const line = 110;
   let current = sectionIds[0];
   for (const id of sectionIds) {
     const el = document.getElementById(id);
     if (el && el.getBoundingClientRect().top <= line) current = id;
   }
-  // 페이지 맨 아래에 도달하면 마지막 섹션을 강제 활성화
+
   const atBottom =
     window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
   if (atBottom) current = sectionIds[sectionIds.length - 1];

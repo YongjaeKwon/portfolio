@@ -1,6 +1,5 @@
 <template>
   <div class="app-root">
-    <!-- 접근성: 키보드 사용자를 위한 본문 건너뛰기 -->
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:px-4 focus:py-2 focus:text-sm focus:font-black accent-bg focus:outline-none"
@@ -10,9 +9,7 @@
 
     <ScrollProgress />
     <div class="cursor-spotlight" aria-hidden="true" />
-    <Navbar
-      @scroll-to-section="scrollToSection"
-    />
+    <Navbar @scroll-to-section="scrollToSection" />
     <main id="main">
       <HomeView @scroll-to-section="scrollToSection" />
       <ProfileCard />
@@ -34,8 +31,8 @@ import HomeView from "@/views/HomeView.vue";
 import ProfileCard from "@/components/ProfileCard.vue";
 import ProjectsView from "@/views/ProjectsView.vue";
 import ExperienceView from "@/views/ExperienceView.vue";
-import TechStackView from "@/views/TechStackView.vue";
 import EducationView from "@/views/EducationView.vue";
+import TechStackView from "@/views/TechStackView.vue";
 import ContactView from "@/views/ContactView.vue";
 import Footer from "@/components/Footer.vue";
 import ScrollToTop from "@/components/ScrollToTop.vue";
@@ -50,14 +47,12 @@ onMounted(() => {
   localStorage.removeItem("portfolio-theme");
   localStorage.removeItem("portfolio-skin");
 
-  // Cursor spotlight
-  const handleMouseMove = (e: MouseEvent) => {
-    document.documentElement.style.setProperty("--cursor-x", `${e.clientX}px`);
-    document.documentElement.style.setProperty("--cursor-y", `${e.clientY}px`);
+  const handleMouseMove = (event: MouseEvent) => {
+    document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`);
+    document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`);
   };
   window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-  // Scroll reveal
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -71,7 +66,6 @@ onMounted(() => {
   );
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
-  // Initial hash navigation
   const initialHash = window.location.hash.slice(1);
   if (initialHash) {
     const target = document.getElementById(initialHash);
