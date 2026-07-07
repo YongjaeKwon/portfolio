@@ -39,6 +39,7 @@ build/
 .ecc/
 
 # 지원 전략/작업 메모는 공개 repo에 남기지 않음
+drafts/
 docs/applications/
 private-applications/
 application-notes/

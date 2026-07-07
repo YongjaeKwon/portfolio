@@ -1,0 +1,32 @@
+:root {
+  --fresh-bg: #f7f9fc;
+  --fresh-bg-soft: #eef5ff;
+  --fresh-surface: rgba(255, 255, 255, 0.86);
+  --fresh-surface-solid: #ffffff;
+  --fresh-ink: #121722;
+  --fresh-ink-soft: #3d4758;
+  --fresh-muted: #7d8797;
+  --fresh-border: rgba(15, 23, 42, 0.08);
+  --fresh-blue: #3182f6;
+  --fresh-blue-strong: #1b64da;
+  --fresh-blue-soft: #e8f3ff;
+  --fresh-cyan: #53c7f5;
+  --fresh-purple: #7c5cff;
+  --fresh-pink: #ff5da8;
+  --fresh-green: #24c06f;
+  --fresh-orange: #ff9f2f;
+  --fresh-radius-sm: 14px;
+  --fresh-radius-md: 22px;
+  --fresh-radius-lg: 32px;
+  --fresh-radius-xl: 44px;
+  --fresh-shadow-sm: 0 8px 24px rgba(31, 45, 61, 0.06);
+  --fresh-shadow-md: 0 18px 48px rgba(31, 45, 61, 0.11);
+  --fresh-shadow-lg: 0 32px 90px rgba(31, 45, 61, 0.16);
+  --fresh-gradient-blue: linear-gradient(135deg, #2f7df6 0%, #4cc8f7 100%);
+  --fresh-gradient-mesh:
+    radial-gradient(circle at 18% 22%, rgba(49, 130, 246, 0.32), transparent 28%),
+    radial-gradient(circle at 72% 20%, rgba(83, 199, 245, 0.28), transparent 30%),
+    radial-gradient(circle at 48% 78%, rgba(124, 92, 255, 0.16), transparent 34%),
+    linear-gradient(135deg, #f7fbff 0%, #ffffff 52%, #eef6ff 100%);
+}
+
