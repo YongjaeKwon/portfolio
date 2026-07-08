@@ -7,7 +7,7 @@
       </div>
       <h2 class="reveal reveal-d1 section-title">주로 사용한 기술</h2>
       <p class="reveal reveal-d2 section-copy">
-        프로젝트에서 실제로 사용한 기술을 작업 영역별로 나눠 적었습니다.
+        프로젝트에서 자주 사용한 기술을 정리했습니다.
       </p>
 
       <div class="mt-8 grid gap-4 md:grid-cols-2">

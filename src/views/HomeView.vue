@@ -62,7 +62,7 @@
           </a>
           <a
             class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
-            :href="`mailto:${profile.email}`"
+            href="#contact"
           >
             Contact
             <Mail class="h-4 w-4" />
