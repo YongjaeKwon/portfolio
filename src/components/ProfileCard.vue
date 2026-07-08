@@ -44,12 +44,12 @@ const aboutCards = [
     icon: Workflow,
   },
   {
-    label: "화면 환경",
+    label: "사용한 화면 환경",
     value: "Vue · WebSquare · JSP",
     icon: MonitorSmartphone,
   },
   {
-    label: "주로 본 화면",
+    label: "자주 본 화면",
     value: "목록 · 상세 · 엑셀 · 대시보드",
     icon: Database,
   },

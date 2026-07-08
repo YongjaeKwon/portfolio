@@ -14,7 +14,7 @@
         <span class="text-muted/50 text-xs select-none" aria-hidden="true">·</span>
         <a
           class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
-          :href="`mailto:${profile.email}`"
+          href="#contact"
         >
           이메일
         </a>

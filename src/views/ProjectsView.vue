@@ -9,7 +9,8 @@
           </div>
           <h2 class="section-title">주요 프로젝트</h2>
           <p class="section-copy">
-            비공개 실무 프로젝트는 범위를 조심스럽게 비식별화했고, 공개 가능한 팀·개인 프로젝트는 GitHub 링크를 함께 남겼습니다.
+            실무 프로젝트는 공개 가능한 범위에서만 정리했고,
+            공개 프로젝트는 GitHub 링크를 함께 남겼습니다.
           </p>
         </div>
       </div>
@@ -32,13 +33,13 @@
 
               <div class="mt-6 grid gap-4">
                 <div>
-                  <p class="text-muted text-xs font-bold">작업 범위</p>
+                  <p class="text-muted text-xs font-bold">맡은 화면</p>
                   <p class="text-primary mt-2 text-sm font-black leading-6">
                     {{ project.card.meta.workRange }}
                   </p>
                 </div>
                 <div>
-                  <p class="text-muted text-xs font-bold">주요 환경</p>
+                  <p class="text-muted text-xs font-bold">사용 기술</p>
                   <p class="text-primary mt-2 text-sm font-black leading-6">
                     {{ project.card.meta.environment }}
                   </p>
@@ -105,7 +106,8 @@
         <p class="section-kicker">Public Archive</p>
         <h3 class="text-primary mt-3 text-2xl font-black md:text-3xl">공개 프로젝트 아카이브</h3>
         <p class="text-muted mt-3 max-w-3xl leading-7">
-          메인 프로젝트보다 짧게 보여주는 공개 팀 프로젝트입니다. 실무 경험을 보조하는 자료로만 배치했습니다.
+          공개로 확인할 수 있는 팀 프로젝트입니다.
+          실무 이전에 진행했던 화면 작업과 팀 프로젝트 경험을 함께 정리했습니다.
         </p>
 
         <div class="mt-8 grid gap-4 md:grid-cols-2">

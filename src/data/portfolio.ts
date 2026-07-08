@@ -4,7 +4,7 @@ export const profile = {
   headline:
     "이미 운영 중인 시스템에서 화면을 수정하고,\n필요한 기능을 추가하는 일을 해왔습니다.",
   summary:
-    "협력사 포탈, 현장 A/S, 교육청 자산관리처럼 이미 사용 중인 시스템에서 화면 수정과 기능 추가를 맡았습니다. 새 화면을 만들 때도 기존 권한, 상태값, 조회 조건과 맞물리는 부분을 먼저 살펴봤습니다.",
+    "새 화면을 만들 때는 기존 권한, 상태값, 조회 조건과 맞물리는 부분을 먼저 확인했습니다.",
   target:
     "프로젝트에서는 실제로 맡은 화면과 공개 가능한 범위만 담았습니다.",
   email: "koj185364@naver.com",
@@ -19,12 +19,12 @@ export const hero = {
   role: profile.role,
   headline: profile.headline,
   supportText:
-    "협력사 포탈, 현장 A/S, 교육청 자산관리처럼\n담당자가 실제로 사용하는 화면을 주로 맡았습니다.",
+    "협력사 포탈, 현장 A/S, 교육청 자산관리처럼\n담당자가 매일 확인하는 화면을 주로 맡았습니다.",
   ctas: [
     { label: "프로젝트 보기", href: "#projects", type: "primary" },
     { label: "GitHub", href: profile.github, type: "github" },
     { label: "이력서", href: profile.resume, type: "resume" },
-    { label: "Contact", href: `mailto:${profile.email}`, type: "contact" },
+    { label: "Contact", href: "#contact", type: "contact" },
   ],
 };
 
@@ -32,17 +32,17 @@ export const coreStrengths = [
   {
     title: "기존 구조를 먼저 확인합니다",
     description:
-      "새 기능을 넣기 전에 기존 메뉴, 권한, 처리 흐름이 어떻게 이어지는지 확인합니다.",
+      "새 기능을 넣기 전에 메뉴, 권한, 처리 흐름이 어떻게 이어지는지 먼저 봅니다.",
   },
   {
-    title: "화면마다 결과가 달라지지 않게 맞춥니다",
+    title: "화면마다 결과가 달라지지 않게 봅니다",
     description:
-      "목록, 상세, 엑셀, 대시보드에서 같은 조건이 다르게 보이지 않는지 살핍니다.",
+      "목록, 상세, 엑셀, 대시보드에서 같은 조건이 다르게 보이지 않는지 확인합니다.",
   },
   {
-    title: "반복되는 부분은 공통점부터 찾습니다",
+    title: "반복되는 부분은 따로 봅니다",
     description:
-      "댓글, 입력 폼, 상태 표시처럼 여러 화면에 반복되는 기능은 함께 묶을 부분과 따로 둘 부분을 나눠 봅니다.",
+      "댓글, 입력 폼, 상태 표시처럼 여러 화면에 반복되는 부분은 함께 묶을지, 화면마다 다르게 둘지 나눠 봅니다.",
   },
 ];
 
@@ -92,15 +92,15 @@ export const featuredProjects: FeaturedProject[] = [
       alt: "협력사 업무 포탈의 비식별화된 화면과 데이터 처리 흐름 다이어그램",
     },
     card: {
-      summary: "협력사와 내부 담당자가 함께 쓰는 업무 처리 포탈입니다.",
+      summary: "협력사와 내부 담당자가 함께 쓰는 업무 포탈입니다.",
       description: [
         "교육 등록, 대상자 관리, 공지, 설문처럼 여러 사람이 확인하는 화면을 맡았습니다.",
-        "목록과 엑셀 결과가 서로 다르게 보이지 않도록 조건을 맞추며 작업했습니다.",
+        "목록과 엑셀 결과가 다르게 보이지 않도록 조건을 맞추며 작업했습니다.",
       ],
       keywords: ["교육·대상자 관리", "공지·설문", "목록·엑셀"],
       visibility: "비공개 실무 프로젝트",
       meta: {
-        workRange: "교육 · 공지 · 설문 · 목록 화면",
+        workRange: "교육 · 공지 · 설문 · 목록",
         environment: "Vue · Spring Boot · MyBatis",
       },
     },
@@ -146,12 +146,12 @@ export const featuredProjects: FeaturedProject[] = [
       summary: "현장 A/S 접수부터 처리 단계까지 이어지는 업무 시스템입니다.",
       description: [
         "접수, 동의, 서명, 알림처럼 외부 접점이 있는 기능을 맡았습니다.",
-        "단계별 상태와 예외가 섞이지 않도록 화면에 보여줄 상태를 나눠 정리했습니다.",
+        "단계별 상태와 예외가 섞이지 않도록 표시할 값을 나눠 봤습니다.",
       ],
       keywords: ["A/S 접수", "외부 접점", "상태 처리"],
       visibility: "비공개 실무 프로젝트",
       meta: {
-        workRange: "접수 · 동의 · 상태 화면",
+        workRange: "접수 · 동의 · 상태",
         environment: "WebSquare · JSP · Spring MVC",
       },
     },
@@ -196,12 +196,12 @@ export const featuredProjects: FeaturedProject[] = [
       summary: "교육청 단말의 자산 현황과 처리 상태를 확인하는 시스템입니다.",
       description: [
         "단말 현황, 대시보드, A/S 관련 조회 화면을 작업했습니다.",
-        "집계 결과와 화면의 검색 조건이 다르게 읽히지 않도록 확인하며 수정했습니다.",
+        "집계 결과와 화면의 검색 조건이 다르게 보이는 부분을 확인하며 수정했습니다.",
       ],
       keywords: ["자산 현황", "대시보드", "A/S 조회"],
       visibility: "비공개 실무 프로젝트",
       meta: {
-        workRange: "자산 현황 · 대시보드 · 조회 화면",
+        workRange: "자산 현황 · 대시보드 · 조회",
         environment: "JSP · Spring MVC · MyBatis",
       },
     },
@@ -296,7 +296,7 @@ export const featuredProjects: FeaturedProject[] = [
     card: {
       summary: "매매 전략 실행 과정을 실험하기 위해 만든 개인 백엔드 프로젝트입니다.",
       description: [
-        "투자 성과보다 인증, 실행 요청, 실시간 이벤트, 테스트 환경을 공개 가능한 범위로 구성했습니다.",
+        "실제 투자 정보는 제외하고, 인증, 실행 요청, 실시간 이벤트, 테스트 환경을 중심으로 구성했습니다.",
       ],
       keywords: ["FastAPI", "WebSocket", "테스트 환경"],
       visibility: "공개 GitHub 프로젝트",
@@ -342,7 +342,7 @@ export const publicArchive = [
     tech: ["Vue", "Pinia", "Spring Boot"],
     role: "프론트엔드 개발, 일정 관리 일부",
     github: "https://github.com/YongjaeKwon/MODAC",
-    reason: "실무 전 Vue 기반 화면 경험을 보여주는 보조 사례로 둡니다.",
+    reason: "Vue 기반 화면을 맡았던 팀 프로젝트입니다.",
   },
   {
     id: "ddoing",
@@ -351,7 +351,7 @@ export const publicArchive = [
     tech: ["React", "TypeScript", "Spring Boot"],
     role: "PM 일부, 프론트엔드와 AI 기능 연결 일부",
     github: "https://github.com/GomGom-Team/ddoing",
-    reason: "팀 프로젝트와 인터랙션 많은 화면 경험을 짧게 보여줍니다.",
+    reason: "React와 TypeScript로 학습 화면 일부를 작업했습니다.",
   },
 ];
 
@@ -361,14 +361,14 @@ export const techGroups = [
     icon: "MonitorSmartphone",
     items: ["Vue", "WebSquare", "JSP"],
     description:
-      "운영 포탈, A/S, 자산관리 화면의 입력·목록·상세 작업에 사용했습니다.",
+      "입력, 목록, 상세 화면을 만들거나 수정할 때 사용했습니다.",
   },
   {
     title: "서버·조회",
     icon: "Server",
     items: ["Spring Boot", "Spring MVC", "MyBatis", "SQL"],
     description:
-      "화면에 필요한 응답과 조회 조건을 맞출 때 사용했습니다.",
+      "화면에 필요한 응답과 조회 조건을 확인할 때 사용했습니다.",
   },
   {
     title: "목록·현황",
@@ -382,7 +382,7 @@ export const techGroups = [
     icon: "Code",
     items: ["React", "Next.js", "TypeScript"],
     description:
-      "팀 프로젝트에서 입력 폼, 인증 화면, 결과 화면을 만들 때 사용했습니다.",
+      "입력 폼, 인증 화면, 결과 화면을 만들 때 사용했습니다.",
   },
   {
     title: "개인 백엔드",
@@ -439,7 +439,7 @@ export const experience = {
   company: "주식회사 티지나래",
   period: "2024.06 ~ 재직 중",
   description:
-    "협력사 포탈, 현장 A/S, 교육청 자산관리 등 회사에서 운영 중인 업무 시스템을 맡았습니다. 화면 수정, 기능 추가, 목록·상세·엑셀·대시보드 화면의 조건 확인을 함께 진행했습니다.",
+    "협력사 포탈, 현장 A/S, 교육청 자산관리 등 회사에서 운영 중인 업무 시스템을 맡았습니다. 기존 화면 수정, 기능 추가, 목록·상세·엑셀·대시보드 화면의 조건 확인을 함께 진행했습니다.",
   bullets: [
     "Vue, WebSquare, JSP 기반 화면 수정과 기능 추가",
     "Spring Boot, Spring MVC, MyBatis 구조에서 화면 응답 확인",
@@ -488,9 +488,9 @@ export const focusTracks = [
     contactDescription:
       "프로젝트 상세 내용과 공개 가능한 작업물은 포트폴리오와 GitHub에 정리해두었습니다.",
     projectIntro:
-      "비공개 실무 프로젝트는 범위를 조심스럽게 비식별화했고, 공개 가능한 팀·개인 프로젝트는 GitHub 링크를 함께 남겼습니다.",
+      "실무 프로젝트는 공개 가능한 범위에서만 정리했고, 공개 프로젝트는 GitHub 링크를 함께 남겼습니다.",
     fitTitle: "주로 사용한 기술",
-    fitDescription: "프로젝트에서 실제로 사용한 기술을 작업 영역별로 나눠 적었습니다.",
+    fitDescription: "프로젝트에서 자주 사용한 기술을 정리했습니다.",
     strengths: coreStrengths,
     fitItems: coreStrengths.map((item) => ({
       label: item.title,
@@ -506,8 +506,8 @@ export const focusTracks = [
 
 export const heroStats = [
   { label: "주요 경험", value: "포탈 · A/S · 자산관리", unit: "" },
-  { label: "화면 환경", value: "Vue · WebSquare · JSP", unit: "" },
-  { label: "주로 본 화면", value: "목록 · 상세 · 엑셀 · 대시보드", unit: "" },
+  { label: "사용한 화면 환경", value: "Vue · WebSquare · JSP", unit: "" },
+  { label: "자주 본 화면", value: "목록 · 상세 · 엑셀 · 대시보드", unit: "" },
 ];
 
 export const projects = featuredProjects;

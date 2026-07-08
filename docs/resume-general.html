@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
-<title>권용재 - 프론트엔드 중심 웹 개발자</title>
+<title>권용재 - 웹 개발자</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
@@ -11,186 +11,322 @@
     --ink-strong: #0f172a;
     --muted: #64748b;
     --accent: #2563eb;
-    --accent-dark: #1e3a8a;
-    --rule: #e2e8f0;
-    --chip-bg: #eef2ff;
-    --chip-ink: #3949c0;
-    --tech-bg: #f1f5f9;
-    --tech-ink: #475569;
-    --callout-bg: #f5f8ff;
+    --rule: #dbe4f0;
+    --chip-bg: #f1f5f9;
+    --chip-ink: #475569;
   }
-  @page { size: A4; margin: 11mm 12mm; }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; color: var(--ink); background: #fff;
-    font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
-    font-size: 9.6px; line-height: 1.4;
-    -webkit-print-color-adjust: exact; print-color-adjust: exact;
-  }
-  .resume { max-width: 186mm; margin: 0 auto; }
 
-  .hd { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; border-bottom: 2px solid var(--accent); padding-bottom: 9px; margin-bottom: 11px; }
-  .hd-main { flex: 1; min-width: 0; }
-  .hd-top { display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap; }
-  .hd h1 { margin: 0; font-size: 26px; font-weight: 800; color: var(--ink-strong); letter-spacing: -0.3px; }
-  .hd .role { font-size: 12px; font-weight: 700; color: var(--accent); }
-  .contact { display: flex; flex-wrap: wrap; gap: 3px 14px; margin-top: 7px; color: var(--muted); font-size: 9.2px; }
-  .contact span { display: inline-flex; align-items: center; gap: 4px; }
-  .contact svg { width: 11px; height: 11px; color: var(--accent); flex: 0 0 auto; }
-  .contact a { color: var(--muted); text-decoration: none; }
-  .photo { flex: 0 0 auto; width: 80px; height: 100px; border-radius: 6px; object-fit: cover; border: 1px solid var(--rule); }
+  @page { size: A4; margin: 12mm 13mm; }
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: #fff;
+    font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+    font-size: 9.8px;
+    line-height: 1.42;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .resume { max-width: 184mm; margin: 0 auto; }
+
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--ink-strong);
+    font-size: 27px;
+    line-height: 1.1;
+    letter-spacing: 0;
+  }
+
+  .role {
+    display: inline-block;
+    margin-top: 4px;
+    color: var(--accent);
+    font-size: 12.5px;
+    font-weight: 800;
+  }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 13px;
+    max-width: 118mm;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 9px;
+  }
+
+  .contact a {
+    color: var(--muted);
+    text-decoration: none;
+  }
 
   h2 {
-    display: flex; align-items: center; gap: 7px;
-    margin: 9px 0 5px; font-size: 11.5px; font-weight: 800;
-    color: var(--accent-dark); letter-spacing: 0.4px; text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 10px 0 5px;
+    color: var(--ink-strong);
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: 0;
   }
-  h2::before { content: ""; width: 4px; height: 13px; background: var(--accent); border-radius: 2px; flex: 0 0 auto; }
-  h2::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
 
-  .summary { margin: 0 0 9px; color: var(--ink); }
-  .callout { background: var(--callout-bg); border: 1px solid #dce6fb; border-left: 3px solid var(--accent); border-radius: 7px; padding: 7px 12px 7px 13px; }
-  .callout .lbl { font-size: 9px; font-weight: 800; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
-  .callout ul { margin: 0; padding: 0; list-style: none; }
-  .callout li { position: relative; padding-left: 13px; margin: 3px 0; }
-  .callout li::before { content: ""; position: absolute; left: 2px; top: 6px; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+  h2::before {
+    content: "";
+    width: 4px;
+    height: 13px;
+    border-radius: 2px;
+    background: var(--accent);
+  }
 
-  .skills { display: flex; flex-direction: column; gap: 4px; }
-  .srow { display: flex; align-items: flex-start; gap: 8px; }
-  .scat { flex: 0 0 84px; font-size: 8.7px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.3px; padding-top: 2.5px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 3px 4px; }
-  .chip { display: inline-block; background: var(--chip-bg); color: var(--chip-ink); font-size: 8.6px; font-weight: 600; padding: 1.5px 7px; border-radius: 999px; }
+  h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
 
-  .exp { margin: 4px 0 2px; }
-  .exp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-  .exp-co { font-size: 11.6px; font-weight: 800; color: var(--ink-strong); }
-  .exp-role { font-size: 9px; color: var(--muted); margin-top: 1px; }
-  .exp-desc { color: var(--ink); margin: 3px 0 4px; }
-  .meta { font-size: 8.6px; color: var(--muted); white-space: nowrap; flex: 0 0 auto; }
-  ul.b { margin: 3px 0 5px; padding: 0; list-style: none; }
-  ul.b > li { position: relative; padding-left: 12px; margin: 2px 0; }
-  ul.b > li::before { content: ""; position: absolute; left: 1px; top: 6px; width: 4px; height: 4px; border-radius: 1px; background: var(--accent); transform: rotate(45deg); }
-  .sys-lbl { font-size: 8.7px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; margin: 4px 0 3px; }
-  .sys { display: flex; flex-direction: column; gap: 3px; }
-  .sys .item { break-inside: avoid; padding-left: 10px; position: relative; }
-  .sys .item::before { content: ""; position: absolute; left: 0; top: 5px; width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
-  .sys .item b { color: var(--accent-dark); font-weight: 700; }
-  .sys .stack { color: var(--muted); font-size: 8.5px; }
+  p { margin: 3px 0 5px; }
 
-  .proj { margin: 4px 0; break-inside: avoid; }
-  .trio { break-inside: avoid; }
-  .proj-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-  .proj-title { font-size: 11.2px; font-weight: 800; color: var(--ink-strong); }
-  .proj-desc { color: var(--muted); margin: 2px 0 4px; }
-  .tech { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 4px; }
-  .tch { display: inline-block; background: var(--tech-bg); color: var(--tech-ink); font-size: 8.2px; font-weight: 600; padding: 1px 6px; border-radius: 4px; }
-  strong { color: var(--ink-strong); font-weight: 700; }
+  .summary {
+    margin: 0 0 8px;
+    color: var(--ink);
+    font-size: 10.1px;
+  }
 
-  .trio { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 14px; }
-  .trio h2 { margin-top: 3px; }
-  .ent { margin: 1px 0 3px; }
-  .ent .t { font-weight: 700; color: var(--ink-strong); }
-  .ent .s { color: var(--muted); font-size: 8.9px; }
-  .ent .x { color: var(--accent-dark); font-size: 8.8px; }
+  .skills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+  }
+
+  .skill-row {
+    display: grid;
+    grid-template-columns: 78px 1fr;
+    align-items: start;
+    gap: 7px;
+  }
+
+  .skill-name {
+    color: var(--muted);
+    font-size: 8.7px;
+    font-weight: 800;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 4px;
+  }
+
+  .chip,
+  .tag {
+    display: inline-block;
+    border-radius: 999px;
+    background: var(--chip-bg);
+    color: var(--chip-ink);
+    font-size: 8.2px;
+    font-weight: 650;
+    padding: 1.5px 6px;
+    white-space: nowrap;
+  }
+
+  .exp-head,
+  .project-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .title {
+    color: var(--ink-strong);
+    font-size: 11px;
+    font-weight: 850;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: 8.5px;
+    white-space: nowrap;
+  }
+
+  ul {
+    margin: 3px 0 5px;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    margin: 2px 0;
+    padding-left: 11px;
+  }
+
+  li::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 1px;
+    width: 4px;
+    height: 4px;
+    border-radius: 1px;
+    background: var(--accent);
+    transform: rotate(45deg);
+  }
+
+  .projects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 14px;
+  }
+
+  .project {
+    break-inside: avoid;
+  }
+
+  .project-desc {
+    color: var(--ink);
+    margin: 2px 0 4px;
+  }
+
+  .project-desc.public {
+    color: var(--muted);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 4px;
+  }
+
+  .bottom {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 14px;
+    margin-top: 2px;
+  }
+
+  .entry { margin: 1px 0 4px; }
+  .entry .name { color: var(--ink-strong); font-weight: 800; }
+  .entry .sub { color: var(--muted); font-size: 8.8px; }
 </style>
 </head>
 <body>
 <main class="resume">
-
-  <header class="hd">
-    <div class="hd-main">
-      <div class="hd-top">
-        <h1>권용재</h1>
-        <span class="role">프론트엔드 개발자 · 화면부터 API·SQL까지</span>
-      </div>
+  <header class="header">
+    <div>
+      <h1>권용재</h1>
+      <div class="role">웹 개발자</div>
       <div class="contact">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>koj185364@naver.com</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>010-9470-1704</span>
-        <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.2-3.37-1.2-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>github.com/YongjaeKwon</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg><a href="https://portfolio-six-inky-14.vercel.app">portfolio-six-inky-14.vercel.app</a></span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>경기도 용인시</span>
+        <span>koj185364@naver.com</span>
+        <span><a href="https://github.com/YongjaeKwon">github.com/YongjaeKwon</a></span>
+        <span><a href="https://portfolio-six-inky-14.vercel.app">portfolio-six-inky-14.vercel.app</a></span>
       </div>
     </div>
-    <!-- 사진을 넣으려면: <img class="photo" src="./profile.jpg" alt="권용재" /> 추가 -->
   </header>
 
-  <p class="summary">B2B·B2G 운영 시스템에서 협력사 포탈, AS/현장 서비스, 교육청 자산관리 화면을 개발해 온 프론트엔드 개발자입니다. 업무 단계와 데이터 기준을 먼저 정리하고, 사용자가 화면에서 해야 할 일을 분명하게 알 수 있도록 구현합니다. 실무는 Vue·WebSquare·JSP 중심으로 경험했고, 팀·개인 프로젝트에서는 React·Next.js와 FastAPI를 다뤘습니다.</p>
+  <h2>Summary</h2>
+  <p class="summary">이미 운영 중인 시스템에서 화면을 수정하고 필요한 기능을 추가해왔습니다.<br />
+  Vue, WebSquare, JSP 기반 화면 작업을 주로 했고,<br />
+  Spring MVC와 MyBatis 기반 화면에서 조회 조건과 내려오는 값을 함께 확인했습니다.</p>
 
-  <div class="callout">
-    <div class="lbl">핵심 강점</div>
-    <ul>
-      <li><strong>업무 순서에 맞춘 화면 구성</strong> — 등록, 업로드, 발송, 조회처럼 이어지는 기능을 사용자가 처리하는 순서대로 정리합니다.</li>
-      <li><strong>화면·API·SQL 기준 확인</strong> — 운영 화면 수치가 실제 데이터와 어긋날 때 화면 상태, API 요청, MyBatis 조회 조건을 함께 확인합니다.</li>
-      <li><strong>Vue 실무와 React 프로젝트 경험</strong> — 실무는 Vue·WebSquare 중심으로, 팀·개인 프로젝트는 React·Next.js 중심으로 화면을 구현했습니다.</li>
-    </ul>
-  </div>
-
-  <h2>Core Skills</h2>
+  <h2>Skills</h2>
   <div class="skills">
-    <div class="srow"><div class="scat">Frontend</div><div class="chips"><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">Vue.js</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">WebSquare</span><span class="chip">JSP</span></div></div>
-    <div class="srow"><div class="scat">상태·데이터</div><div class="chips"><span class="chip">TanStack Query</span><span class="chip">Pinia</span><span class="chip">Redux Toolkit</span><span class="chip">React Hook Form</span><span class="chip">REST API</span></div></div>
-    <div class="srow"><div class="scat">UI</div><div class="chips"><span class="chip">Tabulator</span><span class="chip">Chart.js</span><span class="chip">Canvas</span><span class="chip">반응형 화면</span></div></div>
-    <div class="srow"><div class="scat">Backend</div><div class="chips"><span class="chip">Spring Boot · MVC</span><span class="chip">MyBatis</span><span class="chip">FastAPI</span></div></div>
-    <div class="srow"><div class="scat">Database</div><div class="chips"><span class="chip">MariaDB</span><span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span></div></div>
-    <div class="srow"><div class="scat">도구</div><div class="chips"><span class="chip">Git · SVN</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span><span class="chip">Vite</span><span class="chip">Vitest</span></div></div>
-  </div>
-
-  <h2>Production Experience</h2>
-  <div class="exp">
-    <div class="exp-head"><div><div class="exp-co">유한책임회사 티지나래</div><div class="exp-role">프론트엔드 중심 웹 개발자 · 솔루션사업부</div></div><div class="meta">2024.06 ~ 재직 중</div></div>
-    <div class="exp-desc">여러 B2B·B2G 운영 시스템에서 화면을 만들고, API·SQL 연동과 운영 오류 재현·수정까지 담당했습니다.</div>
-    <ul class="b">
-      <li>Vue·WebSquare로 관리자·모바일·태블릿 화면을 신규 개발하고 운영 중 발견된 오류를 수정했습니다.</li>
-      <li>Spring Boot·Spring Security로 로그인·권한과 메일·파일 등 외부 연동을 구현하고, MariaDB·MySQL에서 집계 SQL을 작성했습니다.</li>
-      <li>협력사 포탈과 AS/현장 서비스 시스템을 API로 연동하고, 알림톡·메일 발송 결과를 성공·실패·대기·재처리 상태로 구분했습니다.</li>
-      <li>자산 대시보드에서 화면 필터와 집계 SQL의 권한 조건이 달라 수치가 어긋나던 문제를 확인하고 바로잡았습니다.</li>
-    </ul>
-    <div class="sys-lbl">주요 시스템</div>
-    <div class="sys">
-      <div class="item"><b>협력사 운영 포탈 (PPS)</b> — 교육/계약/정산 업무를 처리하는 포탈. 교육 등록, 대상자 엑셀 업로드, 메일 발송, 제출 현황 조회, 설문·게시판 댓글, 승인 처리 구현 <span class="stack">(Vue, Spring Boot, MyBatis)</span></div>
-      <div class="item"><b>AS/현장 서비스 운영 시스템 (TSMS)</b> — AS 접수, 현장 처리, 협력사 포탈 연동, 학생 단말 AS 접수 링크, 알림톡·무인보관함 흐름 구현 <span class="stack">(WebSquare, JavaScript, Spring MVC, MyBatis)</span></div>
-      <div class="item"><b>교육청 스마트기기 자산관리 시스템</b> — 학생 단말 자산 현황, 교육청별 대시보드, 일 집계 배치, AS 시스템 자산 연동 배치 구현 <span class="stack">(Spring MVC, JSP, MyBatis)</span></div>
+    <div class="skill-row">
+      <div class="skill-name">Frontend</div>
+      <div class="chips"><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">Vue</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">WebSquare</span><span class="chip">JSP</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Backend / Data</div>
+      <div class="chips"><span class="chip">Spring MVC</span><span class="chip">Spring Boot</span><span class="chip">MyBatis</span><span class="chip">SQL</span><span class="chip">FastAPI</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">UI / Tools</div>
+      <div class="chips"><span class="chip">Tabulator</span><span class="chip">Chart.js</span><span class="chip">Git</span><span class="chip">SVN</span><span class="chip">Docker</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-name">Project</div>
+      <div class="chips"><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Vite</span></div>
     </div>
   </div>
 
-  <h2>Projects</h2>
-
-  <div class="proj">
-    <div class="proj-head"><div class="proj-title">API 명세/테스트 도구 (SSAFAST)</div><div class="meta">2023.05 ~ 2023.06 · SSAFY 자율 프로젝트 우수상</div></div>
-    <div class="proj-desc">API 명세 작성과 테스트를 한곳에서 돕는 개발 도구. Next.js·TypeScript로 주요 화면을 구현.</div>
-    <ul class="b">
-      <li>중첩 입력 폼, 인증 가드, 성능 테스트 결과 화면을 구현했습니다.</li>
-      <li>테스트 대상 서버 URL이 본인 소유인지 확인하는 인증 단계를 두어, 다른 서버에 부하 테스트를 거는 것을 막았습니다.</li>
+  <h2>Experience</h2>
+  <section>
+    <div class="exp-head">
+      <div class="title">IT 솔루션 회사 · 웹 개발자</div>
+      <div class="meta">2024.06 ~ 재직 중</div>
+    </div>
+    <ul>
+      <li>Vue, WebSquare, JSP 기반 화면 수정 및 신규 화면 작업</li>
+      <li>목록, 상세, 엑셀, 대시보드 화면의 조회 조건 확인</li>
+      <li>공지, 설문, 댓글, 접수 상태, 자산 현황 관련 화면 작업</li>
+      <li>Spring MVC, MyBatis 기반 화면에서 응답 값과 SQL 조건 확인</li>
     </ul>
-    <div class="tech"><span class="tch">Next.js</span><span class="tch">React</span><span class="tch">TypeScript</span><span class="tch">TanStack Query</span><span class="tch">React Hook Form</span></div>
+  </section>
+
+  <h2>Work Projects</h2>
+  <div class="projects">
+    <section class="project">
+      <div class="project-head"><div class="title">협력사 업무 포탈(PPS)</div><div class="meta">비공개</div></div>
+      <p class="project-desc">협력사와 내부 담당자가 함께 쓰는 업무 포탈입니다. 교육 등록, 대상자 관리, 공지, 설문, 목록·엑셀 화면을 작업했습니다.</p>
+      <div class="tags"><span class="tag">Vue</span><span class="tag">Spring Boot</span><span class="tag">MyBatis</span></div>
+    </section>
+
+    <section class="project">
+      <div class="project-head"><div class="title">현장 A/S 접수·처리 시스템</div><div class="meta">비공개</div></div>
+      <p class="project-desc">현장 A/S 접수부터 처리 단계까지 이어지는 시스템입니다. 접수, 동의, 서명, 알림처럼 사용자가 직접 거치는 기능 일부를 맡았습니다.</p>
+      <div class="tags"><span class="tag">WebSquare</span><span class="tag">JSP</span><span class="tag">Spring MVC</span></div>
+    </section>
+
+    <section class="project">
+      <div class="project-head"><div class="title">교육청 단말 자산 현황 관리</div><div class="meta">비공개</div></div>
+      <p class="project-desc">교육청 단말의 자산 현황과 처리 상태를 확인하는 시스템입니다. 자산 현황, 대시보드, A/S 관련 조회 화면을 작업했습니다.</p>
+      <div class="tags"><span class="tag">JSP</span><span class="tag">Spring MVC</span><span class="tag">MyBatis</span></div>
+    </section>
   </div>
 
-  <div class="proj">
-    <div class="proj-head"><div class="proj-title">퀀트 트레이딩 백엔드 (quant-core)</div><div class="meta">2026.03 ~ 2026.07 · 개인 프로젝트</div></div>
-    <div class="proj-desc">매매 전략을 실행하고 결과를 모니터링하는 FastAPI 백엔드와 React 대시보드.</div>
-    <ul class="b">
-      <li>JWT 인증, WebSocket 실시간 반영, pytest 기반 API 테스트를 구현했습니다.</li>
-      <li>Docker Compose와 GitHub Actions로 실행과 기본 검증 흐름을 정리했습니다.</li>
-    </ul>
-    <div class="tech"><span class="tch">React</span><span class="tch">TypeScript</span><span class="tch">TanStack Query</span><span class="tch">FastAPI</span><span class="tch">Docker</span><span class="tch">GitHub Actions</span></div>
+  <h2>Public Projects</h2>
+  <div class="projects">
+    <section class="project">
+      <div class="project-head"><div class="title">API 명세·테스트 협업 도구(SSAFAST)</div><div class="meta">팀 프로젝트</div></div>
+      <p class="project-desc public">API 명세 작성과 테스트 과정을 함께 확인하는 프로젝트입니다. 프론트엔드와 UI·UX를 맡아 중첩 입력 폼, 인증 화면, 테스트 결과 화면을 만들었습니다.</p>
+      <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">TypeScript</span></div>
+    </section>
+
+    <section class="project">
+      <div class="project-head"><div class="title">매매 전략 실행·모니터링 개인 프로젝트(quant-lab)</div><div class="meta">개인 프로젝트</div></div>
+      <p class="project-desc public">실제 투자 정보는 제외하고, 인증, 실행 요청, 실시간 이벤트, 테스트 환경을 중심으로 구성한 개인 프로젝트입니다.</p>
+      <div class="tags"><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Docker</span></div>
+    </section>
   </div>
 
-  <div class="trio">
-    <div>
+  <div class="bottom">
+    <section>
       <h2>Education</h2>
-      <div class="ent"><div class="t">아주대학교</div><div class="s">e-비즈니스학과 · 편입 학사 졸업 · 학점 3.67 / 4.5</div><div class="s">2018.03 ~ 2020.08</div></div>
-      <div class="ent"><div class="t">삼성 청년 SW 아카데미 (SSAFY)</div><div class="s">소프트웨어 엔지니어 과정 1년 수료</div><div class="x">2학기 자율 프로젝트 우수상 · 2022.07 ~ 2023.06</div></div>
-    </div>
-    <div>
-      <h2>Certificates</h2>
-      <div class="ent"><div class="t">SQLD</div><div class="s">SQL 개발자 · 2024.09 취득</div></div>
-    </div>
-    <div>
-      <h2>병역</h2>
-      <div class="ent"><div class="t">군필 · 해병대</div><div class="s">2016.01 ~ 2017.10</div></div>
-    </div>
-  </div>
+      <div class="entry"><div class="name">아주대학교</div><div class="sub">e-비즈니스학과 · 학사</div></div>
+      <div class="entry"><div class="name">삼성 청년 SW 아카데미(SSAFY)</div><div class="sub">소프트웨어 교육 과정 수료 · 2022.07 ~ 2023.06</div></div>
+    </section>
 
+    <section>
+      <h2>Certificates</h2>
+      <div class="entry"><div class="name">SQLD</div><div class="sub">SQL 기본과 데이터 모델링 이해를 검증한 자격증입니다.</div></div>
+    </section>
+  </div>
 </main>
 </body>
 </html>
