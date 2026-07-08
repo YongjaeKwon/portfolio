@@ -17,7 +17,7 @@
           />
           <div class="inline-flex items-center gap-2 rounded-full border border-[var(--fresh-border)] bg-white/75 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[var(--fresh-blue-strong)] shadow-sm">
             <Radar class="h-4 w-4" />
-            운영 시스템 · 업무 화면 · 조회 기준
+            운영 시스템 · 업무 화면 · 기능 추가
           </div>
         </div>
 
@@ -75,7 +75,7 @@
       <div class="reveal mb-6">
         <p class="section-kicker">Core Strength</p>
         <h2 class="mt-3 text-2xl font-black text-primary md:text-3xl">
-          일을 시작할 때 먼저 보는 기준
+          기능을 추가하기 전에 보는 것
         </h2>
       </div>
       <div class="grid gap-4 md:grid-cols-3">

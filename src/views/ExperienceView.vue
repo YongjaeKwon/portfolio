@@ -5,7 +5,7 @@
         <span class="section-index">02</span>
         <p class="section-kicker">Experience</p>
       </div>
-      <h2 class="reveal reveal-d1 section-title">회사에서 맡아온 일</h2>
+      <h2 class="reveal reveal-d1 section-title">실무 경험</h2>
 
       <div class="relative mt-10">
         <div class="absolute bottom-3 left-[7px] top-3 w-px bg-[var(--border-strong)]"></div>

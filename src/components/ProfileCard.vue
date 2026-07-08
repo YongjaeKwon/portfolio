@@ -6,9 +6,9 @@
           <span class="section-index">00</span>
           <p class="section-kicker">About</p>
         </div>
-        <h2 class="section-title">운영 중인 업무 시스템을 다뤄왔습니다</h2>
+        <h2 class="section-title">기존 시스템 안에서 기능을 더했습니다</h2>
         <p class="section-copy">
-          화면을 새로 만드는 일뿐 아니라, 기존 구조 안에서 어떤 값이 어디서 오고 어떻게 보여야 하는지 확인하는 일을 중요하게 봅니다.
+          협력사 포탈, 현장 A/S, 교육청 자산관리처럼 이미 사용 중인 시스템에서 화면 수정과 기능 추가를 맡았습니다.
         </p>
       </div>
 
@@ -40,17 +40,17 @@ import { profile } from "@/data/portfolio";
 const aboutCards = [
   {
     label: "주요 경험",
-    value: "포탈·A/S·자산",
+    value: "포탈 · A/S · 자산관리",
     icon: Workflow,
   },
   {
     label: "화면 환경",
-    value: "Vue·WebSquare·JSP",
+    value: "Vue · WebSquare · JSP",
     icon: MonitorSmartphone,
   },
   {
-    label: "확인 기준",
-    value: "목록·엑셀·대시보드",
+    label: "주로 본 화면",
+    value: "목록 · 상세 · 엑셀 · 대시보드",
     icon: Database,
   },
 ];

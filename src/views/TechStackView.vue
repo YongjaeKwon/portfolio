@@ -5,9 +5,9 @@
         <span class="section-index">04</span>
         <p class="section-kicker">Tech Stack</p>
       </div>
-      <h2 class="reveal reveal-d1 section-title">기술은 어디에 썼는지 중심으로</h2>
+      <h2 class="reveal reveal-d1 section-title">주로 사용한 기술</h2>
       <p class="reveal reveal-d2 section-copy">
-        기술 이름을 많이 나열하기보다, 업무 화면과 조회 기준을 맞추는 과정에서 어떤 도구를 사용했는지 보여줍니다.
+        프로젝트에서 실제로 사용한 기술을 작업 영역별로 나눠 적었습니다.
       </p>
 
       <div class="mt-8 grid gap-4 md:grid-cols-2">
@@ -27,26 +27,14 @@
           </div>
 
           <div class="mt-5 flex flex-wrap gap-2">
-            <template v-for="item in group.items" :key="item">
-              <button
-                v-if="stacksInProjects.has(item)"
-                type="button"
-                :title="`${item} 관련 프로젝트 보기`"
-                class="tech-chip fresh-list-item text-secondary group inline-flex cursor-pointer items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold"
-                @click="linkToProjects(item)"
-              >
-                <TechIcon :name="item" />
-                {{ item }}
-                <ArrowUpRight class="h-3.5 w-3.5 text-white/30 transition group-hover:text-[var(--accent-strong)]" />
-              </button>
-              <span
-                v-else
-                class="tech-chip fresh-list-item text-secondary inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold"
-              >
-                <TechIcon :name="item" />
-                {{ item }}
-              </span>
-            </template>
+            <span
+              v-for="item in group.items"
+              :key="item"
+              class="tech-chip fresh-list-item text-secondary inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold"
+            >
+              <TechIcon :name="item" />
+              {{ item }}
+            </span>
           </div>
         </article>
       </div>
@@ -56,35 +44,19 @@
 
 <script setup lang="ts">
 import {
-  ArrowUpRight,
   Boxes,
   Code,
-  Database,
   Layers,
   MonitorSmartphone,
   Server,
 } from "@lucide/vue";
 import type { Component } from "vue";
 import TechIcon from "@/components/TechIcon.vue";
-import { featuredProjects, techGroups } from "@/data/portfolio";
-import { useProjectFilter } from "@/composables/useProjectFilter";
-
-const { activeFilter } = useProjectFilter();
-const stacksInProjects = new Set(featuredProjects.flatMap((project) => project.stack));
-
-const linkToProjects = (stack: string) => {
-  activeFilter.value = stack;
-  const el = document.getElementById("projects");
-  if (el) {
-    el.scrollIntoView({ behavior: "smooth" });
-    history.replaceState(null, "", `${location.pathname}${location.search}#projects`);
-  }
-};
+import { techGroups } from "@/data/portfolio";
 
 const iconMap: Record<string, Component> = {
   Boxes,
   Code,
-  Database,
   Layers,
   MonitorSmartphone,
   Server,

@@ -14,57 +14,36 @@
         </div>
       </div>
 
-      <div class="reveal mb-6 flex flex-wrap gap-2" role="group" aria-label="프로젝트 기술 필터">
-        <button
-          type="button"
-          :class="[
-            'tech-chip fresh-list-item inline-flex items-center rounded-full px-3 py-1.5 text-xs font-bold transition',
-            activeFilter === null ? 'filter-chip-active' : 'text-secondary',
-          ]"
-          :aria-pressed="activeFilter === null"
-          @click="activeFilter = null"
-        >
-          전체
-          <span class="ml-1.5 text-white/30">{{ featuredProjects.length }}</span>
-        </button>
-        <button
-          v-for="opt in filterOptions"
-          :key="opt.name"
-          type="button"
-          :class="[
-            'tech-chip fresh-list-item inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition',
-            activeFilter === opt.name ? 'filter-chip-active' : 'text-secondary',
-          ]"
-          :aria-pressed="activeFilter === opt.name"
-          @click="activeFilter = activeFilter === opt.name ? null : opt.name"
-        >
-          <TechIcon :name="opt.name" />
-          {{ opt.name }}
-          <span class="ml-0.5 text-white/30">{{ opt.count }}</span>
-        </button>
-      </div>
-
-      <TransitionGroup name="project-filter" tag="div" class="grid gap-5" appear>
+      <div class="grid gap-5">
         <article
-          v-for="project in filteredProjects"
+          v-for="project in featuredProjects"
           :key="project.id"
           v-tilt
           class="fresh-orb-card interactive-surface tilt group rounded-[2rem] p-5 md:p-6"
         >
           <div class="grid gap-6 lg:grid-cols-[0.34fr_0.66fr]">
             <div class="fresh-list-item rounded-[1.5rem] p-5">
-              <p class="text-xs font-black uppercase tracking-[0.22em] opacity-80">
-                {{ project.category }}
-              </p>
-              <h3 class="text-primary mt-4 text-2xl font-black md:text-3xl">
-                {{ project.shortTitle }}
-              </h3>
-              <p class="text-secondary mt-4 text-sm leading-6">
-                {{ project.period }}
-              </p>
-              <p class="mt-4 inline-flex rounded-full border border-[var(--fresh-border)] bg-white/55 px-3 py-1.5 text-xs font-bold text-[var(--fresh-blue-strong)]">
+              <p class="inline-flex rounded-full border border-[var(--fresh-border)] bg-white/55 px-3 py-1.5 text-xs font-bold text-[var(--fresh-blue-strong)]">
                 {{ project.card.visibility }}
               </p>
+              <p class="text-secondary mt-4 font-mono tnum text-sm font-semibold">
+                {{ project.period }}
+              </p>
+
+              <div class="mt-6 grid gap-4">
+                <div>
+                  <p class="text-muted text-xs font-bold">작업 범위</p>
+                  <p class="text-primary mt-2 text-sm font-black leading-6">
+                    {{ project.card.meta.workRange }}
+                  </p>
+                </div>
+                <div>
+                  <p class="text-muted text-xs font-bold">주요 환경</p>
+                  <p class="text-primary mt-2 text-sm font-black leading-6">
+                    {{ project.card.meta.environment }}
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div class="flex flex-col">
@@ -120,11 +99,7 @@
             </div>
           </div>
         </article>
-      </TransitionGroup>
-
-      <p v-if="filteredProjects.length === 0" class="text-muted py-12 text-center text-sm">
-        해당 기술을 앞세운 주요 프로젝트가 없습니다.
-      </p>
+      </div>
 
       <div class="reveal mt-20 border-t border-[var(--fresh-border)] pt-14">
         <p class="section-kicker">Public Archive</p>
@@ -137,46 +112,37 @@
           <article
             v-for="item in publicArchive"
             :key="item.id"
-            class="fresh-card interactive-surface rounded-[2rem] p-5"
+            class="fresh-card interactive-surface rounded-[2rem] p-6"
           >
-            <div class="grid gap-5 sm:grid-cols-[9rem_1fr]">
-              <img
-                :src="item.image"
-                :alt="`${item.title} 화면 이미지`"
-                loading="lazy"
-                decoding="async"
-                class="h-32 w-full rounded-2xl border border-[var(--fresh-border)] bg-white/60 object-cover sm:h-full"
-              />
-              <div>
-                <h4 class="text-primary text-xl font-black">{{ item.title }}</h4>
-                <p class="text-secondary mt-2 text-sm leading-6">{{ item.summary }}</p>
-                <p class="text-muted mt-3 text-sm leading-6">
-                  <span class="text-primary font-bold">내 역할</span>
-                  {{ item.role }}
-                </p>
-                <p class="text-muted mt-2 text-sm leading-6">
-                  {{ item.reason }}
-                </p>
-                <div class="mt-4 flex flex-wrap gap-2">
-                  <span
-                    v-for="tech in item.tech"
-                    :key="tech"
-                    class="tech-chip fresh-list-item text-secondary inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold"
-                  >
-                    <TechIcon :name="tech" />
-                    {{ tech }}
-                  </span>
-                </div>
-                <a
-                  :href="item.github"
-                  target="_blank"
-                  rel="noreferrer"
-                  class="focus-ring mt-5 inline-flex items-center gap-2 text-sm font-bold text-[var(--fresh-blue-strong)]"
+            <div class="flex h-full flex-col">
+              <h4 class="text-primary text-xl font-black">{{ item.title }}</h4>
+              <p class="text-secondary mt-2 text-sm leading-6">{{ item.summary }}</p>
+              <p class="text-muted mt-4 text-sm leading-6">
+                <span class="text-primary font-bold">내 역할</span>
+                {{ item.role }}
+              </p>
+              <p class="text-muted mt-2 text-sm leading-6">
+                {{ item.reason }}
+              </p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span
+                  v-for="tech in item.tech"
+                  :key="tech"
+                  class="tech-chip fresh-list-item text-secondary inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold"
                 >
-                  GitHub 보기
-                  <ExternalLink class="h-4 w-4" />
-                </a>
+                  <TechIcon :name="tech" />
+                  {{ tech }}
+                </span>
               </div>
+              <a
+                :href="item.github"
+                target="_blank"
+                rel="noreferrer"
+                class="focus-ring mt-5 inline-flex items-center gap-2 self-start text-sm font-bold text-[var(--fresh-blue-strong)]"
+              >
+                GitHub 보기
+                <ExternalLink class="h-4 w-4" />
+              </a>
             </div>
           </article>
         </div>
@@ -256,11 +222,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { ArrowRight, ExternalLink, X } from "@lucide/vue";
 import TechIcon from "@/components/TechIcon.vue";
 import { featuredProjects, publicArchive, type FeaturedProject } from "@/data/portfolio";
-import { useProjectFilter } from "@/composables/useProjectFilter";
 
 const DetailBlock = defineComponent({
   props: {
@@ -285,25 +250,6 @@ const DetailBlock = defineComponent({
       ]);
   },
 });
-
-const { activeFilter } = useProjectFilter();
-
-const filterOptions = computed(() => {
-  const counts = new Map<string, number>();
-  featuredProjects.forEach((project) =>
-    project.stack.forEach((stack) => counts.set(stack, (counts.get(stack) ?? 0) + 1))
-  );
-  return [...counts.entries()]
-    .filter(([, count]) => count >= 2)
-    .sort((a, b) => b[1] - a[1])
-    .map(([name, count]) => ({ name, count }));
-});
-
-const filteredProjects = computed(() =>
-  activeFilter.value
-    ? featuredProjects.filter((project) => project.stack.includes(activeFilter.value!))
-    : featuredProjects
-);
 
 const activeProject = ref<FeaturedProject | null>(null);
 const detailTitleId = "project-detail-title";
@@ -393,23 +339,6 @@ const vTilt = {
 </script>
 
 <style scoped>
-.project-filter-enter-active {
-  transition: opacity 0.28s ease, transform 0.28s ease;
-}
-.project-filter-leave-active {
-  transition: opacity 0.18s ease;
-}
-.project-filter-enter-from {
-  opacity: 0;
-  transform: translateY(6px);
-}
-.project-filter-leave-to {
-  opacity: 0;
-}
-.project-filter-move {
-  transition: transform 0.28s ease;
-}
-
 .modal-enter-active {
   transition: opacity 0.22s ease;
 }

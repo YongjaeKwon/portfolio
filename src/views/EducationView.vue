@@ -5,7 +5,7 @@
         <span class="section-index">03</span>
         <p class="section-kicker">Education &amp; Certificates</p>
       </div>
-      <h2 class="reveal reveal-d1 section-title">교육과 자격</h2>
+      <h2 class="reveal reveal-d1 section-title">교육 및 자격증</h2>
 
       <div class="mt-8 grid gap-4 md:grid-cols-3">
         <article
