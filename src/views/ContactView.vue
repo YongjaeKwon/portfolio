@@ -5,9 +5,9 @@
         <span class="section-index">05</span>
         <p class="section-kicker">Contact</p>
       </div>
-      <h2 class="reveal reveal-d1 section-title">더 이야기해보고 싶다면</h2>
+      <h2 class="reveal reveal-d1 section-title">채용 관련 연락</h2>
       <p class="reveal reveal-d2 section-copy">
-        포트폴리오나 이력서에 대해 궁금한 점이 있다면 편하게 연락 주세요.
+        채용 관련 문의는 이메일로 연락 주세요.
       </p>
 
       <div class="reveal reveal-d3 fresh-cta-panel mt-10 rounded-[2rem] p-8">

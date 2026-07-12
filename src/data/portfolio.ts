@@ -2,11 +2,11 @@ export const profile = {
   name: "권용재",
   role: "웹 개발자",
   headline:
-    "이미 운영 중인 시스템에서 화면을 수정하고,\n필요한 기능을 추가하는 일을 해왔습니다.",
+    "업무 시스템의 흐름을 이해하고, 요구사항을 기능으로 구현하며\n기존 처리와 어긋나지 않게 개선해 왔습니다.",
   summary:
-    "새 화면을 만들 때는 기존 권한, 상태값, 조회 조건과 맞물리는 부분을 먼저 확인했습니다.",
+    "화면에 보이는 결과와 실제 처리 기준이 다르지 않도록 요구사항과 데이터 흐름을 확인하며 기능을 구현해 왔습니다.",
   target:
-    "프로젝트에서는 실제로 맡은 화면과 공개 가능한 범위만 담았습니다.",
+    "프로젝트에서는 직접 기여한 화면과 공개 가능한 범위만 담았습니다.",
   email: "koj185364@naver.com",
   phone: "",
   github: "https://github.com/YongjaeKwon",
@@ -19,7 +19,7 @@ export const hero = {
   role: profile.role,
   headline: profile.headline,
   supportText:
-    "협력사 포탈, 현장 A/S, 교육청 자산관리처럼\n담당자가 매일 확인하는 화면을 주로 맡았습니다.",
+    "협력사 포탈과 업무 관리 시스템에서\n사용자 흐름과 데이터 기준을 확인하며 기능을 개선해 왔습니다.",
   ctas: [
     { label: "프로젝트 보기", href: "#projects", type: "primary" },
     { label: "GitHub", href: profile.github, type: "github" },
@@ -30,19 +30,19 @@ export const hero = {
 
 export const coreStrengths = [
   {
-    title: "기존 구조를 먼저 확인합니다",
+    title: "기존 과정을 먼저 따라갑니다",
     description:
-      "새 기능을 넣기 전에 메뉴, 권한, 처리 흐름이 어떻게 이어지는지 먼저 봅니다.",
+      "새 기능을 넣기 전 메뉴 이동, 권한 분기, 저장 뒤 다시 불러오는 과정을 따라가며 바뀌는 지점을 잡습니다.",
   },
   {
-    title: "화면마다 결과가 달라지지 않게 봅니다",
+    title: "상태별 화면 처리를 나눕니다",
     description:
-      "목록, 상세, 엑셀, 대시보드에서 같은 조건이 다르게 보이지 않는지 확인합니다.",
+      "접수, 동의, 발송, 제출처럼 상태가 달라질 때 버튼과 안내 문구, 다음 단계 진입 조건을 각각 적용합니다.",
   },
   {
-    title: "반복되는 부분은 따로 봅니다",
+    title: "결과가 서로 맞는지 봅니다",
     description:
-      "댓글, 입력 폼, 상태 표시처럼 여러 화면에 반복되는 부분은 함께 묶을지, 화면마다 다르게 둘지 나눠 봅니다.",
+      "목록, 상세, 엑셀, 대시보드가 서로 다른 값을 보여주지 않도록 화면 필터와 SQL을 비교합니다.",
   },
 ];
 
@@ -89,13 +89,13 @@ export const featuredProjects: FeaturedProject[] = [
     stack: ["Vue", "Spring Boot", "MyBatis", "MariaDB", "Tabulator"],
     image: {
       src: "/projects/pps-flow.svg",
-      alt: "협력사 업무 포탈의 비식별화된 화면과 데이터 처리 흐름 다이어그램",
+      alt: "협력사 업무 포탈의 비식별화된 화면과 데이터 처리 구조 다이어그램",
     },
     card: {
-      summary: "협력사와 내부 담당자가 함께 쓰는 업무 포탈입니다.",
+      summary: "협력사와 내부 담당자가 교육, 계약 현황, 공지, 설문, 게시판 업무를 처리하는 운영 포탈입니다.",
       description: [
-        "교육 등록, 대상자 관리, 공지, 설문처럼 여러 사람이 확인하는 화면을 맡았습니다.",
-        "목록과 엑셀 결과가 다르게 보이지 않도록 조건을 맞추며 작업했습니다.",
+        "교육 관리, 제출 현황, 공지와 설문 화면을 운영 조건에 맞춰 개선했습니다.",
+        "게시판과 제안하기의 댓글·대댓글은 공통화하고, 목록과 엑셀 파일이 같은 필터를 쓰도록 수정했습니다.",
       ],
       keywords: ["교육·대상자 관리", "공지·설문", "목록·엑셀"],
       visibility: "비공개 실무 프로젝트",
@@ -106,26 +106,25 @@ export const featuredProjects: FeaturedProject[] = [
     },
     detail: {
       overview:
-        "협력사와 내부 담당자가 교육, 공지, 게시판, 설문, 파트너 관련 정보를 확인하고 처리하는 업무 포탈입니다.",
+        "협력사와 내부 담당자가 교육, 계약 현황, 공지, 설문, 게시판 업무를 처리하는 운영 포탈입니다.",
       scope: [
-        "교육 등록과 대상자 관리 화면",
-        "공지·게시판·댓글·대댓글 관련 화면",
-        "설문 작성과 응답 확인 화면",
-        "파트너 관련 일부 화면",
-        "목록과 엑셀 중심의 운영 화면",
+        "교육 등록, 대상자 관리, 엑셀 업로드, 메일 발송 화면",
+        "제출 현황 조회와 엑셀 다운로드",
+        "게시판·제안하기 댓글·대댓글 화면",
+        "설문 문항 입력, 응답 확인, 상태별 버튼 처리",
       ],
       workPoints: [
-        "같은 대상자와 상태를 여러 화면에서 다루기 때문에 목록, 상세, 엑셀 값을 나란히 보며 작업했습니다.",
-        "댓글과 입력 폼처럼 반복되는 기능은 함께 묶을 부분과 화면별로 달라지는 부분을 나눠 봤습니다.",
-        "계약 관련 영역은 시스템 범위에 포함되지만, 포트폴리오에서는 직접 담당한 운영 화면 중심으로만 설명합니다.",
+        "교육 등록 이후 대상자 업로드, 메일 발송, 제출 현황 조회가 같은 교육과 대상자 기준으로 이어지도록 화면 상태와 API 요청값을 맞췄습니다. 목록과 엑셀 결과가 다를 때는 화면 필터와 MyBatis 조회 조건을 비교해 수정했습니다.",
+        "게시판과 제안하기의 댓글·대댓글 처리를 공통 컴포넌트로 묶고, 설문은 문항 유형별 입력과 결과 화면을 구현했습니다.",
+        "기존 시스템의 계정 생성 기능을 새 포탈로 옮긴 뒤 기존 사용자 유형에서 오류가 발생했습니다. 신규 계정과 기존 계정을 각각 재현해 공통 로직의 영향을 확인하고, 유형별 처리 로직을 분리한 뒤 두 유형을 함께 테스트했습니다.",
       ],
       techUsage: [
-        "Vue로 입력, 목록, 상세처럼 상태가 많은 업무 화면을 작업했습니다.",
-        "Spring Boot와 MyBatis 구조에서 화면에 필요한 응답과 조회 조건이 어떻게 이어지는지 살폈습니다.",
-        "Tabulator는 반복 조회 데이터를 목록과 엑셀 화면에 보여주는 데 사용했습니다.",
+        "Vue와 Tabulator는 대상자 목록, 선택 상태, 업로드 결과를 한 화면에서 확인하는 데 사용했습니다.",
+        "Spring Boot API는 교육과 대상자 기준을 요청값으로 전달하고 화면 응답을 매핑하는 데 사용했습니다.",
+        "MyBatis SQL은 제출 현황과 엑셀 다운로드 조회 범위를 맞추는 데 사용했습니다.",
       ],
       disclosure:
-        "비공개 실무 프로젝트입니다. 고객사명, 실제 화면, 계약 전체·CE 승인 전체·본사 계정 전체·압축 다운로드 같은 직접 담당으로 단정하기 어려운 범위는 노출하지 않습니다.",
+        "비공개 실무 프로젝트라 고객사명과 실제 화면은 공개하지 않고, 직접 기여한 운영 화면을 중심으로만 설명합니다.",
       resources: [
         { label: "비식별화 다이어그램", href: "/projects/pps-flow.svg", type: "diagram" },
       ],
@@ -140,15 +139,15 @@ export const featuredProjects: FeaturedProject[] = [
     stack: ["WebSquare", "JSP", "Spring MVC", "MyBatis", "MariaDB"],
     image: {
       src: "/projects/tsms-flow.svg",
-      alt: "현장 A/S 접수와 처리 단계의 비식별화된 흐름 다이어그램",
+      alt: "현장 A/S 접수와 처리 단계의 비식별화된 다이어그램",
     },
     card: {
-      summary: "현장 A/S 접수부터 처리 단계까지 이어지는 업무 시스템입니다.",
+      summary: "현장 A/S 접수와 알림 상태를 확인하는 업무입니다.",
       description: [
-        "접수, 동의, 서명, 알림처럼 외부 접점이 있는 기능을 맡았습니다.",
-        "단계별 상태와 예외가 섞이지 않도록 표시할 값을 나눠 봤습니다.",
+        "A/S 접수와 알림 발송 결과 확인 화면 일부를 개선했습니다.",
+        "모바일 동의와 전자서명 기능은 개발 중이며, 완료된 범위에서는 접수 번호를 기준으로 접수 정보와 알림 상태가 조회되도록 화면 상태와 조회 조건을 맞췄습니다.",
       ],
-      keywords: ["A/S 접수", "외부 접점", "상태 처리"],
+      keywords: ["A/S 접수", "동의·서명", "알림 상태"],
       visibility: "비공개 실무 프로젝트",
       meta: {
         workRange: "접수 · 동의 · 상태",
@@ -157,25 +156,25 @@ export const featuredProjects: FeaturedProject[] = [
     },
     detail: {
       overview:
-        "현장 A/S 접수와 처리 상태를 여러 담당자가 이어서 확인하는 업무 시스템입니다.",
+        "현장 A/S 접수와 알림 발송 결과를 여러 담당자가 확인하는 업무이며, 모바일 동의와 전자서명 기능은 개발 중입니다.",
       scope: [
-        "접수와 동의 단계 일부 화면",
-        "서명과 알림 관련 처리 화면",
-        "보관함처럼 외부 접점이 있는 기능 일부",
-        "모바일·태블릿에서 확인하는 처리 단계",
+        "A/S 접수와 접수 상태 표시 화면",
+        "접수 상태와 진행상태 표시 화면",
+        "알림 발송 결과와 재처리 상태 확인",
+        "모바일 동의와 전자서명 기능 개발 중",
       ],
       workPoints: [
-        "외부 접점이 있는 화면에서는 성공, 실패, 중단, 재시도 같은 상태가 섞이기 쉬워 단계별 표시를 나눠 봤습니다.",
-        "내부 담당자와 외부 사용자가 보는 값이 달라질 수 있어 공개 화면에 필요한 정보만 드러나도록 살폈습니다.",
-        "보안 처리 방식과 식별 방식은 외부 제출용 포트폴리오에서 자세히 설명하지 않습니다.",
+        "완료된 범위에서는 접수 번호를 기준으로 접수 정보와 알림 상태가 조회되도록 화면 상태와 조회 조건을 맞췄습니다.",
+        "연계 포탈의 조회 조건과 상태값을 확인해 화면 표시가 맞지 않는 부분을 보완했습니다.",
+        "알림 발송 결과를 성공, 실패, 대기 등 상태별로 구분해 운영자가 후속 조치를 확인할 수 있게 했습니다.",
       ],
       techUsage: [
-        "WebSquare와 JSP 기반 화면에서 입력, 조회, 상태 표시 작업을 했습니다.",
-        "Spring MVC와 MyBatis 구조에서 화면 값이 어떤 조회 조건으로 내려오는지 살폈습니다.",
-        "MariaDB 기반 운영 데이터의 상태값과 화면 표시를 함께 봤습니다.",
+        "WebSquare와 JSP 화면에서 접수 입력, 상세 조회, 상태 표시 UI를 수정했습니다.",
+        "Spring MVC Controller와 MyBatis SQL을 보며 화면에 필요한 값이 누락되거나 다른 범위로 조회되는 부분을 보완했습니다.",
+        "MariaDB 상태값을 화면 문구와 버튼 노출 조건에 사용해 접수 정보와 알림 상태가 어긋나지 않게 했습니다.",
       ],
       disclosure:
-        "비공개 실무 프로젝트입니다. 내부 시스템명과 외부 접점의 세부 보안 처리는 노출하지 않습니다.",
+        "비공개 실무 프로젝트라 내부 시스템명과 세부 처리 방식은 공개하지 않습니다.",
       resources: [
         { label: "비식별화 다이어그램", href: "/projects/tsms-flow.svg", type: "diagram" },
       ],
@@ -190,42 +189,45 @@ export const featuredProjects: FeaturedProject[] = [
     stack: ["JSP", "Spring MVC", "MyBatis", "SQL", "Chart.js", "Tabulator"],
     image: {
       src: "/projects/it-asset-flow.svg",
-      alt: "교육청 단말 자산 현황의 비식별화된 조회와 집계 흐름 다이어그램",
+      alt: "교육청 단말 자산 현황의 비식별화된 조회와 집계 구조 다이어그램",
     },
     card: {
-      summary: "교육청 단말의 자산 현황과 처리 상태를 확인하는 시스템입니다.",
+      summary: "교육청 단말 자산과 A/S 관련 현황을 권한별로 보는 업무입니다.",
       description: [
-        "단말 현황, 대시보드, A/S 관련 조회 화면을 작업했습니다.",
-        "집계 결과와 화면의 검색 조건이 다르게 보이는 부분을 확인하며 수정했습니다.",
+        "자산 현황, 대시보드, 유상처리/A/S 관련 조회 화면과 검색 조건을 개선했습니다.",
+        "연계 시스템의 자산 정보를 자산관리 시스템으로 매일 동기화하는 배치와 실행 이력, 실패 상태 및 재처리 결과 확인 화면을 개발했습니다.",
       ],
-      keywords: ["자산 현황", "대시보드", "A/S 조회"],
+      keywords: ["자산 현황", "권한별 조회", "동기화 배치"],
       visibility: "비공개 실무 프로젝트",
       meta: {
-        workRange: "자산 현황 · 대시보드 · 조회",
+        workRange: "자산 현황 · 대시보드 · 배치",
         environment: "JSP · Spring MVC · MyBatis",
       },
     },
     detail: {
       overview:
-        "교육청 단말 자산과 A/S 관련 현황을 확인하는 업무 시스템입니다.",
+        "교육청 단말 자산과 A/S 관련 현황을 확인하는 업무 시스템입니다. 연계 시스템의 자산 정보를 자산관리 시스템으로 매일 동기화하는 배치와 실행 이력, 실패 상태 및 재처리 결과 확인 화면을 개발했습니다.",
       scope: [
-        "자산 현황 조회 화면",
-        "교육청 단위의 현황 대시보드",
-        "A/S 관련 조회 화면 일부",
-        "집계 결과와 화면 조건 확인",
+        "단말 자산 현황과 검색 조건",
+        "교육청/학교/부서 권한별 조회 화면",
+        "대시보드 집계와 상세 목록 이동 과정",
+        "연계 시스템 자산 정보 일일 동기화 배치와 실행 이력·재처리 결과 확인",
       ],
       workPoints: [
-        "화면 필터와 집계 결과가 서로 다르게 읽히지 않도록 조건을 조정했습니다.",
-        "대시보드 숫자와 목록 데이터를 나란히 보며 차이가 없는지 살폈습니다.",
-        "집계·배치 영역은 직접 구현 여부를 과하게 내세우지 않고, 화면 조건과 결과를 맞춰 본 경험으로 설명합니다.",
+        "권한 필터가 화면에는 적용됐지만 집계 SQL에는 빠진 문제를 재현하고, 대시보드 수치와 상세 목록이 같은 범위로 조회되도록 MyBatis 조건을 보완했습니다.",
+        "대시보드 카드에서 상세 목록으로 이동할 때 필터가 유지되고 같은 범위의 결과가 보이도록 이동 방식을 조정했습니다.",
+        "자산 상태, 일자, 수량 포맷을 화면마다 다르게 읽히지 않도록 표시 방식을 통일했습니다.",
+        "@Scheduled 기반 동기화 배치, Service 처리 흐름, MyBatis 집계 SQL을 작성해 자산 정보가 매일 반영되도록 구현했습니다.",
+        "배치 이력 테이블에 성공·실패 상태를 저장하고 재처리 결과를 화면에서 확인할 수 있게 한 뒤, 배포 후 실행 결과를 검증했습니다.",
       ],
       techUsage: [
-        "JSP와 Tabulator로 목록과 현황 조회 화면을 작업했습니다.",
-        "Chart.js는 현황 데이터를 빠르게 파악하는 대시보드 화면에 사용했습니다.",
-        "MyBatis와 SQL은 필터와 실제 조회 조건이 같이 움직이는지 볼 때 사용했습니다.",
+        "JSP와 Tabulator로 자산 목록, 현황 표, 검색 조건 UI를 만들었습니다.",
+        "Chart.js 대시보드는 집계 수치를 먼저 보여주고 상세 목록으로 자연스럽게 넘어가도록 조정했습니다.",
+        "MyBatis SQL은 권한, 기관, 사업 차수, 자산 상태 조건이 집계와 목록에 누락되지 않도록 수정하는 데 사용했습니다.",
+        "Spring MVC 구조 안에서 배치 Service와 이력 조회 화면이 같은 처리 결과를 보도록 연결했습니다.",
       ],
       disclosure:
-        "비공개 실무 프로젝트입니다. 교육청명과 실제 화면은 노출하지 않고, A/S 연동은 설명에서만 다룹니다.",
+        "비공개 실무 프로젝트라 교육청명과 실제 화면, 자산 데이터는 공개하지 않습니다.",
       resources: [
         { label: "비식별화 다이어그램", href: "/projects/it-asset-flow.svg", type: "diagram" },
       ],
@@ -233,7 +235,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     id: "ssafast",
-    title: "API 명세·테스트 협업 도구",
+    title: "API 명세·테스트 협업 도구(SSAFAST)",
     shortTitle: "SSAFAST",
     period: "2023.04 ~ 2023.05",
     category: "Developer Tool",
@@ -243,14 +245,14 @@ export const featuredProjects: FeaturedProject[] = [
       alt: "API 명세와 테스트 진행 현황을 보여주는 SSAFAST 화면",
     },
     card: {
-      summary: "API 명세 작성과 테스트 과정을 함께 확인하는 팀 프로젝트입니다.",
+      summary: "API 명세 작성과 테스트 과정을 한곳에서 확인하는 팀 프로젝트입니다.",
       description: [
-        "프론트엔드와 UI·UX를 맡아 중첩 입력 폼, 인증 화면, 테스트 결과 화면을 만들었습니다.",
+        "프론트엔드와 UI·UX 역할로 중첩 입력 폼, 테스트 결과·부하 테스트 결과 화면을 만들었습니다.",
       ],
       keywords: ["API 명세", "중첩 폼", "테스트 결과"],
       visibility: "공개 GitHub 프로젝트",
       meta: {
-        workRange: "입력 폼 · 인증 · 결과 화면",
+        workRange: "명세 입력 · 중첩 폼 · 테스트 결과",
         environment: "Next.js · React · TypeScript",
       },
     },
@@ -259,23 +261,23 @@ export const featuredProjects: FeaturedProject[] = [
         "API 명세 작성, 요청 테스트, 결과 확인을 한곳에서 할 수 있게 만든 팀 프로젝트입니다.",
       scope: [
         "프론트엔드와 UI·UX 역할",
-        "API 명세 입력 화면",
-        "중첩 입력 폼",
-        "인증이 필요한 화면",
-        "테스트 결과 확인 화면",
+        "API 명세 입력·편집 화면",
+        "DTO·Request·Response 중첩 입력 폼",
+        "테스트 결과 화면",
+        "부하 테스트 결과 화면",
       ],
       workPoints: [
-        "요청값이 깊게 중첩되는 입력 화면에서 사용자가 어떤 값을 넣고 있는지 잃지 않게 하는 구조가 중요했습니다.",
-        "팀원이 함께 쓰는 도구라 입력, 저장, 결과 확인 단계가 자연스럽게 이어지도록 화면 단계를 나눴습니다.",
-        "수상 문구는 공개 가능 여부가 확인될 때만 별도로 사용할 수 있도록 남겨둡니다.",
+        "API 명세 입력·편집 화면을 만들었습니다.",
+        "DTO, Request, Response처럼 중첩 구조가 있는 입력 폼을 만들었습니다.",
+        "테스트 결과와 부하 테스트 결과 화면을 담았습니다.",
       ],
       techUsage: [
-        "Next.js와 React로 화면 단위 상태가 많은 협업 도구 UI를 만들었습니다.",
+        "Next.js와 React로 여러 화면 상태가 필요한 협업 도구 UI를 만들었습니다.",
         "TypeScript는 명세 입력값과 화면 상태를 다룰 때 사용했습니다.",
         "React Hook Form은 중첩 폼 입력과 검증 상태를 다루는 데 사용했습니다.",
       ],
       disclosure:
-        "공개 GitHub 프로젝트입니다. SSAFAST는 보조명으로 사용하고, 프로젝트명은 외부인이 이해하기 쉬운 이름을 앞세웁니다.",
+        "SSAFY 교육 과정에서 6명이 만든 팀 프로젝트이고, 코드는 GitHub에서 볼 수 있습니다.",
       resources: [
         { label: "GitHub 저장소", href: "https://github.com/SSAFAST/ssafast", type: "github" },
         { label: "화면 이미지", href: "/projects/ssafast.png", type: "image" },
@@ -284,7 +286,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     id: "quant-lab",
-    title: "매매 전략 실행·모니터링 개인 프로젝트",
+    title: "매매 전략 실행·모니터링 개인 프로젝트(quant-lab)",
     shortTitle: "quant-lab",
     period: "2026.03 ~ 2026.07",
     category: "Personal Backend",
@@ -296,7 +298,7 @@ export const featuredProjects: FeaturedProject[] = [
     card: {
       summary: "매매 전략 실행 과정을 실험하기 위해 만든 개인 백엔드 프로젝트입니다.",
       description: [
-        "실제 투자 정보는 제외하고, 인증, 실행 요청, 실시간 이벤트, 테스트 환경을 중심으로 구성했습니다.",
+        "실제 투자 정보는 제외하고, 인증, 실행 요청, WebSocket 이벤트, 테스트 환경을 중심으로 만들었습니다.",
       ],
       keywords: ["FastAPI", "WebSocket", "테스트 환경"],
       visibility: "공개 GitHub 프로젝트",
@@ -310,7 +312,7 @@ export const featuredProjects: FeaturedProject[] = [
         "전략 실행 요청, 이벤트 전달, 결과 확인 구조를 실험하기 위한 개인 프로젝트입니다.",
       scope: [
         "FastAPI 라우터 구성",
-        "데모 인증 흐름",
+        "데모 인증 과정",
         "WebSocket 이벤트 전달",
         "정적 대시보드",
         "pytest와 Docker 실행 구조",
@@ -326,7 +328,7 @@ export const featuredProjects: FeaturedProject[] = [
         "Docker와 pytest는 실행과 검증 환경을 맞추는 데 사용했습니다.",
       ],
       disclosure:
-        "공개용 저장소입니다. 투자 성과, 수익률, 실제 전략명, 실거래 정보는 포트폴리오에 쓰지 않습니다.",
+        "공개용 개인 프로젝트라 실제 전략, 수익률, 거래 정보는 담지 않았습니다.",
       resources: [
         { label: "quant-lab 공개 저장소", href: "https://github.com/YongjaeKwon/quant-lab", type: "github" },
       ],
@@ -338,20 +340,20 @@ export const publicArchive = [
   {
     id: "modac",
     title: "MODAC",
-    summary: "개발자의 학습 기록을 작성하고 공유하는 팀 프로젝트입니다.",
+    summary: "개발자의 학습 기록을 작성·공유하는 팀 프로젝트입니다.",
     tech: ["Vue", "Pinia", "Spring Boot"],
-    role: "프론트엔드 개발, 일정 관리 일부",
+    role: "프론트엔드(Vue) — 스터디룸·게시글·마이페이지 화면",
     github: "https://github.com/YongjaeKwon/MODAC",
-    reason: "Vue 기반 화면을 맡았던 팀 프로젝트입니다.",
+    reason: "Vue로 스터디룸, 게시글, 마이페이지 화면을 만들었습니다.",
   },
   {
     id: "ddoing",
     title: "ddoing",
-    summary: "애니메이션 쉐도잉과 단어 드로잉을 활용한 영어 학습 프로젝트입니다.",
+    summary: "단어 드로잉으로 영어를 학습하는 팀 프로젝트입니다.",
     tech: ["React", "TypeScript", "Spring Boot"],
-    role: "PM 일부, 프론트엔드와 AI 기능 연결 일부",
+    role: "기획 겸임 · 프론트엔드(React/TypeScript) — 단어 드로잉 학습 화면",
     github: "https://github.com/GomGom-Team/ddoing",
-    reason: "React와 TypeScript로 학습 화면 일부를 작업했습니다.",
+    reason: "React와 TypeScript로 단어 드로잉 학습 화면 일부와 학습 진행 UI를 구현했습니다.",
   },
 ];
 
@@ -361,89 +363,73 @@ export const techGroups = [
     icon: "MonitorSmartphone",
     items: ["Vue", "WebSquare", "JSP"],
     description:
-      "입력, 목록, 상세 화면을 만들거나 수정할 때 사용했습니다.",
+      "입력·조회·상세 화면을 구성하고, 운영 중인 화면의 상태 표시와 버튼 조건을 수정할 때 사용했습니다.",
   },
   {
     title: "서버·조회",
     icon: "Server",
     items: ["Spring Boot", "Spring MVC", "MyBatis", "SQL"],
     description:
-      "화면에 필요한 응답과 조회 조건을 확인할 때 사용했습니다.",
+      "Controller 응답 값, MyBatis SQL, 화면 데이터 매핑을 같이 보며 필요한 로직을 보완했습니다.",
+  },
+  {
+    title: "데이터베이스",
+    icon: "Layers",
+    items: ["MariaDB", "MySQL", "Oracle", "PL/SQL"],
+    description:
+      "주로 MariaDB/MySQL과 MyBatis SQL을 사용했습니다. Oracle/PLSQL은 별도 업무 시스템에서 약 4개월간 조회·집계, INSERT/UPDATE, 일부 기존 함수·패키지 수정 범위로 다뤘습니다.",
   },
   {
     title: "목록·현황",
     icon: "Layers",
     items: ["Tabulator", "Chart.js"],
     description:
-      "목록, 엑셀, 대시보드, 설문 결과 화면에 사용했습니다.",
+      "목록, 엑셀, 대시보드 결과를 보여주고 검색 필터가 같은 범위로 적용되는지 비교했습니다.",
+  },
+  {
+    title: "운영·배포 확인",
+    icon: "Server",
+    items: ["Tomcat", "Jenkins", "Linux"],
+    description:
+      "Tomcat에서는 WAR 배포, 재기동, 로그 확인, 배포 후 화면 검증을 수행했습니다. Jenkins는 GitHub 연동, 빌드 스크립트, SSH 배포, 콘솔 로그 확인 범위로 사용했고 Linux에서는 로그와 배포 결과를 확인했습니다.",
+  },
+  {
+    title: "형상 관리",
+    icon: "Code",
+    items: ["Git", "GitHub", "SVN"],
+    description:
+      "신규 프로젝트는 GitHub 기반 main, dev, 기능 브랜치 전략을 정해 팀에 공유했고, 레거시 프로젝트는 SVN 환경에서 작업했습니다.",
   },
   {
     title: "팀 프로젝트",
     icon: "Code",
     items: ["React", "Next.js", "TypeScript"],
     description:
-      "입력 폼, 인증 화면, 결과 화면을 만들 때 사용했습니다.",
+      "API 명세 입력, 중첩 폼, 인증 화면, 테스트 결과 화면을 만들었습니다.",
   },
   {
     title: "개인 백엔드",
     icon: "Boxes",
     items: ["FastAPI", "PostgreSQL", "Redis", "Docker"],
     description:
-      "개인 프로젝트에서 API, 인증, 이벤트, 실행 환경을 구성할 때 사용했습니다.",
+      "개인 프로젝트에서 인증, 실행 요청, 이벤트 전달, 테스트 가능한 실행 환경을 잡았습니다.",
   },
 ];
-
-export const interviewNotes = [
-  {
-    projectId: "pps",
-    riskLevel: "private",
-    possibleQuestions: [
-      "PPS에서 직접 담당한 화면 범위는 어디까지인가요?",
-      "목록과 엑셀 값이 달라질 때 어떻게 살폈나요?",
-    ],
-    answerPoints: [
-      "교육 등록/대상자 관리, 공지·게시판·댓글, 설문, 파트너 관련 일부 화면 중심으로 설명",
-      "계약 전체, CE 승인 전체, 본사 계정 전체, 압축 다운로드는 직접 담당 범위처럼 말하지 않기",
-    ],
-    doNotMention: ["고객사명", "실제 계정 정보", "내부 승인 전체 범위"],
-    needsConfirmation: ["계약 관련 조회/현황을 어느 정도까지 공개할 수 있는지"],
-  },
-  {
-    projectId: "field-as",
-    riskLevel: "sensitive",
-    possibleQuestions: ["외부 접점이 있는 기능에서 예외 처리는 어떻게 나눴나요?"],
-    answerPoints: ["접수, 동의, 서명, 알림, 보관함의 단계와 상태 중심으로 설명"],
-    doNotMention: ["세부 보안 처리", "외부 접점 식별 방식", "내부 시스템명"],
-    needsConfirmation: ["공개 가능한 화면 흐름 범위"],
-  },
-  {
-    projectId: "education-device",
-    riskLevel: "private",
-    possibleQuestions: ["대시보드 숫자와 목록 값은 어떻게 맞췄나요?"],
-    answerPoints: ["화면 필터와 조회 조건, 집계 결과 확인 중심으로 설명"],
-    doNotMention: ["교육청명", "실제 자산 데이터"],
-    needsConfirmation: ["배치 직접 구현 여부를 어디까지 말할 수 있는지"],
-  },
-];
-
-export const githubCleanupPlan = {
-  keepPublic: ["portfolio", "quant-lab", "MODAC", "SSAFAST/ssafast", "ddoing"],
-  improveReadme: ["quant-lab", "MODAC", "ddoing"],
-  makePrivateCandidates: ["agent-bridge", "HoRyong"],
-  deleteCandidates: ["git_practice", "word-relay", "오래된 실습성 repo"],
-  pinned: ["portfolio", "quant-lab", "SSAFAST", "MODAC", "ddoing"],
-};
 
 export const experience = {
   title: "웹 개발자",
-  company: "주식회사 티지나래",
+  company: "유한책임회사 티지나래",
   period: "2024.06 ~ 재직 중",
   description:
-    "협력사 포탈, 현장 A/S, 교육청 자산관리 등 회사에서 운영 중인 업무 시스템을 맡았습니다. 기존 화면 수정, 기능 추가, 목록·상세·엑셀·대시보드 화면의 조건 확인을 함께 진행했습니다.",
+    "협력사 포탈, 현장 A/S, 교육청 자산관리 등 업무 시스템에서 요구사항을 기능으로 구현하고, 화면 결과와 조회 기준, 처리 결과가 일관되게 이어지도록 개선해 왔습니다.",
   bullets: [
-    "Vue, WebSquare, JSP 기반 화면 수정과 기능 추가",
-    "Spring Boot, Spring MVC, MyBatis 구조에서 화면 응답 확인",
-    "공지, 설문, 댓글, 접수 상태, 자산 현황 화면 작업",
+    "요구사항을 화면 조건, 권한, 상태값, 조회 기준으로 구체화해 기능에 반영",
+    "Vue, WebSquare, JSP 기반 업무 화면에서 입력·조회·상세 화면 개선 및 신규 기능 구현",
+    "서버 응답과 화면 표시 값이 맞지 않는 부분을 추적해 데이터 매핑 수정",
+    "목록·엑셀·집계 결과가 같은 기준으로 나오도록 조회 조건 비교·보완",
+    "자산 정보 동기화 처리와 이력 화면을 구현하고 실패 상태 확인·재처리 흐름 반영",
+    "배포 후 화면 동작과 로그를 확인해 반영 결과 검증",
+    "빌드·배포 과정에서 콘솔 로그와 화면 반영 결과 확인 경험",
   ],
 };
 
@@ -452,7 +438,7 @@ export const education = [
     title: "삼성 청년 SW 아카데미(SSAFY)",
     period: "2022.07 ~ 2023.06",
     description:
-      "웹 개발 과정 수료. SSAFAST 팀 프로젝트에서 프론트엔드와 UI·UX 역할을 맡았습니다.",
+      "웹 개발 과정 수료. SSAFAST 팀 프로젝트에서 프론트엔드와 UI·UX 역할을 담당했습니다.",
     icon: "Award",
   },
   {
@@ -476,21 +462,21 @@ export const focusTracks = [
     id: "frontend" as const,
     label: "Web",
     role: profile.role,
-    badge: "운영 시스템 · 업무 화면 · 기능 추가",
+    badge: "업무 화면 · 요구 반영 · 기능 개선",
     headline: hero.headline,
     target: hero.supportText,
     resume: profile.resume,
     resumeLabel: "이력서 다운로드",
-    workStyleTitle: "기능을 추가하기 전에 보는 것",
+    workStyleTitle: "기능을 넣기 전에 확인하는 것",
     workStyleNote:
-      "화면을 만들기 전에 누가 어떤 값을 확인하고 처리하는지 먼저 보려고 합니다.",
-    contactTitle: "포트폴리오와 이력서",
+      "화면에 보이는 값이 저장, 조회, 엑셀, 집계로 이어질 때 같은 값을 쓰는지 먼저 따라갑니다.",
+    contactTitle: "채용 관련 연락",
     contactDescription:
-      "프로젝트 상세 내용과 공개 가능한 작업물은 포트폴리오와 GitHub에 정리해두었습니다.",
+      "포트폴리오와 이력서를 확인하신 뒤 궁금한 점이 있으면 이메일로 연락 주세요.",
     projectIntro:
-      "실무 프로젝트는 공개 가능한 범위에서만 정리했고, 공개 프로젝트는 GitHub 링크를 함께 남겼습니다.",
+      "비공개 실무는 공개 가능한 업무 내용과 직접 기여한 화면 중심으로, 공개 프로젝트는 GitHub 링크를 같이 담았습니다.",
     fitTitle: "주로 사용한 기술",
-    fitDescription: "프로젝트에서 자주 사용한 기술을 정리했습니다.",
+    fitDescription: "기술명보다 실제로 연결한 화면, API, 조회 범위를 중심으로 묶었습니다.",
     strengths: coreStrengths,
     fitItems: coreStrengths.map((item) => ({
       label: item.title,
@@ -505,9 +491,9 @@ export const focusTracks = [
 ];
 
 export const heroStats = [
-  { label: "주요 경험", value: "포탈 · A/S · 자산관리", unit: "" },
-  { label: "사용한 화면 환경", value: "Vue · WebSquare · JSP", unit: "" },
-  { label: "자주 본 화면", value: "목록 · 상세 · 엑셀 · 대시보드", unit: "" },
+  { label: "실무 환경", value: "포탈 · A/S · 자산관리", unit: "" },
+  { label: "화면 기술", value: "Vue · WebSquare · JSP", unit: "" },
+  { label: "연결 범위", value: "화면 · API · SQL · 배치", unit: "" },
 ];
 
 export const projects = featuredProjects;

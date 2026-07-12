@@ -19,7 +19,7 @@ const resumes = [
     source: "docs/resume-general.html",
     html: "resume.html",
     output: "public/resume.pdf",
-    title: "권용재 - 프론트엔드 엔지니어",
+    title: "권용재 - 웹 개발자 이력서",
   },
 ];
 
@@ -259,11 +259,15 @@ function collectApplicationResumes() {
     .filter((file) => file.endsWith(".md"))
     .map((file) => {
       const slug = path.basename(file, ".md");
+      const title =
+        slug === "resume-submission"
+          ? "권용재 - 웹 개발자 이력서 (제출용)"
+          : `권용재 - 웹 개발자 이력서 (${slug})`;
       return {
         source: path.join("docs", "applications", file),
         html: `application-${slug}.html`,
         output: path.join(".cache", "applications", `${slug}.pdf`),
-        title: `권용재 - 프론트엔드 엔지니어 (${slug})`,
+        title,
       };
     });
 }

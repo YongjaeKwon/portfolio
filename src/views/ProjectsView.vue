@@ -9,8 +9,8 @@
           </div>
           <h2 class="section-title">주요 프로젝트</h2>
           <p class="section-copy">
-            실무 프로젝트는 공개 가능한 범위에서만 정리했고,
-            공개 프로젝트는 GitHub 링크를 함께 남겼습니다.
+            비공개 실무는 공개 가능한 업무 내용과 직접 기여한 화면 중심으로,
+            공개 프로젝트는 GitHub 링크를 같이 담았습니다.
           </p>
         </div>
       </div>
@@ -33,7 +33,7 @@
 
               <div class="mt-6 grid gap-4">
                 <div>
-                  <p class="text-muted text-xs font-bold">맡은 화면</p>
+                  <p class="text-muted text-xs font-bold">주요 범위</p>
                   <p class="text-primary mt-2 text-sm font-black leading-6">
                     {{ project.card.meta.workRange }}
                   </p>
@@ -107,7 +107,7 @@
         <h3 class="text-primary mt-3 text-2xl font-black md:text-3xl">공개 프로젝트 아카이브</h3>
         <p class="text-muted mt-3 max-w-3xl leading-7">
           공개로 확인할 수 있는 팀 프로젝트입니다.
-          실무 이전에 진행했던 화면 작업과 팀 프로젝트 경험을 함께 정리했습니다.
+          실무 이전에 진행했던 화면 구현과 팀 프로젝트 경험을 담았습니다.
         </p>
 
         <div class="mt-8 grid gap-4 md:grid-cols-2">
@@ -193,8 +193,8 @@
 
               <div class="grid gap-6">
                 <DetailBlock title="프로젝트 개요" :items="[activeProject.detail.overview]" />
-                <DetailBlock title="맡은 범위" :items="activeProject.detail.scope" />
-                <DetailBlock title="작업 포인트" :items="activeProject.detail.workPoints" />
+                <DetailBlock title="기여 범위" :items="activeProject.detail.scope" />
+                <DetailBlock title="구현/수정 내용" :items="activeProject.detail.workPoints" />
                 <DetailBlock title="사용 기술" :items="activeProject.detail.techUsage" />
                 <DetailBlock title="공개 범위" :items="[activeProject.detail.disclosure]" />
 

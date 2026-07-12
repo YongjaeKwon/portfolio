@@ -6,9 +6,9 @@
           <span class="section-index">00</span>
           <p class="section-kicker">About</p>
         </div>
-        <h2 class="section-title">기존 시스템 안에서 기능을 더했습니다</h2>
+        <h2 class="section-title">업무 시스템 웹 개발자</h2>
         <p class="section-copy">
-          협력사 포탈, 현장 A/S, 교육청 자산관리처럼 이미 사용 중인 시스템에서 화면 수정과 기능 추가를 맡았습니다.
+          Vue, WebSquare, JSP 기반 업무 화면을 구현하며 권한, 상태, 조회 조건처럼 기존 업무 흐름에 영향을 주는 부분까지 함께 확인했습니다.
         </p>
       </div>
 
@@ -39,18 +39,18 @@ import { profile } from "@/data/portfolio";
 
 const aboutCards = [
   {
-    label: "주요 경험",
-    value: "포탈 · A/S · 자산관리",
+    label: "실무 환경",
+    value: "B2B · B2G 업무 시스템",
     icon: Workflow,
   },
   {
-    label: "사용한 화면 환경",
-    value: "Vue · WebSquare · JSP",
+    label: "주요 화면",
+    value: "입력 · 조회 · 상세 · 엑셀",
     icon: MonitorSmartphone,
   },
   {
-    label: "자주 본 화면",
-    value: "목록 · 상세 · 엑셀 · 대시보드",
+    label: "확인 범위",
+    value: "API 응답 · MyBatis SQL",
     icon: Database,
   },
 ];
