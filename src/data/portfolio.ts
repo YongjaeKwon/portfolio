@@ -462,7 +462,6 @@ export const focusTracks = [
     id: "frontend" as const,
     label: "Web",
     role: profile.role,
-    badge: "업무 화면 · 요구 반영 · 기능 개선",
     headline: hero.headline,
     target: hero.supportText,
     resume: profile.resume,

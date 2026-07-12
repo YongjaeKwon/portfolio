@@ -15,18 +15,14 @@
             decoding="async"
             class="hero-photo h-24 w-24 shrink-0 rounded-full object-cover ring-1 ring-white/40 shadow-lg md:h-28 md:w-28"
           />
-          <div class="inline-flex items-center gap-2 rounded-full border border-[var(--fresh-border)] bg-white/75 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[var(--fresh-blue-strong)] shadow-sm">
-            <Radar class="h-4 w-4" />
-            업무 화면 · 요구 반영 · 기능 개선
+          <div class="inline-flex items-center gap-2 rounded-full border border-[var(--fresh-border)] bg-white/75 px-3 py-2 text-xs font-bold tracking-[0.18em] text-[var(--fresh-blue-strong)] shadow-sm">
+            Web Developer
           </div>
         </div>
 
         <h1 class="hero-enter hero-enter-d1 max-w-4xl text-5xl font-black leading-[1.05] text-primary md:text-7xl">
           {{ hero.name }}
         </h1>
-        <p class="hero-enter hero-enter-d2 font-display mt-4 text-2xl font-semibold text-secondary md:text-4xl">
-          {{ hero.role }}
-        </p>
         <p class="hero-enter hero-enter-d3 mt-6 max-w-3xl whitespace-pre-line text-lg leading-8 text-secondary md:text-xl md:leading-9">
           {{ hero.headline }}
         </p>
@@ -103,7 +99,6 @@ import {
   Mail,
   MonitorSmartphone,
   PanelTop,
-  Radar,
   Workflow,
 } from "@lucide/vue";
 import { coreStrengths, hero, profile } from "@/data/portfolio";
