@@ -359,60 +359,30 @@ export const publicArchive = [
 
 export const techGroups = [
   {
-    title: "업무 화면",
-    icon: "MonitorSmartphone",
-    items: ["Vue", "WebSquare", "JSP"],
-    description:
-      "입력·조회·상세 화면을 구성하고, 운영 중인 화면의 상태 표시와 버튼 조건을 수정할 때 사용했습니다.",
+    title: "프론트엔드",
+    items: [
+      "JavaScript",
+      "TypeScript",
+      "Vue",
+      "WebSquare",
+      "JSP",
+      "React",
+      "Next.js",
+      "Tabulator",
+      "Chart.js",
+    ],
   },
   {
-    title: "서버·조회",
-    icon: "Server",
-    items: ["Spring Boot", "Spring MVC", "MyBatis", "SQL"],
-    description:
-      "Controller 응답 값, MyBatis SQL, 화면 데이터 매핑을 같이 보며 필요한 로직을 보완했습니다.",
+    title: "백엔드",
+    items: ["Java", "Spring MVC", "Spring Boot", "MyBatis", "FastAPI"],
   },
   {
     title: "데이터베이스",
-    icon: "Layers",
-    items: ["MariaDB", "MySQL", "Oracle", "PL/SQL"],
-    description:
-      "주로 MariaDB/MySQL과 MyBatis SQL을 사용했습니다. Oracle/PLSQL은 별도 업무 시스템에서 약 4개월간 조회·집계, INSERT/UPDATE, 일부 기존 함수·패키지 수정 범위로 다뤘습니다.",
+    items: ["MariaDB", "MySQL", "Oracle", "PostgreSQL", "Redis"],
   },
   {
-    title: "목록·현황",
-    icon: "Layers",
-    items: ["Tabulator", "Chart.js"],
-    description:
-      "목록, 엑셀, 대시보드 결과를 보여주고 검색 필터가 같은 범위로 적용되는지 비교했습니다.",
-  },
-  {
-    title: "운영·배포 확인",
-    icon: "Server",
-    items: ["Tomcat", "Jenkins", "Linux"],
-    description:
-      "Tomcat에서는 WAR 배포, 재기동, 로그 확인, 배포 후 화면 검증을 수행했습니다. Jenkins는 GitHub 연동, 빌드 스크립트, SSH 배포, 콘솔 로그 확인 범위로 사용했고 Linux에서는 로그와 배포 결과를 확인했습니다.",
-  },
-  {
-    title: "형상 관리",
-    icon: "Code",
-    items: ["Git", "GitHub", "SVN"],
-    description:
-      "신규 프로젝트는 GitHub 기반 main, dev, 기능 브랜치 전략을 정해 팀에 공유했고, 레거시 프로젝트는 SVN 환경에서 작업했습니다.",
-  },
-  {
-    title: "팀 프로젝트",
-    icon: "Code",
-    items: ["React", "Next.js", "TypeScript"],
-    description:
-      "API 명세 입력, 중첩 폼, 인증 화면, 테스트 결과 화면을 만들었습니다.",
-  },
-  {
-    title: "개인 백엔드",
-    icon: "Boxes",
-    items: ["FastAPI", "PostgreSQL", "Redis", "Docker"],
-    description:
-      "개인 프로젝트에서 인증, 실행 요청, 이벤트 전달, 테스트 가능한 실행 환경을 잡았습니다.",
+    title: "도구 및 배포",
+    items: ["Git", "GitHub", "SVN", "Tomcat", "Jenkins", "Linux", "Docker"],
   },
 ];
 
