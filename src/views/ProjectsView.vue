@@ -102,8 +102,7 @@
       </div>
 
       <div class="reveal mt-20 border-t border-[var(--fresh-border)] pt-14">
-        <p class="section-kicker">Public Archive</p>
-        <h3 class="text-primary mt-3 text-2xl font-black md:text-3xl">공개 프로젝트 아카이브</h3>
+        <h3 class="section-kicker">Public Archive</h3>
         <p class="text-muted mt-3 max-w-3xl leading-7">
           공개로 확인할 수 있는 팀 프로젝트입니다.
           실무 이전에 진행했던 화면 구현과 팀 프로젝트 경험을 담았습니다.

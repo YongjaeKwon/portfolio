@@ -4,9 +4,8 @@
       <div class="reveal">
         <div class="flex items-center gap-3">
           <span class="section-index">00</span>
-          <p class="section-kicker">About</p>
+          <h2 class="section-kicker">About</h2>
         </div>
-        <h2 class="section-title">업무 시스템 웹 개발자</h2>
         <p class="section-copy">
           Vue, WebSquare, JSP 기반 업무 화면을 구현하며 권한, 상태, 조회 조건처럼 기존 업무 흐름에 영향을 주는 부분까지 함께 확인했습니다.
         </p>
