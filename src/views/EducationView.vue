@@ -3,11 +3,10 @@
     <div class="section-shell">
       <div class="reveal flex items-center gap-3">
         <span class="section-index">03</span>
-        <p class="section-kicker">Education &amp; Certificates</p>
+        <h2 class="section-kicker">Education &amp; Certificates</h2>
       </div>
-      <h2 class="reveal reveal-d1 section-title">교육 및 자격증</h2>
 
-      <div class="mt-8 grid gap-4 md:grid-cols-3">
+      <div class="mt-7 grid gap-4 md:grid-cols-3">
         <article
           v-for="(item, idx) in education"
           :key="item.title"

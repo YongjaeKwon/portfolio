@@ -3,9 +3,8 @@
     <div class="section-shell">
       <div class="reveal flex items-center gap-3">
         <span class="section-index">04</span>
-        <p class="section-kicker">Tech Stack</p>
+        <h2 class="section-kicker">Tech Stack</h2>
       </div>
-      <h2 class="reveal reveal-d1 section-title">기술 스택</h2>
 
       <div class="mt-7 grid gap-3 md:grid-cols-2">
         <article

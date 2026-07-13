@@ -7,8 +7,8 @@
         aria-label="첫 화면으로 이동"
         @click="moveToSection('hero')"
       >
-        <span class="font-display accent-bg grid h-9 w-9 place-items-center rounded-full text-sm font-bold transition group-hover:brightness-110">
-          K
+        <span class="font-display grid h-10 w-10 place-items-center rounded-xl bg-[var(--fresh-blue-soft)] text-sm font-bold text-[var(--fresh-blue-strong)] transition group-hover:brightness-95">
+          YK
         </span>
         <span>
           <span class="text-primary block text-sm font-bold leading-none">{{ profile.name }}</span>

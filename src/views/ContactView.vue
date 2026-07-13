@@ -3,9 +3,8 @@
     <div class="section-shell">
       <div class="reveal flex items-center gap-3">
         <span class="section-index">05</span>
-        <p class="section-kicker">Contact</p>
+        <h2 class="section-kicker">Contact</h2>
       </div>
-      <h2 class="reveal reveal-d1 section-title">채용 관련 연락</h2>
       <p class="reveal reveal-d2 section-copy">
         채용 관련 문의는 이메일로 연락 주세요.
       </p>

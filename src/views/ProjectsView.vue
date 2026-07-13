@@ -5,9 +5,8 @@
         <div>
           <div class="flex items-center gap-3">
             <span class="section-index">01</span>
-            <p class="section-kicker">Featured Projects</p>
+            <h2 class="section-kicker">Featured Projects</h2>
           </div>
-          <h2 class="section-title">주요 프로젝트</h2>
           <p class="section-copy">
             비공개 실무는 공개 가능한 업무 내용과 직접 기여한 화면 중심으로,
             공개 프로젝트는 GitHub 링크를 같이 담았습니다.

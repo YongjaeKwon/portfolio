@@ -68,11 +68,8 @@
     </div>
 
     <div class="section-shell relative z-10 -mt-8 pb-4">
-      <div class="reveal mb-6">
-        <p class="section-kicker">Core Strength</p>
-        <h2 class="mt-3 text-2xl font-black text-primary md:text-3xl">
-          기능을 넣기 전에 확인하는 것
-        </h2>
+      <div class="reveal mb-5">
+        <h2 class="section-kicker">Core Strength</h2>
       </div>
       <div class="grid gap-4 md:grid-cols-3">
         <article

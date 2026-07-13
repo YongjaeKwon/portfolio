@@ -30,19 +30,19 @@ export const hero = {
 
 export const coreStrengths = [
   {
-    title: "기존 과정을 먼저 따라갑니다",
+    title: "요구사항을 기능으로 구체화합니다",
     description:
-      "새 기능을 넣기 전 메뉴 이동, 권한 분기, 저장 뒤 다시 불러오는 과정을 따라가며 바뀌는 지점을 잡습니다.",
+      "사용자 역할과 권한, 상태값, 조회 조건을 정리한 뒤 화면 동작에 반영합니다.",
   },
   {
-    title: "상태별 화면 처리를 나눕니다",
+    title: "변경 범위를 먼저 확인합니다",
     description:
-      "접수, 동의, 발송, 제출처럼 상태가 달라질 때 버튼과 안내 문구, 다음 단계 진입 조건을 각각 적용합니다.",
+      "새 기능만 보지 않고 기존 화면과 데이터, 예외 상황에 미치는 영향도 함께 살핍니다.",
   },
   {
-    title: "결과가 서로 맞는지 봅니다",
+    title: "화면과 데이터 결과를 맞춥니다",
     description:
-      "목록, 상세, 엑셀, 대시보드가 서로 다른 값을 보여주지 않도록 화면 필터와 SQL을 비교합니다.",
+      "목록, 상세, 엑셀, 집계 결과가 다를 때 화면 필터와 조회 조건을 비교합니다.",
   },
 ];
 
@@ -378,7 +378,7 @@ export const techGroups = [
   },
   {
     title: "데이터베이스",
-    items: ["MariaDB", "MySQL", "Oracle", "PostgreSQL", "Redis"],
+    items: ["MariaDB", "MySQL", "Oracle"],
   },
   {
     title: "도구 및 배포",
@@ -436,7 +436,6 @@ export const focusTracks = [
     target: hero.supportText,
     resume: profile.resume,
     resumeLabel: "이력서 다운로드",
-    workStyleTitle: "기능을 넣기 전에 확인하는 것",
     workStyleNote:
       "화면에 보이는 값이 저장, 조회, 엑셀, 집계로 이어질 때 같은 값을 쓰는지 먼저 따라갑니다.",
     contactTitle: "채용 관련 연락",
@@ -444,8 +443,6 @@ export const focusTracks = [
       "포트폴리오와 이력서를 확인하신 뒤 궁금한 점이 있으면 이메일로 연락 주세요.",
     projectIntro:
       "비공개 실무는 공개 가능한 업무 내용과 직접 기여한 화면 중심으로, 공개 프로젝트는 GitHub 링크를 같이 담았습니다.",
-    fitTitle: "주로 사용한 기술",
-    fitDescription: "기술명보다 실제로 연결한 화면, API, 조회 범위를 중심으로 묶었습니다.",
     strengths: coreStrengths,
     fitItems: coreStrengths.map((item) => ({
       label: item.title,
