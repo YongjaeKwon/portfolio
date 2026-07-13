@@ -4,7 +4,7 @@ export const profile = {
   headline:
     "업무 시스템의 흐름을 이해하고, 요구사항을 기능으로 구현하며\n기존 처리와 어긋나지 않게 개선해 왔습니다.",
   summary:
-    "화면에 보이는 결과와 실제 처리 기준이 다르지 않도록 요구사항과 데이터 흐름을 확인하며 기능을 구현해 왔습니다.",
+    "웹 서비스 개발과 운영을 맡아왔습니다. 화면 구현부터 서버와 데이터 처리까지 함께 경험했습니다.",
   target:
     "프로젝트에서는 직접 기여한 화면과 공개 가능한 범위만 담았습니다.",
   email: "koj185364@naver.com",
@@ -30,19 +30,22 @@ export const hero = {
 
 export const coreStrengths = [
   {
-    title: "요구사항을 기능으로 구체화합니다",
+    label: "업무 흐름 이해",
+    title: "사용자 역할과 처리 과정을 바탕으로 기능을 구체화합니다",
     description:
-      "사용자 역할과 권한, 상태값, 조회 조건을 정리한 뒤 화면 동작에 반영합니다.",
+      "업무 흐름과 이용 상황을 파악해 필요한 화면과 기능을 정리합니다.",
   },
   {
-    title: "변경 범위를 먼저 확인합니다",
+    label: "기능 구현 범위",
+    title: "화면부터 서버 로직까지 구현합니다",
     description:
-      "새 기능만 보지 않고 기존 화면과 데이터, 예외 상황에 미치는 영향도 함께 살핍니다.",
+      "프론트엔드 화면, API 연동, 데이터 처리까지 하나의 기능 흐름으로 개발합니다.",
   },
   {
-    title: "화면과 데이터 결과를 맞춥니다",
+    label: "운영을 고려한 개발",
+    title: "변경 이후의 영향까지 함께 살핍니다",
     description:
-      "목록, 상세, 엑셀, 집계 결과가 다를 때 화면 필터와 조회 조건을 비교합니다.",
+      "기존 기능과 예외 상황을 확인하며 운영 환경에서 안정적으로 동작하도록 개선합니다.",
   },
 ];
 
@@ -82,8 +85,8 @@ export type FeaturedProject = {
 export const featuredProjects: FeaturedProject[] = [
   {
     id: "pps",
-    title: "협력사 업무 포탈(PPS)",
-    shortTitle: "PPS",
+    title: "협력사 업무 포털",
+    shortTitle: "협력사 포털",
     period: "2025.01 ~ 2026.07",
     category: "Partner Portal",
     stack: ["Vue", "Spring Boot", "MyBatis", "MariaDB", "Tabulator"],
@@ -92,15 +95,15 @@ export const featuredProjects: FeaturedProject[] = [
       alt: "협력사 업무 포탈의 비식별화된 화면과 데이터 처리 구조 다이어그램",
     },
     card: {
-      summary: "협력사와 내부 담당자가 교육, 계약 현황, 공지, 설문, 게시판 업무를 처리하는 운영 포탈입니다.",
+      summary: "교육, 계약, 공지, 설문, 게시판 등 협력사와 내부 담당자가 사용하는 주요 업무 기능을 제공하는 포털입니다.",
       description: [
-        "교육 관리, 제출 현황, 공지와 설문 화면을 운영 조건에 맞춰 개선했습니다.",
-        "게시판과 제안하기의 댓글·대댓글은 공통화하고, 목록과 엑셀 파일이 같은 필터를 쓰도록 수정했습니다.",
+        "교육·공지·설문 등 주요 업무 화면을 개발하고, 사용자 권한과 진행 상태에 따른 화면 처리를 적용했습니다.",
+        "여러 게시판에 반복된 댓글 기능을 공통화하고, 조회 결과가 화면별로 다르게 표시되던 부분을 개선했습니다.",
       ],
-      keywords: ["교육·대상자 관리", "공지·설문", "목록·엑셀"],
+      keywords: ["교육 관리", "공지·설문", "게시판"],
       visibility: "비공개 실무 프로젝트",
       meta: {
-        workRange: "교육 · 공지 · 설문 · 목록",
+        workRange: "화면 개발 · API 연동 · 공통 기능",
         environment: "Vue · Spring Boot · MyBatis",
       },
     },
@@ -132,7 +135,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     id: "field-as",
-    title: "현장 A/S 접수·처리 시스템",
+    title: "현장 A/S 운영 시스템",
     shortTitle: "A/S",
     period: "2024.06 ~ 2026.07",
     category: "Field Service",
@@ -142,15 +145,15 @@ export const featuredProjects: FeaturedProject[] = [
       alt: "현장 A/S 접수와 처리 단계의 비식별화된 다이어그램",
     },
     card: {
-      summary: "현장 A/S 접수와 알림 상태를 확인하는 업무입니다.",
+      summary: "현장 A/S 접수부터 처리 상태와 알림 결과를 관리하는 업무 시스템입니다.",
       description: [
-        "A/S 접수와 알림 발송 결과 확인 화면 일부를 개선했습니다.",
-        "모바일 동의와 전자서명 기능은 개발 중이며, 완료된 범위에서는 접수 번호를 기준으로 접수 정보와 알림 상태가 조회되도록 화면 상태와 조회 조건을 맞췄습니다.",
+        "접수 현황과 알림 발송 결과를 확인하는 화면을 개발하고 운영 중 필요한 기능을 개선했습니다.",
+        "모바일 동의와 전자서명 기능을 개발 중이며, 접수 정보와 처리 상태가 일관되게 조회되도록 화면과 조회 로직을 수정했습니다.",
       ],
-      keywords: ["A/S 접수", "동의·서명", "알림 상태"],
+      keywords: ["A/S 접수", "동의·서명", "처리 상태"],
       visibility: "비공개 실무 프로젝트",
       meta: {
-        workRange: "접수 · 동의 · 상태",
+        workRange: "화면 개발 · 조회 로직 · 운영 개선",
         environment: "WebSquare · JSP · Spring MVC",
       },
     },
@@ -192,15 +195,15 @@ export const featuredProjects: FeaturedProject[] = [
       alt: "교육청 단말 자산 현황의 비식별화된 조회와 집계 구조 다이어그램",
     },
     card: {
-      summary: "교육청 단말 자산과 A/S 관련 현황을 권한별로 보는 업무입니다.",
+      summary: "교육청 단말 자산과 A/S 현황을 권한별로 조회할 수 있는 자산관리 화면을 제공합니다.",
       description: [
-        "자산 현황, 대시보드, 유상처리/A/S 관련 조회 화면과 검색 조건을 개선했습니다.",
-        "연계 시스템의 자산 정보를 자산관리 시스템으로 매일 동기화하는 배치와 실행 이력, 실패 상태 및 재처리 결과 확인 화면을 개발했습니다.",
+        "권한별 자산 현황과 대시보드 조회 화면을 개선하고, 집계와 상세 목록이 같은 범위를 보여주도록 조회 조건을 보완했습니다.",
+        "자산 정보를 매일 동기화하는 배치와 실행 이력 화면을 개발하고, 실패 상태와 재처리 결과를 확인할 수 있게 했습니다.",
       ],
       keywords: ["자산 현황", "권한별 조회", "동기화 배치"],
       visibility: "비공개 실무 프로젝트",
       meta: {
-        workRange: "자산 현황 · 대시보드 · 배치",
+        workRange: "현황 조회 · 대시보드 · 동기화",
         environment: "JSP · Spring MVC · MyBatis",
       },
     },
@@ -252,7 +255,7 @@ export const featuredProjects: FeaturedProject[] = [
       keywords: ["API 명세", "중첩 폼", "테스트 결과"],
       visibility: "공개 GitHub 프로젝트",
       meta: {
-        workRange: "명세 입력 · 중첩 폼 · 테스트 결과",
+        workRange: "프론트엔드 · UI·UX · 입력 화면",
         environment: "Next.js · React · TypeScript",
       },
     },
@@ -298,9 +301,9 @@ export const featuredProjects: FeaturedProject[] = [
     card: {
       summary: "매매 전략 실행 과정을 실험하기 위해 만든 개인 백엔드 프로젝트입니다.",
       description: [
-        "실제 투자 정보는 제외하고, 인증, 실행 요청, WebSocket 이벤트, 테스트 환경을 중심으로 만들었습니다.",
+        "실제 투자 정보는 제외하고, 인증과 실행 요청, 실시간 이벤트 전달, 테스트 환경을 중심으로 만들었습니다.",
       ],
-      keywords: ["FastAPI", "WebSocket", "테스트 환경"],
+      keywords: ["실행 요청", "이벤트 전달", "테스트 환경"],
       visibility: "공개 GitHub 프로젝트",
       meta: {
         workRange: "API · 인증 · 이벤트",
@@ -442,7 +445,7 @@ export const focusTracks = [
     contactDescription:
       "포트폴리오와 이력서를 확인하신 뒤 궁금한 점이 있으면 이메일로 연락 주세요.",
     projectIntro:
-      "비공개 실무는 공개 가능한 업무 내용과 직접 기여한 화면 중심으로, 공개 프로젝트는 GitHub 링크를 같이 담았습니다.",
+      "실무와 팀 프로젝트에서 맡은 역할과 구현 내용을 정리했습니다.",
     strengths: coreStrengths,
     fitItems: coreStrengths.map((item) => ({
       label: item.title,

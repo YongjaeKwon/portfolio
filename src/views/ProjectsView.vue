@@ -8,8 +8,7 @@
             <h2 class="section-kicker">Featured Projects</h2>
           </div>
           <p class="section-copy">
-            비공개 실무는 공개 가능한 업무 내용과 직접 기여한 화면 중심으로,
-            공개 프로젝트는 GitHub 링크를 같이 담았습니다.
+            실무와 팀 프로젝트에서 맡은 역할과 구현 내용을 정리했습니다.
           </p>
         </div>
       </div>
@@ -21,7 +20,7 @@
           v-tilt
           class="fresh-orb-card interactive-surface tilt group rounded-[2rem] p-5 md:p-6"
         >
-          <div class="grid gap-6 lg:grid-cols-[0.34fr_0.66fr]">
+          <div class="grid gap-5 lg:grid-cols-[0.34fr_0.66fr]">
             <div class="fresh-list-item rounded-[1.5rem] p-5">
               <p class="inline-flex rounded-full border border-[var(--fresh-border)] bg-white/55 px-3 py-1.5 text-xs font-bold text-[var(--fresh-blue-strong)]">
                 {{ project.card.visibility }}
@@ -30,9 +29,9 @@
                 {{ project.period }}
               </p>
 
-              <div class="mt-6 grid gap-4">
+              <div class="mt-5 grid gap-4">
                 <div>
-                  <p class="text-muted text-xs font-bold">주요 범위</p>
+                  <p class="text-muted text-xs font-bold">담당 범위</p>
                   <p class="text-primary mt-2 text-sm font-black leading-6">
                     {{ project.card.meta.workRange }}
                   </p>
@@ -66,7 +65,7 @@
                 </p>
               </div>
 
-              <div class="mt-5 flex flex-wrap gap-2">
+              <div class="mt-4 flex flex-wrap gap-2">
                 <span
                   v-for="keyword in project.card.keywords"
                   :key="keyword"
@@ -89,7 +88,7 @@
 
               <button
                 type="button"
-                class="focus-ring fresh-button mt-6 inline-flex items-center gap-1.5 self-start rounded-full px-4 py-2 text-sm font-bold transition hover:gap-2.5"
+                class="focus-ring fresh-button mt-5 inline-flex items-center gap-1.5 self-start rounded-full px-4 py-2 text-sm font-bold transition hover:gap-2.5"
                 :aria-label="`${project.title} 상세 보기`"
                 @click="openDetail(project)"
               >

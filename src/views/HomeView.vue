@@ -75,13 +75,18 @@
         <article
           v-for="(item, index) in coreStrengths"
           :key="item.title"
-          :class="['reveal fresh-card interactive-surface rounded-[2rem] p-6', `reveal-d${index + 1}`]"
+          :class="['reveal fresh-card interactive-surface rounded-[2rem] p-5 md:p-6', `reveal-d${index + 1}`]"
         >
-          <div class="mb-5 grid h-11 w-11 place-items-center rounded-2xl border border-[var(--fresh-border)] bg-[var(--fresh-blue-soft)] text-[var(--fresh-blue)]">
-            <component :is="strengthIcons[index]" class="h-5 w-5" />
+          <div class="mb-4 flex items-center gap-3">
+            <div class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-[var(--fresh-border)] bg-[var(--fresh-blue-soft)] text-[var(--fresh-blue)]">
+              <component :is="strengthIcons[index]" class="h-5 w-5" />
+            </div>
+            <p class="text-xs font-bold tracking-[0.08em] text-[var(--fresh-blue-strong)]">
+              {{ item.label }}
+            </p>
           </div>
-          <h3 class="text-primary text-lg font-black">{{ item.title }}</h3>
-          <p class="text-secondary mt-3 text-sm leading-7">{{ item.description }}</p>
+          <h3 class="text-primary text-lg font-black leading-7">{{ item.title }}</h3>
+          <p class="text-secondary mt-2 text-sm leading-6">{{ item.description }}</p>
         </article>
       </div>
     </div>
