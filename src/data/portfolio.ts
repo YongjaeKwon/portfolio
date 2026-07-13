@@ -408,17 +408,17 @@ export const experience = {
 
 export const education = [
   {
+    title: "아주대학교 e-비즈니스학과",
+    period: "2018.03 ~ 2020.08",
+    description: "학사 졸업",
+    icon: "GraduationCap",
+  },
+  {
     title: "삼성 청년 SW 아카데미(SSAFY)",
     period: "2022.07 ~ 2023.06",
     description:
       "웹 개발 과정 수료. SSAFAST 팀 프로젝트에서 프론트엔드와 UI·UX 역할을 담당했습니다.",
     icon: "Award",
-  },
-  {
-    title: "아주대학교 e-비즈니스학과",
-    period: "2018.03 ~ 2020.08",
-    description: "학사 졸업",
-    icon: "GraduationCap",
   },
   {
     title: "SQLD",
