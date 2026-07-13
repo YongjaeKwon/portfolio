@@ -4,7 +4,7 @@ export const profile = {
   headline:
     "업무 시스템의 흐름을 이해하고, 요구사항을 기능으로 구현하며\n기존 처리와 어긋나지 않게 개선해 왔습니다.",
   summary:
-    "웹 서비스 개발과 운영을 맡아왔습니다. 화면 구현부터 서버와 데이터 처리까지 함께 경험했습니다.",
+    "웹 서비스의 기능을 개발하고 운영해 왔습니다. 화면부터 서버와 데이터 처리까지 필요한 영역을 함께 맡았습니다.",
   target:
     "프로젝트에서는 직접 기여한 화면과 공개 가능한 범위만 담았습니다.",
   email: "koj185364@naver.com",
@@ -19,7 +19,7 @@ export const hero = {
   role: profile.role,
   headline: profile.headline,
   supportText:
-    "협력사 포탈과 업무 관리 시스템에서\n사용자 흐름과 데이터 기준을 확인하며 기능을 개선해 왔습니다.",
+    "화면, 서버, 데이터 영역을 함께 다루며\n웹 기능을 개발하고 운영해 왔습니다.",
   ctas: [
     { label: "프로젝트 보기", href: "#projects", type: "primary" },
     { label: "GitHub", href: profile.github, type: "github" },
