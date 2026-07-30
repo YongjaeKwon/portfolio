@@ -1,16 +1,16 @@
 <template>
-  <section id="education" class="py-24">
+  <section id="education" class="section-tone-mist py-24 md:py-28">
     <div class="section-shell">
       <div class="reveal flex items-center gap-3">
         <span class="section-index">03</span>
         <h2 class="section-kicker">Education &amp; Certificates</h2>
       </div>
 
-      <div class="mt-7 grid gap-4 md:grid-cols-3">
+      <div class="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <article
           v-for="(item, idx) in education"
           :key="item.title"
-          :class="['reveal surface interactive-surface rounded-xl p-6', `reveal-d${idx + 1}`]"
+          :class="['reveal fresh-card interactive-surface rounded-[1.5rem] p-6', `reveal-d${idx + 1}`]"
         >
           <component :is="iconMap[item.icon]" class="h-6 w-6 text-[var(--fresh-blue)]" />
           <p class="text-muted font-mono tnum mt-5 text-sm font-semibold">{{ item.period }}</p>

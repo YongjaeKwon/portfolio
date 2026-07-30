@@ -1,5 +1,5 @@
 import { execFileSync, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -12,6 +12,7 @@ const cacheDir = path.join(rootDir, ".cache", "resumes");
 // public/ 으로 나가지 않으므로 공개 URL이 생기지 않고, docs/applications/ 는 gitignore 된다.
 const applicationsDir = path.join(rootDir, "docs", "applications");
 const applicationsOutDir = path.join(rootDir, ".cache", "applications");
+const finalPdfDir = path.join(rootDir, "output", "pdf");
 
 const resumes = [
   {
@@ -274,6 +275,7 @@ function collectApplicationResumes() {
 
 mkdirSync(cacheDir, { recursive: true });
 mkdirSync(applicationsOutDir, { recursive: true });
+mkdirSync(finalPdfDir, { recursive: true });
 
 const browser = findBrowser();
 console.log(`Using browser: ${browser}`);
@@ -291,4 +293,10 @@ for (const resume of allResumes) {
   writeFileSync(htmlPath, html, "utf8");
   printPdf(browser, htmlPath, outputPath);
   console.log(`Generated ${resume.output}`);
+
+  if (resume.output === "public/resume.pdf") {
+    const finalCopy = path.join(finalPdfDir, "yongjae-kwon-web-developer-resume.pdf");
+    copyFileSync(outputPath, finalCopy);
+    console.log(`Copied ${path.relative(rootDir, finalCopy)}`);
+  }
 }

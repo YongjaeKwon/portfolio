@@ -1,20 +1,20 @@
 <template>
-  <section id="contact" class="py-24">
+  <section id="contact" class="section-tone-blue py-24 md:py-28">
     <div class="section-shell">
       <div class="reveal flex items-center gap-3">
         <span class="section-index">05</span>
         <h2 class="section-kicker">Contact</h2>
       </div>
       <p class="reveal reveal-d2 section-copy">
-        채용 관련 문의는 이메일로 연락 주세요.
+        새로운 기회에 열려 있습니다.
       </p>
 
       <div class="reveal reveal-d3 fresh-cta-panel mt-10 rounded-[2rem] p-8">
         <div class="fresh-aurora" aria-hidden="true"></div>
 
-        <h3 class="text-primary text-2xl font-black">{{ activeTrackData.contactTitle }}</h3>
+        <h3 class="text-primary text-2xl font-black">더 궁금한 내용이 있으시면</h3>
         <p class="text-secondary mt-4 max-w-2xl leading-7">
-          {{ activeTrackData.contactDescription }}
+          이메일을 보내주시면 확인하는 대로 답변드리겠습니다.
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3">
@@ -37,11 +37,11 @@
           </a>
           <a
             class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
-            :href="activeTrackData.resume"
+            :href="profile.resume"
             download
           >
             <FileDown class="h-4 w-4" />
-            {{ activeTrackData.resumeLabel }}
+            이력서 다운로드
           </a>
         </div>
 
@@ -82,19 +82,13 @@
 <script setup lang="ts">
 import { Copy, ExternalLink, FileDown, Mail } from "@lucide/vue";
 import { computed, onBeforeUnmount, ref } from "vue";
-import { focusTracks, profile } from "@/data/portfolio";
-import { useFocusTrack } from "@/composables/useFocusTrack";
+import { profile } from "@/data/portfolio";
 import {
   createGmailComposeUrl,
   createMailtoUrl,
   MAIL_FALLBACK_DELAY_MS,
   shouldShowMailFallback,
 } from "@/utils/contactEmail";
-
-const { activeTrack } = useFocusTrack();
-const activeTrackData = computed(
-  () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
-);
 
 const showMailFallback = ref(false);
 const mailOpenedExternally = ref(false);

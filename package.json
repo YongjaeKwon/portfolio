@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/YongjaeKwon/portfolio.git"
   },
-  "author": "Yongjae Kwon <koj185364@naver.com>",
+  "author": "Yongjae Kwon <yongjae116@gmail.com>",
   "license": "UNLICENSED",
   "engines": {
     "node": ">=20"

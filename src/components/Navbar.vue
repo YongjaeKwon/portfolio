@@ -7,12 +7,9 @@
         aria-label="첫 화면으로 이동"
         @click="moveToSection('hero')"
       >
-        <span class="font-display grid h-10 w-10 place-items-center rounded-xl bg-[var(--fresh-blue-soft)] text-sm font-bold text-[var(--fresh-blue-strong)] transition group-hover:brightness-95">
-          YK
-        </span>
         <span>
           <span class="text-primary block text-sm font-bold leading-none">{{ profile.name }}</span>
-          <span class="text-muted font-display mt-1 hidden text-xs sm:block">{{ activeTrackData.role }}</span>
+          <span class="text-muted font-display mt-1 hidden text-xs sm:block">Web Developer</span>
         </span>
       </button>
 
@@ -75,9 +72,8 @@
 
 <script setup lang="ts">
 import { Menu } from "@lucide/vue";
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-import { focusTracks, profile } from "@/data/portfolio";
-import { useFocusTrack } from "@/composables/useFocusTrack";
+import { onBeforeUnmount, onMounted, ref } from "vue";
+import { profile } from "@/data/portfolio";
 
 const emit = defineEmits<{
   "scroll-to-section": [id: string];
@@ -85,11 +81,6 @@ const emit = defineEmits<{
 
 const isMenuOpen = ref(false);
 const activeSection = ref("hero");
-const { activeTrack } = useFocusTrack();
-const activeTrackData = computed(
-  () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]
-);
-
 const navItems = [
   { id: "profile", label: "About" },
   { id: "projects", label: "Projects" },

@@ -1,45 +1,32 @@
 import { ref } from "vue";
 import type { FocusTrackId } from "@/data/portfolio";
 
-const trackIds = new Set<FocusTrackId>(["frontend"]);
-// 과거 공유된 ?track= 링크는 모두 단일 트랙(frontend)으로 흡수
-const legacyTrackAliases: Record<string, FocusTrackId> = {
-  product: "frontend",
-  "business-flow": "frontend",
-  "business-systems": "frontend",
-  backend: "frontend",
-  "api-data": "frontend",
-  fullstack: "frontend",
-};
-
-const DEFAULT_TRACK: FocusTrackId = "frontend";
-
-const replaceTrackInUrl = (track: FocusTrackId) => {
-  if (typeof window === "undefined") return;
-  const url = new URL(window.location.href);
-  if (track === DEFAULT_TRACK) {
-    url.searchParams.delete("track");
-  } else {
-    url.searchParams.set("track", track);
-  }
-  window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
-};
+const trackIds = new Set<FocusTrackId>(["all", "frontend", "backend"]);
+const DEFAULT_TRACK: FocusTrackId = "all";
 
 const readTrackFromUrl = (): FocusTrackId => {
   if (typeof window === "undefined") return DEFAULT_TRACK;
-  const value = new URLSearchParams(window.location.search).get("track");
-  const normalized = value?.toLowerCase();
-  const track = trackIds.has(normalized as FocusTrackId)
-    ? (normalized as FocusTrackId)
-    : legacyTrackAliases[normalized ?? ""] ?? DEFAULT_TRACK;
-  if (value !== null && (normalized !== track || track === DEFAULT_TRACK)) {
-    replaceTrackInUrl(track);
-  }
-  return track;
+
+  const params = new URLSearchParams(window.location.search);
+  const value = (params.get("focus") ?? params.get("track") ?? "").toLowerCase();
+  return trackIds.has(value as FocusTrackId) ? (value as FocusTrackId) : DEFAULT_TRACK;
 };
 
 const activeTrack = ref<FocusTrackId>(readTrackFromUrl());
 let listening = false;
+
+const replaceTrackInUrl = (track: FocusTrackId) => {
+  if (typeof window === "undefined") return;
+
+  const url = new URL(window.location.href);
+  url.searchParams.delete("track");
+  if (track === DEFAULT_TRACK) {
+    url.searchParams.delete("focus");
+  } else {
+    url.searchParams.set("focus", track);
+  }
+  window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+};
 
 export function useFocusTrack() {
   if (typeof window !== "undefined" && !listening) {
@@ -49,5 +36,10 @@ export function useFocusTrack() {
     listening = true;
   }
 
-  return { activeTrack };
+  const setActiveTrack = (track: FocusTrackId) => {
+    activeTrack.value = track;
+    replaceTrackInUrl(track);
+  };
+
+  return { activeTrack, setActiveTrack };
 }
