@@ -38,7 +38,7 @@
           <a
             class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
             :href="profile.resume"
-            download
+            download="Yongjae-Kwon-Resume.pdf"
           >
             <FileDown class="h-4 w-4" />
             이력서 다운로드

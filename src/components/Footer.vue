@@ -22,7 +22,7 @@
         <a
           class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
           :href="profile.resume"
-          download
+          download="Yongjae-Kwon-Resume.pdf"
         >
           이력서 PDF
         </a>

@@ -50,7 +50,11 @@
             GitHub
             <ExternalLink class="h-4 w-4" />
           </a>
-          <a class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5" :href="profile.resume" download>
+          <a
+            class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
+            :href="profile.resume"
+            download="Yongjae-Kwon-Resume.pdf"
+          >
             이력서
             <FileDown class="h-4 w-4" />
           </a>
