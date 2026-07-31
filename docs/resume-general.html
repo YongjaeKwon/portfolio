@@ -1,411 +1,735 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Yongjae Kwon - Web Developer Resume</title>
-<style>
-  :root {
-    --ink: #252c38;
-    --ink-strong: #111827;
-    --muted: #667085;
-    --accent: #1d4ed8;
-    --rule: #d8dee8;
-    --rule-light: #eaedf2;
-  }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yongjae Kwon - Web Developer Resume</title>
+    <style>
+      :root {
+        --ink: #252c38;
+        --ink-strong: #111827;
+        --muted: #667085;
+        --accent: #1d4ed8;
+        --rule: #d8dee8;
+        --rule-light: #eaedf2;
+      }
 
-  @page { size: A4; margin: 11mm 13mm; }
-  * { box-sizing: border-box; }
+      @page {
+        size: A4;
+        margin: 11mm 13mm;
+      }
+      * {
+        box-sizing: border-box;
+      }
 
-  body {
-    margin: 0;
-    color: var(--ink);
-    background: #fff;
-    font-family: "Pretendard", "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
-    font-size: 10pt;
-    line-height: 1.56;
-    word-break: keep-all;
-    overflow-wrap: break-word;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: #fff;
+        font-family: "Pretendard", "Malgun Gothic", "Apple SD Gothic Neo", Arial,
+          sans-serif;
+        font-size: 10pt;
+        line-height: 1.56;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
 
-  .resume { width: 100%; max-width: 184mm; margin: 0 auto; }
-  .page-break { break-before: page; page-break-before: always; }
+      .resume {
+        width: 100%;
+        max-width: 184mm;
+        margin: 0 auto;
+      }
+      .page-break {
+        break-before: page;
+        page-break-before: always;
+      }
 
-  .header {
-    padding: 2px 0 10px;
-    border-bottom: 1.5px solid var(--ink-strong);
-  }
+      .header {
+        padding: 2px 0 10px;
+        border-bottom: 1.5px solid var(--ink-strong);
+      }
 
-  .header-main {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 18px;
-  }
+      .header-main {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 18px;
+      }
 
-  h1 {
-    margin: 0;
-    color: var(--ink-strong);
-    font-size: 24pt;
-    line-height: 1.05;
-    letter-spacing: -0.5px;
-  }
+      h1 {
+        margin: 0;
+        color: var(--ink-strong);
+        font-size: 24pt;
+        line-height: 1.05;
+        letter-spacing: -0.5px;
+      }
 
-  .english-name {
-    margin-left: 7px;
-    color: var(--muted);
-    font-size: 11pt;
-    font-weight: 700;
-    letter-spacing: 0;
-  }
+      .english-name {
+        margin-left: 7px;
+        color: var(--muted);
+        font-size: 11pt;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
 
-  .role {
-    color: var(--muted);
-    font-size: 11.5pt;
-    font-weight: 750;
-    letter-spacing: 0.1px;
-  }
+      .role {
+        color: var(--muted);
+        font-size: 11.5pt;
+        font-weight: 750;
+        letter-spacing: 0.1px;
+      }
 
-  .contact {
-    margin-top: 8px;
-    font-size: 8.8pt;
-  }
+      .contact {
+        margin-top: 8px;
+        font-size: 8.8pt;
+      }
 
-  .contact-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 2px 7px;
-  }
+      .contact-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 2px 7px;
+      }
 
-  .contact-row + .contact-row { margin-top: 2px; }
+      .contact-row + .contact-row {
+        margin-top: 2px;
+      }
 
-  .contact-item {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 5px;
-  }
+      .contact-item {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 5px;
+      }
 
-  .contact-item b {
-    color: var(--muted);
-    font-size: 7.6pt;
-    font-weight: 850;
-    letter-spacing: 0.3px;
-  }
+      .contact-item b {
+        color: var(--muted);
+        font-size: 7.6pt;
+        font-weight: 850;
+        letter-spacing: 0.3px;
+      }
 
-  .contact-item span,
-  .contact-item a { color: #475467; font-weight: 650; }
+      .contact-item span,
+      .contact-item a {
+        color: #475467;
+        font-weight: 650;
+      }
 
-  .contact-sep { color: var(--rule); }
+      .contact-sep {
+        color: var(--rule);
+      }
 
-  a { color: inherit; text-decoration: none; }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
 
-  h2 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 11px 0 5px;
-    color: var(--accent);
-    font-size: 10pt;
-    font-weight: 850;
-    letter-spacing: 0.9px;
-  }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 11px 0 5px;
+        color: var(--accent);
+        font-size: 10pt;
+        font-weight: 850;
+        letter-spacing: 0.9px;
+      }
 
-  h2::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+      h2::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
 
-  p { margin: 3px 0; }
-  .profile { margin: 0; color: #344054; font-size: 10.2pt; line-height: 1.66; }
+      p {
+        margin: 3px 0;
+      }
+      .profile {
+        margin: 0;
+        color: #344054;
+        font-size: 10.2pt;
+        line-height: 1.66;
+      }
 
-  .skill-row {
-    display: grid;
-    grid-template-columns: 84px 1fr;
-    gap: 10px;
-    padding: 4.5px 0;
-    border-bottom: 1px solid var(--rule-light);
-  }
+      .skill-row {
+        display: grid;
+        grid-template-columns: 84px 1fr;
+        gap: 10px;
+        padding: 4.5px 0;
+        border-bottom: 1px solid var(--rule-light);
+      }
 
-  .skill-row:last-child { border-bottom: 0; }
-  .skill-name { color: var(--ink-strong); font-size: 9pt; font-weight: 800; }
-  .skill-value { color: #475467; font-size: 9.3pt; }
-  .skill-value em { color: var(--muted); font-style: normal; }
+      .skill-row:last-child {
+        border-bottom: 0;
+      }
+      .skill-name {
+        color: var(--ink-strong);
+        font-size: 9pt;
+        font-weight: 800;
+      }
+      .skill-value {
+        color: #475467;
+        font-size: 9.3pt;
+      }
+      .skill-value em {
+        color: var(--muted);
+        font-style: normal;
+      }
 
-  .company-head,
-  .project-head,
-  .continuation-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
-  }
+      .company-head,
+      .project-head,
+      .continuation-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+      }
 
-  .company-name { color: var(--ink-strong); font-size: 12pt; font-weight: 850; }
-  .company-role { color: var(--muted); font-size: 9.6pt; font-weight: 700; }
-  .meta { flex: 0 0 auto; color: var(--muted); font-size: 9pt; white-space: nowrap; }
-  .company-summary { margin: 4px 0 9px; color: #475467; }
+      .company-name {
+        color: var(--ink-strong);
+        font-size: 12pt;
+        font-weight: 850;
+      }
+      .company-role {
+        color: var(--muted);
+        font-size: 9.6pt;
+        font-weight: 700;
+      }
+      .meta {
+        flex: 0 0 auto;
+        color: var(--muted);
+        font-size: 9pt;
+        white-space: nowrap;
+      }
+      .company-summary {
+        margin: 4px 0 9px;
+        color: #475467;
+      }
 
-  .project {
-    margin-top: 9px;
-    padding-top: 9px;
-    border-top: 1px solid var(--rule);
-  }
+      .project {
+        margin-top: 9px;
+        padding-top: 9px;
+        border-top: 1px solid var(--rule);
+      }
 
-  .project-title { color: var(--ink-strong); font-size: 11.5pt; font-weight: 850; }
-  .project-type { color: var(--muted); font-size: 8.8pt; font-weight: 700; }
-  .project-summary { margin: 3px 0; color: #344054; font-weight: 650; }
-  .project-role { margin: 2px 0 5px; color: var(--muted); font-size: 9.3pt; }
+      .project-title {
+        color: var(--ink-strong);
+        font-size: 11.5pt;
+        font-weight: 850;
+      }
+      .project-type {
+        color: var(--muted);
+        font-size: 8.8pt;
+        font-weight: 700;
+      }
+      .project-summary {
+        margin: 3px 0;
+        color: #344054;
+        font-weight: 650;
+      }
+      .project-role {
+        margin: 2px 0 5px;
+        color: var(--muted);
+        font-size: 9.3pt;
+      }
 
-  .project-head,
-  .project-summary,
-  .project-role,
-  .subheading { break-after: avoid; }
+      .project-head,
+      .project-summary,
+      .project-role,
+      .subheading {
+        break-after: avoid;
+      }
 
-  .subheading {
-    margin: 7px 0 2px;
-    color: var(--ink-strong);
-    font-size: 9pt;
-    font-weight: 850;
-  }
+      .subheading {
+        margin: 7px 0 2px;
+        color: var(--ink-strong);
+        font-size: 9pt;
+        font-weight: 850;
+      }
 
-  ul { margin: 2px 0 4px; padding: 0; list-style: none; }
-  li { position: relative; margin: 2.4px 0; padding-left: 11px; break-inside: avoid; }
-  li::before {
-    content: "";
-    position: absolute;
-    top: 7px;
-    left: 1px;
-    width: 4.5px;
-    height: 1px;
-    background: #667085;
-  }
+      ul {
+        margin: 2px 0 4px;
+        padding: 0;
+        list-style: none;
+      }
+      li {
+        position: relative;
+        margin: 2.4px 0;
+        padding-left: 11px;
+        break-inside: avoid;
+      }
+      li::before {
+        content: "";
+        position: absolute;
+        top: 7px;
+        left: 1px;
+        width: 4.5px;
+        height: 1px;
+        background: #667085;
+      }
 
-  .tech-line,
-  .operation-line {
-    margin-top: 6px;
-    padding-top: 5px;
-    border-top: 1px solid var(--rule-light);
-    color: var(--muted);
-    font-size: 8.9pt;
-  }
+      .tech-line,
+      .operation-line {
+        margin-top: 6px;
+        padding-top: 5px;
+        border-top: 1px solid var(--rule-light);
+        color: var(--muted);
+        font-size: 8.9pt;
+      }
 
-  .operation-line { border-top: 0; padding-top: 0; margin-top: 5px; color: #475467; }
+      .operation-line {
+        border-top: 0;
+        padding-top: 0;
+        margin-top: 5px;
+        color: #475467;
+      }
 
-  .continuation-head {
-    margin-bottom: 9px;
-    padding-bottom: 7px;
-    border-bottom: 1.5px solid var(--ink-strong);
-  }
+      .continuation-head {
+        margin-bottom: 9px;
+        padding-bottom: 7px;
+        border-bottom: 1.5px solid var(--ink-strong);
+      }
 
-  .continuation-head strong { color: var(--ink-strong); font-size: 11pt; }
-  .continuation-head span { color: var(--muted); font-size: 8.8pt; }
+      .continuation-head strong {
+        color: var(--ink-strong);
+        font-size: 11pt;
+      }
+      .continuation-head span {
+        color: var(--muted);
+        font-size: 8.8pt;
+      }
 
-  .section-note { margin: 0 0 3px; color: var(--muted); font-size: 8.9pt; }
+      .section-note {
+        margin: 0 0 3px;
+        color: var(--muted);
+        font-size: 8.9pt;
+      }
 
-  .public-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; }
-  .public-project {
-    display: flex;
-    flex-direction: column;
-    padding: 5px 0 5px;
-    border-bottom: 1px solid var(--rule-light);
-    break-inside: avoid;
-  }
+      .public-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 20px;
+      }
+      .public-project {
+        display: flex;
+        flex-direction: column;
+        padding: 5px 0 5px;
+        border-bottom: 1px solid var(--rule-light);
+        break-inside: avoid;
+      }
 
-  .public-project.wide { grid-column: 1 / -1; border-top: 1px solid var(--rule-light); }
-  .public-project:nth-last-child(-n + 2) { border-bottom: 0; }
-  .public-project .tech-line { margin-top: auto; padding-top: 6px; }
-  .public-title { color: var(--ink-strong); font-size: 10.2pt; font-weight: 850; }
-  .public-meta { margin-left: 5px; color: var(--muted); font-size: 8.2pt; font-weight: 650; white-space: nowrap; }
-  .public-project ul { margin-bottom: 1px; }
+      .public-project.wide {
+        grid-column: 1 / -1;
+        border-top: 1px solid var(--rule-light);
+      }
+      .public-project:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+      .public-project .tech-line {
+        margin-top: auto;
+        padding-top: 6px;
+      }
+      .public-title {
+        color: var(--ink-strong);
+        font-size: 10.2pt;
+        font-weight: 850;
+      }
+      .public-meta {
+        margin-left: 5px;
+        color: var(--muted);
+        font-size: 8.2pt;
+        font-weight: 650;
+        white-space: nowrap;
+      }
+      .public-project ul {
+        margin-bottom: 1px;
+      }
 
-  .credentials { break-inside: avoid; }
-  .credential-item {
-    display: grid;
-    grid-template-columns: 46px 1fr auto;
-    align-items: baseline;
-    gap: 10px;
-    padding: 3.5px 0;
-    border-bottom: 1px solid var(--rule-light);
-  }
-  .credential-item:last-child { border-bottom: 0; }
-  .credential-item b { color: var(--ink-strong); font-size: 8.6pt; font-weight: 850; }
-  .credential-item strong { color: var(--ink-strong); font-size: 9.6pt; font-weight: 800; }
-  .credential-item strong em { color: var(--muted); font-size: 8.9pt; font-style: normal; font-weight: 600; }
-  .credential-item span { color: var(--muted); font-size: 8.9pt; white-space: nowrap; }
+      .credentials {
+        break-inside: avoid;
+      }
+      .credential-item {
+        display: grid;
+        grid-template-columns: 46px 1fr auto;
+        align-items: baseline;
+        gap: 10px;
+        padding: 3.5px 0;
+        border-bottom: 1px solid var(--rule-light);
+      }
+      .credential-item:last-child {
+        border-bottom: 0;
+      }
+      .credential-item b {
+        color: var(--ink-strong);
+        font-size: 8.6pt;
+        font-weight: 850;
+      }
+      .credential-item strong {
+        color: var(--ink-strong);
+        font-size: 9.6pt;
+        font-weight: 800;
+      }
+      .credential-item strong em {
+        color: var(--muted);
+        font-size: 8.9pt;
+        font-style: normal;
+        font-weight: 600;
+      }
+      .credential-item span {
+        color: var(--muted);
+        font-size: 8.9pt;
+        white-space: nowrap;
+      }
 
-  .note { margin-top: 8px; color: #94a3b8; font-size: 8pt; text-align: right; }
-</style>
-</head>
-<body>
-<main class="resume">
-  <header class="header">
-    <div class="header-main">
-      <h1>권용재 <span class="english-name">Yongjae Kwon</span></h1>
-      <div class="role">Web Developer</div>
-    </div>
-    <div class="contact">
-      <div class="contact-row">
-        <span class="contact-item"><b>이메일</b><a href="mailto:yongjae116@gmail.com">yongjae116@gmail.com</a></span>
-        <span class="contact-sep">|</span>
-        <span class="contact-item"><b>연락처</b><a href="tel:+821094701704">010-9470-1704</a></span>
-        <span class="contact-sep">|</span>
-        <span class="contact-item"><b>거주지</b><span>경기도 용인시</span></span>
+      .note {
+        margin-top: 8px;
+        color: #94a3b8;
+        font-size: 8pt;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="resume">
+      <header class="header">
+        <div class="header-main">
+          <h1>권용재 <span class="english-name">Yongjae Kwon</span></h1>
+          <div class="role">Web Developer</div>
+        </div>
+        <div class="contact">
+          <div class="contact-row">
+            <span class="contact-item"
+              ><b>이메일</b
+              ><a href="mailto:yongjae116@gmail.com"
+                >yongjae116@gmail.com</a
+              ></span
+            >
+            <span class="contact-sep">|</span>
+            <span class="contact-item"
+              ><b>연락처</b><a href="tel:+821094701704">010-9470-1704</a></span
+            >
+            <span class="contact-sep">|</span>
+            <span class="contact-item"
+              ><b>거주지</b><span>경기도 용인시</span></span
+            >
+          </div>
+          <div class="contact-row">
+            <span class="contact-item"
+              ><b>GitHub</b
+              ><a href="https://github.com/YongjaeKwon"
+                >github.com/YongjaeKwon</a
+              ></span
+            >
+            <span class="contact-sep">|</span>
+            <span class="contact-item"
+              ><b>포트폴리오</b
+              ><a href="https://www.yongjaekwon.com"
+                >https://www.yongjaekwon.com</a
+              ></span
+            >
+          </div>
+        </div>
+      </header>
+
+      <h2>소개</h2>
+      <p class="profile">
+        운영 중인 업무 시스템에서 화면(Vue·WebSquare5), 서버
+        로직(Java·Spring·MyBatis), SQL, 검수, 배포를 함께 담당하는 웹
+        개발자입니다. 2024년 6월부터 B2B 협력사 포탈(PPS)과 교육청·공공사업 장비
+        통합 시스템(TSMS)의 신규 기능 개발과 유지보수를 맡고 있습니다.
+        운영팀·현업 담당자와 요구사항과 처리 조건, 일정을 협의해 개발 범위를
+        정하고, 배포한 뒤 실제 사용 결과까지 확인합니다.
+      </p>
+
+      <h2>기술</h2>
+      <div class="skills">
+        <div class="skill-row">
+          <div class="skill-name">Frontend</div>
+          <div class="skill-value">
+            JavaScript, Vue, WebSquare5, JSP, jQuery
+            <em>— PPS는 Vue, TSMS는 WebSquare5·JSP·jQuery로 업무 화면 개발</em>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Backend</div>
+          <div class="skill-value">
+            Java, Spring Framework, Spring MVC, Spring Boot, MyBatis
+            <em>— 업무 조회·저장 로직, 대량 파일 처리, 외부 연계 개발</em>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Database</div>
+          <div class="skill-value">
+            MariaDB, MySQL, Oracle
+            <em
+              >— 업무 조회·집계 SQL 작성, 배포 후 운영 데이터 확인 (SQLD
+              취득)</em
+            >
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Build · Ops</div>
+          <div class="skill-value">
+            Tomcat, Linux, Maven, Gradle, Jenkins
+            <em>— 로컬 PC에 구성한 Jenkins로 빌드·전송·백업·순차 배포 실행</em>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">협업</div>
+          <div class="skill-value">
+            Git, SVN, Jira, Confluence
+            <em>— PPS는 Git, TSMS는 SVN으로 형상 관리</em>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">팀 프로젝트</div>
+          <div class="skill-value">
+            TypeScript, React, Next.js, Redux Toolkit, Pinia
+            <em>— 실무 사용 경험은 없고, 아래 공개 프로젝트에서 사용</em>
+          </div>
+        </div>
       </div>
-      <div class="contact-row">
-        <span class="contact-item"><b>GitHub</b><a href="https://github.com/YongjaeKwon">github.com/YongjaeKwon</a></span>
-        <span class="contact-sep">|</span>
-        <span class="contact-item"><b>포트폴리오</b><a href="https://portfolio-six-inky-14.vercel.app">portfolio-six-inky-14.vercel.app</a></span>
+
+      <h2>경력</h2>
+      <div class="company-head">
+        <div>
+          <span class="company-name">유한책임회사 티지나래</span>
+          <span class="company-role">웹 개발자 · 솔루션사업팀</span>
+        </div>
+        <div class="meta">2024.06 ~ 현재 · 정규직</div>
       </div>
-    </div>
-  </header>
+      <p class="company-summary">
+        운영팀·현업 담당자와 요구사항과 일정을 협의하고, 업무 화면·서버 로직·SQL
+        개발부터 사용자 검수와 배포까지 담당합니다.
+      </p>
 
-  <h2>소개</h2>
-  <p class="profile">
-    운영 중인 업무 시스템에서 화면(Vue·WebSquare5), 서버 로직(Java·Spring·MyBatis), SQL, 검수, 배포를 함께 담당하는 웹 개발자입니다.
-    2024년 6월부터 B2B 협력사 포탈(PPS)과 교육청·공공사업 장비 통합 시스템(TSMS)의 신규 기능 개발과 유지보수를 맡고 있습니다.
-    운영팀·현업 담당자와 요구사항과 처리 조건, 일정을 협의해 개발 범위를 정하고, 배포한 뒤 실제 사용 결과까지 확인합니다.
-  </p>
+      <article class="project">
+        <div class="project-head">
+          <div class="project-title">협력사 포탈(PPS) 구축·운영</div>
+          <div class="project-type">B2B 업무 포탈 · 2025.02 ~ 현재</div>
+        </div>
+        <p class="project-summary">
+          약 500개 파트너사와 824개 활성 현장 엔지니어 계정이 사용하는 B2B 업무
+          포탈입니다.
+        </p>
+        <p class="project-role">
+          <strong>역할</strong> · 초기 구축 개발 참여 · 배포 담당 · 2025.10부터
+          개발·운영 주담당
+        </p>
 
-  <h2>기술</h2>
-  <div class="skills">
-    <div class="skill-row">
-      <div class="skill-name">Frontend</div>
-      <div class="skill-value">JavaScript, Vue, WebSquare5, JSP, jQuery <em>— PPS는 Vue, TSMS는 WebSquare5·JSP·jQuery로 업무 화면 개발</em></div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-name">Backend</div>
-      <div class="skill-value">Java, Spring Framework, Spring MVC, Spring Boot, MyBatis <em>— 업무 조회·저장 로직, 대량 파일 처리, 외부 연계 개발</em></div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-name">Database</div>
-      <div class="skill-value">MariaDB, MySQL, Oracle <em>— 업무 조회·집계 SQL 작성, 배포 후 운영 데이터 확인 (SQLD 취득)</em></div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-name">Build · Ops</div>
-      <div class="skill-value">Tomcat, Linux, Maven, Gradle, Jenkins <em>— 로컬 PC에 구성한 Jenkins로 빌드·전송·백업·순차 배포 실행</em></div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-name">협업</div>
-      <div class="skill-value">Git, SVN, Jira, Confluence <em>— PPS는 Git, TSMS는 SVN으로 형상 관리</em></div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-name">팀 프로젝트</div>
-      <div class="skill-value">TypeScript, React, Next.js, Redux Toolkit, Pinia <em>— 실무 사용 경험은 없고, 아래 공개 프로젝트에서 사용</em></div>
-    </div>
-  </div>
+        <div class="subheading">주요 구현 내용</div>
+        <ul>
+          <li>
+            파트너사와 현장 엔지니어 계정, 계약·문서, 교육 대상자와 증빙 자료
+            관리 화면을 Vue로 만들고 조회·저장·검증 로직을 Spring Boot와
+            MyBatis로 개발했습니다.
+          </li>
+          <li>
+            게시판과 설문조사 기능을 개발해 파트너사 공지 전달과 의견 수집을
+            포탈에서 처리하도록 했습니다.
+          </li>
+          <li>
+            권한과 진행 상태에 따라 입력 항목과 버튼을 구분하고, 교육
+            등록·대상자 업로드·제출 현황이 화면과 서버에서 같은 기준으로
+            조회되도록 조건을 맞췄습니다.
+          </li>
+          <li>
+            첨부파일 300~400건을 한 번에 압축해 내려받는 기능은 요청이 끝날
+            때까지 화면이 대기했고 실패 여부도 알 수 없었습니다. 작업 번호를
+            먼저 발급하고 대기·진행·완료·실패 상태를 주기적으로 조회하는
+            방식으로 바꿔, 새로고침 후에도 작업을 다시 찾아 완료 파일을 내려받을
+            수 있게 했습니다.
+          </li>
+          <li>
+            본사 계정 등록 화면과 서버 기능을 신규 개발했습니다. 부서·직급
+            확인과 아이디 중복 검사, 초기 비밀번호 생성, 계정·사원 정보 저장을
+            처리한 뒤 사내 업무 시스템으로 전송합니다.
+          </li>
+          <li>
+            별도 배포 서버가 없는 환경이라 로컬 PC의 Jenkins에 소스 가져오기,
+            Gradle 빌드, 서버 전송, 기존 파일 백업, 서버 2대 순차 배포를 하나의
+            작업으로 구성해 직접 실행하고 있습니다.
+          </li>
+        </ul>
+        <p class="operation-line">
+          <strong>운영</strong> · 대량 다운로드, 본사 계정 발급과 사내 시스템
+          전송, Jenkins 배포 작업은 모두 현재 운영 업무에서 사용 중입니다.
+        </p>
+        <div class="tech-line">
+          <strong>기술</strong> · Vue, JavaScript, Java, Spring Boot, MyBatis,
+          MariaDB, Gradle, Jenkins, Linux, Git
+        </div>
+      </article>
 
-  <h2>경력</h2>
-  <div class="company-head">
-    <div><span class="company-name">유한책임회사 티지나래</span> <span class="company-role">웹 개발자 · 솔루션사업팀</span></div>
-    <div class="meta">2024.06 ~ 현재 · 정규직</div>
-  </div>
-  <p class="company-summary">운영팀·현업 담당자와 요구사항과 일정을 협의하고, 업무 화면·서버 로직·SQL 개발부터 사용자 검수와 배포까지 담당합니다.</p>
+      <div class="page-break"></div>
+      <div class="continuation-head">
+        <strong>권용재 · Web Developer</strong>
+        <span>yongjae116@gmail.com · github.com/YongjaeKwon</span>
+      </div>
 
-  <article class="project">
-    <div class="project-head">
-      <div class="project-title">협력사 포탈(PPS) 구축·운영</div>
-      <div class="project-type">B2B 업무 포탈 · 2025.02 ~ 현재</div>
-    </div>
-    <p class="project-summary">약 500개 파트너사와 824개 활성 현장 엔지니어 계정이 사용하는 B2B 업무 포탈입니다.</p>
-    <p class="project-role"><strong>역할</strong> · 초기 구축 개발 참여 · 배포 담당 · 2025.10부터 개발·운영 주담당</p>
+      <article class="project">
+        <div class="project-head">
+          <div class="project-title">
+            교육청·공공사업 장비 통합 시스템(TSMS) 개발·운영
+          </div>
+          <div class="project-type">통합 업무 시스템 · 2025.09 ~ 현재</div>
+        </div>
+        <p class="project-summary">
+          여러 교육청·공공사업의 장비 자산 등록부터 배송·설치·A/S·점검까지
+          관리하는 통합 업무 시스템입니다.
+        </p>
+        <p class="project-role">
+          <strong>역할</strong> · 유지보수 및 사업별 신규 기능 개발 · 요구사항
+          협의 · 사용자 검수 · 배포
+        </p>
 
-    <div class="subheading">주요 구현 내용</div>
-    <ul>
-      <li>파트너사와 현장 엔지니어 계정, 계약·문서, 교육 대상자와 증빙 자료 관리 화면을 Vue로 만들고 조회·저장·검증 로직을 Spring Boot와 MyBatis로 개발했습니다.</li>
-      <li>게시판과 설문조사 기능을 개발해 파트너사 공지 전달과 의견 수집을 포탈에서 처리하도록 했습니다.</li>
-      <li>권한과 진행 상태에 따라 입력 항목과 버튼을 구분하고, 교육 등록·대상자 업로드·제출 현황이 화면과 서버에서 같은 기준으로 조회되도록 조건을 맞췄습니다.</li>
-      <li>첨부파일 300~400건을 한 번에 압축해 내려받는 기능은 요청이 끝날 때까지 화면이 대기했고 실패 여부도 알 수 없었습니다. 작업 번호를 먼저 발급하고 대기·진행·완료·실패 상태를 주기적으로 조회하는 방식으로 바꿔, 새로고침 후에도 작업을 다시 찾아 완료 파일을 내려받을 수 있게 했습니다.</li>
-      <li>본사 계정 등록 화면과 서버 기능을 신규 개발했습니다. 부서·직급 확인과 아이디 중복 검사, 초기 비밀번호 생성, 계정·사원 정보 저장을 처리한 뒤 사내 업무 시스템으로 전송합니다.</li>
-      <li>별도 배포 서버가 없는 환경이라 로컬 PC의 Jenkins에 소스 가져오기, Gradle 빌드, 서버 전송, 기존 파일 백업, 서버 2대 순차 배포를 하나의 작업으로 구성해 직접 실행하고 있습니다.</li>
-    </ul>
-    <p class="operation-line"><strong>운영</strong> · 대량 다운로드, 본사 계정 발급과 사내 시스템 전송, Jenkins 배포 작업은 모두 현재 운영 업무에서 사용 중입니다.</p>
-    <div class="tech-line"><strong>기술</strong> · Vue, JavaScript, Java, Spring Boot, MyBatis, MariaDB, Gradle, Jenkins, Linux, Git</div>
-  </article>
+        <div class="subheading">주요 구현 내용</div>
+        <ul>
+          <li>
+            교육청·사업별 정책에 맞춰 학생과 단말 등록, 대여 동의, 설치 일정
+            관리, A/S 접수 업무를 화면·서버·SQL로 연결했습니다.
+          </li>
+          <li>
+            단말 QR 발급과 전용 프린터 출력을 학생 명단·설치 일정 업무에
+            연결하고, 설치 희망일 접수부터 설치 확정까지 학교 담당자에게 단계별
+            안내 메시지를 발송하도록 했습니다.
+          </li>
+          <li>
+            종이로 관리하던 학교 방문 점검을 일정·대상·체크리스트·서명·재점검
+            이력과 결과 파일 다운로드까지 한 흐름으로 전산화했습니다. 한 번에
+            끝나지 않는 현장 상황을 반영해 분실·미지참 대상은 2차, 3차 회차로
+            이어서 관리합니다.
+          </li>
+          <li>
+            중고거래 게시글 모니터링 기능을 약 1주 동안 단독 개발했습니다. 외부
+            플랫폼을 크롤링하지 않고, 검수자가 붙여넣은 게시글 주소를 서버에서
+            정규식과 문자열 처리로 분석해 사이트와 게시글 번호를 찾은 뒤 중복
+            여부, 판매 상태와 조치 이력을 관리합니다. 사이트별 주소 형식은
+            기준정보 화면에서 수정할 수 있어 형식이 바뀌어도 코드를 고치지
+            않습니다.
+          </li>
+          <li>
+            화면마다 따로 구현돼 있던 주소 검색과 교육행정정보시스템(NEIS)
+            연동을 공통 서버 기능으로 모아 25개 화면이 같은 처리 방식을
+            사용하도록 정리했습니다.
+          </li>
+        </ul>
+        <p class="operation-line">
+          <strong>운영</strong> · 중고거래 모니터링 기능은 배포 후 실제 사용
+          중이며, 초기 요청보다 사용 흐름이 깔끔해졌다는 운영팀 피드백을
+          받았습니다.
+        </p>
+        <p class="operation-line">
+          <strong>운영 규모</strong> <span class="meta">(2026.07 기준)</span> ·
+          개발한 기능이 업무에 사용된 건수 — QR 발급 108,237대 · 안내 메시지
+          2,931건 · 점검 데이터 3,800건
+        </p>
+        <div class="tech-line">
+          <strong>기술</strong> · WebSquare5, JSP, jQuery, JavaScript, Java,
+          Spring MVC, MyBatis, MariaDB, Tomcat, Linux, SVN
+        </div>
+      </article>
 
-  <div class="page-break"></div>
-  <div class="continuation-head">
-    <strong>권용재 · Web Developer</strong>
-    <span>yongjae116@gmail.com · github.com/YongjaeKwon</span>
-  </div>
+      <h2>공개 프로젝트</h2>
+      <p class="section-note">
+        삼성청년SW아카데미(SSAFY) 과정에서 진행한 팀 프로젝트이며, 코드는
+        GitHub에 공개돼 있습니다.
+      </p>
+      <div class="public-grid">
+        <article class="public-project wide">
+          <div>
+            <span class="public-title">SSAFAST · API 명세·테스트 협업 도구</span
+            ><span class="public-meta"
+              >2023.04 ~ 2023.05 · 6인 팀 · 프론트엔드 · UI/UX</span
+            >
+          </div>
+          <ul>
+            <li>
+              반복·중첩 입력을 지원하는 API 명세 작성 화면과 요청 테스트·성능
+              결과 화면을 개발했습니다.
+            </li>
+            <li>
+              입력 오류가 발생한 위치를 화면에서 바로 확인할 수 있게 하고, 요청
+              성공 여부와 응답 내용, 처리 시간 분포와 초당 처리량을 한 화면에서
+              볼 수 있도록 구성했습니다.
+            </li>
+          </ul>
+          <div class="tech-line">
+            <strong>기술</strong> · React, Next.js, TypeScript, Redux Toolkit,
+            React Hook Form, TanStack Query
+          </div>
+        </article>
 
-  <article class="project">
-    <div class="project-head">
-      <div class="project-title">교육청·공공사업 장비 통합 시스템(TSMS) 개발·운영</div>
-      <div class="project-type">통합 업무 시스템 · 2025.09 ~ 현재</div>
-    </div>
-    <p class="project-summary">여러 교육청·공공사업의 장비 자산 등록부터 배송·설치·A/S·점검까지 관리하는 통합 업무 시스템입니다.</p>
-    <p class="project-role"><strong>역할</strong> · 유지보수 및 사업별 신규 기능 개발 · 요구사항 협의 · 사용자 검수 · 배포</p>
+        <article class="public-project">
+          <div>
+            <span class="public-title">ddoing · 그림 영어 학습</span
+            ><span class="public-meta">2023.02 ~ 2023.04 · 프론트엔드</span>
+          </div>
+          <ul>
+            <li>
+              그림 입력, AI 판정, 점수 반영, 다음 문제 이동으로 이어지는 학습
+              화면을 개발했습니다.
+            </li>
+            <li>
+              타이머 중복 실행과 이전 단어 상태가 남는 문제를 수정했고, 데이터
+              전처리는 팀장과 함께 진행했습니다.
+            </li>
+          </ul>
+          <div class="tech-line">
+            <strong>기술</strong> · React, TypeScript, Redux Toolkit, Canvas API
+          </div>
+        </article>
 
-    <div class="subheading">주요 구현 내용</div>
-    <ul>
-      <li>교육청·사업별 정책에 맞춰 학생과 단말 등록, 대여 동의, 설치 일정 관리, A/S 접수 업무를 화면·서버·SQL로 연결했습니다.</li>
-      <li>단말 QR 발급과 전용 프린터 출력을 학생 명단·설치 일정 업무에 연결하고, 설치 희망일 접수부터 설치 확정까지 학교 담당자에게 단계별 안내 메시지를 발송하도록 했습니다.</li>
-      <li>종이로 관리하던 학교 방문 점검을 일정·대상·체크리스트·서명·재점검 이력과 결과 파일 다운로드까지 한 흐름으로 전산화했습니다. 한 번에 끝나지 않는 현장 상황을 반영해 분실·미지참 대상은 2차, 3차 회차로 이어서 관리합니다.</li>
-      <li>중고거래 게시글 모니터링 기능을 약 1주 동안 단독 개발했습니다. 외부 플랫폼을 크롤링하지 않고, 검수자가 붙여넣은 게시글 주소를 서버에서 정규식과 문자열 처리로 분석해 사이트와 게시글 번호를 찾은 뒤 중복 여부, 판매 상태와 조치 이력을 관리합니다. 사이트별 주소 형식은 기준정보 화면에서 수정할 수 있어 형식이 바뀌어도 코드를 고치지 않습니다.</li>
-      <li>화면마다 따로 구현돼 있던 주소 검색과 교육행정정보시스템(NEIS) 연동을 공통 서버 기능으로 모아 25개 화면이 같은 처리 방식을 사용하도록 정리했습니다.</li>
-    </ul>
-    <p class="operation-line"><strong>운영</strong> · 중고거래 모니터링 기능은 배포 후 실제 사용 중이며, 초기 요청보다 사용 흐름이 깔끔해졌다는 운영팀 피드백을 받았습니다.</p>
-    <p class="operation-line"><strong>운영 규모</strong> <span class="meta">(2026.07 기준)</span> · 개발한 기능이 업무에 사용된 건수 — QR 발급 108,237대 · 안내 메시지 2,931건 · 점검 데이터 3,800건</p>
-    <div class="tech-line"><strong>기술</strong> · WebSquare5, JSP, jQuery, JavaScript, Java, Spring MVC, MyBatis, MariaDB, Tomcat, Linux, SVN</div>
-  </article>
+        <article class="public-project">
+          <div>
+            <span class="public-title">MODAC · 학습 기록 서비스</span
+            ><span class="public-meta">2023.01 ~ 2023.02 · 프론트엔드</span>
+          </div>
+          <ul>
+            <li>스터디룸, 게시글, 마이페이지 화면을 개발했습니다.</li>
+            <li>학습 통계, 알림, 즐겨찾기 화면을 개발했습니다.</li>
+            <li>실시간 채팅 UI를 개발했습니다.</li>
+          </ul>
+          <div class="tech-line">
+            <strong>기술</strong> · Vue3, Pinia, SockJS, STOMP
+          </div>
+        </article>
+      </div>
 
-  <h2>공개 프로젝트</h2>
-  <p class="section-note">삼성청년SW아카데미(SSAFY) 과정에서 진행한 팀 프로젝트이며, 코드는 GitHub에 공개돼 있습니다.</p>
-  <div class="public-grid">
-    <article class="public-project wide">
-      <div><span class="public-title">SSAFAST · API 명세·테스트 협업 도구</span><span class="public-meta">2023.04 ~ 2023.05 · 6인 팀 · 프론트엔드 · UI/UX</span></div>
-      <ul>
-        <li>반복·중첩 입력을 지원하는 API 명세 작성 화면과 요청 테스트·성능 결과 화면을 개발했습니다.</li>
-        <li>입력 오류가 발생한 위치를 화면에서 바로 확인할 수 있게 하고, 요청 성공 여부와 응답 내용, 처리 시간 분포와 초당 처리량을 한 화면에서 볼 수 있도록 구성했습니다.</li>
-      </ul>
-      <div class="tech-line"><strong>기술</strong> · React, Next.js, TypeScript, Redux Toolkit, React Hook Form, TanStack Query</div>
-    </article>
+      <h2>학력 및 자격</h2>
+      <div class="credentials">
+        <div class="credential-item">
+          <b>학력</b>
+          <strong>아주대학교 e-비즈니스학과 <em>· 학사 졸업</em></strong>
+          <span>2018.03 ~ 2020.08</span>
+        </div>
+        <div class="credential-item">
+          <b></b>
+          <strong
+            >California State University, Chico
+            <em>· Business Administration, 재학 후 아주대학교 편입</em></strong
+          >
+          <span>2014.01 ~ 2015.05</span>
+        </div>
+        <div class="credential-item">
+          <b>교육</b>
+          <strong
+            >삼성청년SW아카데미(SSAFY) 8기 <em>· 웹 개발 과정 수료</em></strong
+          >
+          <span>2022.07 ~ 2023.06</span>
+        </div>
+        <div class="credential-item">
+          <b>자격</b>
+          <strong>SQLD(SQL 개발자) <em>· 한국데이터산업진흥원</em></strong>
+          <span>2024.09 취득</span>
+        </div>
+      </div>
 
-    <article class="public-project">
-      <div><span class="public-title">ddoing · 그림 영어 학습</span><span class="public-meta">2023.02 ~ 2023.04 · 프론트엔드</span></div>
-      <ul>
-        <li>그림 입력, AI 판정, 점수 반영, 다음 문제 이동으로 이어지는 학습 화면을 개발했습니다.</li>
-        <li>타이머 중복 실행과 이전 단어 상태가 남는 문제를 수정했고, 데이터 전처리는 팀장과 함께 진행했습니다.</li>
-      </ul>
-      <div class="tech-line"><strong>기술</strong> · React, TypeScript, Redux Toolkit, Canvas API</div>
-    </article>
-
-    <article class="public-project">
-      <div><span class="public-title">MODAC · 학습 기록 서비스</span><span class="public-meta">2023.01 ~ 2023.02 · 프론트엔드</span></div>
-      <ul>
-        <li>스터디룸, 게시글, 마이페이지 화면을 개발했습니다.</li>
-        <li>학습 통계, 알림, 즐겨찾기 화면을 개발했습니다.</li>
-        <li>실시간 채팅 UI를 개발했습니다.</li>
-      </ul>
-      <div class="tech-line"><strong>기술</strong> · Vue3, Pinia, SockJS, STOMP</div>
-    </article>
-  </div>
-
-  <h2>학력 및 자격</h2>
-  <div class="credentials">
-    <div class="credential-item">
-      <b>학력</b>
-      <strong>아주대학교 e-비즈니스학과 <em>· 학사 졸업</em></strong>
-      <span>2018.03 ~ 2020.08</span>
-    </div>
-    <div class="credential-item">
-      <b></b>
-      <strong>California State University, Chico <em>· Business Administration, 재학 후 아주대학교 편입</em></strong>
-      <span>2014.01 ~ 2015.05</span>
-    </div>
-    <div class="credential-item">
-      <b>교육</b>
-      <strong>삼성청년SW아카데미(SSAFY) 8기 <em>· 웹 개발 과정 수료</em></strong>
-      <span>2022.07 ~ 2023.06</span>
-    </div>
-    <div class="credential-item">
-      <b>자격</b>
-      <strong>SQLD(SQL 개발자) <em>· 한국데이터산업진흥원</em></strong>
-      <span>2024.09 취득</span>
-    </div>
-  </div>
-
-  <p class="note">공개 저장소와 상세 프로젝트 내용은 포트폴리오에서 확인할 수 있습니다.</p>
-</main>
-</body>
+      <p class="note">
+        공개 저장소와 상세 프로젝트 내용은 포트폴리오에서 확인할 수 있습니다.
+      </p>
+    </main>
+  </body>
 </html>
