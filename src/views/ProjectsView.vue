@@ -147,7 +147,6 @@
                         <span class="rounded-full bg-[var(--fresh-blue-soft)] px-3 py-1.5 text-xs font-black text-[var(--fresh-blue-strong)]">
                           {{ section.label }}
                         </span>
-                        <p class="text-muted text-sm">이 프로젝트에서 맡은 부분</p>
                       </div>
 
                       <div class="grid gap-5 md:grid-cols-2">
@@ -180,7 +179,7 @@
                 <DetailBlock title="사용 기술" :items="activeProject.project.detail.techUsage" />
                 <DetailBlock title="공개 범위" :items="[activeProject.project.detail.disclosure]" />
 
-                <div>
+                <div v-if="activeProject.project.detail.resources.length">
                   <h4 class="text-primary mb-3 font-black">관련 자료</h4>
                   <div class="flex flex-wrap gap-2">
                     <a

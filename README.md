@@ -7,7 +7,7 @@
 
 채용 제출용 직접 링크로만 운영하고 있어서 검색 노출은 robots.txt로 막아 두었습니다.
 
-![포트폴리오 미리보기](public/og-image.png)
+![포트폴리오 미리보기](public/og-image-v2.png)
 
 ## 어떤 내용을 담았나
 

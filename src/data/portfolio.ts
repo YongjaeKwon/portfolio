@@ -124,10 +124,6 @@ export const featuredProjects: FeaturedProject[] = [
     category: "B2B Partner Portal",
     focuses: ["all", "frontend", "backend"],
     stack: ["Vue", "Java", "Spring Boot", "MyBatis", "MariaDB", "Jenkins"],
-    image: {
-      src: "/projects/pps-flow.svg",
-      alt: "협력사 포탈의 비식별화된 화면과 배포 구조",
-    },
     card: {
       summary: "약 500개 파트너와 824개 활성 현장 엔지니어 계정의 등록·계약·교육·문서 업무를 연결하는 B2B 운영 포탈입니다.",
       description: [
@@ -164,8 +160,8 @@ export const featuredProjects: FeaturedProject[] = [
         "Spring Boot와 MyBatis로 비동기 작업 상태, 계정 발급, 유효성 검사와 외부 전송 로직을 구현했습니다.",
         "Jenkins, Gradle, Linux 스크립트로 개발·운영 배포 순서를 정리했습니다.",
       ],
-      disclosure: "실무 프로젝트라 회사와 고객사 정보, 실제 화면과 저장 데이터는 공개하지 않습니다.",
-      resources: [{ label: "비식별화 다이어그램", href: "/projects/pps-flow.svg", type: "diagram" }],
+      disclosure: "사내 프로젝트로 회사와 고객사 정보, 실제 화면과 저장 데이터는 공개하지 않습니다.",
+      resources: [],
     },
     perspectives: {
       frontend: {
@@ -216,7 +212,6 @@ export const featuredProjects: FeaturedProject[] = [
     category: "Device Lifecycle System",
     focuses: ["all", "frontend", "backend"],
     stack: ["WebSquare", "Java", "Spring MVC", "MyBatis", "MariaDB", "JSP"],
-    image: { src: "/projects/tsms-flow.svg", alt: "교육청·공공사업 장비 통합 시스템의 업무 흐름 다이어그램" },
     card: {
       summary: "여러 교육청·공공사업의 자산 등록부터 배송·설치·A/S·점검까지 연결하는 통합 업무 시스템입니다.",
       description: [
@@ -254,8 +249,8 @@ export const featuredProjects: FeaturedProject[] = [
         "Spring MVC와 MyBatis로 게시글 주소 분석, 중복 검사, 이력 저장과 외부 시스템 연계 기능을 개발했습니다.",
         "MariaDB 조회와 운영 데이터를 확인하며 배포 결과와 실제 사용 상태를 검증했습니다.",
       ],
-      disclosure: "실무 프로젝트라 학교·사용자·단말 정보와 실제 운영 화면은 공개하지 않습니다.",
-      resources: [{ label: "비식별화 업무 흐름", href: "/projects/tsms-flow.svg", type: "diagram" }],
+      disclosure: "사내 프로젝트로 회사와 고객사 정보, 실제 화면과 저장 데이터는 공개하지 않습니다.",
+      resources: [],
     },
     perspectives: {
       frontend: {
