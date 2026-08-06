@@ -81,8 +81,8 @@
               <img
                 :src="item.project.image.previewSrc ?? item.project.image.src"
                 :alt="item.project.image.alt"
-                width="960"
-                height="640"
+                :width="item.project.image.previewWidth ?? item.project.image.width"
+                :height="item.project.image.previewHeight ?? item.project.image.height"
                 loading="lazy"
                 decoding="async"
                 class="h-full w-full object-contain transition duration-300 group-hover:scale-[1.02]"
@@ -136,6 +136,8 @@
                 v-else-if="activeProject.project.image"
                 :src="activeProject.project.image.src"
                 :alt="activeProject.project.image.alt"
+                :width="activeProject.project.image.width"
+                :height="activeProject.project.image.height"
                 decoding="async"
                 class="mb-8 max-h-80 w-full rounded-lg border border-[var(--border)] bg-[var(--surface-soft)] object-contain p-3"
               />

@@ -93,6 +93,16 @@ export type ProjectPerspective = {
   detail?: Partial<ProjectDetailCopy>;
 };
 
+type ProjectImage = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+} & (
+  | { previewSrc: string; previewWidth: number; previewHeight: number }
+  | { previewSrc?: never; previewWidth?: never; previewHeight?: never }
+);
+
 export type FeaturedProject = {
   id: string;
   title: string;
@@ -101,7 +111,7 @@ export type FeaturedProject = {
   category: string;
   focuses: FocusTrackId[];
   stack: string[];
-  image?: { src: string; previewSrc?: string; alt: string };
+  image?: ProjectImage;
   card: ProjectCardCopy & {
     visibility: ProjectVisibility;
     environment: string;
@@ -301,7 +311,15 @@ export const featuredProjects: FeaturedProject[] = [
     category: "Frontend Team Project",
     focuses: ["all", "frontend"],
     stack: ["Next.js", "React", "TypeScript", "React Hook Form", "TanStack Query", "Redux Toolkit"],
-    image: { src: "/projects/ssafast.png", previewSrc: "/projects/ssafast-preview.webp", alt: "SSAFAST API 명세 입력과 테스트 결과 화면" },
+    image: {
+      src: "/projects/ssafast.png",
+      width: 1200,
+      height: 675,
+      previewSrc: "/projects/ssafast-preview.webp",
+      previewWidth: 960,
+      previewHeight: 540,
+      alt: "SSAFAST API 명세 입력과 테스트 결과 화면",
+    },
     card: {
       summary: "API 명세 작성부터 요청 테스트와 성능 결과 확인까지 한 화면 흐름으로 만든 팀 프로젝트입니다.",
       description: [
@@ -343,7 +361,15 @@ export const featuredProjects: FeaturedProject[] = [
     category: "Frontend Team Project",
     focuses: ["all", "frontend"],
     stack: ["React", "TypeScript", "Redux Toolkit", "Vite", "Canvas API"],
-    image: { src: "/projects/ddoing.png", previewSrc: "/projects/ddoing-preview.webp", alt: "ddoing 영어 단어 드로잉 학습 화면" },
+    image: {
+      src: "/projects/ddoing.png",
+      width: 800,
+      height: 459,
+      previewSrc: "/projects/ddoing-preview.webp",
+      previewWidth: 800,
+      previewHeight: 459,
+      alt: "ddoing 영어 단어 드로잉 학습 화면",
+    },
     card: {
       summary: "제시된 영어 단어를 그림으로 그리고 AI 판정 결과로 학습을 이어가는 팀 프로젝트입니다.",
       description: [
@@ -385,7 +411,15 @@ export const featuredProjects: FeaturedProject[] = [
     category: "Frontend Team Project",
     focuses: ["all", "frontend"],
     stack: ["Vue", "Pinia", "Spring Boot", "SockJS", "STOMP"],
-    image: { src: "/projects/modac.png", previewSrc: "/projects/modac-preview.webp", alt: "MODAC 학습 기록과 스터디 화면" },
+    image: {
+      src: "/projects/modac.png",
+      width: 600,
+      height: 338,
+      previewSrc: "/projects/modac-preview.webp",
+      previewWidth: 600,
+      previewHeight: 338,
+      alt: "MODAC 학습 기록과 스터디 화면",
+    },
     card: {
       summary: "개발자가 학습 기록을 남기고 스터디 활동을 함께 관리하는 팀 프로젝트입니다.",
       description: [
@@ -427,7 +461,15 @@ export const featuredProjects: FeaturedProject[] = [
     category: "Personal Backend",
     focuses: ["all", "backend"],
     stack: ["FastAPI", "PostgreSQL", "Redis", "Docker", "WebSocket"],
-    image: { src: "/projects/quant-core.png", previewSrc: "/projects/quant-core-preview.webp", alt: "매매 전략 실행과 이벤트 전달 구조를 보여주는 대시보드" },
+    image: {
+      src: "/projects/quant-core.png",
+      width: 1200,
+      height: 545,
+      previewSrc: "/projects/quant-core-preview.webp",
+      previewWidth: 960,
+      previewHeight: 436,
+      alt: "매매 전략 실행과 이벤트 전달 구조를 보여주는 대시보드",
+    },
     card: {
       summary: "전략 실행 요청과 실시간 이벤트 전달 구조를 실험하기 위해 만든 개인 백엔드 프로젝트입니다.",
       description: ["인증, 실행 요청, 실시간 실행 상태 전달과 테스트 환경을 중심으로 구성했습니다."],
