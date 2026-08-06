@@ -12,6 +12,13 @@ const expectImportedAndCalled = (code: string, symbol: string) => {
 };
 
 describe("scroll performance contracts", () => {
+  it("loads external font stylesheets without blocking rendering", async () => {
+    const html = await source("index.html");
+    expect(html.match(/rel="preload"\s+as="style"/g)).toHaveLength(2);
+    expect(html).toContain("this.rel='stylesheet'");
+    expect(html.match(/<noscript>/g)).toHaveLength(2);
+  });
+
   it("does not scan section geometry from Navbar scroll handlers", async () => {
     const navbar = await source("src/components/Navbar.vue");
     expect(navbar).toMatch(/new\s+IntersectionObserver\s*\(/);
