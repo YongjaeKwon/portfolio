@@ -28,14 +28,19 @@ const schedule = () => {
   if (frameId === null) frameId = requestAnimationFrame(update);
 };
 
-const refreshDocumentHeight = () => {
+const measureDocumentHeight = () => {
   const documentElement = document.documentElement;
   maxScroll = Math.max(0, documentElement.scrollHeight - documentElement.clientHeight);
+};
+
+const refreshDocumentHeight = () => {
+  measureDocumentHeight();
   schedule();
 };
 
 const start = () => {
-  refreshDocumentHeight();
+  measureDocumentHeight();
+  update();
   window.addEventListener("scroll", schedule, { passive: true });
   window.addEventListener("resize", refreshDocumentHeight, { passive: true });
   if ("ResizeObserver" in window) {

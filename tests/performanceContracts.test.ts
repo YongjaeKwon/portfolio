@@ -17,6 +17,10 @@ describe("scroll performance contracts", () => {
     expect(navbar).toMatch(/new\s+IntersectionObserver\s*\(/);
     expect(navbar).not.toMatch(/\.getBoundingClientRect\s*\(/);
     expect(navbar).not.toMatch(scrollListener);
+    expect(navbar).toMatch(/observerActiveSection\.value/);
+    expect(navbar).toMatch(
+      /activeSection\.value\s*=\s*atBottom\s*\?[\s\S]*?:\s*observerActiveSection\.value/,
+    );
   });
 
   it("shares scroll state across scroll UI components", async () => {

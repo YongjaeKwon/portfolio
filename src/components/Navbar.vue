@@ -75,7 +75,7 @@ import { Menu } from "@lucide/vue";
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { useScrollMetrics } from "@/composables/useScrollMetrics";
 import { profile } from "@/data/portfolio";
-import { pickActiveSection, type ObservedSection } from "@/utils/scrollMetrics";
+import { resolveActiveSectionFromEntries } from "@/utils/scrollMetrics";
 
 const emit = defineEmits<{
   "scroll-to-section": [id: string];
@@ -94,28 +94,28 @@ const navItems = [
 
 const sectionIds = ["hero", ...navItems.map((item) => item.id)];
 const { isAtBottom } = useScrollMetrics();
-const observedSections = new Map<string, ObservedSection>();
+const observerActiveSection = ref("hero");
 let sectionObserver: IntersectionObserver | null = null;
-
-const updateActiveSection = () => {
-  activeSection.value = pickActiveSection([...observedSections.values()], activeSection.value, 110);
-};
 
 onMounted(() => {
   if (!("IntersectionObserver" in window)) return;
 
   sectionObserver = new IntersectionObserver(
     (entries) => {
-      for (const entry of entries) {
-        observedSections.set(entry.target.id, {
+      observerActiveSection.value = resolveActiveSectionFromEntries(
+        sectionIds,
+        entries.map((entry) => ({
           id: entry.target.id,
           top: entry.boundingClientRect.top,
+          bottom: entry.boundingClientRect.bottom,
           isIntersecting: entry.isIntersecting,
-        });
-      }
-      updateActiveSection();
+        })),
+        observerActiveSection.value,
+        110,
+      );
+      if (!isAtBottom.value) activeSection.value = observerActiveSection.value;
     },
-    { rootMargin: "-110px 0px -70% 0px", threshold: 0 },
+    { rootMargin: "-110px 0px 0px 0px", threshold: 0 },
   );
 
   for (const id of sectionIds) {
@@ -125,7 +125,9 @@ onMounted(() => {
 });
 
 watch(isAtBottom, (atBottom) => {
-  if (atBottom) activeSection.value = sectionIds[sectionIds.length - 1];
+  activeSection.value = atBottom
+    ? sectionIds[sectionIds.length - 1]
+    : observerActiveSection.value;
 });
 
 onBeforeUnmount(() => sectionObserver?.disconnect());
