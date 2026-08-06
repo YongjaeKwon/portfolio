@@ -346,7 +346,16 @@ const vTilt = {
       el.style.transform = "";
     };
     const scheduler = createLatestFrameScheduler((point: { x: number; y: number }) => {
-      if (!hoverActive || !el.matches(":hover")) {
+      if (!hoverActive) {
+        if (el.matches(":hover")) {
+          activateHover(point);
+        } else {
+          stopActiveHover();
+          resetTilt();
+          return;
+        }
+      }
+      if (!el.matches(":hover")) {
         stopActiveHover();
         resetTilt();
         return;
@@ -361,6 +370,7 @@ const vTilt = {
 
       const px = (point.x - rect.left) / rect.width - 0.5;
       const py = (point.y - rect.top) / rect.height - 0.5;
+      el.style.transition = "transform 0s";
       el.style.transform = `perspective(1100px) rotateY(${px * 2}deg) rotateX(${-py * 2}deg)`;
     });
 
@@ -385,8 +395,7 @@ const vTilt = {
       if (hoverActive) return;
       hoverActive = true;
       latestPoint = point;
-      rect = el.getBoundingClientRect();
-      el.style.transition = "transform 0s";
+      rect = null;
       window.addEventListener("scroll", invalidateGeometry, activeScrollOptions);
       window.addEventListener("resize", invalidateGeometry, passiveOptions);
       if (typeof ResizeObserver !== "undefined") {
@@ -397,10 +406,10 @@ const vTilt = {
     const onEnter = (event: PointerEvent) => {
       const point = { x: event.clientX, y: event.clientY };
       activateHover(point);
+      scheduler.schedule(point);
     };
     const onMove = (event: PointerEvent) => {
       const point = { x: event.clientX, y: event.clientY };
-      if (!hoverActive && el.matches(":hover")) activateHover(point);
       latestPoint = point;
       scheduler.schedule(point);
     };

@@ -81,23 +81,38 @@ describe("scroll performance contracts", () => {
     const moveStart = projects.indexOf("const onMove");
     const moveEnd = projects.indexOf("const onLeave", moveStart);
     const enterStart = projects.indexOf("const onEnter");
+    const activateStart = projects.indexOf("const activateHover");
+    const activateEnd = projects.indexOf("const onEnter", activateStart);
+    const schedulerStart = projects.indexOf("const scheduler");
+    const schedulerEnd = projects.indexOf("const invalidateGeometry", schedulerStart);
     const enterHandler = projects.slice(enterStart, moveStart);
+    const activateHandler = projects.slice(activateStart, activateEnd);
+    const schedulerCallback = projects.slice(schedulerStart, schedulerEnd);
     const moveHandler = projects.slice(moveStart, moveEnd);
     expect(enterStart).toBeGreaterThan(-1);
+    expect(activateStart).toBeGreaterThan(-1);
+    expect(schedulerStart).toBeGreaterThan(-1);
     expect(moveStart).toBeGreaterThan(-1);
     expect(moveEnd).toBeGreaterThan(moveStart);
     expect(enterHandler).toMatch(/activateHover\s*\(\s*point\s*\)/);
+    expect(enterHandler).not.toMatch(/getBoundingClientRect|\.style\./);
     expect(moveHandler).toMatch(
-      /!hoverActive\s*&&\s*el\.matches\s*\(\s*["']:hover["']\s*\)[\s\S]*?activateHover\s*\(\s*point\s*\)/,
+      /^const onMove\s*=\s*\(event:\s*PointerEvent\)\s*=>\s*\{\s*const point\s*=\s*\{\s*x:\s*event\.clientX,\s*y:\s*event\.clientY\s*\};\s*latestPoint\s*=\s*point;\s*scheduler\.schedule\(point\);\s*\};\s*$/,
     );
-    expect(moveHandler).not.toMatch(/getBoundingClientRect|\.style\./);
+    expect(moveHandler).not.toMatch(/activateHover|getBoundingClientRect|\.style\./);
+    expect(activateHandler).not.toMatch(/getBoundingClientRect|\.style\./);
+    expect(schedulerCallback).toMatch(
+      /!hoverActive[\s\S]*?el\.matches\s*\(\s*["']:hover["']\s*\)[\s\S]*?activateHover\s*\(\s*point\s*\)/,
+    );
+    expect(schedulerCallback).toMatch(
+      /getBoundingClientRect\s*\([\s\S]*?\.style\.transition[\s\S]*?\.style\.transform/,
+    );
     expect(projects).toMatch(
       /rect\s*=\s*null\s*;[\s\S]{0,200}scheduler\.schedule\s*\(\s*latestPoint\s*\)/,
     );
 
     const geometryReads = projects.match(/getBoundingClientRect\s*\(/g) ?? [];
-    expect(geometryReads).toHaveLength(2);
-    expect(projects).toMatch(/const activateHover[\s\S]*?getBoundingClientRect\s*\(/);
+    expect(geometryReads).toHaveLength(1);
     expect(projects).toMatch(
       /createLatestFrameScheduler[\s\S]*?\.matches\s*\(\s*["']:hover["']\s*\)[\s\S]*?getBoundingClientRect\s*\(/,
     );
