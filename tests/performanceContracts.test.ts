@@ -34,13 +34,18 @@ describe("scroll performance contracts", () => {
 
   it("defers below-the-fold section rendering", async () => {
     const css = await source("src/assets/index.css");
-    const deferredSection = css.match(
-      /\.portfolio-flow\s*>\s*section:not\(\s*#hero\s*\)\s*\{(?<rules>[^}]*)\}/s,
+    const hasDeferredSection = Array.from(
+      css.matchAll(
+        /\.portfolio-flow\s*>\s*section:not\(\s*#hero\s*\)\s*\{(?<rules>[^}]*)\}/gs,
+      ),
+    ).some(
+      (deferredSection) =>
+        /content-visibility\s*:\s*auto\s*;/.test(deferredSection.groups?.rules ?? "") &&
+        /contain-intrinsic-size\s*:\s*auto\s+1000px\s*;/.test(
+          deferredSection.groups?.rules ?? "",
+        ),
     );
-    expect(deferredSection?.groups?.rules).toMatch(/content-visibility\s*:\s*auto\s*;/);
-    expect(deferredSection?.groups?.rules).toMatch(
-      /contain-intrinsic-size\s*:\s*auto\s+1000px\s*;/,
-    );
+    expect(hasDeferredSection).toBe(true);
   });
 
   it("batches pointer effects by animation frame", async () => {
