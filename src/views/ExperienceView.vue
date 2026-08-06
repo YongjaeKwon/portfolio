@@ -3,11 +3,10 @@
     <div class="section-shell">
       <div class="reveal flex items-center gap-3">
         <span class="section-index">02</span>
-        <p class="section-kicker">Experience</p>
+        <h2 class="section-kicker">Experience</h2>
       </div>
-      <h2 class="reveal reveal-d1 section-title">실무 경험</h2>
 
-      <div class="relative mt-10">
+      <div class="relative mt-7">
         <div class="absolute bottom-3 left-[7px] top-3 w-px bg-[var(--border-strong)]"></div>
 
         <div class="reveal reveal-d2 relative pl-9">

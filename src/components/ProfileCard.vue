@@ -1,31 +1,34 @@
 <template>
-  <section id="profile" class="py-24">
-    <div class="section-shell grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+  <section id="profile" class="py-16 md:py-20">
+    <div class="section-shell">
       <div class="reveal">
         <div class="flex items-center gap-3">
           <span class="section-index">00</span>
-          <p class="section-kicker">About</p>
+          <h2 class="section-kicker">About</h2>
         </div>
-        <h2 class="section-title">기존 시스템 안에서 기능을 더했습니다</h2>
-        <p class="section-copy">
-          협력사 포탈, 현장 A/S, 교육청 자산관리처럼 이미 사용 중인 시스템에서 화면 수정과 기능 추가를 맡았습니다.
-        </p>
-      </div>
-
-      <div class="reveal reveal-d2 grid gap-4">
-        <div class="fresh-card rounded-[2rem] p-6">
-          <p class="text-secondary text-lg leading-8">{{ profile.summary }}</p>
-        </div>
-
-        <div class="grid gap-4 sm:grid-cols-3">
-          <article
-            v-for="item in aboutCards"
-            :key="item.label"
-            class="fresh-list-item interactive-surface rounded-2xl p-5"
+        <div class="mt-5 grid max-w-2xl gap-1.5">
+          <p
+            v-for="paragraph in aboutParagraphs"
+            :key="paragraph"
+            class="text-secondary text-lg leading-8"
           >
-            <component :is="item.icon" class="h-5 w-5 text-[var(--fresh-blue)]" />
-            <p class="text-muted mt-4 text-sm font-semibold">{{ item.label }}</p>
-            <p class="text-primary mt-2 font-black">{{ item.value }}</p>
+            {{ paragraph.trim() }}
+          </p>
+        </div>
+
+        <div class="mt-6 grid gap-3 sm:grid-cols-3">
+          <article
+            v-for="item in aboutHighlights"
+            :key="item.label"
+            class="fresh-list-item flex items-center gap-3 rounded-2xl px-4 py-3.5"
+          >
+            <div class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--fresh-blue-soft)] text-[var(--fresh-blue)]">
+              <component :is="item.icon" class="h-4 w-4" />
+            </div>
+            <div class="min-w-0">
+              <p class="text-muted text-xs font-semibold">{{ item.label }}</p>
+              <p class="text-primary mt-1 text-sm font-bold leading-5">{{ item.value }}</p>
+            </div>
           </article>
         </div>
       </div>
@@ -37,20 +40,22 @@
 import { Database, MonitorSmartphone, Workflow } from "@lucide/vue";
 import { profile } from "@/data/portfolio";
 
-const aboutCards = [
+const aboutParagraphs = profile.summary.match(/[^.]+\./g) ?? [profile.summary];
+
+const aboutHighlights = [
   {
-    label: "주요 경험",
-    value: "포탈 · A/S · 자산관리",
-    icon: Workflow,
-  },
-  {
-    label: "사용한 화면 환경",
-    value: "Vue · WebSquare · JSP",
+    label: "개발 영역",
+    value: "화면 · 서버 · 데이터",
     icon: MonitorSmartphone,
   },
   {
-    label: "자주 본 화면",
-    value: "목록 · 상세 · 엑셀 · 대시보드",
+    label: "업무 형태",
+    value: "신규 기능 · 운영 개선",
+    icon: Workflow,
+  },
+  {
+    label: "실무 경험",
+    value: "개발 · 배포 · 운영 확인",
     icon: Database,
   },
 ];

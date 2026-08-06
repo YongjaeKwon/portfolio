@@ -1,5 +1,5 @@
 import { execFileSync, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -12,6 +12,7 @@ const cacheDir = path.join(rootDir, ".cache", "resumes");
 // public/ 으로 나가지 않으므로 공개 URL이 생기지 않고, docs/applications/ 는 gitignore 된다.
 const applicationsDir = path.join(rootDir, "docs", "applications");
 const applicationsOutDir = path.join(rootDir, ".cache", "applications");
+const finalPdfDir = path.join(rootDir, "output", "pdf");
 
 const resumes = [
   {
@@ -19,14 +20,14 @@ const resumes = [
     source: "docs/resume-general.html",
     html: "resume.html",
     output: "public/resume.pdf",
-    title: "권용재 - 프론트엔드 엔지니어",
+    title: "권용재 - 웹 개발자 이력서",
   },
 ];
 
 const css = `
   @page {
     size: A4;
-    margin: 13mm 14mm;
+    margin: 14mm 15mm;
   }
 
   * {
@@ -38,8 +39,8 @@ const css = `
     color: #172033;
     background: #ffffff;
     font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
-    font-size: 10.2px;
-    line-height: 1.48;
+    font-size: 10.6px;
+    line-height: 1.52;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -47,6 +48,12 @@ const css = `
   .resume {
     max-width: 180mm;
     margin: 0 auto;
+  }
+
+  .page-break {
+    height: 0;
+    break-before: page;
+    page-break-before: always;
   }
 
   h1 {
@@ -221,6 +228,9 @@ function renderHtml(markdown, title) {
 }
 
 function printPdf(browser, htmlPath, outputPath) {
+  const temporaryOutputPath = `${outputPath}.generating`;
+  rmSync(temporaryOutputPath, { force: true });
+
   const result = spawnSync(
     browser,
     [
@@ -231,7 +241,7 @@ function printPdf(browser, htmlPath, outputPath) {
       "--allow-file-access-from-files",
       "--run-all-compositor-stages-before-draw",
       "--virtual-time-budget=8000",
-      `--print-to-pdf=${outputPath}`,
+      `--print-to-pdf=${temporaryOutputPath}`,
       pathToFileURL(htmlPath).href,
     ],
     {
@@ -241,13 +251,27 @@ function printPdf(browser, htmlPath, outputPath) {
   );
 
   if (result.status !== 0) {
+    rmSync(temporaryOutputPath, { force: true });
     throw new Error(`${path.basename(outputPath)} 생성 실패`);
   }
 
-  const size = statSync(outputPath).size;
+  const size = statSync(temporaryOutputPath).size;
   if (size < 10_000) {
+    rmSync(temporaryOutputPath, { force: true });
     throw new Error(`${path.basename(outputPath)} 파일 크기가 비정상적으로 작습니다: ${size} bytes`);
   }
+
+  const pdf = readFileSync(temporaryOutputPath);
+  const header = pdf.subarray(0, 8).toString("ascii");
+  const tail = pdf.subarray(Math.max(0, pdf.length - 2048)).toString("latin1");
+  if (!header.startsWith("%PDF-") || !tail.includes("%%EOF")) {
+    rmSync(temporaryOutputPath, { force: true });
+    throw new Error(`${path.basename(outputPath)} PDF 구조 검증 실패`);
+  }
+
+  // 생성 도중 중단되더라도 기존 정상 PDF를 보존하고, 완성된 파일만 교체한다.
+  copyFileSync(temporaryOutputPath, outputPath);
+  rmSync(temporaryOutputPath, { force: true });
 }
 
 function collectApplicationResumes() {
@@ -259,17 +283,22 @@ function collectApplicationResumes() {
     .filter((file) => file.endsWith(".md"))
     .map((file) => {
       const slug = path.basename(file, ".md");
+      const title =
+        slug === "resume-submission"
+          ? "권용재 - 웹 개발자 이력서 (제출용)"
+          : `권용재 - 웹 개발자 이력서 (${slug})`;
       return {
         source: path.join("docs", "applications", file),
         html: `application-${slug}.html`,
         output: path.join(".cache", "applications", `${slug}.pdf`),
-        title: `권용재 - 프론트엔드 엔지니어 (${slug})`,
+        title,
       };
     });
 }
 
 mkdirSync(cacheDir, { recursive: true });
 mkdirSync(applicationsOutDir, { recursive: true });
+mkdirSync(finalPdfDir, { recursive: true });
 
 const browser = findBrowser();
 console.log(`Using browser: ${browser}`);
@@ -287,4 +316,10 @@ for (const resume of allResumes) {
   writeFileSync(htmlPath, html, "utf8");
   printPdf(browser, htmlPath, outputPath);
   console.log(`Generated ${resume.output}`);
+
+  if (resume.output === "public/resume.pdf") {
+    const finalCopy = path.join(finalPdfDir, "yongjae-kwon-web-developer-resume.pdf");
+    copyFileSync(outputPath, finalCopy);
+    console.log(`Copied ${path.relative(rootDir, finalCopy)}`);
+  }
 }

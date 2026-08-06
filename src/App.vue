@@ -10,7 +10,7 @@
     <ScrollProgress />
     <div class="cursor-spotlight" aria-hidden="true" />
     <Navbar @scroll-to-section="scrollToSection" />
-    <main id="main">
+    <main id="main" class="portfolio-flow">
       <HomeView @scroll-to-section="scrollToSection" />
       <ProfileCard />
       <ProjectsView />
