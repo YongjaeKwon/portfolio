@@ -3,6 +3,68 @@ import { describe, expect, it } from "vitest";
 
 const source = (path: string) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 const scrollListener = /addEventListener\s*\(\s*["']scroll["']/;
+const fontStylesheetOnload = "this.onload=null;this.rel='stylesheet'";
+const fontStylesheetUrls = [
+  "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css",
+  "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap",
+];
+
+type LinkAttributes = Record<string, string>;
+
+const parseLinks = (html: string): LinkAttributes[] =>
+  Array.from(html.matchAll(/<link\b([^>]*)>/gi), ([, attributeSource]) => {
+    const attributes: LinkAttributes = {};
+    for (const [, name, , rawValue] of attributeSource.matchAll(
+      /([^\s=/>]+)\s*=\s*(["'])(.*?)\2/gs,
+    )) {
+      const normalizedName = name.toLowerCase();
+      attributes[normalizedName] =
+        normalizedName === "href" ? rawValue.replace(/&amp;/g, "&") : rawValue;
+    }
+    return attributes;
+  });
+
+const expectNonBlockingFontStylesheets = (html: string) => {
+  const noscriptBlocks = Array.from(
+    html.matchAll(/<noscript\b[^>]*>([\s\S]*?)<\/noscript>/gi),
+    ([, content]) => content,
+  );
+  const outsideLinks = parseLinks(
+    html.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi, ""),
+  );
+  const insideLinkGroups = noscriptBlocks.map(parseLinks);
+  const insideLinks = insideLinkGroups.flat();
+
+  expect(insideLinkGroups).toHaveLength(fontStylesheetUrls.length);
+  expect(insideLinkGroups.every((links) => links.length === 1)).toBe(true);
+
+  for (const url of fontStylesheetUrls) {
+    const outsideFontLinks = outsideLinks.filter((link) => link.href === url);
+    expect(outsideFontLinks).toHaveLength(1);
+    expect(outsideFontLinks[0]).toMatchObject({
+      rel: "preload",
+      as: "style",
+      href: url,
+      onload: fontStylesheetOnload,
+    });
+
+    const fallbackLinks = insideLinks.filter((link) => link.href === url);
+    expect(fallbackLinks).toHaveLength(1);
+    expect(fallbackLinks[0]).toMatchObject({ rel: "stylesheet", href: url });
+  }
+
+  expect(
+    outsideLinks.filter(
+      (link) => fontStylesheetUrls.includes(link.href) && link.rel === "stylesheet",
+    ),
+  ).toHaveLength(0);
+  expect(
+    [...outsideLinks, ...insideLinks].filter(
+      (link) => link.onload === fontStylesheetOnload,
+    ),
+  ).toHaveLength(2);
+  expect(outsideLinks.filter((link) => link.rel === "preconnect")).toHaveLength(3);
+};
 
 const expectImportedAndCalled = (code: string, symbol: string) => {
   expect(code).toMatch(
@@ -14,9 +76,43 @@ const expectImportedAndCalled = (code: string, symbol: string) => {
 describe("scroll performance contracts", () => {
   it("loads external font stylesheets without blocking rendering", async () => {
     const html = await source("index.html");
-    expect(html.match(/rel="preload"\s+as="style"/g)).toHaveLength(2);
-    expect(html).toContain("this.rel='stylesheet'");
-    expect(html.match(/<noscript>/g)).toHaveLength(2);
+    expectNonBlockingFontStylesheets(html);
+  });
+
+  it.each([
+    {
+      defect: "a missing onload swap",
+      mutate: (html: string) =>
+        html.replace(/\s+onload="this\.onload=null;this\.rel='stylesheet'"/, ""),
+    },
+    {
+      defect: "a fallback pointing at the wrong URL",
+      mutate: (html: string) =>
+        html.replace(
+          /(<noscript>[\s\S]*?<link[\s\S]*?href=")[^"]+/,
+          "$1https://example.com/wrong-font.css",
+        ),
+    },
+    {
+      defect: "a remaining blocking external stylesheet",
+      mutate: (html: string) =>
+        html.replace(
+          "</head>",
+          `<link rel="stylesheet" href="${fontStylesheetUrls[0]}" />\n  </head>`,
+        ),
+    },
+  ])("rejects $defect", async ({ mutate }) => {
+    const html = await source("index.html");
+    expect(() => expectNonBlockingFontStylesheets(mutate(html))).toThrow();
+  });
+
+  it("accepts font link attributes in a different order and quote style", async () => {
+    const html = await source("index.html");
+    const reordered = html.replace(
+      /<link\s+rel="preload"\s+as="style"[\s\S]*?pretendardvariable-dynamic-subset\.css[\s\S]*?\/>/,
+      `<link href='${fontStylesheetUrls[0]}' as='style' onload="${fontStylesheetOnload}" rel='preload' />`,
+    );
+    expect(() => expectNonBlockingFontStylesheets(reordered)).not.toThrow();
   });
 
   it("does not scan section geometry from Navbar scroll handlers", async () => {
