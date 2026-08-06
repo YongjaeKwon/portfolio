@@ -8,6 +8,11 @@ const fontStylesheetUrls = [
   "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css",
   "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap",
 ];
+const fontPreconnectOrigins = [
+  "https://cdn.jsdelivr.net",
+  "https://fonts.googleapis.com",
+  "https://fonts.gstatic.com",
+];
 
 type LinkAttributes = Record<string, string>;
 
@@ -15,14 +20,22 @@ const parseLinks = (html: string): LinkAttributes[] =>
   Array.from(html.matchAll(/<link\b([^>]*)>/gi), ([, attributeSource]) => {
     const attributes: LinkAttributes = {};
     for (const [, name, , rawValue] of attributeSource.matchAll(
-      /([^\s=/>]+)\s*=\s*(["'])(.*?)\2/gs,
+      /([^\s=/>]+)(?:\s*=\s*(["'])(.*?)\2)?/gs,
     )) {
       const normalizedName = name.toLowerCase();
+      const value = rawValue ?? "";
       attributes[normalizedName] =
-        normalizedName === "href" ? rawValue.replace(/&amp;/g, "&") : rawValue;
+        normalizedName === "href" ? value.replace(/&amp;/g, "&") : value;
     }
     return attributes;
   });
+
+const relTokens = (link: LinkAttributes) =>
+  (link.rel ?? "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((token) => token.toLowerCase());
 
 const expectNonBlockingFontStylesheets = (html: string) => {
   const noscriptBlocks = Array.from(
@@ -55,7 +68,8 @@ const expectNonBlockingFontStylesheets = (html: string) => {
 
   expect(
     outsideLinks.filter(
-      (link) => fontStylesheetUrls.includes(link.href) && link.rel === "stylesheet",
+      (link) =>
+        /^https?:\/\//i.test(link.href ?? "") && relTokens(link).includes("stylesheet"),
     ),
   ).toHaveLength(0);
   expect(
@@ -63,7 +77,13 @@ const expectNonBlockingFontStylesheets = (html: string) => {
       (link) => link.onload === fontStylesheetOnload,
     ),
   ).toHaveLength(2);
-  expect(outsideLinks.filter((link) => link.rel === "preconnect")).toHaveLength(3);
+  const preconnectLinks = outsideLinks.filter((link) => relTokens(link).includes("preconnect"));
+  expect(preconnectLinks.map((link) => link.href).sort()).toEqual(
+    [...fontPreconnectOrigins].sort(),
+  );
+  expect(
+    preconnectLinks.find((link) => link.href === "https://fonts.gstatic.com"),
+  ).toHaveProperty("crossorigin");
 };
 
 const expectImportedAndCalled = (code: string, symbol: string) => {
@@ -98,12 +118,14 @@ describe("scroll performance contracts", () => {
       mutate: (html: string) =>
         html.replace(
           "</head>",
-          `<link rel="stylesheet" href="${fontStylesheetUrls[0]}" />\n  </head>`,
+          '<link rel="author STYLESHEET" href="https://example.com/blocking.css" />\n  </head>',
         ),
     },
   ])("rejects $defect", async ({ mutate }) => {
     const html = await source("index.html");
-    expect(() => expectNonBlockingFontStylesheets(mutate(html))).toThrow();
+    const mutated = mutate(html);
+    expect(mutated).not.toBe(html);
+    expect(() => expectNonBlockingFontStylesheets(mutated)).toThrow();
   });
 
   it("accepts font link attributes in a different order and quote style", async () => {
@@ -112,6 +134,7 @@ describe("scroll performance contracts", () => {
       /<link\s+rel="preload"\s+as="style"[\s\S]*?pretendardvariable-dynamic-subset\.css[\s\S]*?\/>/,
       `<link href='${fontStylesheetUrls[0]}' as='style' onload="${fontStylesheetOnload}" rel='preload' />`,
     );
+    expect(reordered).not.toBe(html);
     expect(() => expectNonBlockingFontStylesheets(reordered)).not.toThrow();
   });
 
