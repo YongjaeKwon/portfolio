@@ -264,13 +264,24 @@ a {
   .cursor-spotlight {
     pointer-events: none;
     position: fixed;
-    inset: 0;
+    left: 0;
+    top: 0;
+    width: 1200px;
+    height: 1200px;
     z-index: 0;
+    border-radius: 50%;
+    contain: strict;
+    will-change: transform;
+    transform: translate3d(-1200px, -1200px, 0);
     background: radial-gradient(
-      600px circle at var(--cursor-x, -9999px) var(--cursor-y, -9999px),
+      circle at center,
       rgb(var(--accent-rgb) / 0.04),
       transparent 40%
     );
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .cursor-spotlight { display: none; }
   }
 
   /* ── Scroll progress bar ── */

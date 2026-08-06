@@ -8,7 +8,7 @@
     </a>
 
     <ScrollProgress />
-    <div class="cursor-spotlight" aria-hidden="true" />
+    <div ref="cursorSpotlight" class="cursor-spotlight" aria-hidden="true" />
     <Navbar @scroll-to-section="scrollToSection" />
     <main id="main" class="portfolio-flow">
       <HomeView @scroll-to-section="scrollToSection" />
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import Navbar from "@/components/Navbar.vue";
 import HomeView from "@/views/HomeView.vue";
 import ProfileCard from "@/components/ProfileCard.vue";
@@ -37,8 +37,17 @@ import ContactView from "@/views/ContactView.vue";
 import Footer from "@/components/Footer.vue";
 import ScrollToTop from "@/components/ScrollToTop.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
+import { createLatestFrameScheduler } from "@/utils/frameScheduler";
 
 let cleanup: (() => void) | undefined;
+const cursorSpotlight = ref<HTMLElement | null>(null);
+
+const cursorScheduler = createLatestFrameScheduler(({ x, y }: { x: number; y: number }) => {
+  cursorSpotlight.value?.style.setProperty(
+    "transform",
+    `translate3d(${x - 600}px, ${y - 600}px, 0)`,
+  );
+});
 
 onMounted(() => {
   document.documentElement.dataset.theme = "light";
@@ -47,11 +56,15 @@ onMounted(() => {
   localStorage.removeItem("portfolio-theme");
   localStorage.removeItem("portfolio-skin");
 
-  const handleMouseMove = (event: MouseEvent) => {
-    document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`);
-    document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`);
+  const pointerEffectsEnabled =
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const handlePointerMove = (event: PointerEvent) => {
+    cursorScheduler.schedule({ x: event.clientX, y: event.clientY });
   };
-  window.addEventListener("mousemove", handleMouseMove, { passive: true });
+  if (pointerEffectsEnabled) {
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+  }
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -75,7 +88,8 @@ onMounted(() => {
   }
 
   cleanup = () => {
-    window.removeEventListener("mousemove", handleMouseMove);
+    window.removeEventListener("pointermove", handlePointerMove);
+    cursorScheduler.cancel();
     observer.disconnect();
   };
 });

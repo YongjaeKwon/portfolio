@@ -211,6 +211,7 @@ import FocusTabs from "@/components/FocusTabs.vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import { featuredProjects, focusTracks, type FeaturedProject, type FocusTrackId, type RoleFocusId } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";
+import { createLatestFrameScheduler } from "@/utils/frameScheduler";
 
 type PresentedProject = {
   project: FeaturedProject;
@@ -323,31 +324,58 @@ onBeforeUnmount(() => {
   document.body.style.overflow = "";
 });
 
-type TiltHandlers = { onMove: (e: MouseEvent) => void; onLeave: () => void };
+type TiltHandlers = {
+  onEnter: () => void;
+  onMove: (event: PointerEvent) => void;
+  onLeave: () => void;
+  onResize: () => void;
+  cancel: () => void;
+};
+
 const tiltHandlers = new WeakMap<HTMLElement, TiltHandlers>();
 const vTilt = {
   mounted(el: HTMLElement) {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.matchMedia("(hover: none)").matches) return;
-    const onMove = (event: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
+    const pointerEffectsEnabled =
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!pointerEffectsEnabled) return;
+
+    let rect: DOMRect | null = null;
+    const scheduler = createLatestFrameScheduler((event: PointerEvent) => {
+      if (!rect) return;
       const px = (event.clientX - rect.left) / rect.width - 0.5;
       const py = (event.clientY - rect.top) / rect.height - 0.5;
-      el.style.transition = "transform 0s";
       el.style.transform = `perspective(1100px) rotateY(${px * 2}deg) rotateX(${-py * 2}deg)`;
+    });
+    const onEnter = () => {
+      rect = el.getBoundingClientRect();
+      el.style.transition = "transform 0s";
     };
+    const onMove = (event: PointerEvent) => scheduler.schedule(event);
     const onLeave = () => {
+      scheduler.cancel();
+      rect = null;
       el.style.transition = "transform 0.35s ease";
       el.style.transform = "";
     };
-    el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseleave", onLeave);
-    tiltHandlers.set(el, { onMove, onLeave });
+    const onResize = () => {
+      if (rect) rect = el.getBoundingClientRect();
+    };
+
+    el.addEventListener("pointerenter", onEnter, { passive: true });
+    el.addEventListener("pointermove", onMove, { passive: true });
+    el.addEventListener("pointerleave", onLeave, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
+    tiltHandlers.set(el, { onEnter, onMove, onLeave, onResize, cancel: scheduler.cancel });
   },
   unmounted(el: HTMLElement) {
     const handlers = tiltHandlers.get(el);
     if (!handlers) return;
-    el.removeEventListener("mousemove", handlers.onMove);
-    el.removeEventListener("mouseleave", handlers.onLeave);
+    handlers.cancel();
+    el.removeEventListener("pointerenter", handlers.onEnter);
+    el.removeEventListener("pointermove", handlers.onMove);
+    el.removeEventListener("pointerleave", handlers.onLeave);
+    window.removeEventListener("resize", handlers.onResize);
     tiltHandlers.delete(el);
   },
 };
