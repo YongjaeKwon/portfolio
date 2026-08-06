@@ -78,7 +78,15 @@
               <span class="text-muted font-mono tnum text-xs">{{ item.project.period }}</span>
             </div>
             <div v-if="item.project.image" class="project-thumb mt-5 flex h-40 items-center justify-center overflow-hidden rounded-2xl p-3">
-              <img :src="item.project.image.src" :alt="item.project.image.alt" class="h-full w-full object-contain transition duration-300 group-hover:scale-[1.02]" />
+              <img
+                :src="item.project.image.previewSrc ?? item.project.image.src"
+                :alt="item.project.image.alt"
+                width="960"
+                height="640"
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-contain transition duration-300 group-hover:scale-[1.02]"
+              />
             </div>
             <h4 class="text-primary mt-5 text-xl font-black leading-7">{{ item.project.shortTitle }}</h4>
             <p class="text-secondary mt-3 text-sm font-semibold leading-6">{{ item.card.summary }}</p>
