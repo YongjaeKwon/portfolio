@@ -274,7 +274,7 @@ a {
     will-change: transform;
     transform: translate3d(-1200px, -1200px, 0);
     background: radial-gradient(
-      circle at center,
+      600px circle at center,
       rgb(var(--accent-rgb) / 0.04),
       transparent 40%
     );

@@ -46,8 +46,57 @@ describe("scroll performance contracts", () => {
   it("batches pointer effects by animation frame", async () => {
     const app = await source("src/App.vue");
     const projects = await source("src/views/ProjectsView.vue");
+    const css = await source("src/assets/index.css");
     expectImportedAndCalled(app, "createLatestFrameScheduler");
     expectImportedAndCalled(projects, "createLatestFrameScheduler");
+
+    expect(app.match(/\.addEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
+    expect(app.match(/\.removeEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
+    expect(projects.match(/\.addEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
+    expect(projects.match(/\.removeEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
+
     expect(projects).toMatch(/addEventListener\s*\(\s*["']pointerenter["']/);
+    expect(projects).toMatch(
+      /const\s+activeScrollOptions\s*=\s*\{\s*passive\s*:\s*true\s*,\s*capture\s*:\s*true\s*\}/,
+    );
+    expect(projects).toMatch(
+      /addEventListener\s*\(\s*["']scroll["']\s*,\s*invalidateGeometry\s*,\s*activeScrollOptions\s*\)/,
+    );
+    expect(projects).toMatch(
+      /removeEventListener\s*\(\s*["']scroll["']\s*,\s*invalidateGeometry\s*,\s*activeScrollOptions\s*\)/,
+    );
+    expect(projects).toMatch(/addEventListener\s*\(\s*["']resize["']/);
+    expect(projects).toMatch(/removeEventListener\s*\(\s*["']resize["']/);
+    expect(projects).toMatch(/new\s+ResizeObserver\s*\(/);
+    expect(projects).toMatch(/\.observe\s*\(\s*el\s*\)/);
+    expect(projects).toMatch(/\.disconnect\s*\(\s*\)/);
+    expect(projects).toMatch(/\.matches\s*\(\s*["']:hover["']\s*\)/);
+    expect(projects).toMatch(
+      /const\s+point\s*=\s*\{\s*x\s*:\s*event\.clientX\s*,\s*y\s*:\s*event\.clientY\s*\}[\s\S]*?scheduler\.schedule\s*\(\s*point\s*\)/,
+    );
+    expect(projects).not.toMatch(
+      /createLatestFrameScheduler(?:\s*<\s*PointerEvent\s*>)?\s*\(\s*\(\s*event\s*:\s*PointerEvent/,
+    );
+
+    const moveStart = projects.indexOf("const onMove");
+    const moveEnd = projects.indexOf("const onLeave", moveStart);
+    const moveHandler = projects.slice(moveStart, moveEnd);
+    expect(moveStart).toBeGreaterThan(-1);
+    expect(moveEnd).toBeGreaterThan(moveStart);
+    expect(moveHandler).not.toMatch(/getBoundingClientRect|\.style\./);
+    expect(projects).toMatch(
+      /rect\s*=\s*null\s*;[\s\S]{0,200}scheduler\.schedule\s*\(\s*latestPoint\s*\)/,
+    );
+
+    const geometryReads = projects.match(/getBoundingClientRect\s*\(/g) ?? [];
+    expect(geometryReads).toHaveLength(2);
+    expect(projects).toMatch(/const onEnter[\s\S]*?getBoundingClientRect\s*\(/);
+    expect(projects).toMatch(
+      /createLatestFrameScheduler[\s\S]*?\.matches\s*\(\s*["']:hover["']\s*\)[\s\S]*?getBoundingClientRect\s*\(/,
+    );
+
+    expect(css).toMatch(
+      /\.cursor-spotlight\s*\{[\s\S]*?background\s*:\s*radial-gradient\s*\(\s*600px\s+circle\s+at\s+center\s*,/,
+    );
   });
 });

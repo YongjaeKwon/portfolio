@@ -56,15 +56,30 @@ onMounted(() => {
   localStorage.removeItem("portfolio-theme");
   localStorage.removeItem("portfolio-skin");
 
-  const pointerEffectsEnabled =
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hoverPointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let pointerListenerActive = false;
   const handlePointerMove = (event: PointerEvent) => {
     cursorScheduler.schedule({ x: event.clientX, y: event.clientY });
   };
-  if (pointerEffectsEnabled) {
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
-  }
+  const reconcilePointerEffects = () => {
+    const pointerEffectsEnabled = hoverPointerQuery.matches && !reducedMotionQuery.matches;
+    if (pointerEffectsEnabled && !pointerListenerActive) {
+      window.addEventListener("pointermove", handlePointerMove, { passive: true });
+      pointerListenerActive = true;
+    } else if (!pointerEffectsEnabled) {
+      window.removeEventListener("pointermove", handlePointerMove);
+      pointerListenerActive = false;
+      cursorScheduler.cancel();
+      cursorSpotlight.value?.style.setProperty(
+        "transform",
+        "translate3d(-1200px, -1200px, 0)",
+      );
+    }
+  };
+  hoverPointerQuery.addEventListener("change", reconcilePointerEffects);
+  reducedMotionQuery.addEventListener("change", reconcilePointerEffects);
+  reconcilePointerEffects();
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -88,7 +103,10 @@ onMounted(() => {
   }
 
   cleanup = () => {
+    hoverPointerQuery.removeEventListener("change", reconcilePointerEffects);
+    reducedMotionQuery.removeEventListener("change", reconcilePointerEffects);
     window.removeEventListener("pointermove", handlePointerMove);
+    pointerListenerActive = false;
     cursorScheduler.cancel();
     observer.disconnect();
   };
