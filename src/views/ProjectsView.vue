@@ -381,10 +381,10 @@ const vTilt = {
       rect = null;
       latestPoint = null;
     };
-    const onEnter = (event: PointerEvent) => {
+    const activateHover = (point: { x: number; y: number }) => {
       if (hoverActive) return;
       hoverActive = true;
-      latestPoint = { x: event.clientX, y: event.clientY };
+      latestPoint = point;
       rect = el.getBoundingClientRect();
       el.style.transition = "transform 0s";
       window.addEventListener("scroll", invalidateGeometry, activeScrollOptions);
@@ -394,8 +394,13 @@ const vTilt = {
         resizeObserver.observe(el);
       }
     };
+    const onEnter = (event: PointerEvent) => {
+      const point = { x: event.clientX, y: event.clientY };
+      activateHover(point);
+    };
     const onMove = (event: PointerEvent) => {
       const point = { x: event.clientX, y: event.clientY };
+      if (!hoverActive && el.matches(":hover")) activateHover(point);
       latestPoint = point;
       scheduler.schedule(point);
     };
