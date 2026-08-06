@@ -25,6 +25,15 @@ describe("calculateScrollState", () => {
       isAtBottom: false,
     });
   });
+
+  it("clamps negative scroll and maximum values to the lower bound", () => {
+    expect(calculateScrollState(-100, -500, 400)).toEqual({
+      scrollY: 0,
+      progress: 0,
+      isPastThreshold: false,
+      isAtBottom: false,
+    });
+  });
 });
 
 describe("pickActiveSection", () => {
