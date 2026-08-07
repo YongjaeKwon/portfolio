@@ -8,7 +8,7 @@
 
     <div class="section-shell relative z-10 grid min-h-[calc(100dvh-8rem)] items-center gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
       <div class="max-w-3xl">
-        <div class="hero-enter mb-7 flex items-center gap-5">
+        <div class="mb-7 flex items-center gap-5">
           <img
             src="/my-photo-224.webp"
             alt="권용재 프로필 사진"
@@ -19,7 +19,7 @@
             decoding="async"
             class="hero-photo h-24 w-24 shrink-0 rounded-full object-cover ring-1 ring-white/50 shadow-lg md:h-28 md:w-28"
           />
-          <div class="inline-flex items-center gap-2 rounded-full border border-[var(--fresh-border)] bg-white/80 px-3 py-2 text-xs font-bold tracking-[0.16em] text-[var(--fresh-blue-strong)] shadow-sm">
+          <div class="hero-enter inline-flex items-center gap-2 rounded-full border border-[var(--fresh-border)] bg-white/80 px-3 py-2 text-xs font-bold tracking-[0.16em] text-[var(--fresh-blue-strong)] shadow-sm">
             Web Developer
           </div>
         </div>
