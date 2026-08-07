@@ -185,17 +185,33 @@ describe("optimized image assets", () => {
     expect(() => expectHeroLcpAnimationContract(broken)).toThrow();
   });
 
-  it("accepts reordered attributes and single-quoted LCP contract attributes", async () => {
+  it.each([
+    {
+      lineEnding: "LF",
+      normalize: (home: string) => home.replace(/\r?\n/g, "\n"),
+    },
+    {
+      lineEnding: "CRLF",
+      normalize: (home: string) =>
+        home.replace(/\r?\n/g, "\n").replace(/\n/g, "\r\n"),
+    },
+  ])("accepts reordered, single-quoted LCP attributes with $lineEnding", async ({ normalize }) => {
     const home = await readFile(file("src/views/HomeView.vue"), "utf8");
-    const reformatted = home
-      .replace('src="/my-photo-224.webp"', "data-lcp='portrait' src='/my-photo-224.webp'")
-      .replace(
-        '<div class="hero-enter inline-flex ',
-        "<div data-lcp='badge' class='hero-enter inline-flex ",
-      )
-      .replace(" shadow-sm\">\n            Web Developer", " shadow-sm'>\n            Web Developer");
+    const normalizedHome = normalize(home);
+    const badgeOpeningTag =
+      /<div\s+class="([^"]*\bhero-enter\b[^"]*)">(?=\r?\n[ \t]*Web Developer)/;
+    const reformattedBadge = normalizedHome.replace(
+      badgeOpeningTag,
+      "<div data-lcp='badge' class='$1'>",
+    );
+    const reformatted = reformattedBadge.replace(
+      'src="/my-photo-224.webp"',
+      "data-lcp='portrait' src='/my-photo-224.webp'",
+    );
 
-    expect(reformatted).not.toBe(home);
+    expect(normalizedHome).toMatch(badgeOpeningTag);
+    expect(reformattedBadge).not.toBe(normalizedHome);
+    expect(reformatted).not.toBe(reformattedBadge);
     expect(() => expectHeroLcpAnimationContract(reformatted)).not.toThrow();
   });
 });
