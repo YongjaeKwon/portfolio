@@ -10,7 +10,7 @@ export const profile = {
   phone: "010-9470-1704",
   github: "https://github.com/YongjaeKwon",
   location: "경기도 용인시",
-  resume: "/resume.pdf",
+  resume: "/resume.pdf?v=20260807-2",
 };
 
 export const focusTracks = [
