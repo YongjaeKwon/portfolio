@@ -38,6 +38,10 @@ import Footer from "@/components/Footer.vue";
 import ScrollToTop from "@/components/ScrollToTop.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
 import { createLatestFrameScheduler } from "@/utils/frameScheduler";
+import {
+  scrollToLaidOutSection,
+  type SectionScrollBehavior,
+} from "@/utils/sectionNavigation";
 
 let cleanup: (() => void) | undefined;
 const cursorSpotlight = ref<HTMLElement | null>(null);
@@ -48,6 +52,13 @@ const cursorScheduler = createLatestFrameScheduler(({ x, y }: { x: number; y: nu
     `translate3d(${x - 600}px, ${y - 600}px, 0)`,
   );
 });
+
+const scrollSectionIntoView = (section: HTMLElement, behavior: SectionScrollBehavior) => {
+  const sections = Array.from(
+    document.querySelectorAll<HTMLElement>(".portfolio-flow > section"),
+  );
+  scrollToLaidOutSection(sections, section, behavior);
+};
 
 onMounted(() => {
   document.documentElement.dataset.theme = "light";
@@ -98,7 +109,7 @@ onMounted(() => {
   if (initialHash) {
     const target = document.getElementById(initialHash);
     if (target) {
-      setTimeout(() => target.scrollIntoView({ behavior: "instant" as ScrollBehavior }), 80);
+      setTimeout(() => scrollSectionIntoView(target, "instant"), 80);
     }
   }
 
@@ -117,7 +128,7 @@ onBeforeUnmount(() => cleanup?.());
 const scrollToSection = (id: string) => {
   const section = document.getElementById(id);
   if (section) {
-    section.scrollIntoView({ behavior: "smooth" });
+    scrollSectionIntoView(section, "smooth");
     const hash = id === "hero" ? "" : `#${id}`;
     history.replaceState(null, "", `${location.pathname}${location.search}${hash}`);
   }

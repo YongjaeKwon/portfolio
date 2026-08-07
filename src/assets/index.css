@@ -1169,6 +1169,10 @@ a {
     content-visibility: auto;
     contain-intrinsic-size: auto 1000px;
   }
+
+  .portfolio-flow > section:not(#hero).anchor-layout-ready {
+    content-visibility: visible;
+  }
 }
 
 .portfolio-flow > #hero.fresh-mesh {

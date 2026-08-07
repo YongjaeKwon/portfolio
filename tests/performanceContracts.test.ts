@@ -174,6 +174,18 @@ describe("scroll performance contracts", () => {
     expect(hasDeferredSection).toBe(true);
   });
 
+  it("settles deferred section layout before anchor navigation", async () => {
+    const app = await source("src/App.vue");
+    const css = await source("src/assets/index.css");
+
+    expectImportedAndCalled(app, "scrollToLaidOutSection");
+    expect(app).toMatch(/scrollSectionIntoView\s*\(\s*target\s*,\s*["']instant["']\s*\)/);
+    expect(app).toMatch(/scrollSectionIntoView\s*\(\s*section\s*,\s*["']smooth["']\s*\)/);
+    expect(css).toMatch(
+      /\.portfolio-flow\s*>\s*section:not\(\s*#hero\s*\)\.anchor-layout-ready\s*\{[^}]*content-visibility\s*:\s*visible\s*;/s,
+    );
+  });
+
   it("batches pointer effects by animation frame", async () => {
     const app = await source("src/App.vue");
     const projects = await source("src/views/ProjectsView.vue");
