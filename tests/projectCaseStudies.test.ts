@@ -13,7 +13,7 @@ describe("project case studies", () => {
     expect(projectCaseStudies.ssafast.length).toBeGreaterThanOrEqual(2);
     expect(projectCaseStudies.ddoing.length).toBeGreaterThanOrEqual(2);
     expect(projectCaseStudies.modac.length).toBeGreaterThanOrEqual(2);
-    expect(projectCaseStudies["quant-lab"].length).toBeGreaterThanOrEqual(2);
+    expect(projectCaseStudies.reachrich.length).toBeGreaterThanOrEqual(4);
 
     for (const studies of Object.values(projectCaseStudies)) {
       const ids = studies.map((study) => study.id);
@@ -61,9 +61,22 @@ describe("project case studies", () => {
     expect(source).not.toMatch(/^import ProjectCaseStudyList/m);
   });
 
-  it("describes the public quant-lab repository with its actual runtime stack", () => {
-    const quantLab = featuredProjects.find((project) => project.id === "quant-lab");
-    expect(quantLab?.stack).toEqual(expect.arrayContaining(["Python", "FastAPI", "WebSocket", "Docker", "pytest"]));
-    expect(quantLab?.stack).not.toEqual(expect.arrayContaining(["PostgreSQL", "Redis"]));
+  it("describes ReachRich as a private full-stack redesign with its verified stack", () => {
+    const reachRich = featuredProjects.find((project) => project.id === "reachrich");
+    expect(reachRich?.stack).toEqual(expect.arrayContaining([
+      "Python",
+      "FastAPI",
+      "React",
+      "TypeScript",
+      "SQLAlchemy",
+      "SQLite",
+      "Parquet",
+      "GitHub Actions",
+      "pytest",
+      "Vitest",
+    ]));
+    expect(reachRich?.stack).not.toEqual(expect.arrayContaining(["WebSocket", "Docker"]));
+    expect(reachRich?.focuses).toEqual(expect.arrayContaining(["frontend", "backend"]));
+    expect(reachRich?.card.visibility).toBe("비공개 개인 프로젝트");
   });
 });

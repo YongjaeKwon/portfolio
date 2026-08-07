@@ -76,14 +76,12 @@ const expectedAssets = [
   { output: "public/projects/ssafast-preview.webp", width: 960, height: 540, maxBytes: 120_000 },
   { output: "public/projects/ddoing-preview.webp", width: 800, height: 459, maxBytes: 120_000 },
   { output: "public/projects/modac-preview.webp", width: 600, height: 338, maxBytes: 120_000 },
-  { output: "public/projects/quant-core-preview.webp", width: 960, height: 436, maxBytes: 120_000 },
 ] as const;
 
 const expectedProjects = {
   ssafast: { src: "/projects/ssafast.png", width: 1200, height: 675, previewSrc: "/projects/ssafast-preview.webp", previewWidth: 960, previewHeight: 540 },
   ddoing: { src: "/projects/ddoing.png", width: 800, height: 459, previewSrc: "/projects/ddoing-preview.webp", previewWidth: 800, previewHeight: 459 },
   modac: { src: "/projects/modac.png", width: 600, height: 338, previewSrc: "/projects/modac-preview.webp", previewWidth: 600, previewHeight: 338 },
-  "quant-lab": { src: "/projects/quant-core.png", width: 1200, height: 545, previewSrc: "/projects/quant-core-preview.webp", previewWidth: 960, previewHeight: 436 },
 } as const;
 
 describe("optimized image assets", () => {
@@ -134,6 +132,16 @@ describe("optimized image assets", () => {
     expect(modal).toContain(':width="activeProject.project.image.width"');
     expect(modal).toContain(':height="activeProject.project.image.height"');
     expect(modal).not.toContain("previewSrc");
+  });
+
+  it("uses a code-native visual instead of the stale quant chart for ReachRich", async () => {
+    const projects = await readFile(file("src/views/ProjectsView.vue"), "utf8");
+    const reachRich = featuredProjects.find((project) => project.id === "reachrich");
+
+    expect(reachRich?.image).toBeUndefined();
+    expect(JSON.stringify(reachRich)).not.toContain("/projects/quant-core");
+    expect(projects).toContain("item.project.id === 'reachrich'");
+    expect(projects).toContain('<ProjectCaseVisual :project-id="item.project.id" compact />');
   });
 
   it("prioritizes the hero image", async () => {

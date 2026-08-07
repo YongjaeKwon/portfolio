@@ -18,7 +18,7 @@ export type ProjectCaseStudy = {
   code?: CaseStudyCode;
 };
 
-export type CaseStudyProjectId = "pps" | "tsms" | "ssafast" | "ddoing" | "modac" | "quant-lab";
+export type CaseStudyProjectId = "pps" | "tsms" | "ssafast" | "ddoing" | "modac" | "reachrich";
 
 export const projectCaseStudies: Record<CaseStudyProjectId, ProjectCaseStudy[]> = {
   pps: [
@@ -391,44 +391,109 @@ return postId != null
         "방을 옮길 때 이전 연결과 채팅 로그를 정리해 다른 스터디룸의 메시지가 섞이지 않도록 했습니다.",
     },
   ],
-  "quant-lab": [
+  reachrich: [
     {
-      id: "public-scope",
-      area: "Backend",
-      title: "비공개 프로젝트에서 공개 가능한 구조만 분리",
-      summary: "전략과 운영 데이터는 제외하고 실행 가능한 백엔드 구조를 별도 저장소로 만들었습니다.",
+      id: "selective-core-migration",
+      area: "Full Stack",
+      title: "기존 코어 전체가 아닌 검증 자산만 선별 이식",
+      summary: "검증된 로직은 보존하고 연구·운영 책임은 여섯 개 모듈로 다시 나눴습니다.",
       problem:
-        "기존 개인 프로젝트에는 전략 실험, 운영 설정과 데이터가 섞여 있어 구조를 보여주기 위해 원본 저장소를 그대로 공개할 수 없었습니다.",
+        "기존 투자 연구 코어에는 검증 로직과 실험용 스크립트, 운영 코드와 대시보드가 함께 쌓여 있어 기능을 추가할수록 변경 범위가 넓어졌습니다.",
       constraint:
-        "실제 전략·수익률·계정 정보를 제거하면서도 API, 인증과 이벤트 전달 구조는 저장소만으로 실행하고 확인할 수 있어야 했습니다.",
+        "미래 데이터 혼입을 막는 검증과 실험 이력, 모의운용 원장은 유지해야 했지만 기존 코드의 결합과 오래된 실행 방식까지 함께 옮기면 재설계 의미가 없었습니다.",
       decision:
-        "민감한 기능을 가리는 대신 공개 전용 저장소를 만들고 샘플 데이터와 단순한 실행 로직으로 같은 계층 구조를 다시 구성했습니다.",
+        "새 저장소에서 데이터·종목 선정·전략·검증·운용·콘솔의 책임을 먼저 나누고, 각 경계를 통과할 수 있는 검증 자산만 골라 이식했습니다.",
       implementation: [
-        "FastAPI 라우터, 인증 의존성, 서비스와 요청·응답 모델을 역할별 디렉터리로 분리했습니다.",
-        "실제 데이터와 전략을 샘플 가격 데이터와 단순 이동평균 예제로 교체했습니다.",
-        "공개하지 않는 범위와 데모 인증의 한계를 별도 보안·아키텍처 문서에 명시했습니다.",
+        "미래 데이터 혼입 검사, 시간 순서를 보존한 반복 검증(Purged Walk-forward), 표준 성과 지표와 실험 이력 모듈을 선별 이식했습니다.",
+        "기준 성과와의 차이를 확인하는 Tracking Error 비교와 가격 기준의 멱등 모의운용 원장은 기존 표본을 보존해 새 운용 영역으로 옮겼습니다.",
+        "기존 관리 화면과 레거시 스크립트는 가져오지 않고 계좌 추적, 데이터 수집과 React 콘솔은 새 경계에 맞춰 구현했습니다.",
       ],
       outcome:
-        "실제 투자 정보 없이도 API와 서비스 계층, 인증과 실시간 이벤트의 연결을 실행해 볼 수 있는 공개 저장소를 구성했습니다.",
+        "기존 검증 기준을 버리지 않으면서도 새 기능이 어느 책임에 속하는지 분명한 여섯 모듈 구조로 연구와 운영 흐름을 다시 구성했습니다.",
     },
     {
-      id: "authenticated-event-flow",
+      id: "idempotent-market-mirror",
       area: "Backend",
-      title: "인증된 실행 결과를 WebSocket 이벤트로 전달",
-      summary: "로그인부터 보호된 API 실행과 대시보드 이벤트 수신까지 연결했습니다.",
+      title: "반복 실행과 부분 실패를 고려한 계좌·시장 데이터 수집",
+      summary: "외부 API 결과를 날짜 기준의 SQLite·Parquet 로컬 미러로 만들었습니다.",
       problem:
-        "실행 API의 응답만으로는 백엔드 작업과 실시간 이벤트 전달 구조를 함께 확인하기 어려워 브라우저에서 전체 흐름을 검증할 화면이 필요했습니다.",
+        "계좌와 KRX 데이터를 매일 모으는 작업은 같은 날 다시 실행하거나 일부 종목만 실패할 수 있어, 응답을 그대로 덧붙이면 중복과 불완전한 데이터가 쌓일 수 있었습니다.",
       constraint:
-        "HTTP API와 WebSocket에서 같은 데모 토큰을 검증해야 했고, 운영용 인증이 아니라는 한계도 분명히 밝혀야 했습니다.",
+        "OAuth2 토큰 수명과 호출 제한을 지켜야 했고, 당시의 종목 구성을 남기면서도 개별 종목 오류가 전체 수집을 무조건 중단시키지 않도록 해야 했습니다.",
       decision:
-        "서명된 데모 토큰을 HTTP 의존성과 WebSocket 접속에서 함께 검증하고, 실행 완료 이벤트를 메모리 기반 event bus로 전달했습니다.",
+        "계좌는 날짜 단위로 교체 저장하고 KRX 일봉은 종목·날짜 기준으로 upsert하며, 그날의 종목 목록은 별도 스냅샷으로 남기는 로컬 미러 방식을 선택했습니다.",
       implementation: [
-        "로그인 시 만료 시간이 포함된 서명 토큰을 발급하고 보호된 API에서 Bearer 토큰을 확인했습니다.",
-        "백테스트 서비스가 결과를 반환하면 연결된 WebSocket에 완료 이벤트를 전송했습니다.",
-        "정적 대시보드에서 로그인·API 실행·이벤트 수신을 확인하고, pytest로 로그인 성공·실패와 보호 API를 검증했습니다.",
+        "OAuth2 토큰은 만료 60초 전까지 재사용하고, 429 응답은 Retry-After 값만큼 기다린 뒤 한 번 재시도했습니다.",
+        "거래대금 상위 종목 목록을 날짜별로 저장하고 종목별 일봉은 Parquet에서 같은 날짜를 새 값으로 교체했습니다.",
+        "종목 하나의 실패는 격리해 다음 종목을 수집하되 전체의 30%를 넘으면 부분 성공을 정상 결과로 보지 않고 작업을 실패 처리했습니다.",
       ],
       outcome:
-        "브라우저에서 토큰 발급, 인증된 실행 요청, 결과 응답과 WebSocket 완료 이벤트를 한 번에 확인할 수 있게 했습니다.",
+        "실제 API로 5개 종목의 일봉 10개씩 총 50행과 환율 1행을 적재했고, 문서와 달랐던 랭킹 응답 필드도 라이브 검증에서 찾아 수정했습니다.",
+      code: {
+        language: "Python",
+        title: "날짜 기준 Parquet upsert",
+        content: `incoming["date"] = incoming["date"].map(to_iso)
+existing = pd.read_parquet(path) if path.exists() else pd.DataFrame()
+
+merged = pd.concat([existing, incoming], ignore_index=True)
+merged = merged.drop_duplicates(subset="date", keep="last")
+merged = merged.sort_values("date").reset_index(drop=True)
+merged.to_parquet(path, index=False)`,
+        note: "실제 저장소의 종목별 일봉 병합 흐름에서 경로와 예외 처리를 덜어내고 공개용으로 축약한 예시입니다.",
+      },
+    },
+    {
+      id: "privacy-aware-dashboard",
+      area: "Frontend",
+      title: "실계좌 데이터를 안전하게 읽는 React 운영 화면",
+      summary: "로컬 스냅샷을 자산 요약·곡선·보유 종목과 시스템 상태로 연결했습니다.",
+      problem:
+        "계좌 수집 결과가 명령행과 알림 메시지에 흩어져 있어 기간별 변화를 한눈에 보기 어려웠고, 실제 금액이 담긴 화면을 다른 사람 앞에서 열기도 부담스러웠습니다.",
+      constraint:
+        "서버는 인증 없이 로컬에서만 실행하므로 외부 노출을 막아야 했고, 주기적으로 갱신하면서도 보이지 않는 브라우저 탭에서 불필요한 요청을 계속 보내지 않아야 했습니다.",
+      decision:
+        "외부 API를 직접 호출하지 않고 로컬 스냅샷만 읽는 조회 API를 두고, React 화면에 금액 가리기와 탭 가시성 기반 폴링을 함께 적용했습니다.",
+      implementation: [
+        "자산 요약, 기간별 자산 곡선, 보유 종목과 수집 상태를 네 개의 조회 API와 화면 컴포넌트로 연결했습니다.",
+        "프라이버시 모드는 브라우저에 선택을 보관해 금액을 가리고, 라이트·다크·시스템 테마와 PWA 앱 셸을 구성했습니다.",
+        "탭이 숨겨지면 폴링을 건너뛰고 다시 보이는 순간 즉시 최신 데이터를 조회하도록 공통 훅으로 분리했습니다.",
+      ],
+      outcome:
+        "Vitest 75개와 프로덕션 빌드를 통과했고 초기 JavaScript 번들을 gzip 119.18KB로 유지하면서 계좌 상태를 한 화면에서 확인할 수 있게 했습니다.",
+      code: {
+        language: "TypeScript",
+        title: "화면 가시성에 맞춘 폴링",
+        content: `const refreshWhenVisible = () => {
+  if (document.visibilityState === "visible") tick();
+};
+const timer = setInterval(refreshWhenVisible, intervalMs);
+document.addEventListener("visibilitychange", refreshWhenVisible);
+
+return () => {
+  clearInterval(timer);
+  document.removeEventListener("visibilitychange", refreshWhenVisible);
+};`,
+        note: "실제 공통 훅에서 최초 조회를 제외하고, 숨은 탭의 요청을 건너뛰며 리스너를 정리하는 핵심만 옮긴 예시입니다.",
+      },
+    },
+    {
+      id: "observable-automation",
+      area: "배포",
+      title: "멈춰도 놓치지 않도록 실행 경로와 실패 경보 분리",
+      summary: "로컬 수집과 클라우드 실행의 제약을 나누고 각 경로에 상태 확인을 붙였습니다.",
+      problem:
+        "정해진 시간에 실행되는 수집과 모의운용 작업은 실패해도 화면을 보고 있지 않으면 알아차리기 어려워 데이터 공백이 조용히 누적될 수 있었습니다.",
+      constraint:
+        "계좌와 KRX API는 허용된 IP에서만 호출할 수 있어 로컬에서 실행해야 했지만, 헬스체크와 모의운용 적립은 PC 상태와 무관하게 계속 돌아야 했습니다.",
+      decision:
+        "IP가 필요한 수집은 로컬 일일 러너로 묶고, 테스트·헬스체크·모의운용은 GitHub Actions로 분리해 각 작업이 실패를 직접 알리도록 했습니다.",
+      implementation: [
+        "로컬 러너는 계좌 스냅샷과 KRX 수집을 순서대로 실행하되 한 단계가 실패해도 다른 단계는 계속 진행하도록 구성했습니다.",
+        "GitHub Actions에서 백엔드·프론트엔드 테스트와 빌드, 일일 헬스체크와 멱등 모의운용 원장 적립을 실행했습니다.",
+        "정상 실행뿐 아니라 강제 실패 옵션으로 텔레그램 경보가 실제 도착하는 경로까지 확인했습니다.",
+      ],
+      outcome:
+        "CI와 일일 헬스체크, 모의운용 워크플로의 성공 실행을 확인했고 강제 실패 시 알림이 도착해 조용한 중단을 감지할 수 있게 했습니다.",
     },
   ],
 };

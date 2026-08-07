@@ -1,11 +1,11 @@
 <template>
-  <div :class="['case-story', `case-story--${projectId}`]" :aria-label="`${projectName} 대표 개선 사례 요약`">
+  <div :class="['case-story', `case-story--${projectId}`, { 'is-compact': compact }]" :aria-label="`${projectName} 대표 개선 사례 요약`">
     <header class="story-header">
       <div>
         <p class="story-kicker">Project case</p>
         <strong>{{ projectName }}</strong>
       </div>
-      <span class="story-note">실제 업무 기준 요약</span>
+      <span class="story-note">{{ storyNote }}</span>
     </header>
 
     <div v-if="projectId === 'pps'" class="story-body">
@@ -56,7 +56,7 @@
       </div>
     </div>
 
-    <div v-else class="story-body">
+    <div v-else-if="projectId === 'tsms'" class="story-body">
       <section class="story-lead">
         <span class="story-lead-icon"><Network class="h-5 w-5" /></span>
         <div>
@@ -91,14 +91,90 @@
         <span><ServerCog class="h-4 w-4" /> 공통 연계</span>
       </div>
     </div>
+
+    <div v-else class="story-body reachrich-story">
+      <section class="story-lead">
+        <span class="story-lead-icon"><Workflow class="h-5 w-5" /></span>
+        <div>
+          <p>2026.08 새 저장소 재설계</p>
+          <h3>계좌와 시장 데이터를<br />검증·운영 화면으로 연결</h3>
+        </div>
+      </section>
+
+      <div class="reachrich-pipeline" aria-label="ReachRich 데이터와 운영 흐름">
+        <article>
+          <span><WalletCards class="h-4 w-4" /></span>
+          <small>Collect</small>
+          <strong>토스·KRX</strong>
+        </article>
+        <ArrowRight class="reachrich-arrow h-4 w-4" />
+        <article>
+          <span><Database class="h-4 w-4" /></span>
+          <small>Mirror</small>
+          <strong>SQLite·Parquet</strong>
+        </article>
+        <ArrowRight class="reachrich-arrow h-4 w-4" />
+        <article>
+          <span><ShieldCheck class="h-4 w-4" /></span>
+          <small>Validate</small>
+          <strong>검증·모의운용</strong>
+        </article>
+        <ArrowRight class="reachrich-arrow h-4 w-4" />
+        <article>
+          <span><Monitor class="h-4 w-4" /></span>
+          <small>Observe</small>
+          <strong>React 콘솔</strong>
+        </article>
+      </div>
+
+      <div class="story-facts reachrich-facts">
+        <article>
+          <span>Backend</span>
+          <strong>116 tests</strong>
+          <p>pytest 통과</p>
+        </article>
+        <article>
+          <span>Frontend</span>
+          <strong>75 tests</strong>
+          <p>Vitest·빌드 통과</p>
+        </article>
+        <article>
+          <span>Automation</span>
+          <strong>3 workflows</strong>
+          <p>CI·점검·모의운용</p>
+        </article>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Archive, ArrowRight, ClipboardCheck, MessageSquareText, Network, QrCode, ScanSearch, ServerCog } from "@lucide/vue";
+import { computed } from "vue";
+import {
+  Archive,
+  ArrowRight,
+  ClipboardCheck,
+  Database,
+  MessageSquareText,
+  Monitor,
+  Network,
+  QrCode,
+  ScanSearch,
+  ServerCog,
+  ShieldCheck,
+  WalletCards,
+  Workflow,
+} from "@lucide/vue";
 
-const props = defineProps<{ projectId: string }>();
-const projectName = props.projectId === "pps" ? "PPS" : "TSMS";
+const props = withDefaults(defineProps<{ projectId: string; compact?: boolean }>(), { compact: false });
+const projectName = computed(() => {
+  if (props.projectId === "pps") return "PPS";
+  if (props.projectId === "tsms") return "TSMS";
+  return "ReachRich";
+});
+const storyNote = computed(() =>
+  props.projectId === "reachrich" ? "개인 프로젝트 · 개발 중" : "실제 업무 기준 요약"
+);
 </script>
 
 <style scoped>
@@ -121,6 +197,32 @@ const projectName = props.projectId === "pps" ? "PPS" : "TSMS";
     linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(245, 249, 255, 0.92));
 }
 
+.case-story--reachrich {
+  border-color: rgba(109, 163, 255, 0.24);
+  background:
+    radial-gradient(circle at 92% 12%, rgba(70, 147, 252, 0.24), transparent 34%),
+    radial-gradient(circle at 7% 95%, rgba(227, 197, 103, 0.11), transparent 28%),
+    linear-gradient(145deg, #111725, #0d111b 72%);
+  box-shadow: 0 22px 56px rgba(13, 17, 27, 0.2);
+  color: #f0ede6;
+}
+
+.case-story--reachrich .story-header {
+  border-bottom-color: rgba(240, 237, 230, 0.09);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.case-story--reachrich .story-kicker,
+.case-story--reachrich .story-lead p {
+  color: #7eb5ff;
+}
+
+.case-story--reachrich .story-note {
+  border-color: rgba(227, 197, 103, 0.2);
+  background: rgba(227, 197, 103, 0.08);
+  color: #e3c567;
+}
+
 .story-header {
   display: flex;
   align-items: center;
@@ -141,6 +243,7 @@ const projectName = props.projectId === "pps" ? "PPS" : "TSMS";
 .story-lead { display: flex; align-items: center; gap: 0.75rem; }
 .story-lead-icon { display: grid; width: 2.65rem; height: 2.65rem; flex: 0 0 auto; place-items: center; border-radius: 0.85rem; background: linear-gradient(145deg, var(--fresh-blue), #53c7f5); box-shadow: 0 10px 22px rgba(49, 130, 246, 0.2); color: white; }
 .case-story--tsms .story-lead-icon { background: linear-gradient(145deg, #496ee9, #2ab987); }
+.case-story--reachrich .story-lead-icon { background: linear-gradient(145deg, #3182f6, #7c5cff); box-shadow: 0 10px 24px rgba(49, 130, 246, 0.26); }
 .story-lead p { margin: 0 0 0.18rem; color: var(--fresh-blue-strong); font-size: 0.58rem; font-weight: 900; letter-spacing: 0.08em; }
 .story-lead h3 { margin: 0; font-size: clamp(0.86rem, 2.2vw, 1.03rem); font-weight: 950; line-height: 1.34; letter-spacing: -0.02em; }
 
@@ -183,6 +286,63 @@ const projectName = props.projectId === "pps" ? "PPS" : "TSMS";
 .story-scope { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.42rem; border-top: 1px solid rgba(49, 130, 246, 0.1); padding-top: 0.72rem; }
 .story-scope span { display: inline-flex; align-items: center; gap: 0.28rem; border-radius: 999px; background: rgba(255, 255, 255, 0.85); padding: 0.34rem 0.55rem; color: var(--text-secondary); font-size: 0.5rem; font-weight: 850; }
 
+.reachrich-pipeline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.15fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.34rem;
+}
+
+.reachrich-pipeline article {
+  display: grid;
+  min-width: 0;
+  justify-items: start;
+  gap: 0.18rem;
+  border: 1px solid rgba(126, 181, 255, 0.15);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.045);
+  padding: 0.62rem;
+}
+
+.reachrich-pipeline article > span {
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-bottom: 0.1rem;
+  place-items: center;
+  border-radius: 0.56rem;
+  background: rgba(70, 147, 252, 0.13);
+  color: #7eb5ff;
+}
+
+.reachrich-pipeline small { color: #8a94a6; font-size: 0.46rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.reachrich-pipeline strong { color: #f0ede6; font-size: 0.57rem; font-weight: 900; line-height: 1.35; white-space: nowrap; }
+.reachrich-arrow { color: rgba(126, 181, 255, 0.46); }
+
+.reachrich-facts article { border-top-color: rgba(240, 237, 230, 0.1); }
+.reachrich-facts span,
+.reachrich-facts p { color: #8a94a6; }
+.reachrich-facts strong { color: #e3c567; }
+
+.case-story.is-compact { height: 100%; border-radius: 1rem; }
+.case-story.is-compact .story-header { min-height: 2.35rem; padding: 0.48rem 0.65rem; }
+.case-story.is-compact .story-kicker { font-size: 0.48rem; }
+.case-story.is-compact .story-header strong { font-size: 0.66rem; }
+.case-story.is-compact .story-note { padding: 0.22rem 0.42rem; font-size: 0.46rem; }
+.case-story.is-compact .story-body { gap: 0.48rem; padding: 0.55rem 0.62rem; }
+.case-story.is-compact .story-lead { display: none; }
+.case-story.is-compact .reachrich-pipeline { gap: 0.2rem; }
+.case-story.is-compact .reachrich-pipeline article { justify-items: center; gap: 0.1rem; padding: 0.35rem 0.18rem; text-align: center; }
+.case-story.is-compact .reachrich-pipeline article > span { width: 1.4rem; height: 1.4rem; margin: 0; }
+.case-story.is-compact .reachrich-pipeline small { display: none; }
+.case-story.is-compact .reachrich-pipeline strong { font-size: 0.43rem; }
+.case-story.is-compact .reachrich-arrow { width: 0.58rem; }
+.case-story.is-compact .story-facts { gap: 0.28rem; }
+.case-story.is-compact .story-facts article { padding: 0.35rem 0.1rem 0; text-align: center; }
+.case-story.is-compact .story-facts span { font-size: 0.4rem; }
+.case-story.is-compact .story-facts strong { margin-top: 0.08rem; font-size: 0.55rem; }
+.case-story.is-compact .story-facts p { display: none; }
+
 @media (max-width: 480px) {
   .story-note { display: none; }
   .story-journey { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -191,5 +351,9 @@ const projectName = props.projectId === "pps" ? "PPS" : "TSMS";
   .journey-step p { display: none; }
   .operation-cases { grid-template-columns: 1fr; }
   .operation-case > p { min-height: 0; }
+  .reachrich-pipeline { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .reachrich-arrow { display: none; }
+  .reachrich-pipeline article { justify-items: center; text-align: center; }
+  .reachrich-pipeline strong { font-size: 0.5rem; }
 }
 </style>

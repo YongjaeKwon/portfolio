@@ -78,7 +78,7 @@
             <h3 class="section-kicker">Team & Personal</h3>
             <p class="text-primary mt-3 text-2xl font-black">개인·팀 프로젝트</p>
           </div>
-          <p class="text-muted max-w-xl text-sm leading-6">교육 과정과 개인 학습을 통해 진행한 프로젝트입니다. 주요 구현 내용과 코드는 GitHub에서 확인할 수 있습니다.</p>
+          <p class="text-muted max-w-xl text-sm leading-6">교육 과정과 개인적으로 진행한 프로젝트입니다. 공개 가능한 저장소는 GitHub로 연결하고, 비공개 프로젝트는 구조와 검증 근거를 중심으로 설명합니다.</p>
         </div>
 
         <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -95,7 +95,10 @@
               </div>
               <span class="text-muted font-mono tnum text-xs">{{ item.project.period }}</span>
             </div>
-            <div v-if="item.project.image" class="project-thumb mt-5 flex h-40 items-center justify-center overflow-hidden rounded-2xl p-3">
+            <div v-if="item.project.id === 'reachrich'" class="project-thumb mt-5 h-40 overflow-hidden rounded-2xl p-2">
+              <ProjectCaseVisual :project-id="item.project.id" compact />
+            </div>
+            <div v-else-if="item.project.image" class="project-thumb mt-5 flex h-40 items-center justify-center overflow-hidden rounded-2xl p-3">
               <img
                 :src="item.project.image.previewSrc ?? item.project.image.src"
                 :alt="item.project.image.alt"
@@ -148,7 +151,7 @@
 
             <div class="min-h-0 flex-1 overflow-y-auto p-5 md:p-8" tabindex="0" aria-label="프로젝트 상세 내용">
               <ProjectCaseVisual
-                v-if="activeProject.project.id === 'pps' || activeProject.project.id === 'tsms'"
+                v-if="activeProject.project.id === 'pps' || activeProject.project.id === 'tsms' || activeProject.project.id === 'reachrich'"
                 :project-id="activeProject.project.id"
                 class="mb-8"
               />
@@ -296,7 +299,7 @@ import { createLatestFrameScheduler } from "@/utils/frameScheduler";
 
 const ProjectCaseStudyList = defineAsyncComponent(() => import("@/components/ProjectCaseStudyList.vue"));
 const ProjectDemoPanel = defineAsyncComponent(() => import("@/components/demos/ProjectDemoPanel.vue"));
-const detailedCaseProjectIds = new Set(["pps", "tsms", "ssafast", "ddoing", "modac", "quant-lab"]);
+const detailedCaseProjectIds = new Set(["pps", "tsms", "ssafast", "ddoing", "modac", "reachrich"]);
 const interactiveDemoProjectIds = new Set(["ssafast", "ddoing", "modac"]);
 const hasDetailedCaseStudies = (projectId: string) => detailedCaseProjectIds.has(projectId);
 const hasInteractiveDemo = (projectId: string) => interactiveDemoProjectIds.has(projectId);

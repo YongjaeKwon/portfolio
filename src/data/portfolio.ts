@@ -23,8 +23,8 @@ export const focusTracks = [
       "업무 담당자와 요구사항을 정리한 뒤 화면, 서버, 데이터 처리, 배포까지 필요한 범위를 맡아 왔습니다.",
     resume: profile.resume,
     resumeLabel: "이력서 다운로드",
-    projectIntro: "실무에서 운영 중인 시스템과 공개 가능한 팀 프로젝트를 함께 정리했습니다.",
-    projectOrder: ["pps", "tsms", "ssafast", "ddoing", "modac", "quant-lab"],
+    projectIntro: "실무에서 운영 중인 시스템과 직접 진행한 개인·팀 프로젝트를 함께 정리했습니다.",
+    projectOrder: ["pps", "tsms", "reachrich", "ssafast", "ddoing", "modac"],
   },
   {
     id: "frontend" as const,
@@ -32,11 +32,11 @@ export const focusTracks = [
     role: "Frontend Developer",
     headline: "사용자가 업무 흐름을 놓치지 않는 화면을 만듭니다.",
     target:
-      "Vue·WebSquare 실무 화면과 React 팀 프로젝트에서, 복잡한 입력과 상태 변화 속에서도 사용자가 다음 행동을 쉽게 이해하도록 화면을 고민하며 개발해 왔습니다.",
+      "Vue·WebSquare 실무 화면과 React 개인·팀 프로젝트에서, 복잡한 입력과 상태 변화 속에서도 사용자가 다음 행동을 쉽게 이해하도록 화면을 고민하며 개발해 왔습니다.",
     resume: profile.resume,
     resumeLabel: "이력서 다운로드",
     projectIntro: "화면 구조, 입력 처리, 진행 상태와 오류 안내를 중심으로 기여 내용을 보여드립니다.",
-    projectOrder: ["ssafast", "ddoing", "modac", "pps", "tsms"],
+    projectOrder: ["reachrich", "ssafast", "ddoing", "modac", "pps", "tsms"],
   },
   {
     id: "backend" as const,
@@ -47,8 +47,8 @@ export const focusTracks = [
       "Spring 기반 업무 시스템에서 서버 로직과 SQL, 외부 연계 기능을 개발하고 배포와 운영 과정까지 맡아 왔습니다.",
     resume: profile.resume,
     resumeLabel: "이력서 다운로드",
-    projectIntro: "서버 처리, 데이터 검증, 외부 연계와 운영 배포를 중심으로 기여 내용을 보여드립니다.",
-    projectOrder: ["pps", "tsms", "quant-lab"],
+    projectIntro: "서버 처리, 데이터 검증, 외부 연계와 운영 자동화를 중심으로 구현 내용을 보여드립니다.",
+    projectOrder: ["pps", "tsms", "reachrich"],
   },
 ];
 
@@ -72,7 +72,7 @@ export const coreStrengths = [
   },
 ];
 
-export type ProjectVisibility = "비공개 실무 프로젝트" | "공개 GitHub 프로젝트";
+export type ProjectVisibility = "비공개 실무 프로젝트" | "비공개 개인 프로젝트" | "공개 GitHub 프로젝트";
 
 type ProjectCardCopy = {
   summary: string;
@@ -539,52 +539,98 @@ export const featuredProjects: FeaturedProject[] = [
     },
   },
   {
-    id: "quant-lab",
-    title: "백테스트 실행·이벤트 전달 개인 프로젝트(quant-lab)",
-    shortTitle: "quant-lab",
-    period: "2026.03 ~ 2026.07",
-    category: "Personal Backend",
-    focuses: ["all", "backend"],
-    stack: ["Python", "FastAPI", "Pydantic", "WebSocket", "Docker", "pytest"],
-    image: {
-      src: "/projects/quant-core.png",
-      width: 1200,
-      height: 545,
-      previewSrc: "/projects/quant-core-preview.webp",
-      previewWidth: 960,
-      previewHeight: 436,
-      alt: "백테스트 실행과 이벤트 전달 구조를 보여주는 대시보드",
-    },
+    id: "reachrich",
+    title: "개인 투자 연구·운영 플랫폼(ReachRich)",
+    shortTitle: "ReachRich",
+    period: "2026.03 ~ 현재",
+    category: "Personal Full Stack",
+    focuses: ["all", "frontend", "backend"],
+    stack: ["Python", "FastAPI", "React", "TypeScript", "SQLAlchemy", "SQLite", "Parquet", "GitHub Actions", "pytest", "Vitest"],
     card: {
-      summary: "인증된 백테스트 요청과 WebSocket 이벤트 전달 구조를 확인할 수 있게 만든 개인 백엔드 프로젝트입니다.",
-      description: ["비공개 프로젝트에서 전략과 운영 데이터를 제외하고 API·인증·이벤트 흐름만 실행 가능한 공개 저장소로 분리했습니다."],
-      result: "실제 전략과 투자 성과는 제외하고 실행 가능한 코드와 문서만 공개했습니다.",
-      keywords: ["FastAPI", "실시간 상태 전달", "Docker"],
-      visibility: "공개 GitHub 프로젝트",
-      workRange: "API · 인증 · 이벤트",
-      environment: "Python · FastAPI · WebSocket · Docker",
+      summary: "기존 투자 연구 코어에서 검증 로직을 선별 이식하고, 계좌 추적·시장 데이터 수집·모의운용·대시보드를 새 구조로 재설계하고 있습니다.",
+      description: [
+        "2026년 8월 새 저장소를 만들고 데이터·종목 선정·전략·검증·운용·콘솔의 여섯 영역으로 책임을 나눴습니다.",
+        "토스증권 계좌 조회와 KRX 수집, FastAPI 조회 API, React 대시보드, 일일 점검과 실패 알림을 연결했습니다.",
+      ],
+      result: "백엔드 116개·프론트엔드 75개 테스트와 빌드를 통과했고, 실제 계좌 조회와 KRX 5개 종목 × 10개 일봉 적재, 자동 실행 경보 경로를 확인했습니다.",
+      keywords: ["검증 로직 선별 이식", "멱등 데이터 수집", "React 운영 화면"],
+      visibility: "비공개 개인 프로젝트",
+      workRange: "재설계 · 데이터 수집 · API · 대시보드 · 자동화",
+      environment: "FastAPI · React · SQLite · Parquet · GitHub Actions",
     },
     detail: {
-      overview: "비공개 개인 프로젝트에서 공개 가능한 백엔드 구조만 분리해, 인증부터 실행 요청과 WebSocket 이벤트 수신까지 확인할 수 있게 만든 학습용 저장소입니다.",
-      scope: ["FastAPI 요청·응답 구조", "데모 인증과 보호 API", "WebSocket 완료 이벤트", "자동 테스트와 Docker 실행 환경"],
+      overview: "2026년 3월부터 진행한 투자 연구 코어를 2026년 8월 새 저장소에서 재설계하고 있습니다. 기존 코드를 통째로 옮기지 않고 미래 데이터 혼입 방지, 반복 검증, 실험 이력과 모의운용 원장처럼 검증된 자산만 선별 이식했습니다. 새 저장소에서는 계좌 추적과 KRX 데이터 수집, 조회 API, React 대시보드, 자동 실행과 실패 감지 흐름을 새로 구성했습니다.",
+      scope: ["전체 구조 재설계와 모듈 경계 정의", "토스증권 계좌·KRX 데이터 수집과 로컬 저장", "FastAPI 조회 API와 React 대시보드", "GitHub Actions와 텔레그램 운영 경보"],
       workPoints: [
-        "라우터, 인증 의존성, 서비스와 Pydantic 요청·응답 모델을 역할별로 나누고 샘플 데이터로 실행 가능하게 구성했습니다.",
-        "서명된 데모 토큰을 보호 API와 WebSocket 접속에서 확인하고, 실행 완료 이벤트를 메모리 기반 event bus로 전달했습니다.",
-        "실제 전략, 수익률과 거래 정보를 제외한 범위와 데모 인증의 한계를 README와 보안 문서에 명시했습니다.",
+        "기존 코어에서 인과성 검증, Purged Walk-forward, 표준 지표, 실험 이력, Tracking Error와 모의운용 원장을 골라 여섯 모듈 구조에 맞춰 옮겼습니다.",
+        "OAuth2 토큰 캐시와 429 재시도, 날짜 단위 스냅샷, KRX 종목별 Parquet upsert로 외부 API와 로컬 데이터 사이의 경계를 만들었습니다.",
+        "로컬 스냅샷만 읽는 FastAPI 조회 API와 React 화면을 연결하고, 금액 가리기·기간별 자산 곡선·보유 종목·상태 확인 기능을 구성했습니다.",
+        "일일 헬스체크와 모의운용 적립을 GitHub Actions로 실행하고, 로컬 작업과 Actions가 실패할 때 텔레그램으로 알리도록 분리했습니다.",
       ],
-      results: ["정적 대시보드에서 토큰 발급·인증된 실행 요청·WebSocket 완료 이벤트를 확인하고, pytest로 로그인과 보호 API를 검증했습니다."],
-      techUsage: ["FastAPI와 Pydantic으로 요청 처리, 인증 의존성과 응답 모델을 구성했습니다.", "WebSocket과 메모리 기반 event bus로 실행 완료 이벤트를 전달했습니다.", "Docker와 pytest로 실행·검증 환경을 맞췄습니다."],
-      disclosure: "공개용 개인 프로젝트라 실제 전략, 수익률과 거래 정보는 담지 않았습니다.",
-      resources: [{ label: "GitHub 저장소", href: "https://github.com/YongjaeKwon/quant-lab", type: "github" }],
+      results: [
+        "2026년 8월 7일 기준 pytest 116개와 Vitest 75개가 통과했고 React 프로덕션 빌드를 확인했습니다.",
+        "토스증권 실계좌 조회와 KRX 5개 종목 × 10개 일봉 50행, 환율 1행의 실제 적재를 확인했습니다.",
+        "CI·일일 헬스체크·모의운용 워크플로 실행과 강제 실패 시 텔레그램 경보 수신을 확인했습니다.",
+      ],
+      techUsage: [
+        "FastAPI는 SQLite 스냅샷만 읽는 네 개의 조회 API와 React 정적 파일 제공에 사용했습니다.",
+        "SQLAlchemy·SQLite로 계좌 스냅샷을 날짜 단위로 교체 저장하고, Parquet·JSON으로 종목별 일봉과 해당 날짜의 종목 목록을 중복 없이 보관했습니다.",
+        "React·TypeScript·Vite로 자산 요약, 기간별 자산 곡선, 보유 종목과 시스템 상태 화면을 만들었습니다.",
+        "GitHub Actions에서 백엔드·프론트엔드 테스트와 빌드, 일일 점검과 모의운용 적립을 실행하고 실패 경보를 연결했습니다.",
+      ],
+      disclosure: "비공개 개인 프로젝트로 API 자격증명, 실제 계좌 금액·보유 종목, 전략 파라미터와 투자 성과는 공개하지 않습니다. 화면은 프라이버시 모드와 구조 요약으로 보여드립니다.",
+      resources: [{ label: "초기 공개 실험 저장소", href: "https://github.com/YongjaeKwon/quant-lab", type: "github" }],
+    },
+    perspectives: {
+      frontend: {
+        card: {
+          summary: "계좌 스냅샷을 자산 요약·기간별 곡선·보유 종목으로 읽을 수 있게 만든 React 운영 대시보드입니다.",
+          description: [
+            "금액 가리기와 라이트·다크·시스템 테마를 제공하고, 보이지 않는 탭에서는 폴링을 멈춰 불필요한 요청을 줄였습니다.",
+            "재사용 UI 요소와 상태별 빈 화면을 구성하고 PWA로 같은 네트워크의 모바일에서도 확인할 수 있게 했습니다.",
+          ],
+          result: "Vitest 75개와 프로덕션 빌드를 통과했고, 초기 JavaScript 번들을 gzip 119.18KB로 유지했습니다.",
+          keywords: ["React·TypeScript", "프라이버시 모드", "가시성 기반 폴링"],
+          workRange: "React 화면 · 상태 처리 · UI 시스템 · 테스트",
+        },
+        detail: {
+          scope: ["React·TypeScript 대시보드", "UI 프리미티브와 듀얼 테마", "프라이버시·폴링·PWA"],
+          workPoints: [
+            "자산 요약, 기간별 자산 곡선, 보유 종목과 시스템 상태를 각각의 화면 컴포넌트로 나누었습니다.",
+            "금액 가리기 상태를 브라우저에 보관하고, 탭이 보이지 않을 때 폴링을 건너뛴 뒤 다시 열면 즉시 최신 데이터를 조회하도록 했습니다.",
+            "카드·배지·표·빈 상태 등 재사용 UI 요소와 라이트·다크·시스템 테마, PWA 앱 셸을 구성했습니다.",
+          ],
+        },
+      },
+      backend: {
+        card: {
+          summary: "계좌와 시장 데이터를 반복 수집해도 일관되게 쌓고, 검증과 모의운용까지 이어지도록 재설계한 Python 백엔드입니다.",
+          description: [
+            "외부 API 응답을 바로 화면에 전달하지 않고 SQLite·Parquet 로컬 미러에 저장한 뒤 조회 API가 이를 읽도록 분리했습니다.",
+            "종목별 수집 실패는 격리하되 실패율이 30%를 넘으면 전체 작업을 실패 처리하고 경보를 보내도록 했습니다.",
+          ],
+          result: "pytest 116개를 통과했고, 토스증권 계좌 조회와 KRX 5개 종목 × 10개 일봉 50행의 실제 적재를 확인했습니다.",
+          keywords: ["FastAPI", "SQLite·Parquet", "멱등 수집·실패 격리"],
+          workRange: "구조 재설계 · API · 데이터 수집 · 자동화",
+        },
+        detail: {
+          scope: ["여섯 모듈 구조와 검증 자산 이식", "계좌·KRX 수집과 로컬 미러", "조회 API·자동 실행·실패 경보"],
+          workPoints: [
+            "데이터·종목 선정·전략·검증·운용·콘솔로 책임을 나누고 기존 코어에서 재사용할 검증 로직만 선별 이식했습니다.",
+            "OAuth2 토큰을 만료 전에 갱신하고 429 응답은 Retry-After를 따라 한 번 재시도하도록 외부 API 클라이언트를 구성했습니다.",
+            "계좌는 날짜 기준으로 교체 저장하고 KRX 일봉은 종목·날짜 기준으로 upsert해 같은 작업을 다시 실행해도 중복이 생기지 않게 했습니다.",
+          ],
+        },
+      },
     },
   },
 ];
 
 export const techGroups = [
   { title: "프론트엔드", items: ["JavaScript", "TypeScript", "Vue", "React", "Next.js", "WebSquare", "JSP"] },
-  { title: "백엔드", items: ["Java", "Spring MVC", "Spring Boot", "MyBatis", "FastAPI"] },
-  { title: "데이터베이스", items: ["MariaDB", "MySQL", "Oracle", "PostgreSQL"] },
-  { title: "도구 및 배포", items: ["Git", "GitHub", "SVN", "Jenkins", "Linux", "Tomcat", "Docker"] },
+  { title: "백엔드", items: ["Java", "Spring MVC", "Spring Boot", "MyBatis", "Python", "FastAPI"] },
+  { title: "데이터베이스", items: ["MariaDB", "MySQL", "Oracle", "PostgreSQL", "SQLite"] },
+  { title: "도구 및 배포", items: ["Git", "GitHub", "GitHub Actions", "SVN", "Jenkins", "Linux", "Tomcat", "Docker"] },
 ];
 
 export const experience = {
