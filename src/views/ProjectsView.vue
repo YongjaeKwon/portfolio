@@ -75,10 +75,10 @@
       <div v-if="otherProjects.length" class="reveal mt-20 border-t border-[var(--fresh-border)] pt-14">
         <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <h3 class="section-kicker">Selected Projects</h3>
-            <p class="text-primary mt-3 text-2xl font-black">공개 프로젝트</p>
+            <h3 class="section-kicker">Team & Personal</h3>
+            <p class="text-primary mt-3 text-2xl font-black">개인·팀 프로젝트</p>
           </div>
-          <p class="text-muted max-w-xl text-sm leading-6">실무 이전에 진행한 팀·개인 프로젝트입니다. GitHub에서 코드를 확인할 수 있습니다.</p>
+          <p class="text-muted max-w-xl text-sm leading-6">교육 과정과 개인 학습을 통해 진행한 프로젝트입니다. 주요 구현 내용과 코드는 GitHub에서 확인할 수 있습니다.</p>
         </div>
 
         <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
