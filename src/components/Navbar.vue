@@ -72,8 +72,10 @@
 
 <script setup lang="ts">
 import { Menu } from "@lucide/vue";
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { useScrollMetrics } from "@/composables/useScrollMetrics";
 import { profile } from "@/data/portfolio";
+import { resolveActiveSectionFromEntries } from "@/utils/scrollMetrics";
 
 const emit = defineEmits<{
   "scroll-to-section": [id: string];
@@ -91,41 +93,44 @@ const navItems = [
 ];
 
 const sectionIds = ["hero", ...navItems.map((item) => item.id)];
-let ticking = false;
-
-const updateActive = () => {
-  ticking = false;
-  const line = 110;
-  let current = sectionIds[0];
-  for (const id of sectionIds) {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top <= line) current = id;
-  }
-
-  const atBottom =
-    window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
-  if (atBottom) current = sectionIds[sectionIds.length - 1];
-
-  activeSection.value = current;
-};
-
-const onScroll = () => {
-  if (!ticking) {
-    ticking = true;
-    requestAnimationFrame(updateActive);
-  }
-};
+const { isAtBottom } = useScrollMetrics();
+const observerActiveSection = ref("hero");
+let sectionObserver: IntersectionObserver | null = null;
 
 onMounted(() => {
-  updateActive();
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll, { passive: true });
+  if (!("IntersectionObserver" in window)) return;
+
+  sectionObserver = new IntersectionObserver(
+    (entries) => {
+      observerActiveSection.value = resolveActiveSectionFromEntries(
+        sectionIds,
+        entries.map((entry) => ({
+          id: entry.target.id,
+          top: entry.boundingClientRect.top,
+          bottom: entry.boundingClientRect.bottom,
+          isIntersecting: entry.isIntersecting,
+        })),
+        observerActiveSection.value,
+        110,
+      );
+      if (!isAtBottom.value) activeSection.value = observerActiveSection.value;
+    },
+    { rootMargin: "-110px 0px 0px 0px", threshold: 0 },
+  );
+
+  for (const id of sectionIds) {
+    const section = document.getElementById(id);
+    if (section) sectionObserver.observe(section);
+  }
 });
 
-onBeforeUnmount(() => {
-  window.removeEventListener("scroll", onScroll);
-  window.removeEventListener("resize", onScroll);
+watch(isAtBottom, (atBottom) => {
+  activeSection.value = atBottom
+    ? sectionIds[sectionIds.length - 1]
+    : observerActiveSection.value;
 });
+
+onBeforeUnmount(() => sectionObserver?.disconnect());
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;

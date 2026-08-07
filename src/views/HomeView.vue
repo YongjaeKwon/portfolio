@@ -10,10 +10,12 @@
       <div class="max-w-3xl">
         <div class="hero-enter mb-7 flex items-center gap-5">
           <img
-            :src="myPhoto"
+            src="/my-photo-224.webp"
             alt="권용재 프로필 사진"
             width="112"
             height="112"
+            loading="eager"
+            fetchpriority="high"
             decoding="async"
             class="hero-photo h-24 w-24 shrink-0 rounded-full object-cover ring-1 ring-white/50 shadow-lg md:h-28 md:w-28"
           />
@@ -111,7 +113,6 @@ import { ArrowRight, ExternalLink, FileDown, Layers3, Mail, MessagesSquare, Rock
 import FocusTabs from "@/components/FocusTabs.vue";
 import { focusTracks, profile, type FocusTrackId } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";
-import myPhoto from "@/public/my-photo.png";
 
 const emit = defineEmits<{ "scroll-to-section": [id: string] }>();
 const { activeTrack } = useFocusTrack();

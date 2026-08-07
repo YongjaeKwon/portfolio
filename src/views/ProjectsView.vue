@@ -78,7 +78,15 @@
               <span class="text-muted font-mono tnum text-xs">{{ item.project.period }}</span>
             </div>
             <div v-if="item.project.image" class="project-thumb mt-5 flex h-40 items-center justify-center overflow-hidden rounded-2xl p-3">
-              <img :src="item.project.image.src" :alt="item.project.image.alt" class="h-full w-full object-contain transition duration-300 group-hover:scale-[1.02]" />
+              <img
+                :src="item.project.image.previewSrc ?? item.project.image.src"
+                :alt="item.project.image.alt"
+                :width="item.project.image.previewWidth ?? item.project.image.width"
+                :height="item.project.image.previewHeight ?? item.project.image.height"
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-contain transition duration-300 group-hover:scale-[1.02]"
+              />
             </div>
             <h4 class="text-primary mt-5 text-xl font-black leading-7">{{ item.project.shortTitle }}</h4>
             <p class="text-secondary mt-3 text-sm font-semibold leading-6">{{ item.card.summary }}</p>
@@ -128,6 +136,8 @@
                 v-else-if="activeProject.project.image"
                 :src="activeProject.project.image.src"
                 :alt="activeProject.project.image.alt"
+                :width="activeProject.project.image.width"
+                :height="activeProject.project.image.height"
                 decoding="async"
                 class="mb-8 max-h-80 w-full rounded-lg border border-[var(--border)] bg-[var(--surface-soft)] object-contain p-3"
               />
@@ -211,6 +221,7 @@ import FocusTabs from "@/components/FocusTabs.vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import { featuredProjects, focusTracks, type FeaturedProject, type FocusTrackId, type RoleFocusId } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";
+import { createLatestFrameScheduler } from "@/utils/frameScheduler";
 
 type PresentedProject = {
   project: FeaturedProject;
@@ -323,31 +334,141 @@ onBeforeUnmount(() => {
   document.body.style.overflow = "";
 });
 
-type TiltHandlers = { onMove: (e: MouseEvent) => void; onLeave: () => void };
+type TiltHandlers = {
+  destroy: () => void;
+};
+
 const tiltHandlers = new WeakMap<HTMLElement, TiltHandlers>();
 const vTilt = {
   mounted(el: HTMLElement) {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.matchMedia("(hover: none)").matches) return;
-    const onMove = (event: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      const px = (event.clientX - rect.left) / rect.width - 0.5;
-      const py = (event.clientY - rect.top) / rect.height - 0.5;
-      el.style.transition = "transform 0s";
-      el.style.transform = `perspective(1100px) rotateY(${px * 2}deg) rotateX(${-py * 2}deg)`;
-    };
-    const onLeave = () => {
+    const hoverPointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const passiveOptions = { passive: true } as const;
+    const activeScrollOptions = { passive: true, capture: true } as const;
+    let pointerListenersActive = false;
+    let hoverActive = false;
+    let rect: DOMRect | null = null;
+    let latestPoint: { x: number; y: number } | null = null;
+    let resizeObserver: ResizeObserver | null = null;
+
+    const resetTilt = () => {
       el.style.transition = "transform 0.35s ease";
       el.style.transform = "";
     };
-    el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseleave", onLeave);
-    tiltHandlers.set(el, { onMove, onLeave });
+    const scheduler = createLatestFrameScheduler((point: { x: number; y: number }) => {
+      if (!hoverActive) {
+        if (el.matches(":hover")) {
+          activateHover(point);
+        } else {
+          stopActiveHover();
+          resetTilt();
+          return;
+        }
+      }
+      if (!el.matches(":hover")) {
+        stopActiveHover();
+        resetTilt();
+        return;
+      }
+
+      latestPoint = point;
+      if (!rect) rect = el.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) {
+        resetTilt();
+        return;
+      }
+
+      const px = (point.x - rect.left) / rect.width - 0.5;
+      const py = (point.y - rect.top) / rect.height - 0.5;
+      el.style.transition = "transform 0s";
+      el.style.transform = `perspective(1100px) rotateY(${px * 2}deg) rotateX(${-py * 2}deg)`;
+    });
+
+    const invalidateGeometry = () => {
+      rect = null;
+      if (latestPoint) scheduler.schedule(latestPoint);
+    };
+    const detachActiveHoverObservation = () => {
+      window.removeEventListener("scroll", invalidateGeometry, activeScrollOptions);
+      window.removeEventListener("resize", invalidateGeometry);
+      resizeObserver?.disconnect();
+      resizeObserver = null;
+    };
+    const stopActiveHover = () => {
+      scheduler.cancel();
+      detachActiveHoverObservation();
+      hoverActive = false;
+      rect = null;
+      latestPoint = null;
+    };
+    const activateHover = (point: { x: number; y: number }) => {
+      if (hoverActive) return;
+      hoverActive = true;
+      latestPoint = point;
+      rect = null;
+      window.addEventListener("scroll", invalidateGeometry, activeScrollOptions);
+      window.addEventListener("resize", invalidateGeometry, passiveOptions);
+      if (typeof ResizeObserver !== "undefined") {
+        resizeObserver = new ResizeObserver(invalidateGeometry);
+        resizeObserver.observe(el);
+      }
+    };
+    const onEnter = (event: PointerEvent) => {
+      const point = { x: event.clientX, y: event.clientY };
+      activateHover(point);
+      scheduler.schedule(point);
+    };
+    const onMove = (event: PointerEvent) => {
+      const point = { x: event.clientX, y: event.clientY };
+      latestPoint = point;
+      scheduler.schedule(point);
+    };
+    const onLeave = () => {
+      stopActiveHover();
+      resetTilt();
+    };
+    const attachPointerListeners = () => {
+      if (pointerListenersActive) return;
+      el.addEventListener("pointerenter", onEnter, passiveOptions);
+      el.addEventListener("pointermove", onMove, passiveOptions);
+      el.addEventListener("pointerleave", onLeave, passiveOptions);
+      pointerListenersActive = true;
+    };
+    const detachPointerListeners = () => {
+      if (!pointerListenersActive) return;
+      el.removeEventListener("pointerenter", onEnter);
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerleave", onLeave);
+      pointerListenersActive = false;
+    };
+    const reconcilePointerEffects = () => {
+      const pointerEffectsEnabled = hoverPointerQuery.matches && !reducedMotionQuery.matches;
+      if (pointerEffectsEnabled) {
+        attachPointerListeners();
+      } else {
+        detachPointerListeners();
+        stopActiveHover();
+        resetTilt();
+      }
+    };
+
+    hoverPointerQuery.addEventListener("change", reconcilePointerEffects);
+    reducedMotionQuery.addEventListener("change", reconcilePointerEffects);
+    reconcilePointerEffects();
+    tiltHandlers.set(el, {
+      destroy: () => {
+        hoverPointerQuery.removeEventListener("change", reconcilePointerEffects);
+        reducedMotionQuery.removeEventListener("change", reconcilePointerEffects);
+        detachPointerListeners();
+        stopActiveHover();
+        resetTilt();
+      },
+    });
   },
   unmounted(el: HTMLElement) {
     const handlers = tiltHandlers.get(el);
     if (!handlers) return;
-    el.removeEventListener("mousemove", handlers.onMove);
-    el.removeEventListener("mouseleave", handlers.onLeave);
+    handlers.destroy();
     tiltHandlers.delete(el);
   },
 };
