@@ -18,7 +18,9 @@ export type ProjectCaseStudy = {
   code?: CaseStudyCode;
 };
 
-export const projectCaseStudies: Record<"pps" | "tsms", ProjectCaseStudy[]> = {
+export type CaseStudyProjectId = "pps" | "tsms" | "ssafast" | "ddoing" | "modac" | "quant-lab";
+
+export const projectCaseStudies: Record<CaseStudyProjectId, ProjectCaseStudy[]> = {
   pps: [
     {
       id: "archive-job",
@@ -235,6 +237,198 @@ return postId != null
       ],
       outcome:
         "학교·단말별 점검과 재점검 이력을 한 시스템에서 관리하게 됐습니다. 2026년 7월 기준 119개 대상 학교에서 약 3,800건의 점검 데이터가 기록됐습니다.",
+    },
+  ],
+  ssafast: [
+    {
+      id: "dynamic-api-form",
+      area: "Frontend",
+      title: "반복·중첩 입력을 지원하는 API 명세 폼 구성",
+      summary: "요청 항목과 응답을 자유롭게 추가하면서 서버 문서 구조에 맞춰 저장하도록 만들었습니다.",
+      problem:
+        "API 명세에는 Header, Query, Path, Body와 여러 Response가 포함되고 Body 안에는 기존 DTO가 다시 들어갈 수 있어 고정 입력 폼으로 표현하기 어려웠습니다.",
+      constraint:
+        "반복 항목을 한 화면에서 추가·삭제해야 했고, 화면의 입력 배열을 서버가 사용하는 일반 필드와 중첩 DTO 구조로 나눠 전달해야 했습니다.",
+      decision:
+        "React Hook Form으로 섹션별 입력 상태를 공유하고, 화면에서는 편집하기 쉬운 배열로 관리한 뒤 제출 시점에 서버 문서 구조로 변환했습니다.",
+      implementation: [
+        "Header·Query·Path·Body와 Response에 각각 useFieldArray를 적용해 반복 항목을 다뤘습니다.",
+        "기본 타입과 워크스페이스 DTO를 같은 선택기에 표시하고 DTO는 제출할 때 중첩 구조로 다시 조합했습니다.",
+        "응답을 상태 코드별로 추가·접을 수 있게 하고 필수 성공 응답이 중복되거나 삭제되지 않도록 화면 규칙을 두었습니다.",
+      ],
+      outcome:
+        "복수 요청 항목과 중첩 DTO, 여러 응답을 하나의 명세 작성 흐름에서 편집하고 저장 결과를 API 목록에 다시 반영할 수 있게 했습니다.",
+      code: {
+        language: "TypeScript",
+        title: "응답 상태 코드 추가 전 입력 검증",
+        content: `const addComponentHandler = () => {
+  if (codeRef.current?.value.length !== 3) {
+    showToast("상태 코드는 3자리여야 합니다.");
+  } else if (descRef.current?.value === "") {
+    showToast("상태 코드 설명을 입력해 주세요.");
+  } else if (codeRef.current?.value === "200") {
+    showToast("상태 코드 200은 이미 등록되어 있습니다.");
+  } else {
+    addComponent();
+  }
+};`,
+        note: "공개 저장소의 실제 처리 흐름을 읽기 쉽게 줄인 코드입니다. 상태 코드 형식과 설명 입력을 확인하고 기본 성공 응답 200의 중복 등록을 막았습니다.",
+      },
+    },
+    {
+      id: "load-test-flow",
+      area: "Frontend",
+      title: "부하 테스트 실행부터 결과 상세까지 한 흐름으로 연결",
+      summary: "대상 서버 확인, API 선택, 실행 조건과 결과 이력을 단계별 화면으로 구성했습니다.",
+      problem:
+        "부하 테스트는 API를 고르는 것만으로 끝나지 않고 대상 서버 인증, 요청값 입력, 실행 조건 설정과 결과 이력 확인까지 이어져야 했습니다.",
+      constraint:
+        "인증된 서버만 테스트할 수 있어야 했고 API 명세의 Header·Path·Query·Body 값을 실제 실행 요청으로 다시 조합해야 했습니다.",
+      decision:
+        "미인증 상태에서는 인증 안내를 먼저 보여주고, 인증 후에는 API·요청 설정과 결과 영역을 분리해 사용 순서가 드러나도록 구성했습니다.",
+      implementation: [
+        "Base URL별 인증 상태를 확인하고 미인증 상태에서는 환경별 안내와 코드 입력 모달을 표시했습니다.",
+        "선택한 API 명세를 실행 폼에 채우고 요청 항목과 부하 조건을 검증해 실행 객체로 조합했습니다.",
+        "결과를 이력과 상세로 나눠 지연 시간 구간, 처리량과 상태 코드별 건수를 확인하도록 했습니다.",
+      ],
+      outcome:
+        "서버 인증부터 API 선택, 실행 조건 입력과 결과 확인까지 하나의 화면 흐름으로 연결했습니다.",
+    },
+  ],
+  ddoing: [
+    {
+      id: "drawing-session-state",
+      area: "Frontend",
+      title: "그림 학습 세션의 타이머와 단계 상태 안정화",
+      summary: "6개 단어의 제한 시간, 판정 결과와 재시작 상태가 겹치지 않도록 정리했습니다.",
+      problem:
+        "재시작할 때 이전 interval이 남아 타이머가 빨라지고, 새 단어 목록의 반영이 늦어 이전 목록이 잠시 남는 문제가 있었습니다.",
+      constraint:
+        "Canvas 입력, 제한 시간, 현재 문제, 결과 모달과 단어 설명이 함께 움직여야 했고 단어 목록과 추론 결과는 비동기로 도착했습니다.",
+      decision:
+        "학습 진행 상태는 Drawing 페이지에 모으고 interval ID는 ref로 보관해 모달 열기, 단계 이동과 재시작 때 명시적으로 정리했습니다.",
+      implementation: [
+        "현재 문제와 정답 수, 타이머, 모달과 단어 목록을 하나의 학습 흐름으로 관리했습니다.",
+        "Canvas 그림을 이미지로 변환해 학습된 분류 모델의 추론 API에 보내고 판정 결과를 화면에 반영했습니다.",
+        "초기 렌더를 제외한 상태 변경에만 동작하는 custom effect를 사용하고 재시작 시 interval과 학습 상태를 초기화했습니다.",
+      ],
+      outcome:
+        "제한 시간 학습과 판정, 다음 문제와 최종 결과를 연결하고 재시작 시 발생하던 타이머 중복 실행과 이전 단어 목록이 남는 문제를 수정했습니다.",
+      code: {
+        language: "TypeScript",
+        title: "Canvas 결과를 업로드 파일로 변환",
+        content: `const dataURLtoFileObject = (dataURL: string, fileName: string) => {
+  const [, encoded] = dataURL.split(",");
+  const binary = atob(encoded);
+  const bytes = new Uint8Array(binary.length);
+
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+
+  return new File([bytes], fileName, { type: "image/png" });
+};`,
+        note: "공개 저장소의 실제 변환 로직을 변수명만 다듬어 옮겼습니다. Canvas의 Data URL을 PNG File로 변환한 뒤 그림 저장 요청에 사용했습니다.",
+      },
+    },
+    {
+      id: "main-api-content",
+      area: "Frontend",
+      title: "메인 화면을 API 데이터 기반 콘텐츠로 전환",
+      summary: "고정 카드 대신 인기 영상과 그림 갤러리 데이터를 API로 불러와 보여주었습니다.",
+      problem:
+        "메인 화면이 서비스 소개에 머물러 있었고 인기 콘텐츠와 사용자가 만든 우수 작품을 실제 데이터로 보여줄 구조가 필요했습니다.",
+      constraint:
+        "인기 영상과 그림 갤러리는 서로 다른 API 응답을 사용했고, 데이터가 도착하기 전에는 캐러셀에 유효한 배열이 없었습니다.",
+      decision:
+        "페이지에서 두 응답을 관리하고 인기 콘텐츠와 명예의 전당 컴포넌트에는 필요한 배열만 전달하도록 역할을 나눴습니다.",
+      implementation: [
+        "마운트 시 인기 영상과 그림 갤러리 데이터를 각각 요청하고 응답 타입과 상태를 분리했습니다.",
+        "서비스 배너, 인기 콘텐츠와 명예의 전당을 별도 캐러셀로 구성했습니다.",
+        "그림 경로, 단어, 닉네임과 점수를 반복 렌더링하고 영상 상세와 서비스 화면으로 이동하는 동선을 연결했습니다.",
+      ],
+      outcome:
+        "정적으로 배치한 카드 대신 인기 영상과 실제 그림 데이터를 보여주는 메인 화면을 만들고 API 응답과 표시 컴포넌트의 책임을 나눴습니다.",
+    },
+  ],
+  modac: [
+    {
+      id: "study-room-entry",
+      area: "Frontend",
+      title: "스터디룸 유형과 참여 상태에 맞춘 입장 흐름",
+      summary: "공개·비공개 여부와 정원, 초대 코드 조건을 한 입장 화면에서 처리했습니다.",
+      problem:
+        "스터디룸마다 공개 여부와 참여 상태가 달랐고 비공개 방은 초대 코드를 확인해야 해 같은 입장 버튼에서도 처리 조건이 달랐습니다.",
+      constraint:
+        "현재 참여자, 정원과 방 유형을 함께 확인하고 비동기 코드 검증이 끝난 뒤에만 방 상태와 화면을 바꿔야 했습니다.",
+      decision:
+        "방 정보와 로그인 사용자를 기준으로 초대 코드 필요 여부를 계산하고, 입장 전 검증과 오류 안내를 모달 안에서 순서대로 처리했습니다.",
+      implementation: [
+        "참여자 목록과 방 공개 유형으로 초대 코드 입력 필요 여부를 계산했습니다.",
+        "정원 초과와 코드 불일치를 각각 안내하고 검증에 성공했을 때만 Pinia의 현재 방 상태를 갱신했습니다.",
+        "방 입장·나가기와 즐겨찾기 목록 갱신을 같은 room store와 API 모듈을 통해 연결했습니다.",
+      ],
+      outcome:
+        "공개방과 비공개방의 정원·초대 코드·기존 참여 여부에 맞춰 입장과 나가기 상태가 이어지는 화면 흐름을 구현했습니다.",
+    },
+    {
+      id: "realtime-room-ui",
+      area: "Frontend",
+      title: "스터디룸 채팅과 방 이동 상태를 화면에 연결",
+      summary: "실시간 메시지를 화면에 반영하고 방을 옮길 때 이전 연결과 채팅 로그를 정리했습니다.",
+      problem:
+        "방을 옮길 때 이전 채팅이 남거나 연결이 계속 유지되면 다른 스터디룸의 메시지와 참여 상태가 섞일 수 있었습니다.",
+      constraint:
+        "방 정보와 채팅 로그는 여러 컴포넌트가 함께 사용했고 입장·퇴장·즐겨찾기 이동에 따라 연결 생명주기를 맞춰야 했습니다.",
+      decision:
+        "현재 방과 채팅 로그를 Pinia store로 나누고 방 진입 전 로그를 비운 뒤, 화면은 store에 들어온 메시지만 렌더링하도록 구성했습니다.",
+      implementation: [
+        "채팅 목록과 입력 컴포넌트를 분리하고 로그인 사용자를 기준으로 메시지 표시를 구분했습니다.",
+        "방 입장 시 이전 채팅 로그를 초기화하고 새 방 정보가 준비된 뒤 채팅 화면을 열도록 연결했습니다.",
+        "방을 나가거나 즐겨찾기 목록에서 다른 방으로 입장할 때 기존 연결을 정리하고 새 방 정보를 조회했습니다.",
+      ],
+      outcome:
+        "방을 옮길 때 이전 연결과 채팅 로그를 정리해 다른 스터디룸의 메시지가 섞이지 않도록 했습니다.",
+    },
+  ],
+  "quant-lab": [
+    {
+      id: "public-scope",
+      area: "Backend",
+      title: "비공개 프로젝트에서 공개 가능한 구조만 분리",
+      summary: "전략과 운영 데이터는 제외하고 실행 가능한 백엔드 구조를 별도 저장소로 만들었습니다.",
+      problem:
+        "기존 개인 프로젝트에는 전략 실험, 운영 설정과 데이터가 섞여 있어 구조를 보여주기 위해 원본 저장소를 그대로 공개할 수 없었습니다.",
+      constraint:
+        "실제 전략·수익률·계정 정보를 제거하면서도 API, 인증과 이벤트 전달 구조는 저장소만으로 실행하고 확인할 수 있어야 했습니다.",
+      decision:
+        "민감한 기능을 가리는 대신 공개 전용 저장소를 만들고 샘플 데이터와 단순한 실행 로직으로 같은 계층 구조를 다시 구성했습니다.",
+      implementation: [
+        "FastAPI 라우터, 인증 의존성, 서비스와 요청·응답 모델을 역할별 디렉터리로 분리했습니다.",
+        "실제 데이터와 전략을 샘플 가격 데이터와 단순 이동평균 예제로 교체했습니다.",
+        "공개하지 않는 범위와 데모 인증의 한계를 별도 보안·아키텍처 문서에 명시했습니다.",
+      ],
+      outcome:
+        "실제 투자 정보 없이도 API와 서비스 계층, 인증과 실시간 이벤트의 연결을 실행해 볼 수 있는 공개 저장소를 구성했습니다.",
+    },
+    {
+      id: "authenticated-event-flow",
+      area: "Backend",
+      title: "인증된 실행 결과를 WebSocket 이벤트로 전달",
+      summary: "로그인부터 보호된 API 실행과 대시보드 이벤트 수신까지 연결했습니다.",
+      problem:
+        "실행 API의 응답만으로는 백엔드 작업과 실시간 이벤트 전달 구조를 함께 확인하기 어려워 브라우저에서 전체 흐름을 검증할 화면이 필요했습니다.",
+      constraint:
+        "HTTP API와 WebSocket에서 같은 데모 토큰을 검증해야 했고, 운영용 인증이 아니라는 한계도 분명히 밝혀야 했습니다.",
+      decision:
+        "서명된 데모 토큰을 HTTP 의존성과 WebSocket 접속에서 함께 검증하고, 실행 완료 이벤트를 메모리 기반 event bus로 전달했습니다.",
+      implementation: [
+        "로그인 시 만료 시간이 포함된 서명 토큰을 발급하고 보호된 API에서 Bearer 토큰을 확인했습니다.",
+        "백테스트 서비스가 결과를 반환하면 연결된 WebSocket에 완료 이벤트를 전송했습니다.",
+        "정적 대시보드에서 로그인·API 실행·이벤트 수신을 확인하고, pytest로 로그인 성공·실패와 보호 API를 검증했습니다.",
+      ],
+      outcome:
+        "브라우저에서 토큰 발급, 인증된 실행 요청, 결과 응답과 WebSocket 완료 이벤트를 한 번에 확인할 수 있게 했습니다.",
     },
   ],
 };

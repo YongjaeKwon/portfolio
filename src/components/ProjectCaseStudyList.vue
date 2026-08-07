@@ -6,7 +6,7 @@
         <h4 :id="headingId" class="text-primary mt-2 text-xl font-black">상세 개발 사례</h4>
       </div>
       <p class="text-muted max-w-lg text-sm leading-6">
-        이력서에 줄여 쓴 문제와 제약, 구현 과정을 사례별로 정리했습니다.
+        프로젝트에서 해결한 문제와 구현 과정을 사례별로 정리했습니다.
       </p>
     </div>
 
@@ -59,7 +59,7 @@
           <div class="deep-case-outcome">
             <CircleCheckBig class="h-5 w-5 shrink-0" aria-hidden="true" />
             <div>
-              <span>확인된 변화</span>
+              <span>결과</span>
               <p>{{ study.outcome }}</p>
             </div>
           </div>

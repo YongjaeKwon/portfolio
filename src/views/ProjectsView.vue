@@ -191,6 +191,15 @@
                   </div>
                 </section>
 
+                <template v-else>
+                  <DetailBlock title="담당 범위" :items="activeProject.detail.scope" />
+                  <DetailBlock
+                    v-if="!hasDetailedCaseStudies(activeProject.project.id)"
+                    title="주요 구현 내용"
+                    :items="activeProject.detail.workPoints"
+                  />
+                </template>
+
                 <ProjectCaseStudyList
                   v-if="hasDetailedCaseStudies(activeProject.project.id)"
                   :project-id="activeProject.project.id"
@@ -226,10 +235,6 @@
                   </div>
                 </section>
 
-                <template v-else>
-                  <DetailBlock title="주요 역할" :items="activeProject.detail.scope" />
-                  <DetailBlock title="주요 구현 내용" :items="activeProject.detail.workPoints" />
-                </template>
                 <DetailBlock
                   v-if="!hasDetailedCaseStudies(activeProject.project.id) && !activeProject.detail.caseStudy"
                   title="결과"
@@ -274,7 +279,7 @@ import { presentProject, type PresentedProject } from "@/utils/projectPresentati
 import { createLatestFrameScheduler } from "@/utils/frameScheduler";
 
 const ProjectCaseStudyList = defineAsyncComponent(() => import("@/components/ProjectCaseStudyList.vue"));
-const detailedCaseProjectIds = new Set(["pps", "tsms"]);
+const detailedCaseProjectIds = new Set(["pps", "tsms", "ssafast", "ddoing", "modac", "quant-lab"]);
 const hasDetailedCaseStudies = (projectId: string) => detailedCaseProjectIds.has(projectId);
 
 const DetailBlock = defineComponent({

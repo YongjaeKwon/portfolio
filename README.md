@@ -18,9 +18,9 @@
 - **PPS (B2B 협력사 포털)** — 대량 파일의 비동기 처리, Vue 화면 상태 분리, 본사 계정 발급 절차, 알림 정책과 Jenkins 배포 순서를 정리했습니다.
 - **TSMS (교육용 단말 운영 시스템)** — 외부 API 호출 공통화, 중고거래 모니터링, 대량 단말 검증·QR 발급과 현장 점검·재점검 업무를 개발했습니다.
 
-개인·팀 프로젝트는 공개 GitHub 링크가 있는 작업을 중심으로 구성했습니다. SSAFAST, 또잉, MODAC과 quant-lab의 코드를 확인할 수 있습니다.
+개인·팀 프로젝트는 공개 GitHub 링크가 있는 작업을 중심으로 구성했습니다. SSAFAST, 또잉, MODAC과 quant-lab의 코드와 프로젝트별 상세 개발 사례를 확인할 수 있습니다.
 
-PPS와 TSMS의 상세 사례와 비식별 코드 예시는 프로젝트 상세보기를 열 때 별도 청크로 불러옵니다. 실제 사내 코드, 화면, 고객사 정보와 저장 데이터는 공개하지 않습니다.
+프로젝트별 상세 사례를 제공하고, 일부 사례에는 공개 가능한 코드 예시를 함께 담았습니다. 상세 내용은 상세보기를 열 때 별도 청크로 불러옵니다. 실제 사내 코드, 화면, 고객사 정보와 저장 데이터는 공개하지 않습니다.
 
 | ddoing | MODAC |
 | --- | --- |
@@ -46,7 +46,7 @@ src/
   components/          Navbar, Footer, ProfileCard 등 공통 컴포넌트
   composables/         useSkin, useProjectFilter 등 공통 상태 훅
   data/portfolio.ts    프로필·프로젝트·기술 데이터 (내용 수정은 대부분 이 파일)
-  data/caseStudies.ts  PPS·TSMS 상세 사례와 비식별 코드 예시
+  data/caseStudies.ts  프로젝트별 상세 사례와 공개 가능한 코드 예시
   views/               Home / Experience / Projects / TechStack / Education / Contact 섹션
 public/
   resume.pdf           공개 이력서
@@ -57,7 +57,7 @@ scripts/
   generate-resumes.mjs HTML → PDF 변환 스크립트
 ```
 
-라우터 없이 App.vue가 섹션 뷰를 이어 붙이는 단일 페이지 구성입니다. 상세 사례 컴포넌트와 데이터는 PPS·TSMS 모달을 열 때 동적으로 불러옵니다.
+라우터 없이 App.vue가 섹션 뷰를 이어 붙이는 단일 페이지 구성입니다. 상세 사례 컴포넌트와 데이터는 프로젝트 모달을 열 때 동적으로 불러옵니다.
 
 ## 실행
 
