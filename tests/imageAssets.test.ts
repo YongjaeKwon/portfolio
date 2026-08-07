@@ -80,4 +80,33 @@ describe("optimized image assets", () => {
     expect(html).toContain('href="/my-photo-224.webp"');
     expect(html).toContain('rel="preload"');
   });
+
+  it("paints the hero LCP image immediately while keeping the badge entrance", async () => {
+    const home = await readFile(file("src/views/HomeView.vue"), "utf8");
+    const imageSource = home.indexOf('src="/my-photo-224.webp"');
+    const imageStart = home.lastIndexOf("<img", imageSource);
+    const wrapperStart = home.lastIndexOf("<div", imageStart);
+    const wrapperEnd = home.indexOf(">", wrapperStart);
+    const imageEnd = home.indexOf("/>", imageStart) + 2;
+    const badgeStart = home.indexOf("<div", imageEnd);
+    const badgeEnd = home.indexOf(">", badgeStart);
+
+    expect(imageSource).toBeGreaterThan(-1);
+    expect(imageStart).toBeGreaterThan(-1);
+    expect(wrapperStart).toBeGreaterThan(-1);
+    expect(home.slice(wrapperEnd + 1, imageStart).trim()).toBe("");
+
+    const wrapperClasses = home
+      .slice(wrapperStart, wrapperEnd + 1)
+      .match(/class="([^"]*)"/)?.[1]
+      .split(/\s+/);
+    const badgeOpeningTag = home.slice(badgeStart, badgeEnd + 1);
+    const badgeClasses = badgeOpeningTag.match(/class="([^"]*)"/)?.[1].split(/\s+/);
+
+    expect(wrapperClasses).not.toContain("hero-enter");
+    expect(badgeClasses).toContain("hero-enter");
+    expect(home.slice(badgeEnd + 1, home.indexOf("</div>", badgeEnd)).trim()).toBe(
+      "Web Developer",
+    );
+  });
 });
