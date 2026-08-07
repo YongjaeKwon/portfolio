@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "운영 중인 업무 시스템의 화면 작업을 소개하는 웹 개발자 포트폴리오.",
   "type": "module",
-  "homepage": "https://portfolio-six-inky-14.vercel.app/",
+  "homepage": "https://www.yongjaekwon.com/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/YongjaeKwon/portfolio.git"
@@ -12,16 +12,19 @@
   "author": "Yongjae Kwon <yongjae116@gmail.com>",
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.9.0"
   },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "test": "node scripts/verify-project-presentation.mjs",
+    "pretest": "npm run test:project-presentation",
+    "test": "vitest run",
+    "test:project-presentation": "node scripts/verify-project-presentation.mjs",
     "preview": "vite preview",
     "resumes:pdf": "node scripts/generate-resumes.mjs",
     "resumes:applications": "node scripts/generate-resumes.mjs --applications",
-    "test:resume-generation": "node scripts/verify-public-resume-generation.mjs"
+    "test:resume-generation": "node scripts/verify-public-resume-generation.mjs",
+    "assets:optimize": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@lucide/vue": "^1.16.0",
@@ -36,9 +39,11 @@
     "@types/node": "^22.13.10",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.0.11",
     "typescript": "~5.7.2",
     "vite": "^6.2.0",
+    "vitest": "^4.1.10",
     "vue-tsc": "^2.2.4"
   }
 }

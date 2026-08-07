@@ -13,22 +13,15 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from "vue";
 import { ChevronUp } from "@lucide/vue";
+import { useScrollMetrics } from "@/composables/useScrollMetrics";
 
-const visible = ref(false);
-
-const handleScroll = () => {
-  visible.value = window.scrollY > 400;
-};
+const { isPastThreshold: visible } = useScrollMetrics();
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
   history.replaceState(null, "", location.pathname);
 };
-
-onMounted(() => window.addEventListener("scroll", handleScroll, { passive: true }));
-onBeforeUnmount(() => window.removeEventListener("scroll", handleScroll));
 </script>
 
 <style scoped>
