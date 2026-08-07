@@ -22,6 +22,8 @@
 
 프로젝트별 상세 사례를 제공하고, 일부 사례에는 공개 가능한 코드 예시를 함께 담았습니다. 상세 내용은 상세보기를 열 때 별도 청크로 불러옵니다. 실제 사내 코드, 화면, 고객사 정보와 저장 데이터는 공개하지 않습니다.
 
+SSAFAST, 또잉, MODAC 상세보기에는 당시 담당한 화면과 기능 흐름을 포트폴리오용으로 재구성한 인터랙티브 데모를 함께 제공합니다. API 명세·예시 성능 결과, Canvas 드로잉·타이머, 스터디룸 입장·채팅 흐름을 샘플 데이터로 직접 조작할 수 있으며 각 데모는 실행 버튼을 누를 때만 불러옵니다.
+
 | ddoing | MODAC |
 | --- | --- |
 | <img src="public/projects/ddoing.png" width="360" alt="또잉 Drawing 영어 학습 게임 화면" /> | <img src="public/projects/modac.png" width="360" alt="MODAC 학습방 화면" /> |
@@ -44,6 +46,7 @@
 ```text
 src/
   components/          Navbar, Footer, ProfileCard 등 공통 컴포넌트
+    demos/              개인·팀 프로젝트의 샘플 데이터 인터랙티브 데모
   composables/         useSkin, useProjectFilter 등 공통 상태 훅
   data/portfolio.ts    프로필·프로젝트·기술 데이터 (내용 수정은 대부분 이 파일)
   data/caseStudies.ts  프로젝트별 상세 사례와 공개 가능한 코드 예시

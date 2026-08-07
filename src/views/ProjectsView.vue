@@ -84,7 +84,15 @@
         <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           <article v-for="item in otherProjects" :key="item.project.id" class="project-compact-card interactive-surface group flex h-full flex-col overflow-hidden rounded-[1.75rem] p-5">
             <div class="flex items-center justify-between gap-3">
-              <span class="rounded-full border border-[var(--fresh-border)] bg-white/70 px-3 py-1.5 text-xs font-bold text-[var(--fresh-blue-strong)]">{{ item.project.category }}</span>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="rounded-full border border-[var(--fresh-border)] bg-white/70 px-3 py-1.5 text-xs font-bold text-[var(--fresh-blue-strong)]">{{ item.project.category }}</span>
+                <span
+                  v-if="hasInteractiveDemo(item.project.id)"
+                  class="rounded-full bg-[var(--fresh-blue-soft)] px-2.5 py-1 text-[10px] font-black text-[var(--fresh-blue-strong)]"
+                >
+                  기능 데모
+                </span>
+              </div>
               <span class="text-muted font-mono tnum text-xs">{{ item.project.period }}</span>
             </div>
             <div v-if="item.project.image" class="project-thumb mt-5 flex h-40 items-center justify-center overflow-hidden rounded-2xl p-3">
@@ -122,6 +130,8 @@
           role="dialog"
           aria-modal="true"
           :aria-labelledby="detailTitleId"
+          :aria-hidden="nestedDemoDialogOpen ? 'true' : undefined"
+          :inert="nestedDemoDialogOpen ? true : undefined"
           @click.self="closeDetail"
         >
           <div ref="modalRef" class="case-study-modal flex max-h-[88dvh] w-full max-w-4xl flex-col overflow-hidden rounded-xl">
@@ -200,12 +210,18 @@
                   />
                 </template>
 
+                <ProjectDemoPanel
+                  v-if="hasInteractiveDemo(activeProject.project.id)"
+                  :project-id="activeProject.project.id"
+                  @dialog-state-change="nestedDemoDialogOpen = $event"
+                />
+
                 <ProjectCaseStudyList
                   v-if="hasDetailedCaseStudies(activeProject.project.id)"
                   :project-id="activeProject.project.id"
                 />
 
-                <section v-else-if="activeProject.detail.caseStudy">
+                <section v-if="!hasDetailedCaseStudies(activeProject.project.id) && activeProject.detail.caseStudy">
                   <h4 class="text-primary mb-3 font-black">문제 해결 과정</h4>
                   <div class="case-process-grid grid gap-3 md:grid-cols-2">
                     <article class="case-process-step rounded-xl p-5">
@@ -279,8 +295,11 @@ import { presentProject, type PresentedProject } from "@/utils/projectPresentati
 import { createLatestFrameScheduler } from "@/utils/frameScheduler";
 
 const ProjectCaseStudyList = defineAsyncComponent(() => import("@/components/ProjectCaseStudyList.vue"));
+const ProjectDemoPanel = defineAsyncComponent(() => import("@/components/demos/ProjectDemoPanel.vue"));
 const detailedCaseProjectIds = new Set(["pps", "tsms", "ssafast", "ddoing", "modac", "quant-lab"]);
+const interactiveDemoProjectIds = new Set(["ssafast", "ddoing", "modac"]);
 const hasDetailedCaseStudies = (projectId: string) => detailedCaseProjectIds.has(projectId);
+const hasInteractiveDemo = (projectId: string) => interactiveDemoProjectIds.has(projectId);
 
 const DetailBlock = defineComponent({
   props: { title: { type: String, required: true }, items: { type: Array as () => string[], required: true } },
@@ -331,14 +350,17 @@ const roleSections = computed(() => {
 const detailTitleId = "project-detail-title";
 const modalRef = ref<HTMLElement | null>(null);
 const triggerEl = ref<HTMLElement | null>(null);
+const nestedDemoDialogOpen = ref(false);
 const FOCUSABLE = 'a[href], button:not([disabled]), summary, [tabindex]:not([tabindex="-1"])';
 
 const openDetail = (project: PresentedProject) => {
+  nestedDemoDialogOpen.value = false;
   triggerEl.value = document.activeElement as HTMLElement;
   activeProject.value = project;
 };
 
 const closeDetail = () => {
+  nestedDemoDialogOpen.value = false;
   activeProject.value = null;
   nextTick(() => triggerEl.value?.focus());
 };
@@ -348,6 +370,7 @@ watch(activeTrack, () => {
 });
 
 const handleKeydown = (event: KeyboardEvent) => {
+  if (nestedDemoDialogOpen.value) return;
   if (event.key === "Escape" && activeProject.value) {
     closeDetail();
     return;
