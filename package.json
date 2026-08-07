@@ -17,8 +17,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "test": "node scripts/verify-project-presentation.mjs",
     "preview": "vite preview",
-    "resumes:pdf": "node scripts/generate-resumes.mjs"
+    "resumes:pdf": "node scripts/generate-resumes.mjs",
+    "resumes:applications": "node scripts/generate-resumes.mjs --applications",
+    "test:resume-generation": "node scripts/verify-public-resume-generation.mjs"
   },
   "dependencies": {
     "@lucide/vue": "^1.16.0",

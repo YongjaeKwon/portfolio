@@ -41,8 +41,18 @@
                 <p v-for="line in item.card.description" :key="line" class="text-muted text-sm leading-6">{{ line }}</p>
               </div>
 
-              <div class="case-result mt-5 rounded-2xl p-4">
-                <p class="text-[11px] font-black tracking-[0.08em] text-[var(--fresh-blue-strong)]">실제 운영</p>
+              <div v-if="item.detail.caseStudy" class="case-result mt-5 rounded-2xl p-4">
+                <div>
+                  <p class="case-step-label">문제</p>
+                  <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.detail.caseStudy.problem }}</p>
+                </div>
+                <div class="case-result-divider mt-4 pt-4">
+                  <p class="case-step-label">확인된 결과</p>
+                  <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.detail.caseStudy.outcome[0] }}</p>
+                </div>
+              </div>
+              <div v-else class="case-result mt-5 rounded-2xl p-4">
+                <p class="case-step-label">실제 운영</p>
                 <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.card.result }}</p>
               </div>
 
@@ -133,7 +143,7 @@
               />
 
               <div class="grid gap-6">
-                <DetailBlock title="프로젝트 개요" :items="[activeProject.project.detail.overview]" />
+                <DetailBlock title="프로젝트 개요" :items="[activeProject.detail.overview]" />
 
                 <section v-if="roleSections.length">
                   <h4 class="text-primary mb-3 font-black">영역별 담당 내용</h4>
@@ -171,19 +181,49 @@
                   </div>
                 </section>
 
+                <section v-if="activeProject.detail.caseStudy">
+                  <h4 class="text-primary mb-3 font-black">문제 해결 과정</h4>
+                  <div class="case-process-grid grid gap-3 md:grid-cols-2">
+                    <article class="case-process-step rounded-xl p-5">
+                      <h5 class="case-step-label">01 · 문제</h5>
+                      <p class="text-secondary mt-3 text-sm leading-6">{{ activeProject.detail.caseStudy.problem }}</p>
+                    </article>
+                    <article class="case-process-step rounded-xl p-5">
+                      <h5 class="case-step-label">02 · 판단</h5>
+                      <p class="text-secondary mt-3 text-sm leading-6">{{ activeProject.detail.caseStudy.decision }}</p>
+                    </article>
+                    <article class="case-process-step rounded-xl p-5">
+                      <h5 class="case-step-label">03 · 구현</h5>
+                      <ul class="mt-3 grid gap-2">
+                        <li v-for="item in activeProject.detail.caseStudy.implementation" :key="item" class="role-detail-item text-secondary text-sm leading-6">
+                          {{ item }}
+                        </li>
+                      </ul>
+                    </article>
+                    <article class="case-process-step rounded-xl p-5">
+                      <h5 class="case-step-label">04 · 결과</h5>
+                      <ul class="mt-3 grid gap-2">
+                        <li v-for="item in activeProject.detail.caseStudy.outcome" :key="item" class="role-detail-item text-secondary text-sm leading-6">
+                          {{ item }}
+                        </li>
+                      </ul>
+                    </article>
+                  </div>
+                </section>
+
                 <template v-else>
-                  <DetailBlock title="주요 역할" :items="activeProject.project.detail.scope" />
-                  <DetailBlock title="주요 구현 내용" :items="activeProject.project.detail.workPoints" />
+                  <DetailBlock title="주요 역할" :items="activeProject.detail.scope" />
+                  <DetailBlock title="주요 구현 내용" :items="activeProject.detail.workPoints" />
                 </template>
-                <DetailBlock title="결과" :items="activeProject.project.detail.results" />
-                <DetailBlock title="사용 기술" :items="activeProject.project.detail.techUsage" />
-                <DetailBlock title="공개 범위" :items="[activeProject.project.detail.disclosure]" />
+                <DetailBlock v-if="!activeProject.detail.caseStudy" title="결과" :items="activeProject.detail.results" />
+                <DetailBlock title="사용 기술" :items="activeProject.detail.techUsage" />
+                <DetailBlock title="공개 범위" :items="[activeProject.detail.disclosure]" />
 
                 <div v-if="activeProject.project.detail.resources.length">
                   <h4 class="text-primary mb-3 font-black">관련 자료</h4>
                   <div class="flex flex-wrap gap-2">
                     <a
-                      v-for="resource in activeProject.project.detail.resources"
+                      v-for="resource in activeProject.detail.resources"
                       :key="resource.label"
                       :href="resource.href"
                       :target="resource.type === 'github' ? '_blank' : undefined"
@@ -209,14 +249,9 @@ import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref
 import { ArrowRight, ExternalLink, X } from "@lucide/vue";
 import FocusTabs from "@/components/FocusTabs.vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
-import { featuredProjects, focusTracks, type FeaturedProject, type FocusTrackId, type RoleFocusId } from "@/data/portfolio";
+import { featuredProjects, focusTracks, type RoleFocusId } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";
-
-type PresentedProject = {
-  project: FeaturedProject;
-  card: FeaturedProject["card"];
-  detail: FeaturedProject["detail"];
-};
+import { presentProject, type PresentedProject } from "@/utils/projectPresentation";
 
 const DetailBlock = defineComponent({
   props: { title: { type: String, required: true }, items: { type: Array as () => string[], required: true } },
@@ -230,15 +265,6 @@ const DetailBlock = defineComponent({
 
 const { activeTrack } = useFocusTrack();
 const activeTrackData = computed(() => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]);
-
-const presentProject = (project: FeaturedProject, focus: FocusTrackId): PresentedProject => {
-  const perspective = focus === "all" ? undefined : project.perspectives?.[focus as RoleFocusId];
-  return {
-    project,
-    card: { ...project.card, ...perspective?.card },
-    detail: { ...project.detail, ...perspective?.detail },
-  };
-};
 
 const presentedProjects = computed(() => {
   const order = activeTrackData.value.projectOrder;
@@ -261,7 +287,11 @@ const roleSections = computed(() => {
   const project = activeProject.value?.project;
   if (!project?.perspectives) return [];
 
-  return (["frontend", "backend"] as RoleFocusId[]).flatMap((id) => {
+  const ids: RoleFocusId[] = activeTrack.value === "all"
+    ? ["frontend", "backend"]
+    : [activeTrack.value];
+
+  return ids.flatMap((id) => {
     const detail = project.perspectives?.[id]?.detail;
     if (!detail?.scope?.length || !detail.workPoints?.length) return [];
 
@@ -377,6 +407,19 @@ const vTilt = {
 .case-result {
   border: 1px solid rgba(49, 130, 246, 0.12);
   background: linear-gradient(105deg, rgba(49, 130, 246, 0.075), rgba(83, 199, 245, 0.05));
+}
+.case-step-label {
+  color: var(--fresh-blue-strong);
+  font-size: 0.6875rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+.case-result-divider {
+  border-top: 1px solid rgba(49, 130, 246, 0.12);
+}
+.case-process-step {
+  border: 1px solid rgba(49, 130, 246, 0.12);
+  background: rgba(255, 255, 255, 0.72);
 }
 .project-compact-card {
   border: 1px solid rgba(255, 255, 255, 0.9);

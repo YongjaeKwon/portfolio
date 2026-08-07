@@ -296,14 +296,18 @@ function collectApplicationResumes() {
     });
 }
 
+const applicationMode = process.argv.includes("--applications");
+
 mkdirSync(cacheDir, { recursive: true });
-mkdirSync(applicationsOutDir, { recursive: true });
+if (applicationMode) {
+  mkdirSync(applicationsOutDir, { recursive: true });
+}
 mkdirSync(finalPdfDir, { recursive: true });
 
 const browser = findBrowser();
 console.log(`Using browser: ${browser}`);
 
-const allResumes = [...resumes, ...collectApplicationResumes()];
+const allResumes = applicationMode ? collectApplicationResumes() : resumes;
 
 for (const resume of allResumes) {
   const sourcePath = path.join(rootDir, resume.source);
