@@ -7,6 +7,12 @@
         aria-label="첫 화면으로 이동"
         @click="moveToSection('hero')"
       >
+        <span
+          class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-[#d7e9ff] bg-white/80 shadow-[0_8px_24px_rgba(49,130,246,0.12)] transition-transform duration-200 group-hover:-translate-y-0.5"
+          aria-hidden="true"
+        >
+          <img src="/brand/yongjae-mark.svg" alt="" width="30" height="30" />
+        </span>
         <span>
           <span class="text-primary block text-sm font-bold leading-none">{{ profile.name }}</span>
           <span class="text-muted font-display mt-1 hidden text-xs sm:block">Web Developer</span>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Yongjae Kwon YK Flow logo</title>
+  <desc id="desc">A continuous Y and K monogram connecting interface, API, data, and operations.</desc>
+  <defs>
+    <linearGradient id="flow" x1="46" y1="13" x2="48" y2="49" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1B64DA"/>
+      <stop offset="0.55" stop-color="#3182F6"/>
+      <stop offset="1" stop-color="#53C7F5"/>
+    </linearGradient>
+  </defs>
+  <path d="M15 15 31 31" fill="none" stroke="#121722" stroke-width="8" stroke-linecap="round"/>
+  <path d="M48 14 31 31 49 48" fill="none" stroke="url(#flow)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M31 31v20" fill="none" stroke="#53C7F5" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="31" cy="31" r="4.5" fill="#3182F6"/>
+</svg>

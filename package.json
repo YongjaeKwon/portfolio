@@ -24,7 +24,8 @@
     "resumes:pdf": "node scripts/generate-resumes.mjs",
     "resumes:applications": "node scripts/generate-resumes.mjs --applications",
     "test:resume-generation": "node scripts/verify-public-resume-generation.mjs",
-    "assets:optimize": "node scripts/optimize-images.mjs"
+    "assets:optimize": "node scripts/optimize-images.mjs",
+    "assets:brand": "node scripts/generate-brand-assets.mjs"
   },
   "dependencies": {
     "@lucide/vue": "^1.16.0",
