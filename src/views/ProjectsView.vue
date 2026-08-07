@@ -124,8 +124,8 @@
           :aria-labelledby="detailTitleId"
           @click.self="closeDetail"
         >
-          <div ref="modalRef" class="case-study-modal max-h-[88vh] w-full max-w-4xl overflow-hidden rounded-xl">
-            <div class="flex items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
+          <div ref="modalRef" class="case-study-modal flex max-h-[88dvh] w-full max-w-4xl flex-col overflow-hidden rounded-xl">
+            <div class="flex shrink-0 items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
               <div>
                 <p class="section-kicker">Project Detail</p>
                 <h3 :id="detailTitleId" class="text-primary mt-2 text-2xl font-black">{{ activeProject.project.title }}</h3>
@@ -136,7 +136,7 @@
               </button>
             </div>
 
-            <div class="max-h-[calc(88vh-110px)] overflow-y-auto p-5 md:p-8">
+            <div class="min-h-0 flex-1 overflow-y-auto p-5 md:p-8" tabindex="0" aria-label="프로젝트 상세 내용">
               <ProjectCaseVisual
                 v-if="activeProject.project.id === 'pps' || activeProject.project.id === 'tsms'"
                 :project-id="activeProject.project.id"
@@ -191,7 +191,12 @@
                   </div>
                 </section>
 
-                <section v-if="activeProject.detail.caseStudy">
+                <ProjectCaseStudyList
+                  v-if="hasDetailedCaseStudies(activeProject.project.id)"
+                  :project-id="activeProject.project.id"
+                />
+
+                <section v-else-if="activeProject.detail.caseStudy">
                   <h4 class="text-primary mb-3 font-black">문제 해결 과정</h4>
                   <div class="case-process-grid grid gap-3 md:grid-cols-2">
                     <article class="case-process-step rounded-xl p-5">
@@ -225,11 +230,15 @@
                   <DetailBlock title="주요 역할" :items="activeProject.detail.scope" />
                   <DetailBlock title="주요 구현 내용" :items="activeProject.detail.workPoints" />
                 </template>
-                <DetailBlock v-if="!activeProject.detail.caseStudy" title="결과" :items="activeProject.detail.results" />
+                <DetailBlock
+                  v-if="!hasDetailedCaseStudies(activeProject.project.id) && !activeProject.detail.caseStudy"
+                  title="결과"
+                  :items="activeProject.detail.results"
+                />
                 <DetailBlock title="사용 기술" :items="activeProject.detail.techUsage" />
                 <DetailBlock title="공개 범위" :items="[activeProject.detail.disclosure]" />
 
-                <div v-if="activeProject.project.detail.resources.length">
+                <div v-if="activeProject.detail.resources.length">
                   <h4 class="text-primary mb-3 font-black">관련 자료</h4>
                   <div class="flex flex-wrap gap-2">
                     <a
@@ -255,7 +264,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { computed, defineAsyncComponent, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { ArrowRight, ExternalLink, X } from "@lucide/vue";
 import FocusTabs from "@/components/FocusTabs.vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
@@ -263,6 +272,10 @@ import { featuredProjects, focusTracks, type RoleFocusId } from "@/data/portfoli
 import { useFocusTrack } from "@/composables/useFocusTrack";
 import { presentProject, type PresentedProject } from "@/utils/projectPresentation";
 import { createLatestFrameScheduler } from "@/utils/frameScheduler";
+
+const ProjectCaseStudyList = defineAsyncComponent(() => import("@/components/ProjectCaseStudyList.vue"));
+const detailedCaseProjectIds = new Set(["pps", "tsms"]);
+const hasDetailedCaseStudies = (projectId: string) => detailedCaseProjectIds.has(projectId);
 
 const DetailBlock = defineComponent({
   props: { title: { type: String, required: true }, items: { type: Array as () => string[], required: true } },
@@ -313,7 +326,7 @@ const roleSections = computed(() => {
 const detailTitleId = "project-detail-title";
 const modalRef = ref<HTMLElement | null>(null);
 const triggerEl = ref<HTMLElement | null>(null);
-const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE = 'a[href], button:not([disabled]), summary, [tabindex]:not([tabindex="-1"])';
 
 const openDetail = (project: PresentedProject) => {
   triggerEl.value = document.activeElement as HTMLElement;

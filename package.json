@@ -2,7 +2,7 @@
   "name": "portfolio",
   "private": true,
   "version": "0.0.0",
-  "description": "운영 중인 업무 시스템의 화면 작업을 소개하는 웹 개발자 포트폴리오.",
+  "description": "운영 중인 B2B·공공 업무 시스템의 화면·서버·데이터 처리 경험을 소개하는 웹 개발자 포트폴리오.",
   "type": "module",
   "homepage": "https://www.yongjaekwon.com/",
   "repository": {

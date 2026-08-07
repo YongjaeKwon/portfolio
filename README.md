@@ -2,8 +2,8 @@
 
 개인 포트폴리오 사이트입니다. 템플릿을 쓰지 않고 Vue 3 + TypeScript + Vite로 처음부터 만들었습니다.
 
-- 사이트: https://portfolio-six-inky-14.vercel.app/
-- 이력서 PDF: https://portfolio-six-inky-14.vercel.app/resume.pdf
+- 사이트: https://www.yongjaekwon.com/
+- 이력서 PDF: https://www.yongjaekwon.com/resume.pdf
 
 채용 제출용 직접 링크로만 운영하고 있어서 검색 노출은 robots.txt로 막아 두었습니다.
 
@@ -11,17 +11,16 @@
 
 ## 어떤 내용을 담았나
 
-운영 중인 B2B·B2G 서비스에서 업무 화면을 개선하고 기능을 추가한 경험을 프론트엔드 관점으로 담았습니다. 화면에 보이는 값이 API 응답, 권한 조건, MyBatis 결과와 맞는지 살피고, 배치·배포 이후 결과까지 확인한 과정을 보여주는 것이 목표입니다.
+운영 중인 B2B·공공 업무 시스템에서 화면부터 API·SQL·배포까지 이어서 개발한 경험을 담았습니다. 직무 탭에서는 Frontend와 Backend에서 맡은 부분을 나눠 볼 수 있고, 상세 화면에서는 문제와 제약, 선택 이유, 구현과 확인된 변화를 함께 설명합니다.
 
-실무 프로젝트 세 개를 주요 프로젝트로 담았습니다.
+실무 시스템 두 개를 주요 프로젝트로 담았습니다.
 
-- **PPS (협력사 운영 포탈)** — 교육 등록, 대상자 엑셀 업로드, 메일 발송, 제출 현황 조회가 이어지도록 화면 상태, API 파라미터, MyBatis SQL을 조정했습니다. 게시판·설문·제안하기의 댓글·대댓글 처리는 공통 컴포넌트로 묶었습니다.
-- **현장 A/S 접수·처리 시스템** — AS 접수, 개인정보 동의, 태블릿 서명, 알림 발송 상태가 같은 접수 번호로 이어지도록 모바일·태블릿·데스크톱 화면의 조회 과정을 통일했습니다.
-- **교육청 스마트기기 자산관리 시스템** — 권한별 조회 범위, 대시보드 집계, 상세 목록과 엑셀 결과가 같은 필터로 보이도록 화면 이동과 MyBatis SQL을 개선했고, 연계 시스템 자산 정보 일일 동기화 배치와 이력 조회 흐름을 연결했습니다.
+- **PPS (B2B 협력사 포털)** — 대량 파일의 비동기 처리, Vue 화면 상태 분리, 본사 계정 발급 절차, 알림 정책과 Jenkins 배포 순서를 정리했습니다.
+- **TSMS (교육용 단말 운영 시스템)** — 외부 API 호출 공통화, 중고거래 모니터링, 대량 단말 검증·QR 발급과 현장 점검·재점검 업무를 개발했습니다.
 
-보조 프로젝트는 공개 GitHub 링크가 있는 프로젝트만 남겼습니다. SSAFAST는 API 명세/테스트 도구로, 중첩 입력 폼과 테스트 결과 화면을 구성한 팀 프로젝트입니다. quant-lab은 매매 전략 실행 구조를 실험하기 위한 개인 백엔드 프로젝트이며 실제 투자 정보는 제외했습니다.
+개인·팀 프로젝트는 공개 GitHub 링크가 있는 작업을 중심으로 구성했습니다. SSAFAST, 또잉, MODAC과 quant-lab의 코드를 확인할 수 있습니다.
 
-각 프로젝트의 자세한 내용은 사이트의 상세 보기 모달에서 볼 수 있습니다.
+PPS와 TSMS의 상세 사례와 비식별 코드 예시는 프로젝트 상세보기를 열 때 별도 청크로 불러옵니다. 실제 사내 코드, 화면, 고객사 정보와 저장 데이터는 공개하지 않습니다.
 
 | ddoing | MODAC |
 | --- | --- |
@@ -47,6 +46,7 @@ src/
   components/          Navbar, Footer, ProfileCard 등 공통 컴포넌트
   composables/         useSkin, useProjectFilter 등 공통 상태 훅
   data/portfolio.ts    프로필·프로젝트·기술 데이터 (내용 수정은 대부분 이 파일)
+  data/caseStudies.ts  PPS·TSMS 상세 사례와 비식별 코드 예시
   views/               Home / Experience / Projects / TechStack / Education / Contact 섹션
 public/
   resume.pdf           공개 이력서
@@ -57,7 +57,7 @@ scripts/
   generate-resumes.mjs HTML → PDF 변환 스크립트
 ```
 
-라우터 없이 App.vue가 섹션 뷰를 이어 붙이는 단일 페이지 구성입니다. 프로젝트 상세 모달은 `src/data/portfolio.ts`의 구조화된 데이터를 `ProjectsView.vue`에서 직접 렌더링합니다.
+라우터 없이 App.vue가 섹션 뷰를 이어 붙이는 단일 페이지 구성입니다. 상세 사례 컴포넌트와 데이터는 PPS·TSMS 모달을 열 때 동적으로 불러옵니다.
 
 ## 실행
 
