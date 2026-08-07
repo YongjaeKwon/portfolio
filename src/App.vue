@@ -39,11 +39,12 @@ import ScrollToTop from "@/components/ScrollToTop.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
 import { createLatestFrameScheduler } from "@/utils/frameScheduler";
 import {
-  scrollToLaidOutSection,
+  createSectionNavigator,
   type SectionScrollBehavior,
 } from "@/utils/sectionNavigation";
 
 let cleanup: (() => void) | undefined;
+let initialHashTimer: number | null = null;
 const cursorSpotlight = ref<HTMLElement | null>(null);
 
 const cursorScheduler = createLatestFrameScheduler(({ x, y }: { x: number; y: number }) => {
@@ -52,12 +53,19 @@ const cursorScheduler = createLatestFrameScheduler(({ x, y }: { x: number; y: nu
     `translate3d(${x - 600}px, ${y - 600}px, 0)`,
   );
 });
+const sectionNavigator = createSectionNavigator();
+
+const cancelInitialHashNavigation = () => {
+  if (initialHashTimer === null) return;
+  clearTimeout(initialHashTimer);
+  initialHashTimer = null;
+};
 
 const scrollSectionIntoView = (section: HTMLElement, behavior: SectionScrollBehavior) => {
   const sections = Array.from(
     document.querySelectorAll<HTMLElement>(".portfolio-flow > section"),
   );
-  scrollToLaidOutSection(sections, section, behavior);
+  sectionNavigator.navigate(sections, section, behavior);
 };
 
 onMounted(() => {
@@ -109,11 +117,16 @@ onMounted(() => {
   if (initialHash) {
     const target = document.getElementById(initialHash);
     if (target) {
-      setTimeout(() => scrollSectionIntoView(target, "instant"), 80);
+      initialHashTimer = window.setTimeout(() => {
+        initialHashTimer = null;
+        scrollSectionIntoView(target, "instant");
+      }, 80);
     }
   }
 
   cleanup = () => {
+    cancelInitialHashNavigation();
+    sectionNavigator.cancel();
     hoverPointerQuery.removeEventListener("change", reconcilePointerEffects);
     reducedMotionQuery.removeEventListener("change", reconcilePointerEffects);
     window.removeEventListener("pointermove", handlePointerMove);
@@ -126,6 +139,7 @@ onMounted(() => {
 onBeforeUnmount(() => cleanup?.());
 
 const scrollToSection = (id: string) => {
+  cancelInitialHashNavigation();
   const section = document.getElementById(id);
   if (section) {
     scrollSectionIntoView(section, "smooth");

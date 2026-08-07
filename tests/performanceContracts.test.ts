@@ -178,9 +178,19 @@ describe("scroll performance contracts", () => {
     const app = await source("src/App.vue");
     const css = await source("src/assets/index.css");
 
-    expectImportedAndCalled(app, "scrollToLaidOutSection");
+    expectImportedAndCalled(app, "createSectionNavigator");
+    expect(app).toMatch(/const\s+sectionNavigator\s*=\s*createSectionNavigator\s*\(\s*\)/);
+    expect(app).toMatch(/sectionNavigator\.navigate\s*\(/);
     expect(app).toMatch(/scrollSectionIntoView\s*\(\s*target\s*,\s*["']instant["']\s*\)/);
     expect(app).toMatch(/scrollSectionIntoView\s*\(\s*section\s*,\s*["']smooth["']\s*\)/);
+    expect(app).toMatch(/initialHashTimer\s*=\s*window\.setTimeout\s*\(/);
+    expect(app).toMatch(/clearTimeout\s*\(\s*initialHashTimer\s*\)/);
+    expect(app).toMatch(
+      /const\s+scrollToSection[\s\S]*?cancelInitialHashNavigation\s*\(\s*\)[\s\S]*?scrollSectionIntoView/,
+    );
+    expect(app).toMatch(
+      /cleanup\s*=\s*\(\)\s*=>\s*\{[\s\S]*?cancelInitialHashNavigation\s*\(\s*\)[\s\S]*?sectionNavigator\.cancel\s*\(\s*\)/,
+    );
     expect(css).toMatch(
       /\.portfolio-flow\s*>\s*section:not\(\s*#hero\s*\)\.anchor-layout-ready\s*\{[^}]*content-visibility\s*:\s*visible\s*;/s,
     );
