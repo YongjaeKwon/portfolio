@@ -75,6 +75,9 @@ const cloneMessages = (roomId: number) =>
   (seededMessages[roomId] ?? []).map((message) => ({ ...message }));
 
 const rooms = ref<DemoRoom[]>(cloneRooms());
+const selectedRoomId = ref<number | null>(null);
+const joinReady = ref(false);
+const showActivityRecord = ref(false);
 const pendingRoomId = ref<number | null>(null);
 const activeRoomId = ref<number | null>(null);
 const inviteCode = ref("");
@@ -87,6 +90,8 @@ const chatLog = ref<HTMLElement | null>(null);
 const inviteDialog = ref<HTMLFormElement | null>(null);
 const inviteInput = ref<HTMLInputElement | null>(null);
 const lastEntryTrigger = ref<HTMLElement | null>(null);
+const roomListHeading = ref<HTMLElement | null>(null);
+const activityRecordHeading = ref<HTMLElement | null>(null);
 const replyTimers = new Set<number>();
 let messageSequence = 10;
 
@@ -98,7 +103,61 @@ const pendingRoom = computed(() =>
   rooms.value.find((room) => room.id === pendingRoomId.value),
 );
 
-const currentStep = computed(() => (activeRoom.value ? 3 : pendingRoom.value ? 2 : 1));
+const selectedRoom = computed(() =>
+  rooms.value.find((room) => room.id === selectedRoomId.value),
+);
+
+const guideSteps = [
+  {
+    title: "스터디 탐색",
+    shortTitle: "탐색",
+    userAction: "목록에서 스터디 선택",
+    screenChange: "인원·공개 범위·주제 확인",
+    ownership: "스터디 목록·상태 UI와 탐색 화면",
+    demo: "샘플 스터디 목록을 브라우저 메모리로 구성",
+  },
+  {
+    title: "참여 조건 확인",
+    shortTitle: "조건",
+    userAction: "선택한 스터디 상세 확인",
+    screenChange: "정원·공개/비공개 조건 표시",
+    ownership: "상세 화면과 공개·비공개 조건 분기 UI",
+    demo: "정원과 공개 범위를 고정 샘플 조건으로 재현",
+  },
+  {
+    title: "참여 요청",
+    shortTitle: "참여",
+    userAction: "바로 참여 또는 초대 코드 입력",
+    screenChange: "입장 검증 후 참여 인원 반영",
+    ownership: "참여 요청·검증 결과·오류 상태 UI",
+    demo: "고정 초대 코드로 성공·오류 흐름을 브라우저에서 검증",
+  },
+  {
+    title: "스터디룸 활동",
+    shortTitle: "활동",
+    userAction: "메시지 작성과 참여 흐름 확인",
+    screenChange: "채팅·참여 상태 갱신",
+    ownership: "채팅 UI와 팀 WebSocket 연동 결과 반영",
+    demo: "외부 연결 없이 메시지와 지연 응답을 화면 상태로 생성",
+  },
+  {
+    title: "활동 기록 확인",
+    shortTitle: "기록",
+    userAction: "이번 활동 요약 확인",
+    screenChange: "참여·메시지 기록 요약",
+    ownership: "활동 기록·통계 화면 UI",
+    demo: "현재 세션의 참여·메시지 수를 브라우저에서 집계",
+  },
+] as const;
+
+const currentStep = computed(() => {
+  if (showActivityRecord.value) return 5;
+  if (activeRoom.value) return 4;
+  if (joinReady.value) return 3;
+  if (selectedRoom.value) return 2;
+  return 1;
+});
+const currentGuide = computed(() => guideSteps[currentStep.value - 1]);
 
 const memberLabel = (room: DemoRoom) => `${room.members}/${room.capacity}명`;
 const isFull = (room: DemoRoom) => room.members >= room.capacity;
@@ -108,14 +167,47 @@ const clearReplyTimers = () => {
   replyTimers.clear();
 };
 
-const closeInviteDialog = async () => {
+const selectRoom = (room: DemoRoom) => {
+  if (isFull(room)) {
+    roomError.value = `‘${room.title}’은 현재 정원이 가득 찼습니다.`;
+    return;
+  }
+  roomError.value = "";
+  selectedRoomId.value = room.id;
+  joinReady.value = false;
+};
+
+const returnToRoomList = () => {
+  joinReady.value = false;
+  selectedRoomId.value = null;
+  roomError.value = "";
+};
+
+const prepareJoin = () => {
+  if (!selectedRoom.value) return;
+  joinReady.value = true;
+};
+
+const closeInviteDialogState = async (restoreTriggerFocus: boolean) => {
+  const trigger = restoreTriggerFocus ? lastEntryTrigger.value : null;
   emit("dialog-state-change", false);
   pendingRoomId.value = null;
   inviteCode.value = "";
   inviteError.value = "";
-  await nextTick();
-  lastEntryTrigger.value?.focus();
   lastEntryTrigger.value = null;
+  await nextTick();
+  trigger?.focus();
+};
+
+const closeInviteDialog = () => closeInviteDialogState(true);
+
+const focusRoomListStart = async () => {
+  await nextTick();
+  const target = roomListHeading.value;
+  if (!target) return;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  target.focus({ preventScroll: true });
+  target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
 };
 
 const scrollChatToEnd = async () => {
@@ -134,6 +226,9 @@ const enterRoom = async (room: DemoRoom) => {
   }
 
   currentRoom.members += 1;
+  selectedRoomId.value = currentRoom.id;
+  joinReady.value = false;
+  showActivityRecord.value = false;
   activeRoomId.value = currentRoom.id;
   messages.value = [
     ...cloneMessages(currentRoom.id),
@@ -204,14 +299,20 @@ const trapInviteFocus = (event: KeyboardEvent) => {
   }
 };
 
-const leaveRoom = () => {
+const completeActivity = async () => {
+  if (!activeRoom.value) return;
   clearReplyTimers();
-  const room = activeRoom.value;
-  if (room) room.members = Math.max(0, room.members - 1);
-  activeRoomId.value = null;
-  messages.value = [];
-  chatDraft.value = "";
-  roomError.value = "";
+  showActivityRecord.value = true;
+  await nextTick();
+  const target = activityRecordHeading.value;
+  if (!target) return;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  target.focus({ preventScroll: true });
+  target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+};
+
+const returnToRoom = () => {
+  showActivityRecord.value = false;
 };
 
 const currentTime = () =>
@@ -251,14 +352,22 @@ const sendMessage = () => {
   replyTimers.add(timer);
 };
 
-const resetDemo = () => {
+const resetDemo = async () => {
   clearReplyTimers();
   rooms.value = cloneRooms();
+  selectedRoomId.value = null;
+  joinReady.value = false;
+  showActivityRecord.value = false;
   activeRoomId.value = null;
   messages.value = [];
   chatDraft.value = "";
   roomError.value = "";
-  closeInviteDialog();
+  await closeInviteDialogState(false);
+};
+
+const restartDemo = async () => {
+  await resetDemo();
+  await focusRoomListStart();
 };
 
 onBeforeUnmount(() => {
@@ -275,22 +384,46 @@ onBeforeUnmount(() => {
           <span class="live-dot" aria-hidden="true"></span>
           샘플 데이터 데모
         </div>
-        <h3 id="modac-demo-title">스터디룸 입장과 채팅 흐름</h3>
-        <p>공개방 입장, 비공개방 초대 코드 확인, 참여 인원과 채팅 상태 변화를 샘플 데이터로 재현했습니다.</p>
+        <h3 id="modac-demo-title">스터디 탐색부터 활동 기록까지</h3>
+        <p>스터디를 찾고 참여한 뒤 활동하고 기록을 확인하는 서비스 흐름을 다섯 단계로 재현했습니다.</p>
       </div>
       <button class="reset-button" type="button" @click="resetDemo">처음부터</button>
     </header>
 
-    <ol class="flow-steps" aria-label="데모 진행 단계">
-      <li :class="{ active: currentStep >= 1 }"><span>1</span> 방 선택</li>
-      <li :class="{ active: currentStep >= 2 }"><span>2</span> 입장 검증</li>
-      <li :class="{ active: currentStep >= 3 }"><span>3</span> 채팅 참여</li>
+    <div class="simulation-notice">
+      <strong>브라우저에서 실행되는 공개용 시뮬레이션</strong>
+      <span>외부 서버·DB·WebSocket에 연결하지 않으며, 팀이 구현한 전체 서비스 중 제가 맡은 화면과 상태 처리 중심으로 재구성했습니다.</span>
+    </div>
+
+    <ol class="flow-steps" aria-label="MODAC 서비스 흐름 단계">
+      <li
+        v-for="(step, index) in guideSteps"
+        :key="step.title"
+        :class="{ active: currentStep === index + 1, complete: currentStep > index + 1 }"
+        :aria-current="currentStep === index + 1 ? 'step' : undefined"
+      >
+        <span>{{ index + 1 }}</span>
+        {{ step.shortTitle }}
+      </li>
     </ol>
 
-    <div v-if="!activeRoom" class="room-stage">
+    <section class="guide-summary" aria-live="polite">
+      <div class="guide-title">
+        <span>STEP {{ currentStep }}</span>
+        <strong>{{ currentGuide.title }}</strong>
+      </div>
+      <div class="responsibility-grid">
+        <div><span>사용자 행동</span><strong>{{ currentGuide.userAction }}</strong></div>
+        <div><span>화면 변화</span><strong>{{ currentGuide.screenChange }}</strong></div>
+        <div><span>원 프로젝트 담당</span><strong>{{ currentGuide.ownership }}</strong></div>
+        <div><span>공개 데모 재현</span><strong>{{ currentGuide.demo }}</strong></div>
+      </div>
+    </section>
+
+    <div v-if="currentStep === 1" class="room-stage">
       <div class="stage-heading">
         <div>
-          <strong>참여할 스터디를 선택하세요</strong>
+          <h4 ref="roomListHeading" tabindex="-1">참여할 스터디를 선택하세요</h4>
           <span>비공개방은 초대 코드 확인 후 입장할 수 있습니다.</span>
         </div>
         <span class="room-count">{{ rooms.length }}개 스터디</span>
@@ -321,23 +454,65 @@ onBeforeUnmount(() => {
             <button
               type="button"
               :disabled="isFull(room)"
-              :aria-label="`${room.title} ${isFull(room) ? '정원 마감' : '입장하기'}`"
-              @click="requestEntry(room, $event)"
+              :aria-label="`${room.title} ${isFull(room) ? '정원 마감' : '상세 보기'}`"
+              @click="selectRoom(room)"
             >
-              {{ isFull(room) ? "입장 불가" : "입장하기" }}
+              {{ isFull(room) ? "선택 불가" : "살펴보기" }}
             </button>
           </div>
         </article>
       </div>
     </div>
 
-    <div v-else class="room-view">
+    <section v-else-if="currentStep === 2 && selectedRoom" class="decision-stage">
+      <div class="room-preview-top">
+        <div>
+          <span class="category-chip">{{ selectedRoom.category }}</span>
+          <h4>{{ selectedRoom.title }}</h4>
+          <p>{{ selectedRoom.description }}</p>
+        </div>
+        <span class="visibility-chip" :class="selectedRoom.visibility">
+          {{ selectedRoom.visibility === "private" ? "비공개" : "공개" }}
+        </span>
+      </div>
+      <dl class="condition-grid">
+        <div><dt>현재 인원</dt><dd>{{ memberLabel(selectedRoom) }}</dd></div>
+        <div><dt>참여 방식</dt><dd>{{ selectedRoom.visibility === "private" ? "초대 코드 확인" : "바로 참여" }}</dd></div>
+        <div><dt>상태</dt><dd>참여 가능</dd></div>
+      </dl>
+      <div class="stage-actions">
+        <button type="button" class="secondary-button" @click="returnToRoomList">다른 스터디 보기</button>
+        <button type="button" class="primary-button" @click="prepareJoin">참여 절차로</button>
+      </div>
+    </section>
+
+    <section v-else-if="currentStep === 3 && selectedRoom" class="decision-stage">
+      <div class="join-check">
+        <span aria-hidden="true">{{ selectedRoom.visibility === "private" ? "🔒" : "✓" }}</span>
+        <div>
+          <h4>{{ selectedRoom.visibility === "private" ? "초대 코드 확인이 필요합니다" : "바로 참여할 수 있습니다" }}</h4>
+          <p v-if="selectedRoom.visibility === 'private'">화면에 제공된 데모 코드를 입력하면 검증·오류·입장 흐름을 확인할 수 있습니다.</p>
+          <p v-else>공개 스터디는 별도 승인 없이 참여 인원과 활동 화면으로 이어집니다.</p>
+        </div>
+      </div>
+      <div class="stage-actions">
+        <button type="button" class="secondary-button" @click="joinReady = false">조건 다시 보기</button>
+        <button type="button" class="primary-button" @click="requestEntry(selectedRoom, $event)">
+          {{ selectedRoom.visibility === "private" ? "초대 코드 입력" : "스터디 참여" }}
+        </button>
+      </div>
+    </section>
+
+    <div v-else-if="currentStep === 4 && activeRoom" class="room-view">
       <header class="room-view-header">
         <div>
           <span>{{ activeRoom.category }} · {{ memberLabel(activeRoom) }}</span>
           <h4>{{ activeRoom.title }}</h4>
         </div>
-        <button type="button" class="leave-button" @click="leaveRoom">방 나가기</button>
+        <span class="room-status">
+          <span class="room-status-dot" aria-hidden="true"></span>
+          참여 중
+        </span>
       </header>
 
       <div class="chat-notice">
@@ -378,7 +553,40 @@ onBeforeUnmount(() => {
         />
         <button type="submit" :disabled="!chatDraft.trim()">보내기</button>
       </form>
+
+      <div class="room-completion-action">
+        <div>
+          <span>다음 단계</span>
+          <strong>이제 활동 기록을 확인해 보세요</strong>
+          <p>이번 참여와 화면에 표시된 메시지를 한눈에 정리합니다.</p>
+        </div>
+        <button type="button" class="primary-button" @click="completeActivity">
+          활동 기록 확인하기
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
     </div>
+
+    <section v-else-if="currentStep === 5 && activeRoom" class="record-stage">
+      <div class="record-heading">
+        <span class="record-check" aria-hidden="true">✓</span>
+        <div>
+          <span>이번 데모 활동</span>
+          <h4 ref="activityRecordHeading" tabindex="-1">{{ activeRoom.title }}</h4>
+          <p>참여부터 메시지 작성까지의 화면 상태를 브라우저 메모리에서 요약했습니다.</p>
+        </div>
+      </div>
+      <dl class="record-grid">
+        <div><dt>참여 상태</dt><dd>참여 중</dd></div>
+        <div><dt>표시된 메시지</dt><dd>{{ messages.length }}건</dd></div>
+        <div><dt>저장 위치</dt><dd>브라우저 메모리</dd></div>
+      </dl>
+      <p class="record-note">실제 서비스에서는 스터디 활동과 통계·기록 화면으로 이어집니다. 이 데모는 서버 저장 없이 UI 흐름만 재현합니다.</p>
+      <div class="stage-actions">
+        <button type="button" class="secondary-button" @click="returnToRoom">스터디룸으로</button>
+        <button type="button" class="primary-button" @click="restartDemo">다른 흐름 다시 체험</button>
+      </div>
+    </section>
 
     <Teleport to="body">
       <div v-if="pendingRoom" class="dialog-backdrop" @click.self="closeInviteDialog">
@@ -507,8 +715,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.reset-button,
-.leave-button {
+.reset-button {
   flex: 0 0 auto;
   border: 1px solid var(--border-strong, var(--fresh-border));
   border-radius: 999px;
@@ -519,15 +726,14 @@ button:disabled {
   font-weight: 750;
 }
 
-.reset-button:hover,
-.leave-button:hover {
+.reset-button:hover {
   border-color: var(--accent, var(--fresh-blue));
   color: var(--accent-strong, var(--fresh-blue-strong));
 }
 
 .flow-steps {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
   margin: 0;
   padding: 0 24px 20px;
@@ -562,8 +768,92 @@ button:disabled {
   color: var(--accent-strong, var(--fresh-blue-strong));
 }
 
+.flow-steps li.complete {
+  color: var(--fresh-green);
+}
+
+.simulation-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 24px 16px;
+  padding: 12px 14px;
+  border: 1px solid rgb(var(--accent-rgb, 49 130 246) / 0.14);
+  border-radius: 12px;
+  background: rgb(var(--accent-rgb, 49 130 246) / 0.055);
+}
+
+.simulation-notice strong {
+  flex: 0 0 auto;
+  color: var(--accent-strong, var(--fresh-blue-strong));
+  font-size: 11px;
+}
+
+.simulation-notice span {
+  color: var(--text-secondary, var(--fresh-ink-soft));
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.guide-summary {
+  margin: 0 12px 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--border, var(--fresh-border));
+  border-radius: 16px;
+  background: rgb(255 255 255 / 0.68);
+}
+
+.guide-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.guide-title > span {
+  color: var(--accent-strong, var(--fresh-blue-strong));
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.guide-title > strong {
+  font-size: 14px;
+}
+
+.responsibility-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.responsibility-grid > div {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--surface-soft, var(--fresh-bg-soft));
+}
+
+.responsibility-grid span,
+.responsibility-grid strong {
+  display: block;
+}
+
+.responsibility-grid span {
+  color: var(--text-muted, var(--fresh-muted));
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.responsibility-grid strong {
+  margin-top: 4px;
+  color: var(--text-secondary, var(--fresh-ink-soft));
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .room-stage,
-.room-view {
+.room-view,
+.decision-stage,
+.record-stage {
   margin: 0 12px 12px;
   border: 1px solid var(--border, var(--fresh-border));
   border-radius: 18px;
@@ -574,6 +864,133 @@ button:disabled {
   padding: 18px;
 }
 
+.decision-stage,
+.record-stage {
+  padding: 20px;
+}
+
+.room-preview-top,
+.join-check,
+.record-heading,
+.stage-actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.room-preview-top h4,
+.join-check h4,
+.record-heading h4 {
+  margin: 7px 0 5px;
+  font-size: 18px;
+}
+
+.room-preview-top p,
+.join-check p,
+.record-heading p,
+.record-note {
+  margin: 0;
+  color: var(--text-secondary, var(--fresh-ink-soft));
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.condition-grid,
+.record-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.condition-grid > div,
+.record-grid > div {
+  padding: 13px;
+  border-radius: 12px;
+  background: var(--surface-soft, var(--fresh-bg-soft));
+}
+
+.condition-grid dt,
+.record-grid dt {
+  color: var(--text-muted, var(--fresh-muted));
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.condition-grid dd,
+.record-grid dd {
+  margin: 5px 0 0;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.join-check {
+  justify-content: flex-start;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--surface-soft, var(--fresh-bg-soft));
+}
+
+.join-check > span,
+.record-check {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--accent-soft, var(--fresh-blue-soft));
+  color: var(--accent-strong, var(--fresh-blue-strong));
+  font-weight: 900;
+}
+
+.stage-actions {
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.primary-button,
+.secondary-button {
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.primary-button {
+  border: 0;
+  background: var(--accent-gradient, var(--fresh-gradient-blue));
+  color: var(--accent-contrast, #fff);
+}
+
+.secondary-button {
+  border: 1px solid var(--border-strong, var(--fresh-border));
+  background: var(--surface, #fff);
+  color: var(--text-secondary, var(--fresh-ink-soft));
+}
+
+.record-heading {
+  justify-content: flex-start;
+}
+
+.record-heading > div > span {
+  color: var(--fresh-green);
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.record-heading h4 {
+  scroll-margin-top: 5.5rem;
+  outline: none;
+}
+
+.record-note {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgb(var(--accent-rgb, 49 130 246) / 0.055);
+}
+
 .stage-heading {
   display: flex;
   align-items: flex-start;
@@ -582,13 +999,16 @@ button:disabled {
   margin-bottom: 14px;
 }
 
-.stage-heading strong,
+.stage-heading h4,
 .stage-heading span {
   display: block;
 }
 
-.stage-heading strong {
+.stage-heading h4 {
+  margin: 0;
+  scroll-margin-top: 5.5rem;
   font-size: 15px;
+  outline: none;
 }
 
 .stage-heading div > span {
@@ -752,6 +1172,25 @@ button:disabled {
   font-size: 17px;
 }
 
+.room-view-header .room-status {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgb(36 192 111 / 0.1);
+  color: var(--fresh-green);
+  white-space: nowrap;
+}
+
+.room-view-header .room-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentcolor;
+}
+
 .chat-notice {
   display: flex;
   align-items: center;
@@ -855,6 +1294,51 @@ button:disabled {
 .chat-form button {
   min-width: 70px;
   padding: 0 16px;
+}
+
+.room-completion-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 18px;
+  border-top: 1px solid var(--border, var(--fresh-border));
+  background:
+    linear-gradient(110deg, rgb(var(--accent-rgb, 49 130 246) / 0.08), transparent 68%),
+    var(--surface-strong, #fff);
+}
+
+.room-completion-action > div > span,
+.room-completion-action > div > strong,
+.room-completion-action > div > p {
+  display: block;
+}
+
+.room-completion-action > div > span {
+  color: var(--accent-strong, var(--fresh-blue-strong));
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.room-completion-action > div > strong {
+  margin-top: 3px;
+  font-size: 14px;
+}
+
+.room-completion-action > div > p {
+  margin: 4px 0 0;
+  color: var(--text-secondary, var(--fresh-ink-soft));
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.room-completion-action > button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
 }
 
 .dialog-backdrop {
@@ -984,6 +1468,15 @@ button:disabled {
 }
 
 @media (max-width: 760px) {
+  .responsibility-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .condition-grid,
+  .record-grid {
+    grid-template-columns: 1fr;
+  }
+
   .room-grid {
     grid-template-columns: 1fr;
   }
@@ -1004,6 +1497,7 @@ button:disabled {
   }
 
   .flow-steps li {
+    flex-direction: column;
     gap: 4px;
     font-size: 10px;
   }
@@ -1013,8 +1507,25 @@ button:disabled {
     height: 16px;
   }
 
-  .room-stage {
+  .simulation-notice {
+    display: grid;
+    margin-inline: 16px;
+  }
+
+  .guide-summary,
+  .room-stage,
+  .decision-stage,
+  .record-stage {
     padding: 14px;
+  }
+
+  .stage-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .stage-actions button {
+    width: 100%;
   }
 
   .stage-heading {
@@ -1032,6 +1543,16 @@ button:disabled {
 
   .chat-message {
     max-width: 88%;
+  }
+
+  .room-completion-action {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .room-completion-action > button {
+    width: 100%;
   }
 
   .demo-footer {

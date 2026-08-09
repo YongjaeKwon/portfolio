@@ -38,11 +38,12 @@
         </nav>
 
         <button
+          ref="mobileMenuToggle"
           type="button"
           class="focus-ring nav-panel fresh-card text-primary rounded-full px-3 py-2 text-sm font-semibold md:hidden"
           :aria-expanded="isMenuOpen"
           aria-controls="mobile-navigation"
-          aria-label="메뉴 열기"
+          :aria-label="isMenuOpen ? '메뉴 닫기' : '메뉴 열기'"
           @click="toggleMenu"
         >
           <Menu class="h-4 w-4" />
@@ -78,7 +79,7 @@
 
 <script setup lang="ts">
 import { Menu } from "@lucide/vue";
-import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { useScrollMetrics } from "@/composables/useScrollMetrics";
 import { profile } from "@/data/portfolio";
 import { resolveActiveSectionFromEntries } from "@/utils/scrollMetrics";
@@ -88,17 +89,18 @@ const emit = defineEmits<{
 }>();
 
 const isMenuOpen = ref(false);
+const mobileMenuToggle = ref<HTMLButtonElement | null>(null);
 const activeSection = ref("hero");
 const navItems = [
-  { id: "profile", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "experience", label: "Experience" },
-  { id: "education", label: "Education" },
+  { id: "hero", label: "About" },
   { id: "techstack", label: "Tech" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ];
 
-const sectionIds = ["hero", ...navItems.map((item) => item.id)];
+const sectionIds = navItems.map((item) => item.id);
 const { isAtBottom } = useScrollMetrics();
 const observerActiveSection = ref("hero");
 let sectionObserver: IntersectionObserver | null = null;
@@ -146,8 +148,10 @@ const moveToSection = (section: string) => {
   emit("scroll-to-section", section);
 };
 
-const mobileMoveToSection = (section: string) => {
+const mobileMoveToSection = async (section: string) => {
   isMenuOpen.value = false;
+  await nextTick();
+  mobileMenuToggle.value?.focus({ preventScroll: true });
   moveToSection(section);
 };
 </script>

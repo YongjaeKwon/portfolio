@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { projectCaseStudies } from "../src/data/caseStudies";
 import { featuredProjects } from "../src/data/portfolio";
 
-const projectViewPath = fileURLToPath(new URL("../src/views/ProjectsView.vue", import.meta.url));
+const projectDetailModalPath = fileURLToPath(new URL("../src/components/ProjectDetailModal.vue", import.meta.url));
 
 describe("project case studies", () => {
   it("keeps multiple detailed cases for operating and public projects", () => {
@@ -53,7 +53,7 @@ describe("project case studies", () => {
   });
 
   it("loads the detailed case UI only when a project detail is opened", () => {
-    const source = readFileSync(projectViewPath, "utf8");
+    const source = readFileSync(projectDetailModalPath, "utf8");
     expect(source).toContain('defineAsyncComponent(() => import("@/components/ProjectCaseStudyList.vue"))');
     for (const projectId of Object.keys(projectCaseStudies)) {
       expect(source).toContain(`"${projectId}"`);

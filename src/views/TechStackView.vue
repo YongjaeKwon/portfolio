@@ -2,7 +2,7 @@
   <section id="techstack" class="py-24">
     <div class="section-shell">
       <div class="reveal flex items-center gap-3">
-        <span class="section-index">04</span>
+        <span class="section-index">01</span>
         <h2 class="section-kicker">Tech Stack</h2>
       </div>
 

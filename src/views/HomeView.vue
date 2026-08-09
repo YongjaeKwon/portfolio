@@ -8,6 +8,11 @@
 
     <div class="section-shell relative z-10 grid min-h-[calc(100dvh-8rem)] items-center gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
       <div class="max-w-3xl">
+        <div class="hero-enter mb-5 flex items-center gap-3">
+          <span class="section-index" aria-hidden="true">00</span>
+          <p class="section-kicker">About Me</p>
+        </div>
+
         <div class="mb-7 flex items-center gap-5">
           <img
             src="/my-photo-224.webp"
@@ -43,9 +48,9 @@
           <button
             type="button"
             class="focus-ring fresh-button inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-black transition hover:-translate-y-0.5 hover:brightness-105"
-            @click="emit('scroll-to-section', 'projects')"
+            @click="emit('scroll-to-section', 'experience')"
           >
-            프로젝트 보기
+            개발 경험 보기
             <ArrowRight class="h-4 w-4" />
           </button>
           <a class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5" :href="profile.github" target="_blank" rel="noreferrer">

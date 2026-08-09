@@ -122,15 +122,15 @@ describe("optimized image assets", () => {
 
   it("uses preview dimensions in cards and full dimensions in the modal", async () => {
     const projects = await readFile(file("src/views/ProjectsView.vue"), "utf8");
-    const modal = projects.slice(projects.indexOf("<Teleport"));
+    const modal = await readFile(file("src/components/ProjectDetailModal.vue"), "utf8");
 
     expect(projects).toContain(':src="item.project.image.previewSrc ?? item.project.image.src"');
     expect(projects).toContain(':width="item.project.image.previewWidth ?? item.project.image.width"');
     expect(projects).toContain(':height="item.project.image.previewHeight ?? item.project.image.height"');
     expect(projects).toContain('loading="lazy"');
-    expect(modal).toContain(':src="activeProject.project.image.src"');
-    expect(modal).toContain(':width="activeProject.project.image.width"');
-    expect(modal).toContain(':height="activeProject.project.image.height"');
+    expect(modal).toContain(':src="project.project.image.src"');
+    expect(modal).toContain(':width="project.project.image.width"');
+    expect(modal).toContain(':height="project.project.image.height"');
     expect(modal).not.toContain("previewSrc");
   });
 

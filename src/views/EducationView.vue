@@ -2,7 +2,7 @@
   <section id="education" class="section-tone-mist py-24 md:py-28">
     <div class="section-shell">
       <div class="reveal flex items-center gap-3">
-        <span class="section-index">03</span>
+        <span class="section-index">04</span>
         <h2 class="section-kicker">Education &amp; Certificates</h2>
       </div>
 

@@ -10,7 +10,7 @@ export const profile = {
   phone: "010-9470-1704",
   github: "https://github.com/YongjaeKwon",
   location: "경기도 용인시",
-  resume: "/resume.pdf?v=20260807-2",
+  resume: "/resume.pdf?v=20260808-1",
 };
 
 export const focusTracks = [
@@ -23,7 +23,7 @@ export const focusTracks = [
       "업무 담당자와 요구사항을 정리한 뒤 화면, 서버, 데이터 처리, 배포까지 필요한 범위를 맡아 왔습니다.",
     resume: profile.resume,
     resumeLabel: "이력서 다운로드",
-    projectIntro: "실무에서 운영 중인 시스템과 직접 진행한 개인·팀 프로젝트를 함께 정리했습니다.",
+    projectIntro: "개인·팀 프로젝트에서 직접 구현한 화면과 기능 흐름을 정리했습니다.",
     projectOrder: ["pps", "tsms", "reachrich", "ssafast", "ddoing", "modac"],
   },
   {
@@ -47,7 +47,7 @@ export const focusTracks = [
       "Spring 기반 업무 시스템에서 서버 로직과 SQL, 외부 연계 기능을 개발하고 배포와 운영 과정까지 맡아 왔습니다.",
     resume: profile.resume,
     resumeLabel: "이력서 다운로드",
-    projectIntro: "서버 처리, 데이터 검증, 외부 연계와 운영 자동화를 중심으로 구현 내용을 보여드립니다.",
+    projectIntro: "개인 프로젝트의 서버 처리, 데이터 검증과 운영 자동화 경험을 보여드립니다.",
     projectOrder: ["pps", "tsms", "reachrich"],
   },
 ];
@@ -638,20 +638,17 @@ export const experience = {
   company: "유한책임회사 티지나래",
   period: "2024.06 ~ 재직 중",
   description: "B2B 협력사 포털 PPS와 교육용 단말 운영 시스템 TSMS에서 요구사항 협의부터 화면·서버·DB 개발, 검수와 배포까지 맡고 있습니다.",
-  bullets: [
-    "운영팀·현업 담당자와 요구사항, 개발 가능 범위와 일정을 조율",
-    "Vue·WebSquare 기반 관리 화면과 Spring·MyBatis 서버 기능 개발",
-    "대량 첨부파일 다운로드를 비동기 작업으로 전환하고 진행 상태 제공",
-    "외부 요청 없이 URL 문자열을 분석하는 중고거래 모니터링 기능 개발",
-    "수기 점검 업무를 일정·대상·재점검·결과 파일 흐름으로 전산화",
-    "Jenkins로 빌드·전송·순차 배포 작업을 구성하고 직접 운영",
+  responsibilities: [
+    "요구사항 협의",
+    "화면·서버·DB 개발",
+    "검수·배포·운영 확인",
   ],
 };
 
 export const education = [
   { title: "아주대학교 e-비즈니스학과", period: "2018.03 ~ 2020.08", description: "학사 졸업", icon: "GraduationCap" },
   { title: "삼성 청년 SW 아카데미(SSAFY) 8기", period: "2022.07 ~ 2023.06", description: "웹 개발 과정 수료. 세 차례의 팀 프로젝트에서 프론트엔드를 담당했습니다.", icon: "Award" },
-  { title: "California State University, Chico", period: "2014.01 ~ 2015.05", description: "Business Administration · E-Business 전공 후 아주대학교 편입", icon: "GraduationCap" },
+  { title: "California State University, Chico", period: "2014.01 ~ 2015.05", description: "Business Administration 전공 후 아주대학교 편입", icon: "GraduationCap" },
   { title: "SQLD", period: "2024.09", description: "SQL 개발자 자격 취득", icon: "Database" },
 ];
 

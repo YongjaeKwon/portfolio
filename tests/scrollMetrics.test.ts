@@ -45,13 +45,13 @@ describe("pickActiveSection", () => {
     expect(
       pickActiveSection(
         [
-          { id: "profile", top: 90, isIntersecting: true },
+          { id: "techstack", top: 90, isIntersecting: true },
           { id: "projects", top: 230, isIntersecting: true },
         ],
         "hero",
         110,
       ),
-    ).toBe("profile");
+    ).toBe("techstack");
   });
 
   it("keeps the current section when no observed section intersects", () => {
@@ -60,7 +60,7 @@ describe("pickActiveSection", () => {
 });
 
 describe("resolveActiveSectionFromEntries", () => {
-  const sectionIds = ["hero", "profile", "projects", "contact"];
+  const sectionIds = ["hero", "techstack", "experience", "projects", "education", "contact"];
 
   it("advances through sections as their bottom boundaries cross the header line", () => {
     const afterHero = resolveActiveSectionFromEntries(
@@ -69,32 +69,32 @@ describe("resolveActiveSectionFromEntries", () => {
       "hero",
       110,
     );
-    expect(afterHero).toBe("profile");
+    expect(afterHero).toBe("techstack");
 
     expect(
       resolveActiveSectionFromEntries(
         sectionIds,
-        [{ id: "profile", top: -600, bottom: 105, isIntersecting: false }],
+        [{ id: "techstack", top: -600, bottom: 105, isIntersecting: false }],
         afterHero,
         110,
       ),
-    ).toBe("projects");
+    ).toBe("experience");
   });
 
   it("moves back through sections as their top boundaries re-enter above the header line", () => {
-    const afterProfileReenters = resolveActiveSectionFromEntries(
+    const afterTechReenters = resolveActiveSectionFromEntries(
       sectionIds,
-      [{ id: "profile", top: 90, bottom: 790, isIntersecting: true }],
-      "projects",
+      [{ id: "techstack", top: 90, bottom: 790, isIntersecting: true }],
+      "experience",
       110,
     );
-    expect(afterProfileReenters).toBe("profile");
+    expect(afterTechReenters).toBe("techstack");
 
     expect(
       resolveActiveSectionFromEntries(
         sectionIds,
         [{ id: "hero", top: 100, bottom: 800, isIntersecting: true }],
-        afterProfileReenters,
+        afterTechReenters,
         110,
       ),
     ).toBe("hero");
@@ -105,7 +105,7 @@ describe("resolveActiveSectionFromEntries", () => {
       resolveActiveSectionFromEntries(
         sectionIds,
         [
-          { id: "profile", top: 240, bottom: 940, isIntersecting: true },
+          { id: "techstack", top: 240, bottom: 940, isIntersecting: true },
           { id: "unknown", top: -500, bottom: 100, isIntersecting: false },
         ],
         "projects",

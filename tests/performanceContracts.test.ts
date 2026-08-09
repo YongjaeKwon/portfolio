@@ -198,50 +198,50 @@ describe("scroll performance contracts", () => {
 
   it("batches pointer effects by animation frame", async () => {
     const app = await source("src/App.vue");
-    const projects = await source("src/views/ProjectsView.vue");
+    const tilt = await source("src/directives/tilt.ts");
     const css = await source("src/assets/index.css");
     expectImportedAndCalled(app, "createLatestFrameScheduler");
-    expectImportedAndCalled(projects, "createLatestFrameScheduler");
+    expectImportedAndCalled(tilt, "createLatestFrameScheduler");
 
     expect(app.match(/\.addEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
     expect(app.match(/\.removeEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
-    expect(projects.match(/\.addEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
-    expect(projects.match(/\.removeEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
+    expect(tilt.match(/\.addEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
+    expect(tilt.match(/\.removeEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
 
-    expect(projects).toMatch(/addEventListener\s*\(\s*["']pointerenter["']/);
-    expect(projects).toMatch(
+    expect(tilt).toMatch(/addEventListener\s*\(\s*["']pointerenter["']/);
+    expect(tilt).toMatch(
       /const\s+activeScrollOptions\s*=\s*\{\s*passive\s*:\s*true\s*,\s*capture\s*:\s*true\s*\}/,
     );
-    expect(projects).toMatch(
+    expect(tilt).toMatch(
       /addEventListener\s*\(\s*["']scroll["']\s*,\s*invalidateGeometry\s*,\s*activeScrollOptions\s*\)/,
     );
-    expect(projects).toMatch(
+    expect(tilt).toMatch(
       /removeEventListener\s*\(\s*["']scroll["']\s*,\s*invalidateGeometry\s*,\s*activeScrollOptions\s*\)/,
     );
-    expect(projects).toMatch(/addEventListener\s*\(\s*["']resize["']/);
-    expect(projects).toMatch(/removeEventListener\s*\(\s*["']resize["']/);
-    expect(projects).toMatch(/new\s+ResizeObserver\s*\(/);
-    expect(projects).toMatch(/\.observe\s*\(\s*el\s*\)/);
-    expect(projects).toMatch(/\.disconnect\s*\(\s*\)/);
-    expect(projects).toMatch(/\.matches\s*\(\s*["']:hover["']\s*\)/);
-    expect(projects).toMatch(
+    expect(tilt).toMatch(/addEventListener\s*\(\s*["']resize["']/);
+    expect(tilt).toMatch(/removeEventListener\s*\(\s*["']resize["']/);
+    expect(tilt).toMatch(/new\s+ResizeObserver\s*\(/);
+    expect(tilt).toMatch(/\.observe\s*\(\s*el\s*\)/);
+    expect(tilt).toMatch(/\.disconnect\s*\(\s*\)/);
+    expect(tilt).toMatch(/\.matches\s*\(\s*["']:hover["']\s*\)/);
+    expect(tilt).toMatch(
       /const\s+point\s*=\s*\{\s*x\s*:\s*event\.clientX\s*,\s*y\s*:\s*event\.clientY\s*\}[\s\S]*?scheduler\.schedule\s*\(\s*point\s*\)/,
     );
-    expect(projects).not.toMatch(
+    expect(tilt).not.toMatch(
       /createLatestFrameScheduler(?:\s*<\s*PointerEvent\s*>)?\s*\(\s*\(\s*event\s*:\s*PointerEvent/,
     );
 
-    const moveStart = projects.indexOf("const onMove");
-    const moveEnd = projects.indexOf("const onLeave", moveStart);
-    const enterStart = projects.indexOf("const onEnter");
-    const activateStart = projects.indexOf("const activateHover");
-    const activateEnd = projects.indexOf("const onEnter", activateStart);
-    const schedulerStart = projects.indexOf("const scheduler");
-    const schedulerEnd = projects.indexOf("const invalidateGeometry", schedulerStart);
-    const enterHandler = projects.slice(enterStart, moveStart);
-    const activateHandler = projects.slice(activateStart, activateEnd);
-    const schedulerCallback = projects.slice(schedulerStart, schedulerEnd);
-    const moveHandler = projects.slice(moveStart, moveEnd);
+    const moveStart = tilt.indexOf("const onMove");
+    const moveEnd = tilt.indexOf("const onLeave", moveStart);
+    const enterStart = tilt.indexOf("const onEnter");
+    const activateStart = tilt.indexOf("const activateHover");
+    const activateEnd = tilt.indexOf("const onEnter", activateStart);
+    const schedulerStart = tilt.indexOf("const scheduler");
+    const schedulerEnd = tilt.indexOf("const invalidateGeometry", schedulerStart);
+    const enterHandler = tilt.slice(enterStart, moveStart);
+    const activateHandler = tilt.slice(activateStart, activateEnd);
+    const schedulerCallback = tilt.slice(schedulerStart, schedulerEnd);
+    const moveHandler = tilt.slice(moveStart, moveEnd);
     expect(enterStart).toBeGreaterThan(-1);
     expect(activateStart).toBeGreaterThan(-1);
     expect(schedulerStart).toBeGreaterThan(-1);
@@ -260,13 +260,13 @@ describe("scroll performance contracts", () => {
     expect(schedulerCallback).toMatch(
       /getBoundingClientRect\s*\([\s\S]*?\.style\.transition[\s\S]*?\.style\.transform/,
     );
-    expect(projects).toMatch(
+    expect(tilt).toMatch(
       /rect\s*=\s*null\s*;[\s\S]{0,200}scheduler\.schedule\s*\(\s*latestPoint\s*\)/,
     );
 
-    const geometryReads = projects.match(/getBoundingClientRect\s*\(/g) ?? [];
+    const geometryReads = tilt.match(/getBoundingClientRect\s*\(/g) ?? [];
     expect(geometryReads).toHaveLength(1);
-    expect(projects).toMatch(
+    expect(tilt).toMatch(
       /createLatestFrameScheduler[\s\S]*?\.matches\s*\(\s*["']:hover["']\s*\)[\s\S]*?getBoundingClientRect\s*\(/,
     );
 

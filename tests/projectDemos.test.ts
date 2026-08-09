@@ -18,6 +18,11 @@ describe("interactive project demos", () => {
   it("loads the demo panel and each project demo lazily", () => {
     expect(projectView).toContain('defineAsyncComponent(() => import("@/components/demos/ProjectDemoPanel.vue"))');
     expect(projectView).toContain('new Set(["ssafast", "ddoing", "modac"])');
+    expect(projectView).toContain("직접 체험하기");
+    expect(projectView).toContain("openInlineDemo(item)");
+    expect(projectView).toContain("start-expanded");
+    expect(projectView).toContain("embedded");
+    expect(demoPanel).toContain("startExpanded?: boolean");
 
     for (const projectId of Object.keys(demoSources)) {
       expect(demoPanel).toContain(`import("@/components/demos/${projectId === "ssafast" ? "Ssafast" : projectId === "ddoing" ? "Ddoing" : "Modac"}Demo.vue")`);
@@ -43,7 +48,13 @@ describe("interactive project demos", () => {
     expect(demoSources.modac).toContain("onBeforeUnmount");
     expect(demoSources.modac).toContain('<Teleport to="body">');
     expect(demoSources.modac).toContain("trapInviteFocus");
-    expect(projectView).toContain(':inert="nestedDemoDialogOpen ? true : undefined"');
+    expect(projectView).not.toContain("nestedDemoDialogOpen");
+    expect(projectView).toContain('@dialog-state-change="handleInlineDialogStateChange"');
+    expect(projectView).toContain("appRoot.inert = true");
+    expect(projectView).toContain('appRoot.setAttribute("aria-hidden", "true")');
+    expect(projectView).toContain('document.body.style.overflow = "hidden"');
+    expect(projectView).toContain("root.inert = false");
+    expect(projectView).toContain("handleInlineDialogStateChange(false)");
     expect(demoSources.modac).toContain("MODAC");
   });
 });

@@ -12,11 +12,10 @@
     <Navbar @scroll-to-section="scrollToSection" />
     <main id="main" class="portfolio-flow">
       <HomeView @scroll-to-section="scrollToSection" />
-      <ProfileCard />
-      <ProjectsView />
-      <ExperienceView />
-      <EducationView />
       <TechStackView />
+      <ExperienceView />
+      <ProjectsView />
+      <EducationView />
       <ContactView />
     </main>
     <Footer />
@@ -28,11 +27,10 @@
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import Navbar from "@/components/Navbar.vue";
 import HomeView from "@/views/HomeView.vue";
-import ProfileCard from "@/components/ProfileCard.vue";
-import ProjectsView from "@/views/ProjectsView.vue";
-import ExperienceView from "@/views/ExperienceView.vue";
-import EducationView from "@/views/EducationView.vue";
 import TechStackView from "@/views/TechStackView.vue";
+import ExperienceView from "@/views/ExperienceView.vue";
+import ProjectsView from "@/views/ProjectsView.vue";
+import EducationView from "@/views/EducationView.vue";
 import ContactView from "@/views/ContactView.vue";
 import Footer from "@/components/Footer.vue";
 import ScrollToTop from "@/components/ScrollToTop.vue";

@@ -45,7 +45,7 @@ SSAFAST, 또잉, MODAC 상세보기에는 당시 담당한 화면과 기능 흐�
 
 ```text
 src/
-  components/          Navbar, Footer, ProfileCard 등 공통 컴포넌트
+  components/          Navbar, Footer, 공통 모달 등 UI 컴포넌트
     demos/              개인·팀 프로젝트의 샘플 데이터 인터랙티브 데모
   composables/         useSkin, useProjectFilter 등 공통 상태 훅
   data/portfolio.ts    프로필·프로젝트·기술 데이터 (내용 수정은 대부분 이 파일)
