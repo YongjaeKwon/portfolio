@@ -158,7 +158,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { computed, defineAsyncComponent, defineComponent, h, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import { ExternalLink, X } from "@lucide/vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import type { RoleFocusId } from "@/data/portfolio";
@@ -264,7 +264,10 @@ watch(
   () => props.project,
   async (project, previousProject) => {
     if (project) {
-      if (!previousProject) triggerEl.value = document.activeElement as HTMLElement;
+      if (!previousProject) {
+        triggerEl.value = document.activeElement as HTMLElement;
+        window.addEventListener("keydown", handleKeydown);
+      }
       await nextTick();
       modalRef.value?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
       isolateBackground();
@@ -272,6 +275,7 @@ watch(
     }
 
     if (previousProject) {
+      window.removeEventListener("keydown", handleKeydown);
       restoreBackground();
       await nextTick();
       triggerEl.value?.focus();
@@ -279,7 +283,6 @@ watch(
   },
 );
 
-onMounted(() => window.addEventListener("keydown", handleKeydown));
 onBeforeUnmount(() => {
   window.removeEventListener("keydown", handleKeydown);
   restoreBackground();

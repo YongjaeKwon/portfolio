@@ -8,6 +8,7 @@ const isAtBottom = ref(false);
 
 let subscribers = 0;
 let frameId: number | null = null;
+let measurementFrameId: number | null = null;
 let maxScroll = 0;
 let resizeObserver: ResizeObserver | null = null;
 
@@ -34,19 +35,22 @@ const measureDocumentHeight = () => {
 };
 
 const refreshDocumentHeight = () => {
-  measureDocumentHeight();
-  schedule();
+  if (measurementFrameId !== null) return;
+  measurementFrameId = requestAnimationFrame(() => {
+    measurementFrameId = null;
+    measureDocumentHeight();
+    schedule();
+  });
 };
 
 const start = () => {
-  measureDocumentHeight();
-  update();
   window.addEventListener("scroll", schedule, { passive: true });
   window.addEventListener("resize", refreshDocumentHeight, { passive: true });
   if ("ResizeObserver" in window) {
     resizeObserver = new ResizeObserver(refreshDocumentHeight);
     resizeObserver.observe(document.documentElement);
   }
+  refreshDocumentHeight();
 };
 
 const stop = () => {
@@ -55,7 +59,9 @@ const stop = () => {
   resizeObserver?.disconnect();
   resizeObserver = null;
   if (frameId !== null) cancelAnimationFrame(frameId);
+  if (measurementFrameId !== null) cancelAnimationFrame(measurementFrameId);
   frameId = null;
+  measurementFrameId = null;
 };
 
 export const useScrollMetrics = () => {

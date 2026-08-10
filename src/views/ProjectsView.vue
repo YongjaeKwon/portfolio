@@ -248,9 +248,8 @@ onBeforeUnmount(() => {
 <style scoped>
 .project-compact-card {
   border: 1px solid rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 16px 45px rgba(38, 69, 111, 0.08);
-  backdrop-filter: blur(18px);
 }
 
 .project-thumb {
@@ -262,8 +261,7 @@ onBeforeUnmount(() => {
   border: 1px solid rgba(49, 130, 246, 0.16);
   background:
     radial-gradient(circle at 8% 0%, rgba(49, 130, 246, 0.12), transparent 34%),
-    rgba(255, 255, 255, 0.88);
+    rgba(255, 255, 255, 0.96);
   box-shadow: 0 24px 70px rgba(38, 69, 111, 0.12);
-  backdrop-filter: blur(22px);
 }
 </style>

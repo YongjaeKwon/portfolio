@@ -10,14 +10,13 @@
   border: 1px solid rgba(255, 255, 255, 0.72);
   background: rgba(255, 255, 255, 0.78);
   box-shadow: 0 12px 32px rgba(31, 45, 61, 0.08);
-  backdrop-filter: blur(22px);
+  backdrop-filter: blur(12px);
 }
 
 .fresh-card {
   border: 1px solid rgba(255, 255, 255, 0.82);
-  background: var(--fresh-surface);
+  background: rgba(255, 255, 255, 0.94);
   box-shadow: var(--fresh-shadow-sm);
-  backdrop-filter: blur(18px);
 }
 
 .fresh-button {
@@ -49,7 +48,6 @@
   filter: blur(2px);
   opacity: 0.82;
   transform: translateZ(0);
-  animation: fresh-float 9s ease-in-out infinite alternate;
 }
 
 .fresh-mesh::before {
@@ -76,9 +74,8 @@
   background:
     radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.96), transparent 18%),
     radial-gradient(circle at 72% 76%, var(--orb-color, rgba(49, 130, 246, 0.28)), transparent 48%),
-    rgba(255, 255, 255, 0.8);
+    rgba(255, 255, 255, 0.94);
   box-shadow: var(--fresh-shadow-md);
-  backdrop-filter: blur(22px);
 }
 
 .fresh-orb-card::after {
@@ -136,20 +133,4 @@
     radial-gradient(ellipse at 70% 36%, rgba(83, 199, 245, 0.2), transparent 52%);
   filter: blur(12px);
   pointer-events: none;
-}
-
-@keyframes fresh-float {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(1.4rem, -1rem, 0) scale(1.05);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .fresh-mesh::before,
-  .fresh-mesh::after {
-    animation: none;
-  }
 }

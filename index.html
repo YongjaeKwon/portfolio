@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light" data-skin="default">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -13,22 +13,9 @@
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
     <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
 
-    <!-- Korean body, display, and mono fonts -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <!-- Display and mono fonts. Korean body text uses the local system stack. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
-      />
-    </noscript>
     <link
       rel="preload"
       as="style"
@@ -41,25 +28,6 @@
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap"
       />
     </noscript>
-    <script>
-      (() => {
-        try {
-          const savedTheme = localStorage.getItem("portfolio-theme");
-          const systemTheme = window.matchMedia("(prefers-color-scheme: light)").matches
-            ? "light"
-            : "dark";
-          const theme = savedTheme === "light" || savedTheme === "dark" ? savedTheme : systemTheme;
-          document.documentElement.dataset.theme = theme;
-          document.documentElement.style.colorScheme = theme;
-          const savedSkin = localStorage.getItem("portfolio-skin");
-          document.documentElement.dataset.skin =
-            savedSkin === "maple" || savedSkin === "overwatch" ? savedSkin : "default";
-        } catch {
-          document.documentElement.dataset.theme = "dark";
-          document.documentElement.dataset.skin = "default";
-        }
-      })();
-    </script>
     <meta
       name="description"
       content="권용재 웹 개발자 포트폴리오. B2B 협력사 포털 PPS와 교육용 단말 운영 시스템 TSMS에서 개발하고 운영한 기능을 정리했습니다."

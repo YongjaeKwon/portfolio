@@ -29,10 +29,10 @@
           </div>
         </div>
 
-        <h1 class="hero-enter hero-enter-d1 text-5xl font-black leading-[1.04] text-primary md:text-7xl">
+        <h1 class="text-5xl font-black leading-[1.04] text-primary md:text-7xl">
           {{ profile.name }}
         </h1>
-        <p class="hero-enter hero-enter-d3 mt-6 max-w-2xl whitespace-pre-line text-xl font-semibold leading-9 text-secondary md:text-2xl md:leading-10">
+        <p class="mt-6 max-w-2xl whitespace-pre-line text-xl font-semibold leading-9 text-secondary md:text-2xl md:leading-10">
           {{ activeTrackData.headline }}
         </p>
         <p class="hero-enter hero-enter-d4 mt-4 max-w-2xl whitespace-pre-line text-base leading-7 text-muted md:text-lg md:leading-8">
@@ -168,9 +168,8 @@ const activeScope = computed(() => scopeByTrack[activeTrack.value]);
 }
 .hero-scope-card {
   border: 1px solid rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.94);
   box-shadow: 0 28px 80px rgba(38, 69, 111, 0.14);
-  backdrop-filter: blur(24px);
 }
 .hero-scope-grid {
   background-image:

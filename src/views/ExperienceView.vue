@@ -169,9 +169,8 @@ watch(activeTrack, closeDetail);
   border: 1px solid rgba(255, 255, 255, 0.92);
   background:
     radial-gradient(circle at 92% 12%, rgba(83, 199, 245, 0.12), transparent 32%),
-    rgba(255, 255, 255, 0.82);
+    rgba(255, 255, 255, 0.96);
   box-shadow: 0 20px 60px rgba(38, 69, 111, 0.09);
-  backdrop-filter: blur(20px);
 }
 
 .career-responsibilities li {
@@ -191,9 +190,8 @@ watch(activeTrack, closeDetail);
 
 .case-study-card {
   border: 1px solid rgba(255, 255, 255, 0.92);
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 24px 70px rgba(38, 69, 111, 0.11);
-  backdrop-filter: blur(22px);
 }
 
 .case-visual {

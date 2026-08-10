@@ -8,7 +8,6 @@
     </a>
 
     <ScrollProgress />
-    <div ref="cursorSpotlight" class="cursor-spotlight" aria-hidden="true" />
     <Navbar @scroll-to-section="scrollToSection" />
     <main id="main" class="portfolio-flow">
       <HomeView @scroll-to-section="scrollToSection" />
@@ -24,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted } from "vue";
 import Navbar from "@/components/Navbar.vue";
 import HomeView from "@/views/HomeView.vue";
 import TechStackView from "@/views/TechStackView.vue";
@@ -35,7 +34,6 @@ import ContactView from "@/views/ContactView.vue";
 import Footer from "@/components/Footer.vue";
 import ScrollToTop from "@/components/ScrollToTop.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
-import { createLatestFrameScheduler } from "@/utils/frameScheduler";
 import {
   createSectionNavigator,
   type SectionScrollBehavior,
@@ -43,14 +41,6 @@ import {
 
 let cleanup: (() => void) | undefined;
 let initialHashTimer: number | null = null;
-const cursorSpotlight = ref<HTMLElement | null>(null);
-
-const cursorScheduler = createLatestFrameScheduler(({ x, y }: { x: number; y: number }) => {
-  cursorSpotlight.value?.style.setProperty(
-    "transform",
-    `translate3d(${x - 600}px, ${y - 600}px, 0)`,
-  );
-});
 const sectionNavigator = createSectionNavigator();
 
 const cancelInitialHashNavigation = () => {
@@ -67,37 +57,6 @@ const scrollSectionIntoView = (section: HTMLElement, behavior: SectionScrollBeha
 };
 
 onMounted(() => {
-  document.documentElement.dataset.theme = "light";
-  document.documentElement.dataset.skin = "default";
-  document.documentElement.style.colorScheme = "light";
-  localStorage.removeItem("portfolio-theme");
-  localStorage.removeItem("portfolio-skin");
-
-  const hoverPointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let pointerListenerActive = false;
-  const handlePointerMove = (event: PointerEvent) => {
-    cursorScheduler.schedule({ x: event.clientX, y: event.clientY });
-  };
-  const reconcilePointerEffects = () => {
-    const pointerEffectsEnabled = hoverPointerQuery.matches && !reducedMotionQuery.matches;
-    if (pointerEffectsEnabled && !pointerListenerActive) {
-      window.addEventListener("pointermove", handlePointerMove, { passive: true });
-      pointerListenerActive = true;
-    } else if (!pointerEffectsEnabled) {
-      window.removeEventListener("pointermove", handlePointerMove);
-      pointerListenerActive = false;
-      cursorScheduler.cancel();
-      cursorSpotlight.value?.style.setProperty(
-        "transform",
-        "translate3d(-1200px, -1200px, 0)",
-      );
-    }
-  };
-  hoverPointerQuery.addEventListener("change", reconcilePointerEffects);
-  reducedMotionQuery.addEventListener("change", reconcilePointerEffects);
-  reconcilePointerEffects();
-
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -125,11 +84,6 @@ onMounted(() => {
   cleanup = () => {
     cancelInitialHashNavigation();
     sectionNavigator.cancel();
-    hoverPointerQuery.removeEventListener("change", reconcilePointerEffects);
-    reducedMotionQuery.removeEventListener("change", reconcilePointerEffects);
-    window.removeEventListener("pointermove", handlePointerMove);
-    pointerListenerActive = false;
-    cursorScheduler.cancel();
     observer.disconnect();
   };
 });

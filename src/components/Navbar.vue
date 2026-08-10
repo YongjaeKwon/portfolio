@@ -1,5 +1,5 @@
 <template>
-  <header class="site-header fresh-nav fixed top-0 z-50 w-full px-4 py-3 backdrop-blur-xl">
+  <header class="site-header fresh-nav fixed top-0 z-50 w-full px-4 py-3">
     <div class="mx-auto flex max-w-6xl items-center justify-between">
       <button
         type="button"

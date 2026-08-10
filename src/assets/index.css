@@ -7,11 +7,11 @@
 
   /* ── Font system ── */
   --font-body:
-    "Pretendard Variable", Pretendard, ui-sans-serif, system-ui,
-    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
   --font-display:
-    "Space Grotesk", "Pretendard Variable", Pretendard, ui-sans-serif, system-ui,
-    sans-serif;
+    "Space Grotesk", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
     monospace;
 
@@ -100,16 +100,6 @@ body {
     var(--page-bg);
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.018;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 :root[data-theme="light"] body {
   background:
     radial-gradient(ellipse 70% 45% at 10% 0%, rgba(49, 130, 246, 0.14), transparent),
@@ -189,9 +179,8 @@ a {
 
   .surface {
     border: 1px solid rgba(255, 255, 255, 0.78);
-    background: var(--surface);
+    background: rgba(255, 255, 255, 0.94);
     box-shadow: var(--elev-1);
-    backdrop-filter: blur(22px);
   }
 
   .surface-strong {
@@ -258,30 +247,6 @@ a {
   .nav-active {
     color: var(--accent-strong) !important;
     background: rgb(var(--accent-rgb) / 0.08) !important;
-  }
-
-  /* ── Cursor spotlight ── */
-  .cursor-spotlight {
-    pointer-events: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 1200px;
-    height: 1200px;
-    z-index: 0;
-    border-radius: 50%;
-    contain: strict;
-    will-change: transform;
-    transform: translate3d(-1200px, -1200px, 0);
-    background: radial-gradient(
-      600px circle at center,
-      rgb(var(--accent-rgb) / 0.04),
-      transparent 40%
-    );
-  }
-
-  @media (hover: none), (pointer: coarse) {
-    .cursor-spotlight { display: none; }
   }
 
   /* ── Scroll progress bar ── */
@@ -372,7 +337,7 @@ a {
   100% { background-position: -200% 0; }
 }
 
-.hero-enter    { animation: hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-enter    { animation: hero-fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .hero-enter-d1 { animation-delay: 0.1s; }
 .hero-enter-d2 { animation-delay: 0.2s; }
 .hero-enter-d3 { animation-delay: 0.3s; }
@@ -1128,7 +1093,6 @@ a {
     scroll-behavior: auto !important;
   }
   .reveal { opacity: 1 !important; transform: none !important; }
-  .cursor-spotlight { display: none !important; }
   .skeleton { animation: none !important; background: var(--surface-strong) !important; }
   .tilt { transform: none !important; }
 }
@@ -1173,6 +1137,14 @@ a {
   .portfolio-flow > section:not(#hero).anchor-layout-ready {
     content-visibility: visible;
   }
+
+  @media (max-width: 767px) {
+    .portfolio-flow > section#techstack { contain-intrinsic-size: auto 940px; }
+    .portfolio-flow > section#experience { contain-intrinsic-size: auto 3490px; }
+    .portfolio-flow > section#projects { contain-intrinsic-size: auto 2665px; }
+    .portfolio-flow > section#education { contain-intrinsic-size: auto 980px; }
+    .portfolio-flow > section#contact { contain-intrinsic-size: auto 495px; }
+  }
 }
 
 .portfolio-flow > #hero.fresh-mesh {
@@ -1187,7 +1159,6 @@ a {
 
 @media print {
   .site-header,
-  .cursor-spotlight,
   .scroll-progress,
   footer,
   [aria-label="맨 위로 이동"],

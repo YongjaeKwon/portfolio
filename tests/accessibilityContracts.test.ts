@@ -39,7 +39,7 @@ describe("accessibility contracts", () => {
     const modal = readSource("../src/components/ProjectDetailModal.vue");
     const isolate = functionBody(modal, "const isolateBackground", "const restoreBackground");
     const restore = functionBody(modal, "const restoreBackground", "const handleKeydown");
-    const projectWatcher = functionBody(modal, "watch(", "onMounted(");
+    const projectWatcher = functionBody(modal, "watch(", "onBeforeUnmount(");
     const unmount = functionBody(modal, "onBeforeUnmount(", "</script>");
 
     expect(modal).toContain('<Teleport to="body">');
@@ -60,6 +60,12 @@ describe("accessibility contracts", () => {
     expect(restore).toContain("document.body.style.overflow = previousBodyOverflow");
     expect(projectWatcher).toContain("isolateBackground()");
     expect(projectWatcher).toContain("restoreBackground()");
+    expect(projectWatcher).toMatch(
+      /if\s*\(!previousProject\)[\s\S]*?addEventListener\(["']keydown["'],\s*handleKeydown\)/,
+    );
+    expect(projectWatcher).toMatch(
+      /if\s*\(previousProject\)[\s\S]*?removeEventListener\(["']keydown["'],\s*handleKeydown\)/,
+    );
     expect(unmount).toContain("restoreBackground()");
   });
 

@@ -5,11 +5,9 @@ const source = (path: string) => readFile(new URL(`../${path}`, import.meta.url)
 const scrollListener = /addEventListener\s*\(\s*["']scroll["']/;
 const fontStylesheetOnload = "this.onload=null;this.rel='stylesheet'";
 const fontStylesheetUrls = [
-  "https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css",
   "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap",
 ];
 const fontPreconnectOrigins = [
-  "https://cdn.jsdelivr.net",
   "https://fonts.googleapis.com",
   "https://fonts.gstatic.com",
 ];
@@ -76,7 +74,7 @@ const expectNonBlockingFontStylesheets = (html: string) => {
     [...outsideLinks, ...insideLinks].filter(
       (link) => link.onload === fontStylesheetOnload,
     ),
-  ).toHaveLength(2);
+  ).toHaveLength(1);
   const preconnectLinks = outsideLinks.filter((link) => relTokens(link).includes("preconnect"));
   expect(preconnectLinks.map((link) => link.href).sort()).toEqual(
     [...fontPreconnectOrigins].sort(),
@@ -94,9 +92,14 @@ const expectImportedAndCalled = (code: string, symbol: string) => {
 };
 
 describe("scroll performance contracts", () => {
-  it("loads external font stylesheets without blocking rendering", async () => {
+  it("uses system Korean fonts and loads only display fonts without blocking rendering", async () => {
     const html = await source("index.html");
+    const css = await source("src/assets/index.css");
+    const defaultRoot = css.slice(0, css.indexOf(':root[data-theme="light"]'));
     expectNonBlockingFontStylesheets(html);
+    expect(html).not.toContain("pretendardvariable-dynamic-subset.css");
+    expect(html).not.toContain("cdn.jsdelivr.net");
+    expect(defaultRoot).not.toMatch(/--font-body\s*:[^;]*Pretendard/s);
   });
 
   it.each([
@@ -131,7 +134,7 @@ describe("scroll performance contracts", () => {
   it("accepts font link attributes in a different order and quote style", async () => {
     const html = await source("index.html");
     const reordered = html.replace(
-      /<link\s+rel="preload"\s+as="style"[\s\S]*?pretendardvariable-dynamic-subset\.css[\s\S]*?\/>/,
+      /<link\s+rel="preload"\s+as="style"[\s\S]*?fonts\.googleapis\.com\/css2\?family=Space\+Grotesk[\s\S]*?\/>/,
       `<link href='${fontStylesheetUrls[0]}' as='style' onload="${fontStylesheetOnload}" rel='preload' />`,
     );
     expect(reordered).not.toBe(html);
@@ -172,6 +175,18 @@ describe("scroll performance contracts", () => {
         ),
     );
     expect(hasDeferredSection).toBe(true);
+    const mobileIntrinsicSizes = {
+      techstack: 940,
+      experience: 3490,
+      projects: 2665,
+      education: 980,
+      contact: 495,
+    };
+    for (const [id, height] of Object.entries(mobileIntrinsicSizes)) {
+      expect(css).toMatch(
+        new RegExp(`\\.portfolio-flow\\s*>\\s*section#${id}\\s*\\{\\s*contain-intrinsic-size:\\s*auto\\s+${height}px;\\s*\\}`),
+      );
+    }
   });
 
   it("settles deferred section layout before anchor navigation", async () => {
@@ -196,15 +211,15 @@ describe("scroll performance contracts", () => {
     );
   });
 
-  it("batches pointer effects by animation frame", async () => {
+  it("keeps pointer effects scoped to interactive cards", async () => {
     const app = await source("src/App.vue");
     const tilt = await source("src/directives/tilt.ts");
     const css = await source("src/assets/index.css");
-    expectImportedAndCalled(app, "createLatestFrameScheduler");
     expectImportedAndCalled(tilt, "createLatestFrameScheduler");
 
-    expect(app.match(/\.addEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
-    expect(app.match(/\.removeEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
+    expect(app).not.toContain("cursor-spotlight");
+    expect(app).not.toMatch(/addEventListener\s*\(\s*["']pointermove["']/);
+    expect(css).not.toMatch(/\.cursor-spotlight\s*\{/);
     expect(tilt.match(/\.addEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
     expect(tilt.match(/\.removeEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
 
@@ -268,10 +283,6 @@ describe("scroll performance contracts", () => {
     expect(geometryReads).toHaveLength(1);
     expect(tilt).toMatch(
       /createLatestFrameScheduler[\s\S]*?\.matches\s*\(\s*["']:hover["']\s*\)[\s\S]*?getBoundingClientRect\s*\(/,
-    );
-
-    expect(css).toMatch(
-      /\.cursor-spotlight\s*\{[\s\S]*?background\s*:\s*radial-gradient\s*\(\s*600px\s+circle\s+at\s+center\s*,/,
     );
   });
 });
