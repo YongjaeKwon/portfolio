@@ -82,7 +82,7 @@
                     <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.detail.caseStudy.problem }}</p>
                   </div>
                   <div class="case-result-divider mt-4 pt-4">
-                    <p class="case-step-label">확인된 결과</p>
+                    <p class="case-step-label">개선 결과</p>
                     <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.detail.caseStudy.outcome[0] }}</p>
                   </div>
                 </div>
