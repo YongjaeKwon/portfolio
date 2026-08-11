@@ -579,7 +579,7 @@ export const featuredProjects: FeaturedProject[] = [
         "GitHub Actions에서 백엔드·프론트엔드 테스트와 빌드, 일일 점검과 모의운용 적립을 실행하고 실패 경보를 연결했습니다.",
       ],
       disclosure: "비공개 개인 프로젝트로 API 자격증명, 실제 계좌 금액·보유 종목, 전략 파라미터와 투자 성과는 공개하지 않습니다. 화면은 프라이버시 모드와 구조 요약으로 보여드립니다.",
-      resources: [{ label: "ReachRich 공개 기술 데모", href: "https://github.com/YongjaeKwon/quant-lab", type: "github" }],
+      resources: [{ label: "ReachRich 공개 기술 문서", href: "https://github.com/YongjaeKwon/quant-lab/blob/main/README.md", type: "github" }],
     },
     perspectives: {
       frontend: {
