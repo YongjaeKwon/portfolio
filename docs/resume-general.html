@@ -388,7 +388,7 @@
               ><b>연락처</b><a href="tel:+821094701704">010-9470-1704</a></span
             >
             <span class="contact-sep">|</span>
-            <span class="contact-item"><b>거주지</b><span>경기도 용인시</span></span>
+            <span class="contact-item"><b>거주지</b><span>경기도 용인시 수지구</span></span>
           </div>
           <div class="contact-row">
             <span class="contact-item"
@@ -467,7 +467,7 @@
         <div class="subheading case-section-heading">PPS 주요 성과</div>
 
         <div class="case">
-          <strong>대량 첨부파일 다운로드 비동기 전환</strong>
+          <strong>300~400건 다운로드를 위한 Spring 비동기 압축 · 상태 조회 흐름 설계 · 구현</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>CE 300~400건의 첨부파일을 한 요청에서 수집 · 압축해 화면이 장시간 대기했고, 진행 중인지 실패한 것인지 확인할 수 없었습니다.</span></li>
             <li><span class="case-label">판단</span><span>압축 속도보다 요청과 작업이 한 흐름에 묶인 구조가 문제라고 보고, 작업을 분리해 상태를 조회하는 방식을 선택했습니다.</span></li>
@@ -477,7 +477,7 @@
         </div>
 
         <div class="case">
-          <strong>분리돼 있던 본사 계정 발급 절차 통합</strong>
+          <strong>본사 계정 발급 3단계를 단일 화면 · 트랜잭션으로 통합</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>사내 계정 시스템과 포털에 계정을 각각 만들고 포털 ID는 DB에 직접 입력해야 해 누락과 정보 불일치 위험이 있었습니다.</span></li>
             <li><span class="case-label">판단</span><span>두 시스템에 따로 입력하는 절차로는 누락을 막기 어렵다고 보고, 포털을 단일 발급 창구로 정했습니다.</span></li>
@@ -487,7 +487,7 @@
         </div>
 
         <div class="case">
-          <strong>알림톡 발송 정책 공통화</strong>
+          <strong>4개 업무 서비스의 알림톡 발송 정책 · 로직을 공통화</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>기능마다 수신자와 발송 조건이 소스에 따로 작성돼 정책 변경 시 여러 코드를 수정해야 했습니다.</span></li>
             <li><span class="case-label">판단</span><span>정책이 바뀔 때마다 코드를 배포하지 않도록, 자주 변하는 기준과 공통 발송 로직을 분리했습니다.</span></li>
@@ -497,7 +497,7 @@
         </div>
 
         <div class="case">
-          <strong>Jenkins 기반 배포 절차 정리</strong>
+          <strong>수동 배포 절차를 Jenkins Pipeline으로 자동화해 350회 배포 수행</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>빌드 · 파일 전송 · 기존 파일 백업과 2대 서버 배포를 수동으로 반복해 단계 누락 여부를 매번 확인해야 했습니다.</span></li>
             <li><span class="case-label">판단</span><span>반복 순서를 사람의 기억에 맡기지 않고 하나의 작업으로 고정하는 것이 우선이라고 판단했습니다.</span></li>
@@ -526,7 +526,7 @@
         <div class="subheading case-section-heading">TSMS 주요 성과</div>
 
         <div class="case">
-          <strong>외부 API 키 노출 제거 및 호출 경로 공통화</strong>
+          <strong>25개 화면의 외부 API 호출을 서버 공통 경로로 전환해 키 노출 제거</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>25개 화면에서 지도 · 주소 및 교육행정정보 API를 직접 호출해 키가 브라우저에 노출되고, 연동 정보가 바뀔 때마다 각 화면을 수정해야 했습니다.</span></li>
             <li><span class="case-label">판단</span><span>키만 교체하면 노출과 반복 수정이 재발한다고 보고, 외부 호출 책임을 화면에서 서버로 옮겼습니다.</span></li>
@@ -536,7 +536,7 @@
         </div>
 
         <div class="case">
-          <strong>대량 단말 등록 검증과 QR 발급</strong>
+          <strong>108,237대에 대량 등록 검증 · 암호화 QR 발급 흐름 적용</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>엑셀로 단말을 대량 등록할 때 생산입고 내역에 없거나 이미 등록된 일련번호가 함께 들어올 수 있었습니다.</span></li>
             <li><span class="case-label">판단</span><span>등록 뒤 오류를 정리하기보다 저장 전에 기준 데이터와 중복을 확인하도록 검증 순서를 앞당겼습니다.</span></li>
@@ -546,7 +546,7 @@
         </div>
 
         <div class="case">
-          <strong>현장 점검 및 재점검 이력 관리</strong>
+          <strong>119개 학교의 현장 점검 · 재점검 이력을 단말 단위로 전산화</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>학교 방문 점검을 종이로 관리해 결과를 전체적으로 확인하기 어려웠고, 분실 · 미지참 단말의 2 · 3차 재방문 이력도 연결되지 않았습니다.</span></li>
             <li><span class="case-label">판단</span><span>학교별 완료 여부만으로는 재방문 대상을 이어갈 수 없어, 단말별 점검 회차와 결과를 연결하는 구조로 정리했습니다.</span></li>
@@ -556,7 +556,7 @@
         </div>
 
         <div class="case">
-          <strong>중고거래 모니터링 기능 개발</strong>
+          <strong>보안 제약을 반영한 중고거래 검수 · 처리이력 관리 기능 개발</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>운영팀이 여러 플랫폼을 키워드 · 지역별로 반복 검색하고 의심 게시물을 수기로 관리했습니다. 보안 정책과 외부 사이트 제한으로 시스템의 직접 검색 · 수집도 어려웠습니다.</span></li>
             <li><span class="case-label">판단</span><span>외부 사이트를 직접 호출할 수 없어, 검수자의 육안 확인은 유지하고 붙여 넣은 URL 문자열만 서버에서 분석하는 방식을 선택했습니다.</span></li>
