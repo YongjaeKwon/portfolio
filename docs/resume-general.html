@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>권용재 - Web Developer 이력서</title>
+    <title>권용재 - Java·Spring 백엔드 개발자 이력서</title>
     <style>
       :root {
         --ink: #252c38;
@@ -16,7 +16,7 @@
 
       @page {
         size: A4;
-        margin: 10mm 14mm;
+        margin: 11mm 14mm;
       }
       * {
         box-sizing: border-box;
@@ -30,6 +30,7 @@
           "Apple SD Gothic Neo", "Noto Sans KR", "Nanum Gothic", sans-serif;
         font-size: 9.5pt;
         line-height: 1.46;
+        letter-spacing: 0;
         word-break: keep-all;
         overflow-wrap: break-word;
         -webkit-print-color-adjust: exact;
@@ -112,7 +113,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        margin: 8px 0 3px;
+        margin: 14px 0 6px;
         color: var(--accent);
         font-size: 10pt;
         font-weight: 850;
@@ -133,14 +134,15 @@
         margin: 0;
         color: #344054;
         font-size: 9.6pt;
-        line-height: 1.42;
+        line-height: 1.5;
+        text-indent: 1.25em;
       }
-
       .skill-row {
         display: grid;
-        grid-template-columns: 80px 1fr;
-        gap: 10px;
-        padding: 2px 0;
+        grid-template-columns: 92px minmax(0, 1fr);
+        align-items: start;
+        gap: 14px;
+        padding: 3px 0;
         border-bottom: 1px solid var(--rule-light);
         break-inside: avoid;
       }
@@ -151,10 +153,19 @@
         color: var(--ink-strong);
         font-size: 9pt;
         font-weight: 800;
+        line-height: 1.5;
+        white-space: nowrap;
       }
       .skill-value {
         color: #475467;
         font-size: 9.4pt;
+        line-height: 1.5;
+      }
+      .stack-line {
+        display: grid;
+        grid-template-columns: 46px minmax(0, 1fr);
+        align-items: baseline;
+        gap: 8px;
       }
       .stack-scope {
         color: var(--accent);
@@ -192,7 +203,7 @@
       }
 
       .system {
-        margin-top: 6px;
+        margin-top: 8px;
         padding-top: 5px;
         border-top: 1px solid var(--rule);
       }
@@ -200,8 +211,11 @@
         padding-top: 0;
         border-top: 0;
       }
+      .career-system + .career-system {
+        margin-top: 14px;
+      }
       .system-overview {
-        padding: 5px 8px 4px 10px;
+        padding: 7px 10px 6px 11px;
         border: 1px solid #dce8e2;
         border-left: 3px solid var(--accent);
         border-radius: 5px;
@@ -227,7 +241,7 @@
         margin: 2px 0 1px;
         color: #344054;
         font-weight: 650;
-        line-height: 1.42;
+        line-height: 1.44;
         break-after: avoid;
         break-inside: avoid;
       }
@@ -249,39 +263,71 @@
         font-weight: 850;
       }
       .project-item {
-        margin-top: 3px;
-        padding-top: 3px;
+        margin-top: 7px;
+        padding-top: 0;
+        border-top: 0;
+        break-inside: avoid;
+      }
+      .project-item + .project-item {
+        margin-top: 9px;
+        padding-top: 7px;
+        border-top: 1px solid var(--rule-light);
       }
       .project-item .system-title {
         font-size: 9.6pt;
       }
       .project-item .system-desc {
-        margin: 1px 0;
+        margin: 2px 0;
         font-size: 8.4pt;
-        line-height: 1.32;
+        line-height: 1.4;
+        break-after: auto;
       }
       .project-item .system-tech {
         font-size: 7.9pt;
+        break-after: auto;
       }
       .project-item + h2 {
-        margin-top: 6px;
+        margin-top: 14px;
+      }
+      .other-experience .system-title {
+        font-size: 9.8pt;
+      }
+      .other-experience .system-desc {
+        margin: 2px 0 0;
+        font-size: 8.7pt;
+        line-height: 1.42;
       }
       .case-section-heading {
-        margin-top: 4px;
+        margin-top: 8px;
+      }
+      .print-continuation {
+        display: none;
+      }
+      @media print {
+        .print-continuation {
+          display: block;
+          break-before: page;
+          page-break-before: always;
+          margin: 0 0 10px;
+          color: var(--accent);
+          font-size: 9.2pt;
+          font-weight: 850;
+          letter-spacing: 0.5px;
+        }
       }
       .career-system .case-section-heading {
         color: var(--accent);
       }
       .case-section-heading + .case {
-        margin-top: 3px;
+        margin-top: 6px;
       }
 
       .case {
-        margin: 3px 0;
+        margin: 7px 0;
         break-inside: avoid;
       }
       .case + .case {
-        padding-top: 2px;
+        padding-top: 6px;
         border-top: 1px solid var(--rule-light);
       }
       .case > strong {
@@ -289,23 +335,26 @@
         color: var(--ink-strong);
         font-size: 9.4pt;
         font-weight: 850;
-        line-height: 1.3;
+        line-height: 1.34;
         break-after: avoid;
       }
       .case-flow {
-        margin: 2px 0 0;
+        margin: 7px 0 0;
         padding: 0;
         list-style: none;
       }
       .case-flow li {
         display: grid;
-        grid-template-columns: 32px minmax(0, 1fr);
-        gap: 6px;
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 10px;
         margin: 0;
         color: #475467;
         font-size: 8.7pt;
-        line-height: 1.32;
+        line-height: 1.46;
         break-inside: avoid;
+      }
+      .case-flow li + li {
+        margin-top: 7px;
       }
       .case-label {
         color: var(--muted);
@@ -375,7 +424,7 @@
       <header class="header">
         <div class="header-main">
           <h1>권용재 <span class="english-name">Yongjae Kwon</span></h1>
-          <div class="role">Web Developer</div>
+          <div class="role">Backend Developer</div>
         </div>
         <div class="contact">
           <div class="contact-row">
@@ -406,13 +455,11 @@
 
       <h2>소개</h2>
       <p class="intro">
-        운영 담당자가 실제로 쓰기 편한 시스템을 만드는 Java·Spring 기반 웹 개발자입니다.
-        업무 흐름과 기술적 제약을 먼저 확인하고, 화면 · API · SQL · 배포까지 필요한 범위를
-        함께 구현합니다. 약 500개 협력사의 B2B 포털과 11만여 대 교육용 단말 운영 시스템에서
-        수기 업무 전산화, 외부 연계와 대량 데이터 처리를 개선해 왔습니다.
+        현장의 복잡한 업무를 사용자가 끊김 없이 처리할 수 있는 시스템으로 만드는 Java·Spring 백엔드 개발자입니다. 종이로 관리되던 학교 방문 점검을 일정 등록부터 점검표 작성, 서명, 재점검 이력까지 이어지는 시스템으로 바꾸고, 오래 걸리는 대량 첨부파일 작업은 비동기로 분리해 진행 상태를 확인한 뒤 결과를 내려받을 수 있도록 개선했습니다. 운영 담당자와 실제 업무 순서를 맞춘 뒤 화면 · 서버 · DB를 함께 설계하며, 테스트와 배포 이후의 운영까지 책임져 왔습니다.
       </p>
 
-      <h2>기술 스택</h2>
+
+<h2>기술 스택</h2>
       <div class="skills">
         <div class="skill-row">
           <div class="skill-name">Backend</div>
@@ -421,15 +468,21 @@
           </div>
         </div>
         <div class="skill-row">
-          <div class="skill-name">Frontend</div>
-          <div class="skill-value">
-            <span class="stack-scope">실무</span> JavaScript, Vue, HTML, CSS, JSP, WebSquare5, jQuery<br />
-            <span class="stack-scope">프로젝트</span> TypeScript, React, Next.js, Redux Toolkit, Pinia
-          </div>
-        </div>
-        <div class="skill-row">
           <div class="skill-name">Database</div>
           <div class="skill-value">Oracle, MariaDB, MySQL</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Frontend</div>
+          <div class="skill-value">
+            <div class="stack-line">
+              <span class="stack-scope">실무</span>
+              <span>JavaScript, Vue, HTML, CSS, JSP, WebSquare5, jQuery</span>
+            </div>
+            <div class="stack-line">
+              <span class="stack-scope">프로젝트</span>
+              <span>TypeScript, React, Next.js, Redux Toolkit, Pinia</span>
+            </div>
+          </div>
         </div>
         <div class="skill-row">
           <div class="skill-name">Infra · 배포</div>
@@ -455,9 +508,8 @@
           </div>
           <p class="system-desc">
             본사와 약 500개 협력사가 파트너 등록 · 계약, 824명의 현장 엔지니어(CE) 교육 · 자격 ·
-            증빙 · 평가를 처리하는 B2B 업무 포털입니다. 전자계약, 사내 계정 · 재고, 알림톡 · 메일을
-            연계해 운영 정보와 문서 이력을 관리하며, 화면 · API · SQL 개발부터 외부 연동 · 배포 ·
-            운영까지 담당합니다.
+            증빙 · 평가를 처리하는 B2B 업무 포털입니다. 운영 · 사업 담당자와 요구사항을 조율하고 기존 데이터 흐름을 분석해
+            DB 모델 · HTTP API · SQL 설계와 개발, 외부 시스템 연동, 사용자 검수, Jenkins 배포 · 운영까지 담당합니다.
           </p>
           <p class="system-tech">
             <span class="tech-label">사용 기술</span>
@@ -467,42 +519,43 @@
         <div class="subheading case-section-heading">PPS 주요 성과</div>
 
         <div class="case">
-          <strong>300~400건 다운로드를 위한 Spring 비동기 압축 · 상태 조회 흐름 설계 · 구현</strong>
+          <strong>대량 첨부파일 다운로드 비동기 전환</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>CE 300~400건의 첨부파일을 한 요청에서 수집 · 압축해 화면이 장시간 대기했고, 진행 중인지 실패한 것인지 확인할 수 없었습니다.</span></li>
             <li><span class="case-label">판단</span><span>압축 속도보다 요청과 작업이 한 흐름에 묶인 구조가 문제라고 보고, 작업을 분리해 상태를 조회하는 방식을 선택했습니다.</span></li>
-            <li><span class="case-label">구현</span><span>Spring 비동기 처리로 압축 작업을 분리하고, 화면에서 진행 상태와 완료 파일을 조회하도록 했습니다. 새로고침 후에도 같은 작업을 이어서 확인할 수 있게 했습니다.</span></li>
-            <li><span class="case-label">결과</span><span>300~400건 단위 압축 작업이 HTTP 요청을 장시간 점유하던 문제를 해소하고, 작업 ID를 먼저 받은 뒤 진행 상태를 확인하며 내려받도록 바꿨습니다.</span></li>
+            <li><span class="case-label">구현</span><span>Spring 비동기 작업으로 압축을 분리하고, 요청 API는 작업 ID를 반환하며 상태 조회 API에서 진행 · 완료 · 실패를 확인하도록 구성했습니다. 새로고침 후에도 같은 작업을 이어서 확인할 수 있게 했습니다.</span></li>
+            <li><span class="case-label">결과</span><span>300~400건 단위 압축 작업이 HTTP 요청을 장시간 점유하던 문제를 해소하고, 사용자가 진행 상태를 확인하며 내려받도록 바꿨습니다.</span></li>
           </ul>
         </div>
-
         <div class="case">
-          <strong>본사 계정 발급 3단계를 단일 화면 · 트랜잭션으로 통합</strong>
+          <strong>분리돼 있던 본사 계정 발급 절차 통합</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>사내 계정 시스템과 포털에 계정을 각각 만들고 포털 ID는 DB에 직접 입력해야 해 누락과 정보 불일치 위험이 있었습니다.</span></li>
             <li><span class="case-label">판단</span><span>두 시스템에 따로 입력하는 절차로는 누락을 막기 어렵다고 보고, 포털을 단일 발급 창구로 정했습니다.</span></li>
-            <li><span class="case-label">구현</span><span>ID 생성, 조직정보 검증, 초기 인증정보 발급과 사내 시스템 연동을 한 절차로 묶고, 연동 실패 시 포털 저장도 취소되도록 처리했습니다.</span></li>
+            <li><span class="case-label">구현</span><span>ID 생성, 조직정보 검증, 초기 인증정보 발급과 사내 시스템 연동을 한 절차로 묶고, 연동 실패 시 포털 저장도 취소되도록 트랜잭션을 구성했습니다.</span></li>
             <li><span class="case-label">결과</span><span>사내 계정 생성 · 포털 계정 생성 · DB 입력의 3단계 절차를 단일 화면으로 통합했습니다. 계정 변경 전 재고 · 서비스 보유 여부도 확인해 잘못된 비활성화를 차단했습니다.</span></li>
           </ul>
         </div>
 
-        <div class="case">
-          <strong>4개 업무 서비스의 알림톡 발송 정책 · 로직을 공통화</strong>
-          <ul class="case-flow">
-            <li><span class="case-label">문제</span><span>기능마다 수신자와 발송 조건이 소스에 따로 작성돼 정책 변경 시 여러 코드를 수정해야 했습니다.</span></li>
-            <li><span class="case-label">판단</span><span>정책이 바뀔 때마다 코드를 배포하지 않도록, 자주 변하는 기준과 공통 발송 로직을 분리했습니다.</span></li>
-            <li><span class="case-label">구현</span><span>수신자와 발송 조건을 DB에서 관리하고, 공통 발송 서비스가 유형별 정책을 조회하도록 구현했습니다.</span></li>
-            <li><span class="case-label">결과</span><span>4개 업무 서비스의 5개 발송 지점을 공통 서비스 1곳으로 모았고, DB 설정 변경과 단위 테스트 4건으로 정책 변경에 대응할 수 있게 했습니다.</span></li>
-          </ul>
-        </div>
+        <div class="print-continuation">PPS 주요 성과 · 계속</div>
 
         <div class="case">
-          <strong>수동 배포 절차를 Jenkins Pipeline으로 자동화해 350회 배포 수행</strong>
+          <strong>Jenkins Pipeline 기반 배포 자동화</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>빌드 · 파일 전송 · 기존 파일 백업과 2대 서버 배포를 수동으로 반복해 단계 누락 여부를 매번 확인해야 했습니다.</span></li>
             <li><span class="case-label">판단</span><span>반복 순서를 사람의 기억에 맡기지 않고 하나의 작업으로 고정하는 것이 우선이라고 판단했습니다.</span></li>
             <li><span class="case-label">구현</span><span>Jenkins Pipeline에 소스 반영, 빌드, 서버 전송, 백업과 2대 서버 순차 배포를 연결했습니다.</span></li>
             <li><span class="case-label">결과</span><span>개발 202회 · 운영 148회의 성공 기록을 쌓았고, 최근 20회 Pipeline 실행은 개발 평균 45초 · 운영 평균 48초가 걸렸습니다.</span></li>
+          </ul>
+        </div>
+
+        <div class="case">
+          <strong>알림톡 발송 정책 공통화</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">문제</span><span>기능마다 수신자와 발송 조건이 소스에 따로 작성돼 정책 변경 시 여러 코드를 수정해야 했습니다.</span></li>
+            <li><span class="case-label">판단</span><span>정책이 바뀔 때마다 코드를 배포하지 않도록, 자주 변하는 기준과 공통 발송 로직을 분리했습니다.</span></li>
+            <li><span class="case-label">구현</span><span>수신자와 발송 조건을 DB에서 관리하고, 공통 발송 서비스가 유형별 정책을 조회하도록 구현했습니다. 주요 조건과 예외 경로는 단위 테스트로 고정했습니다.</span></li>
+            <li><span class="case-label">결과</span><span>4개 업무 서비스의 5개 발송 지점을 공통 서비스 1곳으로 모았고, DB 설정 변경과 단위 테스트 4건으로 정책 변경 범위를 검증할 수 있게 했습니다.</span></li>
           </ul>
         </div>
       </section>
@@ -515,8 +568,8 @@
           </div>
           <p class="system-desc">
             서울시교육청 디벗 사업에서 약 11만 대 교육용 단말의 등록부터 배송 · 설치,
-            A/S, 점검까지 이어지는 업무와 이력을 관리합니다. 운영 담당자와 요구사항을
-            조율하고 화면 · 서버 개발, 사용자 검수와 배포를 담당하고 있습니다.
+            A/S, 점검까지 이어지는 업무와 이력을 관리합니다. 운영 담당자와 업무 규칙 · 기준 데이터를 조율하고
+            DB 모델 · HTTP API · SQL 설계와 화면 · 서버 개발, 외부 연동, 사용자 검수와 배포를 담당하고 있습니다.
           </p>
           <p class="system-tech">
             <span class="tech-label">사용 기술</span>
@@ -526,17 +579,28 @@
         <div class="subheading case-section-heading">TSMS 주요 성과</div>
 
         <div class="case">
-          <strong>25개 화면의 외부 API 호출을 서버 공통 경로로 전환해 키 노출 제거</strong>
+          <strong>외부 API 키 노출 제거 및 호출 경로 공통화</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>25개 화면에서 지도 · 주소 및 교육행정정보 API를 직접 호출해 키가 브라우저에 노출되고, 연동 정보가 바뀔 때마다 각 화면을 수정해야 했습니다.</span></li>
             <li><span class="case-label">판단</span><span>키만 교체하면 노출과 반복 수정이 재발한다고 보고, 외부 호출 책임을 화면에서 서버로 옮겼습니다.</span></li>
-            <li><span class="case-label">구현</span><span>외부 API 호출을 공통 서버 경로로 모으고 키와 연동 URL을 서버 설정으로 분리했습니다. 관련 화면은 동일한 경로와 응답 형식을 사용하도록 전환했습니다.</span></li>
+            <li><span class="case-label">구현</span><span>외부 API 호출을 서버 공통 API 계층으로 모으고 키와 연동 URL을 서버 설정으로 분리했습니다. 관련 화면은 동일한 경로와 응답 형식을 사용하도록 전환했습니다.</span></li>
             <li><span class="case-label">결과</span><span>25개 화면의 브라우저 키 노출을 제거하고, 화면마다 흩어져 있던 호출과 설정 변경 지점을 서버 공통 경로 1곳으로 모았습니다.</span></li>
           </ul>
         </div>
 
         <div class="case">
-          <strong>108,237대에 대량 등록 검증 · 암호화 QR 발급 흐름 적용</strong>
+          <strong>중고거래 모니터링 기능 개발</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">문제</span><span>운영팀이 여러 플랫폼을 키워드 · 지역별로 반복 검색하고 의심 게시물을 수기로 관리했습니다. 보안 정책과 외부 사이트 제한으로 시스템의 직접 검색 · 수집도 어려웠습니다.</span></li>
+            <li><span class="case-label">판단</span><span>외부 사이트를 직접 호출할 수 없어, 검수자의 육안 확인은 유지하고 붙여 넣은 URL 문자열만 서버에서 분석하는 방식을 선택했습니다.</span></li>
+            <li><span class="case-label">구현</span><span>URL에서 사이트와 게시글 ID를 판별해 중복을 확인하고, 사이트별 규칙은 기준정보에서 관리했습니다. 링크 · 캡처 · 판매정보 · 처리이력도 한 화면에 연결했습니다.</span></li>
+            <li><span class="case-label">결과</span><span>외부 사이트에 직접 접속하지 않으면서 검색 이후의 기록, 중복 확인과 처리이력 관리를 시스템화했습니다.</span></li>
+          </ul>
+        </div>
+
+        <div class="print-continuation">TSMS 주요 성과 · 계속</div>
+        <div class="case">
+          <strong>대량 단말 등록 검증과 QR 발급</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>엑셀로 단말을 대량 등록할 때 생산입고 내역에 없거나 이미 등록된 일련번호가 함께 들어올 수 있었습니다.</span></li>
             <li><span class="case-label">판단</span><span>등록 뒤 오류를 정리하기보다 저장 전에 기준 데이터와 중복을 확인하도록 검증 순서를 앞당겼습니다.</span></li>
@@ -546,7 +610,7 @@
         </div>
 
         <div class="case">
-          <strong>119개 학교의 현장 점검 · 재점검 이력을 단말 단위로 전산화</strong>
+          <strong>현장 점검 및 재점검 이력 관리</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>학교 방문 점검을 종이로 관리해 결과를 전체적으로 확인하기 어려웠고, 분실 · 미지참 단말의 2 · 3차 재방문 이력도 연결되지 않았습니다.</span></li>
             <li><span class="case-label">판단</span><span>학교별 완료 여부만으로는 재방문 대상을 이어갈 수 없어, 단말별 점검 회차와 결과를 연결하는 구조로 정리했습니다.</span></li>
@@ -554,19 +618,28 @@
             <li><span class="case-label">결과</span><span>119개 대상 학교에 적용했으며, 21개 학교의 점검 완료와 단말 점검 3,800건을 시스템에 축적했습니다. (2026.07 기준)</span></li>
           </ul>
         </div>
-
-        <div class="case">
-          <strong>보안 제약을 반영한 중고거래 검수 · 처리이력 관리 기능 개발</strong>
-          <ul class="case-flow">
-            <li><span class="case-label">문제</span><span>운영팀이 여러 플랫폼을 키워드 · 지역별로 반복 검색하고 의심 게시물을 수기로 관리했습니다. 보안 정책과 외부 사이트 제한으로 시스템의 직접 검색 · 수집도 어려웠습니다.</span></li>
-            <li><span class="case-label">판단</span><span>외부 사이트를 직접 호출할 수 없어, 검수자의 육안 확인은 유지하고 붙여 넣은 URL 문자열만 서버에서 분석하는 방식을 선택했습니다.</span></li>
-            <li><span class="case-label">구현</span><span>URL에서 사이트와 게시글 ID를 판별해 중복을 확인하고, 사이트별 규칙은 기준정보에서 관리했습니다. 링크 · 캡처 · 판매정보 · 처리이력도 한 화면에 연결했습니다.</span></li>
-            <li><span class="case-label">결과</span><span>외부 사이트에 직접 접속하지 않으면서 검색 이후의 기록, 중복 확인과 처리이력 관리를 시스템화했습니다.</span></li>
-          </ul>
-        </div>
       </section>
 
-      <h2>개인 · 팀 프로젝트</h2>
+      <h2>개인 프로젝트</h2>
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">
+            <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">ReachRich · 개인 투자 연구·운영 플랫폼</a>
+          </div>
+          <div class="meta">2026.03 ~ 현재 · 개인</div>
+        </div>
+        <p class="system-desc">
+          토스증권 Open API 기반으로 계좌 추적 · KRX 데이터 수집 · 전략 검증 · 모의운용 · 대시보드를
+          6개 모듈로 재설계했습니다. 날짜 기준 멱등 저장과 부분 실패 격리, FastAPI 조회 API,
+          React 화면, GitHub Actions · 텔레그램 경보를 구현했으며 데이터 수집 · 전략 검증 · 운용 로직의
+          백엔드 자동화 테스트 205개를 통과했습니다.
+        </p>
+        <p class="system-tech">
+          <span class="tech-label">사용 기술</span>
+          <span>Python · FastAPI · SQLAlchemy · SQLite · Parquet · React · TypeScript · GitHub Actions</span>
+        </p>
+      </section>
+
       <section class="system project-item">
         <div class="system-head">
           <div class="system-title">
@@ -575,7 +648,7 @@
           <div class="meta">2023.04 ~ 2023.05 · 6인 팀</div>
         </div>
         <p class="system-desc">
-          프론트엔드 · UI/UX를 담당해 반복 · 중첩 입력을 지원하는 API 명세 작성 화면과
+          6인 팀에서 프론트엔드 · UI/UX를 담당해 반복 · 중첩 입력을 지원하는 API 명세 작성 화면과
           요청 성공 여부, 응답 내용, 처리 시간 분포를 확인하는 테스트 결과 화면을 개발했습니다.
         </p>
         <p class="system-tech">
@@ -584,37 +657,14 @@
         </p>
       </section>
 
-      <section class="system project-item">
+      <h2>기타 경험</h2>
+      <section class="system project-item other-experience">
         <div class="system-head">
-          <div class="system-title">
-            <a href="https://github.com/GomGom-Team/ddoing">ddoing · 그림 기반 영어 단어 학습 서비스</a>
-          </div>
-          <div class="meta">2023.02 ~ 2023.04 · 팀 프로젝트</div>
+          <div class="system-title">디저트39 카페 운영 · 가맹점주</div>
+          <div class="meta">2021.08 ~ 2023.10 · 개인사업</div>
         </div>
         <p class="system-desc">
-          프론트엔드를 담당해 Canvas 드로잉을 이미지로 변환해 AI 판정 서버로 전송하고,
-          결과에 따라 점수 · 경험치와 다음 문제가 이어지도록 구현했습니다. 타이머 중복 실행 문제도 수정했습니다.
-        </p>
-        <p class="system-tech">
-          <span class="tech-label">사용 기술</span>
-          <span>TypeScript · React · Redux Toolkit · Canvas API · Vite</span>
-        </p>
-      </section>
-
-      <section class="system project-item">
-        <div class="system-head">
-          <div class="system-title">
-            <a href="https://github.com/YongjaeKwon/MODAC">MODAC · 개발자 학습 기록 서비스</a>
-          </div>
-          <div class="meta">2023.01 ~ 2023.02 · 6인 팀</div>
-        </div>
-        <p class="system-desc">
-          프론트엔드를 맡아 스터디룸 · 게시글 · 마이페이지와 학습 통계 · 알림 · 즐겨찾기 화면을 개발하고,
-          SockJS · STOMP 기반 실시간 채팅 UI를 연동했습니다.
-        </p>
-        <p class="system-tech">
-          <span class="tech-label">사용 기술</span>
-          <span>Vue 3 · Pinia · SockJS · STOMP</span>
+          직원 채용 · 근무 일정, 발주 · 재고 · 폐기, 고객 응대, 배달 · 정산 등 매장 운영 전반을 담당했습니다. 제한된 인력과 재고 안에서 운영 우선순위를 정하고, 고객 불편이 발생하면 현장에서 직접 해결했습니다.
         </p>
       </section>
 
@@ -634,7 +684,7 @@
         </div>
         <div class="credential-item">
           <b>학력</b>
-          <strong>California State University, Chico <em>· Business Administration · 편입 전 재학</em></strong>
+          <strong>California State University, Chico <em>· Business Administration (E-Business) · 편입 전 재학</em></strong>
           <span>2014.01 ~ 2015.05</span>
         </div>
         <div class="credential-item">
@@ -644,10 +694,6 @@
         </div>
       </div>
 
-      <p class="note">
-        프로젝트 상세와 공개 저장소는 포트폴리오(www.yongjaekwon.com)에서 확인할
-        수 있습니다.
-      </p>
     </main>
   </body>
 </html>

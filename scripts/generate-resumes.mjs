@@ -1,5 +1,5 @@
 import { execFileSync, spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -229,30 +229,44 @@ function renderHtml(markdown, title) {
 
 function printPdf(browser, htmlPath, outputPath) {
   const temporaryOutputPath = `${outputPath}.generating`;
+  const userDataDir = mkdtempSync(path.join(cacheDir, "chrome-pdf-"));
   rmSync(temporaryOutputPath, { force: true });
 
-  const result = spawnSync(
-    browser,
-    [
-      "--headless=new",
-      "--disable-gpu",
-      "--disable-dev-shm-usage",
-      "--no-pdf-header-footer",
-      "--allow-file-access-from-files",
-      "--run-all-compositor-stages-before-draw",
-      "--virtual-time-budget=8000",
-      `--print-to-pdf=${temporaryOutputPath}`,
-      pathToFileURL(htmlPath).href,
-    ],
-    {
-      cwd: rootDir,
-      stdio: "inherit",
-    },
-  );
+  let result;
+  try {
+    result = spawnSync(
+      browser,
+      [
+        "--headless=new",
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--no-pdf-header-footer",
+        "--allow-file-access-from-files",
+        "--run-all-compositor-stages-before-draw",
+        "--virtual-time-budget=8000",
+        `--user-data-dir=${userDataDir}`,
+        `--print-to-pdf=${temporaryOutputPath}`,
+        pathToFileURL(htmlPath).href,
+      ],
+      {
+        cwd: rootDir,
+        stdio: "inherit",
+        timeout: 60_000,
+      },
+    );
+  } finally {
+    try {
+      rmSync(userDataDir, { recursive: true, force: true });
+    } catch {
+      // Chrome가 종료 직후 잠시 파일을 잡고 있어도 PDF 검증은 계속 진행한다.
+    }
+  }
 
-  if (result.status !== 0) {
+  if (result.error || result.status !== 0) {
     rmSync(temporaryOutputPath, { force: true });
-    throw new Error(`${path.basename(outputPath)} 생성 실패`);
+    throw new Error(`${path.basename(outputPath)} 생성 실패${result.error ? `: ${result.error.message}` : ""}`);
   }
 
   const size = statSync(temporaryOutputPath).size;

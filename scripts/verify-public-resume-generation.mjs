@@ -37,10 +37,22 @@ assert.doesNotMatch(output, /Generated \.cache[\\/]applications/, "Public genera
 assert.deepEqual(directoryState(applicationsSourceDir), applicationSourcesBefore, "Public generation must not change private application sources");
 assert.deepEqual(directoryState(applicationsOutDir), applicationOutputsBefore, "Public generation must not change private application outputs");
 
+const publicResumeSource = readFileSync(path.join(rootDir, "docs", "resume-general.html"), "utf8");
+
 assert.match(
-  readFileSync(path.join(rootDir, "docs", "resume-general.html"), "utf8"),
+  publicResumeSource,
   /--accent:\s*#15b373;/,
   "The general resume must use the approved green accent",
+);
+assert.match(
+  publicResumeSource,
+  /현장의 복잡한 업무를 사용자가 끊김 없이 처리할 수 있는 시스템으로 만드는/,
+  "The public resume must include the approved introduction",
+);
+assert.doesNotMatch(
+  publicResumeSource,
+  /지원동기|class="motivation"|플레이스앤/,
+  "The public resume must not include company-specific motivation content",
 );
 
 assert.equal(
