@@ -24,7 +24,7 @@
           class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
           href="#contact"
         >
-          이메일
+          {{ t("이메일", "Email") }}
         </a>
         <span class="text-muted/50 text-xs select-none" aria-hidden="true">·</span>
         <a
@@ -32,7 +32,7 @@
           :href="profile.resume"
           download="Yongjae-Kwon-Resume.pdf"
         >
-          이력서 PDF
+          {{ t("이력서 PDF", "Resume PDF") }}
         </a>
       </div>
     </div>
@@ -41,4 +41,5 @@
 
 <script setup lang="ts">
 import { profile } from "@/data/portfolio";
+import { t } from "@/i18n/locale";
 </script>

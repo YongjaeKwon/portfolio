@@ -65,7 +65,8 @@ describe("portfolio section order", () => {
   it("keeps the existing tech stack presentation while moving its section", () => {
     const home = readSource("../src/views/HomeView.vue");
     const techStack = readSource("../src/views/TechStackView.vue");
-    const portfolio = readSource("../src/data/portfolio.ts");
+    const portfolio = readSource("../src/data/portfolio.ko.ts");
+    const portfolioEn = readSource("../src/data/portfolio.en.ts");
 
     expect(home).not.toContain("hero-tech-summary");
     expect(home).not.toContain("activeTechSummary");
@@ -78,5 +79,10 @@ describe("portfolio section order", () => {
     expect(portfolio).toContain('{ title: "백엔드", items: ["Java", "Spring MVC", "Spring Boot", "MyBatis", "Python", "FastAPI"] }');
     expect(portfolio).toContain('{ title: "데이터베이스", items: ["MariaDB", "MySQL", "Oracle", "PostgreSQL", "SQLite"] }');
     expect(portfolio).toContain('{ title: "도구 및 배포", items: ["Git", "GitHub", "GitHub Actions", "SVN", "Jenkins", "Linux", "Tomcat", "Docker"] }');
+
+    expect(portfolioEn).toContain('{ title: "Frontend", items: ["JavaScript", "TypeScript", "Vue", "React", "Next.js", "WebSquare", "JSP"] }');
+    expect(portfolioEn).toContain('{ title: "Backend", items: ["Java", "Spring MVC", "Spring Boot", "MyBatis", "Python", "FastAPI"] }');
+    expect(portfolioEn).toContain('{ title: "Database", items: ["MariaDB", "MySQL", "Oracle", "PostgreSQL", "SQLite"] }');
+    expect(portfolioEn).toContain('{ title: "Tools & Deployment", items: ["Git", "GitHub", "GitHub Actions", "SVN", "Jenkins", "Linux", "Tomcat", "Docker"] }');
   });
 });

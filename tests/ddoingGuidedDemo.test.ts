@@ -149,7 +149,7 @@ describe("ddoing guided demo", () => {
 
   it("presents the five learning stages in order", () => {
     const labels = ["단어", "그림", "제출", "판정", "점수"];
-    const positions = labels.map((label) => source.indexOf(`shortTitle: "${label}"`));
+    const positions = labels.map((label) => source.indexOf(`shortTitle: t("${label}"`));
 
     expect(positions.every((position) => position >= 0)).toBe(true);
     expect(positions).toEqual([...positions].sort((a, b) => a - b));
@@ -174,9 +174,9 @@ describe("ddoing guided demo", () => {
     expect(source).toContain("function drawAppleSample");
     expect(source).toContain("function drawUmbrellaSample");
     expect(source).toContain("function drawCatSample");
-    expect(source).toContain('currentWord.value.word === "사과"');
-    expect(source).toContain('currentWord.value.word === "우산"');
-    expect(source).toContain('currentWord.value.word === "고양이"');
+    expect(source).toContain('currentWord.value.id === "apple"');
+    expect(source).toContain('currentWord.value.id === "umbrella"');
+    expect(source).toContain('currentWord.value.id === "cat"');
     expect(source).toContain("단어별 샘플 그림");
   });
 

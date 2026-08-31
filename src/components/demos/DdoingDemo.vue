@@ -3,22 +3,22 @@
     <header class="demo-header">
       <div>
         <div class="badge-row">
-          <span class="sample-badge">샘플 데이터 데모</span>
-          <span class="round-badge">5단계 학습 흐름</span>
+          <span class="sample-badge">{{ t("샘플 데이터 데모", "Sample-data demo") }}</span>
+          <span class="round-badge">{{ t("5단계 학습 흐름", "5-step learning flow") }}</span>
         </div>
-        <h3 id="ddoing-demo-title">그림으로 단어를 학습하는 전체 흐름</h3>
-        <p>단어 확인부터 Canvas 입력, 이미지 제출, 판정 응답과 점수 반영까지 순서대로 살펴볼 수 있습니다.</p>
+        <h3 id="ddoing-demo-title">{{ t("그림으로 단어를 학습하는 전체 흐름", "The full flow of learning words by drawing") }}</h3>
+        <p>{{ t("단어 확인부터 Canvas 입력, 이미지 제출, 판정 응답과 점수 반영까지 순서대로 살펴볼 수 있습니다.", "Walk through checking the word, Canvas input, image submission, the judgement response, and scoring — in order.") }}</p>
       </div>
       <div class="demo-notice" role="note">
         <span aria-hidden="true">i</span>
         <div>
-          <strong>AI 서버를 호출하지 않는 브라우저 재현</strong>
-          <small>샘플 데이터로 화면 흐름만 재현하며 단어 일치나 정답 여부를 판정하지 않습니다.</small>
+          <strong>{{ t("AI 서버를 호출하지 않는 브라우저 재현", "A browser re-creation with no AI server calls") }}</strong>
+          <small>{{ t("샘플 데이터로 화면 흐름만 재현하며 단어 일치나 정답 여부를 판정하지 않습니다.", "Only the screen flow is re-created with sample data — no word matching or correctness is judged.") }}</small>
         </div>
       </div>
     </header>
 
-    <nav class="step-navigation" aria-label="ddoing 학습 흐름 단계">
+    <nav class="step-navigation" :aria-label="t('ddoing 학습 흐름 단계', 'ddoing learning flow steps')">
       <ol>
         <li v-for="(step, index) in guideSteps" :key="step.id" :class="stepState(index)">
           <button
@@ -41,7 +41,7 @@
           <strong>{{ currentWord.word }}</strong>
         </div>
         <button type="button" class="text-button" @click="resetSession">
-          전체 초기화
+          {{ t("전체 초기화", "Reset all") }}
           <span aria-hidden="true">↻</span>
         </button>
       </div>
@@ -59,31 +59,31 @@
           <p>{{ currentGuideStep.description }}</p>
         </div>
 
-        <div class="responsibility-grid" aria-label="현재 단계 설명">
+        <div class="responsibility-grid" :aria-label="t('현재 단계 설명', 'Current step description')">
           <div>
-            <span>사용자 행동</span>
+            <span>{{ t("사용자 행동", "User action") }}</span>
             <strong>{{ currentGuideStep.userAction }}</strong>
           </div>
           <div>
-            <span>화면 변화</span>
+            <span>{{ t("화면 변화", "Screen change") }}</span>
             <strong>{{ currentGuideStep.screenChange }}</strong>
           </div>
           <div>
-            <span>원 프로젝트 담당</span>
+            <span>{{ t("원 프로젝트 담당", "Built in the original") }}</span>
             <strong>{{ currentGuideStep.implementation }}</strong>
           </div>
           <div>
-            <span>공개 데모 재현</span>
+            <span>{{ t("공개 데모 재현", "Re-created in this demo") }}</span>
             <strong>{{ currentGuideStep.demo }}</strong>
           </div>
         </div>
 
         <div v-if="currentStep === STEP.WORD" class="word-stage">
-          <span>오늘의 단어</span>
+          <span>{{ t("오늘의 단어", "Today's word") }}</span>
           <strong>{{ currentWord.word }}</strong>
           <p>{{ currentWord.hint }}</p>
-          <div class="word-route" aria-label="현재 문제 학습 순서">
-            <span>단어 확인</span><i aria-hidden="true">→</i><span>그림 입력</span><i aria-hidden="true">→</i><span>결과 확인</span>
+          <div class="word-route" :aria-label="t('현재 문제 학습 순서', 'Learning order for this question')">
+            <span>{{ t("단어 확인", "Check the word") }}</span><i aria-hidden="true">→</i><span>{{ t("그림 입력", "Draw") }}</span><i aria-hidden="true">→</i><span>{{ t("결과 확인", "See results") }}</span>
           </div>
         </div>
 
@@ -94,7 +94,7 @@
                 <canvas
                   ref="drawingCanvas"
                   class="drawing-canvas"
-                  :aria-label="`${currentWord.object} 그리는 캔버스`"
+                  :aria-label="t(`${currentWord.object} 그리는 캔버스`, `Canvas for drawing ${currentWord.object}`)"
                   aria-describedby="canvas-instructions"
                   @pointerdown="startDrawing"
                   @pointermove="draw"
@@ -104,28 +104,28 @@
                 ></canvas>
                 <div v-if="strokeCount === 0" class="canvas-placeholder" aria-hidden="true">
                   <span>✎</span>
-                  <p>{{ currentWord.object }} 자유롭게 그려보세요</p>
+                  <p>{{ t(`${currentWord.object} 자유롭게 그려보세요`, `Draw ${currentWord.object} however you like`) }}</p>
                 </div>
               </div>
               <p id="canvas-instructions" class="sr-instructions">
-                마우스나 터치로 그림을 그릴 수 있습니다. 키보드 사용자는 단어별 샘플 그림 그리기 버튼으로 같은 흐름을 체험할 수 있습니다.
+                {{ t("마우스나 터치로 그림을 그릴 수 있습니다. 키보드 사용자는 단어별 샘플 그림 그리기 버튼으로 같은 흐름을 체험할 수 있습니다.", "Draw with mouse or touch. Keyboard users can follow the same flow with the per-word sample drawing button.") }}
               </p>
 
               <div v-if="currentStep === STEP.DRAW" class="drawing-tools">
                 <div class="timer" :class="{ urgent: secondsLeft <= 4 && timerStarted }" role="timer" :aria-label="timerLabel">
-                  <span>{{ timerStarted ? "남은 시간" : "첫 입력 시 시작" }}</span>
-                  <strong>{{ secondsLeft }}<small>초</small></strong>
+                  <span>{{ timerStarted ? t("남은 시간", "Time left") : t("첫 입력 시 시작", "Starts on first input") }}</span>
+                  <strong>{{ secondsLeft }}<small>{{ t("초", "s") }}</small></strong>
                 </div>
                 <div class="drawing-status" aria-live="polite">
-                  <strong>{{ strokeCount ? `${strokeCount}개 획 입력` : "입력 대기" }}</strong>
-                  <small>{{ timerExpired ? "시간은 종료됐지만 공개 데모는 계속 진행할 수 있습니다." : "시간은 흐름을 보여주는 안내용입니다." }}</small>
+                  <strong>{{ strokeCount ? t(`${strokeCount}개 획 입력`, `${strokeCount} strokes`) : t("입력 대기", "Waiting for input") }}</strong>
+                  <small>{{ timerExpired ? t("시간은 종료됐지만 공개 데모는 계속 진행할 수 있습니다.", "Time is up, but the public demo can continue.") : t("시간은 흐름을 보여주는 안내용입니다.", "The timer is only illustrative of the flow.") }}</small>
                 </div>
                 <div class="tool-actions">
                   <button type="button" class="secondary-button" @click="drawSampleShape">
-                    {{ currentWord.word }} 샘플 그림 그리기
+                    {{ t(`${currentWord.word} 샘플 그림 그리기`, `Draw a sample ${currentWord.word}`) }}
                   </button>
                   <button type="button" class="secondary-button" :disabled="strokeCount === 0" @click="clearCanvas()">
-                    모두 지우기
+                    {{ t("모두 지우기", "Clear all") }}
                   </button>
                 </div>
               </div>
@@ -134,50 +134,50 @@
             <aside class="stage-detail">
               <template v-if="currentStep === STEP.DRAW">
                 <span class="detail-kicker">CANVAS INPUT</span>
-                <h5>그림 입력을 이미지로 바꿀 준비</h5>
-                <p>공개 데모에서는 포인터 좌표를 Canvas 경로로 이어 그리고, 화면 크기와 기기 배율이 달라도 선이 유지되도록 다시 구성했습니다.</p>
+                <h5>{{ t("그림 입력을 이미지로 바꿀 준비", "Preparing drawings to become images") }}</h5>
+                <p>{{ t("공개 데모에서는 포인터 좌표를 Canvas 경로로 이어 그리고, 화면 크기와 기기 배율이 달라도 선이 유지되도록 다시 구성했습니다.", "The public demo joins pointer coordinates into Canvas paths, rebuilt so strokes survive different screen sizes and device pixel ratios.") }}</p>
                 <ul>
-                  <li>마우스·터치 Pointer Event 처리</li>
-                  <li>ResizeObserver 기반 캔버스 보정</li>
-                  <li>단어마다 다른 접근성용 샘플 도형</li>
+                  <li>{{ t("마우스·터치 Pointer Event 처리", "Mouse/touch Pointer Event handling") }}</li>
+                  <li>{{ t("ResizeObserver 기반 캔버스 보정", "ResizeObserver-based canvas correction") }}</li>
+                  <li>{{ t("단어마다 다른 접근성용 샘플 도형", "Per-word sample shapes for accessibility") }}</li>
                 </ul>
               </template>
 
               <template v-else-if="currentStep === STEP.SUBMIT">
                 <span class="detail-kicker">IMAGE SUBMIT</span>
-                <h5>Canvas 이미지를 제출 데이터로 변환</h5>
-                <p>현재 그림을 PNG Data URL로 변환해 브라우저 메모리에만 보관합니다.</p>
+                <h5>{{ t("Canvas 이미지를 제출 데이터로 변환", "Converting the Canvas image into submit data") }}</h5>
+                <p>{{ t("현재 그림을 PNG Data URL로 변환해 브라우저 메모리에만 보관합니다.", "The current drawing becomes a PNG Data URL, kept only in browser memory.") }}</p>
                 <dl class="data-list">
-                  <div><dt>형식</dt><dd>image/png</dd></div>
-                  <div><dt>저장 위치</dt><dd>브라우저 메모리</dd></div>
-                  <div><dt>외부 전송</dt><dd>없음</dd></div>
+                  <div><dt>{{ t("형식", "Format") }}</dt><dd>image/png</dd></div>
+                  <div><dt>{{ t("저장 위치", "Stored in") }}</dt><dd>{{ t("브라우저 메모리", "Browser memory") }}</dd></div>
+                  <div><dt>{{ t("외부 전송", "Sent externally") }}</dt><dd>{{ t("없음", "None") }}</dd></div>
                 </dl>
-                <p class="privacy-note">이 버튼은 실제 네트워크 요청 없이 제출 상태만 재현합니다.</p>
+                <p class="privacy-note">{{ t("이 버튼은 실제 네트워크 요청 없이 제출 상태만 재현합니다.", "This button re-creates the submit state without any real network request.") }}</p>
               </template>
 
               <template v-else-if="currentStep === STEP.RESPONSE && pendingResult">
                 <span class="detail-kicker">PUBLIC DEMO RESPONSE</span>
-                <h5>공개용 판정 응답 수신</h5>
+                <h5>{{ t("공개용 판정 응답 수신", "Receiving the public judgement response") }}</h5>
                 <div class="response-card" role="status" aria-live="polite">
                   <span>200 · DRAWING_RECEIVED</span>
-                  <strong>그림 입력을 확인했습니다</strong>
+                  <strong>{{ t("그림 입력을 확인했습니다", "Drawing input received") }}</strong>
                   <p>semanticMatch: NOT_EVALUATED</p>
                 </div>
-                <p class="privacy-note">실제 AI 분류 결과가 아닙니다. 단어 일치 여부와 정답을 표시하지 않습니다.</p>
+                <p class="privacy-note">{{ t("실제 AI 분류 결과가 아닙니다. 단어 일치 여부와 정답을 표시하지 않습니다.", "Not a real AI classification — word matching and correctness are never shown.") }}</p>
               </template>
 
               <template v-else-if="currentStep === STEP.SCORE && pendingResult">
                 <span class="detail-kicker">LEARNING REWARD</span>
-                <h5>학습 활동 점수와 경험치 반영</h5>
+                <h5>{{ t("학습 활동 점수와 경험치 반영", "Applying activity score and XP") }}</h5>
                 <div class="reward-grid">
-                  <div><span>활동 점수</span><strong>{{ pendingResult.activityScore }}<small>점</small></strong></div>
-                  <div><span>경험치</span><strong>+{{ pendingResult.experience }}<small>XP</small></strong></div>
-                  <div><span>입력 획</span><strong>{{ pendingResult.strokeCount }}<small>회</small></strong></div>
+                  <div><span>{{ t("활동 점수", "Activity score") }}</span><strong>{{ pendingResult.activityScore }}<small>{{ t("점", "pts") }}</small></strong></div>
+                  <div><span>{{ t("경험치", "Experience") }}</span><strong>+{{ pendingResult.experience }}<small>XP</small></strong></div>
+                  <div><span>{{ t("입력 획", "Strokes") }}</span><strong>{{ pendingResult.strokeCount }}<small>{{ t("회", "") }}</small></strong></div>
                 </div>
-                <p>점수는 브라우저에서 확인한 입력 면적과 획 수로 만든 활동 지표이며, 그림의 의미를 판정한 값이 아닙니다.</p>
+                <p>{{ t("점수는 브라우저에서 확인한 입력 면적과 획 수로 만든 활동 지표이며, 그림의 의미를 판정한 값이 아닙니다.", "Scores are activity metrics from input area and stroke count measured in the browser — not a judgement of what the drawing means.") }}</p>
                 <div class="next-word-card">
-                  <span>{{ isLastWord ? "마지막 문제" : "다음 문제" }}</span>
-                  <strong>{{ isLastWord ? "전체 학습 결과 확인" : words[currentIndex + 1]?.word }}</strong>
+                  <span>{{ isLastWord ? t("마지막 문제", "Last question") : t("다음 문제", "Next question") }}</span>
+                  <strong>{{ isLastWord ? t("전체 학습 결과 확인", "See the session results") : words[currentIndex + 1]?.word }}</strong>
                 </div>
               </template>
             </aside>
@@ -188,7 +188,7 @@
       <div class="step-controls">
         <button type="button" class="secondary-button" :disabled="currentStep === STEP.WORD" @click="previousStep">
           <span aria-hidden="true">←</span>
-          이전 단계
+          {{ t("이전 단계", "Previous step") }}
         </button>
         <p aria-live="polite">{{ controlHint }}</p>
         <button type="button" class="primary-button" :disabled="!canAdvance" @click="nextStep">
@@ -201,17 +201,17 @@
     <div v-else class="complete-panel" aria-live="polite">
       <div class="complete-mark" aria-hidden="true">✓</div>
       <span>GUIDED DEMO COMPLETE</span>
-      <h4>한 문제의 전체 학습 흐름을 확인했습니다</h4>
-      <p>실제 프로젝트에서는 제출 이미지를 학습된 모델의 추론 API로 전달했습니다. 공개 데모는 브라우저 안에서만 동작하며, 다른 단어는 선택해서 이어서 체험할 수 있습니다.</p>
+      <h4>{{ t("한 문제의 전체 학습 흐름을 확인했습니다", "You've seen the full learning flow for one question") }}</h4>
+      <p>{{ t("실제 프로젝트에서는 제출 이미지를 학습된 모델의 추론 API로 전달했습니다. 공개 데모는 브라우저 안에서만 동작하며, 다른 단어는 선택해서 이어서 체험할 수 있습니다.", "In the real project, submitted images went to the trained model's inference API. The public demo runs entirely in the browser, and you can pick another word to keep going.") }}</p>
       <div class="score-board">
-        <div><span>평균 활동 점수</span><strong>{{ finalAverage }}<small>점</small></strong></div>
-        <div><span>획득 경험치</span><strong>{{ totalExperience }}<small>XP</small></strong></div>
-        <div><span>전체 입력 획</span><strong>{{ totalStrokes }}<small>회</small></strong></div>
+        <div><span>{{ t("평균 활동 점수", "Average activity score") }}</span><strong>{{ finalAverage }}<small>{{ t("점", "pts") }}</small></strong></div>
+        <div><span>{{ t("획득 경험치", "Total XP") }}</span><strong>{{ totalExperience }}<small>XP</small></strong></div>
+        <div><span>{{ t("전체 입력 획", "Total strokes") }}</span><strong>{{ totalStrokes }}<small>{{ t("회", "") }}</small></strong></div>
       </div>
       <div class="complete-actions">
-        <button type="button" class="secondary-button" @click="returnToLastStep">이전 단계</button>
+        <button type="button" class="secondary-button" @click="returnToLastStep">{{ t("이전 단계", "Previous step") }}</button>
         <button type="button" class="primary-button" @click="startOptionalRound">
-          {{ isLastWord ? "처음부터 다시 보기" : `${words[currentIndex + 1]?.word}도 체험하기` }}
+          {{ isLastWord ? t("처음부터 다시 보기", "Start over") : t(`${words[currentIndex + 1]?.word}도 체험하기`, `Try "${words[currentIndex + 1]?.word}" too`) }}
           <span aria-hidden="true">→</span>
         </button>
       </div>
@@ -221,16 +221,16 @@
       <div class="gallery-heading">
         <div>
           <span>SESSION GALLERY</span>
-          <h4 id="gallery-title">브라우저에서 만든 제출 이미지</h4>
+          <h4 id="gallery-title">{{ t("브라우저에서 만든 제출 이미지", "Submitted images created in the browser") }}</h4>
         </div>
-        <small>새로고침하거나 데모를 닫으면 사라집니다.</small>
+        <small>{{ t("새로고침하거나 데모를 닫으면 사라집니다.", "They disappear on refresh or when the demo closes.") }}</small>
       </div>
       <div class="gallery-grid">
         <figure v-for="item in gallery" :key="item.id">
           <div class="gallery-image"><img :src="item.dataUrl" :alt="item.alt" /></div>
           <figcaption>
             <strong>{{ item.word }}</strong>
-            <span>활동 {{ item.activityScore }}점 · +{{ item.experience }} XP</span>
+            <span>{{ t(`활동 ${item.activityScore}점 · +${item.experience} XP`, `Activity ${item.activityScore} pts · +${item.experience} XP`) }}</span>
           </figcaption>
         </figure>
       </div>
@@ -240,6 +240,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+import { t } from "@/i18n/locale";
 
 type DemoPhase = "active" | "complete";
 
@@ -276,60 +277,60 @@ const ROUND_SECONDS = 15;
 const guideSteps: readonly GuideStep[] = [
   {
     id: "word",
-    shortTitle: "단어",
-    title: "학습할 단어 제시",
-    description: "문제 단어와 형태를 떠올릴 수 있는 힌트를 확인합니다.",
-    userAction: "단어와 힌트 확인",
-    screenChange: "현재 문제 표시",
-    implementation: "학습 문제·라운드 화면과 진행 상태 UI",
-    demo: "샘플 단어와 힌트를 고정 데이터로 구성",
+    shortTitle: t("단어", "Word"),
+    title: t("학습할 단어 제시", "The word to learn"),
+    description: t("문제 단어와 형태를 떠올릴 수 있는 힌트를 확인합니다.", "Check the word and a hint that helps you picture its shape."),
+    userAction: t("단어와 힌트 확인", "Check the word and hint"),
+    screenChange: t("현재 문제 표시", "Current question shown"),
+    implementation: t("학습 문제·라운드 화면과 진행 상태 UI", "Question/round screens and progress UI"),
+    demo: t("샘플 단어와 힌트를 고정 데이터로 구성", "Sample words and hints as fixed data"),
   },
   {
     id: "draw",
-    shortTitle: "그림",
-    title: "Canvas에 그림 입력",
-    description: "마우스나 터치로 직접 그리거나 단어별 샘플을 불러옵니다.",
-    userAction: "그림 그리기",
-    screenChange: "획 수·타이머 갱신",
-    implementation: "Canvas 드로잉 화면과 입력 상태 UI",
-    demo: "Pointer Event·ResizeObserver·단어별 샘플 그림 추가",
+    shortTitle: t("그림", "Draw"),
+    title: t("Canvas에 그림 입력", "Drawing on the Canvas"),
+    description: t("마우스나 터치로 직접 그리거나 단어별 샘플을 불러옵니다.", "Draw with mouse or touch, or load a per-word sample."),
+    userAction: t("그림 그리기", "Draw a picture"),
+    screenChange: t("획 수·타이머 갱신", "Stroke count and timer update"),
+    implementation: t("Canvas 드로잉 화면과 입력 상태 UI", "Canvas drawing screen and input-state UI"),
+    demo: t("Pointer Event·ResizeObserver·단어별 샘플 그림 추가", "Pointer Events, ResizeObserver, per-word samples added"),
   },
   {
     id: "submit",
-    shortTitle: "제출",
-    title: "그림 이미지를 제출 형태로 변환",
-    description: "그림을 PNG 데이터로 변환하는 과정을 확인하고 제출합니다.",
-    userAction: "이미지 제출",
-    screenChange: "제출 상태 표시",
-    implementation: "그림 제출 상태와 API 연동 화면",
-    demo: "PNG Data URL을 브라우저 메모리에만 보관",
+    shortTitle: t("제출", "Submit"),
+    title: t("그림 이미지를 제출 형태로 변환", "Converting the drawing for submission"),
+    description: t("그림을 PNG 데이터로 변환하는 과정을 확인하고 제출합니다.", "See the drawing become PNG data, then submit it."),
+    userAction: t("이미지 제출", "Submit the image"),
+    screenChange: t("제출 상태 표시", "Submission state shown"),
+    implementation: t("그림 제출 상태와 API 연동 화면", "Submission state and API integration screens"),
+    demo: t("PNG Data URL을 브라우저 메모리에만 보관", "PNG Data URL kept only in browser memory"),
   },
   {
     id: "response",
-    shortTitle: "판정",
-    title: "공개용 판정 응답 확인",
-    description: "외부 요청 없이 브라우저에서 만든 수신 응답을 확인합니다.",
-    userAction: "응답 내용 확인",
-    screenChange: "수신 상태 표시",
-    implementation: "AI 판정 응답을 학습 결과 화면에 연결",
-    demo: "외부 AI 대신 의미 판정 없는 수신 응답 생성",
+    shortTitle: t("판정", "Response"),
+    title: t("공개용 판정 응답 확인", "The public judgement response"),
+    description: t("외부 요청 없이 브라우저에서 만든 수신 응답을 확인합니다.", "Check a response generated in the browser — no external requests."),
+    userAction: t("응답 내용 확인", "Review the response"),
+    screenChange: t("수신 상태 표시", "Received state shown"),
+    implementation: t("AI 판정 응답을 학습 결과 화면에 연결", "AI judgement wired to the results screen"),
+    demo: t("외부 AI 대신 의미 판정 없는 수신 응답 생성", "A no-judgement response generated instead of external AI"),
   },
   {
     id: "score",
-    shortTitle: "점수",
-    title: "활동 점수·경험치와 다음 문제",
-    description: "학습 활동 지표를 확인한 뒤 다음 단어로 이동합니다.",
-    userAction: "점수 확인·다음 이동",
-    screenChange: "보상·다음 문제 표시",
-    implementation: "점수·라운드 결과 UI와 상태 반영",
-    demo: "입력 면적·획 수로 샘플 활동 지표 생성",
+    shortTitle: t("점수", "Score"),
+    title: t("활동 점수·경험치와 다음 문제", "Activity score, XP, and the next question"),
+    description: t("학습 활동 지표를 확인한 뒤 다음 단어로 이동합니다.", "Review the activity metrics, then move to the next word."),
+    userAction: t("점수 확인·다음 이동", "Check score, move on"),
+    screenChange: t("보상·다음 문제 표시", "Reward and next question shown"),
+    implementation: t("점수·라운드 결과 UI와 상태 반영", "Score/round result UI and state updates"),
+    demo: t("입력 면적·획 수로 샘플 활동 지표 생성", "Sample metrics from input area and strokes"),
   },
 ] as const;
 
 const words = [
-  { word: "사과", object: "사과를", hint: "둥근 열매와 꼭지, 잎을 떠올려 보세요." },
-  { word: "우산", object: "우산을", hint: "넓은 지붕과 길게 내려오는 손잡이를 그려보세요." },
-  { word: "고양이", object: "고양이를", hint: "뾰족한 귀와 눈, 코, 수염이 힌트입니다." },
+  { id: "apple", word: t("사과", "Apple"), object: t("사과를", "an apple"), hint: t("둥근 열매와 꼭지, 잎을 떠올려 보세요.", "Picture a round fruit with a stem and a leaf.") },
+  { id: "umbrella", word: t("우산", "Umbrella"), object: t("우산을", "an umbrella"), hint: t("넓은 지붕과 길게 내려오는 손잡이를 그려보세요.", "Draw a wide canopy and a long handle.") },
+  { id: "cat", word: t("고양이", "Cat"), object: t("고양이를", "a cat"), hint: t("뾰족한 귀와 눈, 코, 수염이 힌트입니다.", "Pointy ears, eyes, a nose, and whiskers are your hints.") },
 ] as const;
 
 const demoRoot = ref<HTMLElement | null>(null);
@@ -366,19 +367,19 @@ const canAdvance = computed(() => {
   return true;
 });
 const nextButtonLabel = computed(() => {
-  if (currentStep.value === STEP.WORD) return "그림 입력으로";
-  if (currentStep.value === STEP.DRAW) return "입력 완료";
-  if (currentStep.value === STEP.SUBMIT) return "이미지 제출";
-  if (currentStep.value === STEP.RESPONSE) return "점수·경험치 보기";
-  return "전체 흐름 마치기";
+  if (currentStep.value === STEP.WORD) return t("그림 입력으로", "Start drawing");
+  if (currentStep.value === STEP.DRAW) return t("입력 완료", "Done drawing");
+  if (currentStep.value === STEP.SUBMIT) return t("이미지 제출", "Submit image");
+  if (currentStep.value === STEP.RESPONSE) return t("점수·경험치 보기", "See score & XP");
+  return t("전체 흐름 마치기", "Finish the flow");
 });
 const controlHint = computed(() => {
-  if (currentStep.value === STEP.DRAW && strokeCount.value === 0) return "그림을 직접 그리거나 단어별 샘플을 불러오세요.";
-  if (currentStep.value === STEP.SUBMIT) return "제출해도 외부 서버로 전송되지 않습니다.";
-  if (pendingResult.value && currentStep.value < STEP.RESPONSE) return "제출 이후 이전 단계는 확인용으로만 볼 수 있습니다.";
-  return `${currentStep.value + 1} / ${guideSteps.length} 단계`;
+  if (currentStep.value === STEP.DRAW && strokeCount.value === 0) return t("그림을 직접 그리거나 단어별 샘플을 불러오세요.", "Draw something yourself or load the per-word sample.");
+  if (currentStep.value === STEP.SUBMIT) return t("제출해도 외부 서버로 전송되지 않습니다.", "Submitting sends nothing to external servers.");
+  if (pendingResult.value && currentStep.value < STEP.RESPONSE) return t("제출 이후 이전 단계는 확인용으로만 볼 수 있습니다.", "After submitting, earlier steps are view-only.");
+  return t(`${currentStep.value + 1} / ${guideSteps.length} 단계`, `Step ${currentStep.value + 1} of ${guideSteps.length}`);
 });
-const timerLabel = computed(() => timerStarted.value ? `그림 입력 남은 시간 ${secondsLeft.value}초` : "첫 입력 시 15초 타이머 시작");
+const timerLabel = computed(() => timerStarted.value ? t(`그림 입력 남은 시간 ${secondsLeft.value}초`, `${secondsLeft.value} seconds left to draw`) : t("첫 입력 시 15초 타이머 시작", "A 15-second timer starts on first input"));
 const finalAverage = computed(() => results.value.length
   ? Math.round(results.value.reduce((sum, item) => sum + item.activityScore, 0) / results.value.length)
   : 0);
@@ -650,9 +651,9 @@ function drawSampleShape(): void {
   context.save();
   context.lineWidth = 8;
   let sampleStrokes = 0;
-  if (currentWord.value.word === "사과") sampleStrokes = drawAppleSample(context, width, height);
-  if (currentWord.value.word === "우산") sampleStrokes = drawUmbrellaSample(context, width, height);
-  if (currentWord.value.word === "고양이") sampleStrokes = drawCatSample(context, width, height);
+  if (currentWord.value.id === "apple") sampleStrokes = drawAppleSample(context, width, height);
+  if (currentWord.value.id === "umbrella") sampleStrokes = drawUmbrellaSample(context, width, height);
+  if (currentWord.value.id === "cat") sampleStrokes = drawCatSample(context, width, height);
   context.restore();
   configureContext(context);
   strokeCount.value = sampleStrokes;
@@ -736,7 +737,10 @@ function submitDrawing(): void {
       ...result,
       id: ++gallerySequence,
       dataUrl: canvas.toDataURL("image/png"),
-      alt: `${result.word} 제출 이미지, 브라우저 활동 점수 ${result.activityScore}점`,
+      alt: t(
+        `${result.word} 제출 이미지, 브라우저 활동 점수 ${result.activityScore}점`,
+        `Submitted drawing of ${result.word}, browser activity score ${result.activityScore}`,
+      ),
     });
   }
 }

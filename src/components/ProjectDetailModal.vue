@@ -19,14 +19,14 @@
             <button
               type="button"
               class="focus-ring surface-strong text-primary inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:text-[var(--accent-strong)]"
-              aria-label="상세 닫기"
+              :aria-label="t('상세 닫기', 'Close details')"
               @click="emit('close')"
             >
               <X class="h-5 w-5" />
             </button>
           </div>
 
-          <div class="min-h-0 flex-1 overflow-y-auto p-5 md:p-8" tabindex="0" aria-label="프로젝트 상세 내용">
+          <div class="min-h-0 flex-1 overflow-y-auto p-5 md:p-8" tabindex="0" :aria-label="t('프로젝트 상세 내용', 'Project details')">
             <ProjectCaseVisual
               v-if="project.project.id === 'pps' || project.project.id === 'tsms' || project.project.id === 'reachrich'"
               :project-id="project.project.id"
@@ -43,10 +43,10 @@
             />
 
             <div class="grid gap-6">
-              <DetailBlock title="프로젝트 개요" :items="[project.detail.overview]" />
+              <DetailBlock :title="t('프로젝트 개요', 'Overview')" :items="[project.detail.overview]" />
 
               <section v-if="roleSections.length">
-                <h4 class="text-primary mb-3 font-black">영역별 담당 내용</h4>
+                <h4 class="text-primary mb-3 font-black">{{ t("영역별 담당 내용", "Contributions by area") }}</h4>
                 <div class="grid gap-4">
                   <article
                     v-for="section in roleSections"
@@ -61,7 +61,7 @@
 
                     <div class="grid gap-5 md:grid-cols-2">
                       <div>
-                        <h5 class="text-primary text-sm font-black">주요 역할</h5>
+                        <h5 class="text-primary text-sm font-black">{{ t("주요 역할", "Key responsibilities") }}</h5>
                         <ul class="mt-3 grid gap-2.5">
                           <li v-for="item in section.scope" :key="item" class="role-detail-item text-secondary text-sm leading-6">
                             {{ item }}
@@ -69,7 +69,7 @@
                         </ul>
                       </div>
                       <div>
-                        <h5 class="text-primary text-sm font-black">주요 구현 내용</h5>
+                        <h5 class="text-primary text-sm font-black">{{ t("주요 구현 내용", "Key implementation") }}</h5>
                         <ul class="mt-3 grid gap-2.5">
                           <li v-for="item in section.workPoints" :key="item" class="role-detail-item text-secondary text-sm leading-6">
                             {{ item }}
@@ -82,10 +82,10 @@
               </section>
 
               <template v-else>
-                <DetailBlock title="담당 범위" :items="project.detail.scope" />
+                <DetailBlock :title="t('담당 범위', 'Scope')" :items="project.detail.scope" />
                 <DetailBlock
                   v-if="!hasDetailedCaseStudies(project.project.id)"
-                  title="주요 구현 내용"
+                  :title="t('주요 구현 내용', 'Key implementation')"
                   :items="project.detail.workPoints"
                 />
               </template>
@@ -96,18 +96,18 @@
               />
 
               <section v-if="!hasDetailedCaseStudies(project.project.id) && project.detail.caseStudy">
-                <h4 class="text-primary mb-3 font-black">문제 해결 과정</h4>
+                <h4 class="text-primary mb-3 font-black">{{ t("문제 해결 과정", "Problem-solving process") }}</h4>
                 <div class="case-process-grid grid gap-3 md:grid-cols-2">
                   <article class="case-process-step rounded-xl p-5">
-                    <h5 class="case-step-label">01 · 문제</h5>
+                    <h5 class="case-step-label">{{ t("01 · 문제", "01 · Problem") }}</h5>
                     <p class="text-secondary mt-3 text-sm leading-6">{{ project.detail.caseStudy.problem }}</p>
                   </article>
                   <article class="case-process-step rounded-xl p-5">
-                    <h5 class="case-step-label">02 · 판단</h5>
+                    <h5 class="case-step-label">{{ t("02 · 판단", "02 · Decision") }}</h5>
                     <p class="text-secondary mt-3 text-sm leading-6">{{ project.detail.caseStudy.decision }}</p>
                   </article>
                   <article class="case-process-step rounded-xl p-5">
-                    <h5 class="case-step-label">03 · 구현</h5>
+                    <h5 class="case-step-label">{{ t("03 · 구현", "03 · Implementation") }}</h5>
                     <ul class="mt-3 grid gap-2">
                       <li v-for="item in project.detail.caseStudy.implementation" :key="item" class="role-detail-item text-secondary text-sm leading-6">
                         {{ item }}
@@ -115,7 +115,7 @@
                     </ul>
                   </article>
                   <article class="case-process-step rounded-xl p-5">
-                    <h5 class="case-step-label">04 · 결과</h5>
+                    <h5 class="case-step-label">{{ t("04 · 결과", "04 · Outcome") }}</h5>
                     <ul class="mt-3 grid gap-2">
                       <li v-for="item in project.detail.caseStudy.outcome" :key="item" class="role-detail-item text-secondary text-sm leading-6">
                         {{ item }}
@@ -127,14 +127,14 @@
 
               <DetailBlock
                 v-if="!hasDetailedCaseStudies(project.project.id) && !project.detail.caseStudy"
-                title="결과"
+                :title="t('결과', 'Results')"
                 :items="project.detail.results"
               />
-              <DetailBlock title="사용 기술" :items="project.detail.techUsage" />
-              <DetailBlock title="공개 범위" :items="[project.detail.disclosure]" />
+              <DetailBlock :title="t('사용 기술', 'Technology usage')" :items="project.detail.techUsage" />
+              <DetailBlock :title="t('공개 범위', 'Disclosure')" :items="[project.detail.disclosure]" />
 
               <div v-if="project.detail.resources.length">
-                <h4 class="text-primary mb-3 font-black">관련 자료</h4>
+                <h4 class="text-primary mb-3 font-black">{{ t("관련 자료", "Resources") }}</h4>
                 <div class="flex flex-wrap gap-2">
                   <a
                     v-for="resource in project.detail.resources"
@@ -162,6 +162,7 @@ import { computed, defineAsyncComponent, defineComponent, h, nextTick, onBeforeU
 import { ExternalLink, X } from "@lucide/vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import type { RoleFocusId } from "@/data/portfolio";
+import { t } from "@/i18n/locale";
 import type { PresentedProject } from "@/utils/projectPresentation";
 
 const props = defineProps<{

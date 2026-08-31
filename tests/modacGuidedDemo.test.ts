@@ -147,7 +147,7 @@ describe("MODAC guided demo", () => {
 
   it("shows the whole study journey in five ordered stages", () => {
     const stages = ["스터디 탐색", "참여 조건 확인", "참여 요청", "스터디룸 활동", "활동 기록 확인"];
-    const positions = stages.map((stage) => source.indexOf(`title: "${stage}"`));
+    const positions = stages.map((stage) => source.indexOf(`title: t("${stage}"`));
 
     expect(positions.every((position) => position >= 0)).toBe(true);
     expect(positions).toEqual([...positions].sort((a, b) => a - b));

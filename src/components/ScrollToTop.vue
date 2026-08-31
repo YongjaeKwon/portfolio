@@ -4,7 +4,7 @@
       v-if="visible"
       type="button"
       class="focus-ring nav-panel text-primary fixed bottom-6 right-6 z-40 inline-flex h-11 w-11 items-center justify-center rounded-full transition hover:-translate-y-0.5 hover:text-[var(--accent-strong)]"
-      aria-label="맨 위로 이동"
+      :aria-label="t('맨 위로 이동', 'Back to top')"
       @click="scrollToTop"
     >
       <ChevronUp class="h-5 w-5" />
@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import { ChevronUp } from "@lucide/vue";
 import { useScrollMetrics } from "@/composables/useScrollMetrics";
+import { t } from "@/i18n/locale";
 
 const { isPastThreshold: visible } = useScrollMetrics();
 

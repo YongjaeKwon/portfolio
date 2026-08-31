@@ -6,15 +6,15 @@
         <h2 class="section-kicker">Contact</h2>
       </div>
       <p class="reveal reveal-d2 section-copy">
-        새로운 기회에 열려 있습니다.
+        {{ t("새로운 기회에 열려 있습니다.", "I'm open to new opportunities.") }}
       </p>
 
       <div class="reveal reveal-d3 fresh-cta-panel mt-10 rounded-[2rem] p-8">
         <div class="fresh-aurora" aria-hidden="true"></div>
 
-        <h3 class="text-primary text-2xl font-black">더 궁금한 내용이 있으시면</h3>
+        <h3 class="text-primary text-2xl font-black">{{ t("더 궁금한 내용이 있으시면", "Want to know more?") }}</h3>
         <p class="text-secondary mt-4 max-w-2xl leading-7">
-          이메일을 보내주시면 확인하는 대로 답변드리겠습니다.
+          {{ t("이메일을 보내주시면 확인하는 대로 답변드리겠습니다.", "Send me an email and I'll get back to you as soon as I can.") }}
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3">
@@ -24,7 +24,7 @@
             @click="attemptEmailContact"
           >
             <Mail class="h-4 w-4" />
-            이메일 보내기
+            {{ t("이메일 보내기", "Send an email") }}
           </button>
           <a
             class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
@@ -41,7 +41,7 @@
             download="Yongjae-Kwon-Resume.pdf"
           >
             <FileDown class="h-4 w-4" />
-            이력서 다운로드
+            {{ t("이력서 다운로드", "Download resume") }}
           </a>
         </div>
 
@@ -49,9 +49,9 @@
           v-if="showMailFallback || copyStatus !== 'idle'"
           class="mt-6 rounded-[1.5rem] border border-[var(--fresh-border)] bg-white/70 p-5 shadow-sm"
         >
-          <p class="text-primary text-sm font-black">메일 앱이 열리지 않나요?</p>
+          <p class="text-primary text-sm font-black">{{ t("메일 앱이 열리지 않나요?", "Mail app didn't open?") }}</p>
           <p class="text-secondary mt-2 text-sm leading-6">
-            Gmail로 바로 작성하거나 메일 주소를 복사해서 사용해 주세요.
+            {{ t("Gmail로 바로 작성하거나 메일 주소를 복사해서 사용해 주세요.", "Compose directly in Gmail or copy the email address instead.") }}
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
             <a
@@ -61,7 +61,7 @@
               rel="noreferrer"
             >
               <ExternalLink class="h-4 w-4" />
-              Gmail로 작성하기
+              {{ t("Gmail로 작성하기", "Compose in Gmail") }}
             </a>
             <button
               type="button"
@@ -83,6 +83,7 @@
 import { Copy, ExternalLink, FileDown, Mail } from "@lucide/vue";
 import { computed, onBeforeUnmount, ref } from "vue";
 import { profile } from "@/data/portfolio";
+import { t } from "@/i18n/locale";
 import {
   createGmailComposeUrl,
   createMailtoUrl,
@@ -96,14 +97,14 @@ const copyStatus = ref<"idle" | "copied" | "failed">("idle");
 const gmailComposeUrl = computed(() => createGmailComposeUrl(profile.email));
 const copyButtonLabel = computed(() => {
   if (copyStatus.value === "copied") {
-    return "복사했습니다";
+    return t("복사했습니다", "Copied");
   }
 
   if (copyStatus.value === "failed") {
-    return "복사 실패";
+    return t("복사 실패", "Copy failed");
   }
 
-  return "메일 주소 복사";
+  return t("메일 주소 복사", "Copy email address");
 });
 
 let fallbackTimer: number | undefined;

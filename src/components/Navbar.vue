@@ -4,7 +4,7 @@
       <button
         type="button"
         class="focus-ring group flex items-center gap-3 rounded-full text-left"
-        aria-label="첫 화면으로 이동"
+        :aria-label="t('첫 화면으로 이동', 'Go to the top')"
         @click="moveToSection('hero')"
       >
         <span
@@ -20,7 +20,7 @@
       </button>
 
       <div class="flex items-center gap-2">
-        <nav class="nav-panel fresh-card hidden items-center gap-1 rounded-full p-1 md:flex" aria-label="주요 섹션">
+        <nav class="nav-panel fresh-card hidden items-center gap-1 rounded-full p-1 md:flex" :aria-label="t('주요 섹션', 'Main sections')">
           <button
             v-for="item in navItems"
             :key="item.id"
@@ -38,12 +38,21 @@
         </nav>
 
         <button
+          type="button"
+          class="focus-ring nav-panel fresh-card text-muted rounded-full px-3 py-2 text-xs font-black tracking-wide transition hover:text-[var(--accent-strong)]"
+          :aria-label="t('English 페이지로 전환', 'Switch to the Korean page')"
+          @click="switchLocale(isEn ? 'ko' : 'en')"
+        >
+          {{ isEn ? "한국어" : "EN" }}
+        </button>
+
+        <button
           ref="mobileMenuToggle"
           type="button"
           class="focus-ring nav-panel fresh-card text-primary rounded-full px-3 py-2 text-sm font-semibold md:hidden"
           :aria-expanded="isMenuOpen"
           aria-controls="mobile-navigation"
-          :aria-label="isMenuOpen ? '메뉴 닫기' : '메뉴 열기'"
+          :aria-label="isMenuOpen ? t('메뉴 닫기', 'Close menu') : t('메뉴 열기', 'Open menu')"
           @click="toggleMenu"
         >
           <Menu class="h-4 w-4" />
@@ -56,7 +65,7 @@
         v-if="isMenuOpen"
         id="mobile-navigation"
         class="surface fresh-card mx-auto mt-3 grid max-w-6xl gap-1 rounded-3xl p-2 md:hidden"
-        aria-label="모바일 주요 섹션"
+        :aria-label="t('모바일 주요 섹션', 'Main sections (mobile)')"
       >
         <button
           v-for="item in navItems"
@@ -82,6 +91,7 @@ import { Menu } from "@lucide/vue";
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { useScrollMetrics } from "@/composables/useScrollMetrics";
 import { profile } from "@/data/portfolio";
+import { isEn, switchLocale, t } from "@/i18n/locale";
 import { resolveActiveSectionFromEntries } from "@/utils/scrollMetrics";
 
 const emit = defineEmits<{

@@ -70,7 +70,7 @@ describe("SSAFAST guided demo", () => {
     let previousIndex = -1;
 
     for (const label of labels) {
-      const currentIndex = source.indexOf(`label: "${label}"`);
+      const currentIndex = source.indexOf(`label: t("${label}"`);
       expect(currentIndex).toBeGreaterThan(previousIndex);
       previousIndex = currentIndex;
     }
@@ -113,7 +113,7 @@ describe("SSAFAST guided demo", () => {
   });
 
   it("keeps the guided experience accessible and responsive", () => {
-    expect(source).toContain('aria-label="SSAFAST 전체 기능 흐름"');
+    expect(source).toContain(":aria-label=\"t('SSAFAST 전체 기능 흐름', 'SSAFAST full feature flow')\"");
     expect(source).toContain(":aria-current=\"guidedStep === index ? 'step' : undefined\"");
     expect(source).toContain('aria-live="polite"');
     expect(source).toContain('@media (max-width: 820px)');

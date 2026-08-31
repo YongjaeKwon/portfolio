@@ -7,7 +7,7 @@
             <span class="section-index">03</span>
             <h2 class="section-kicker">Projects</h2>
           </div>
-          <h3 class="section-title">개인·팀 프로젝트</h3>
+          <h3 class="section-title">{{ t("개인·팀 프로젝트", "Personal & Team Projects") }}</h3>
           <p class="section-copy">{{ activeTrackData.projectIntro }}</p>
         </div>
         <FocusTabs />
@@ -29,7 +29,7 @@
                   v-if="hasInteractiveDemo(item.project.id)"
                   class="rounded-full bg-[var(--fresh-blue-soft)] px-2.5 py-1 text-[10px] font-black text-[var(--fresh-blue-strong)]"
                 >
-                  샘플 데모
+                  {{ t("샘플 데모", "Sample demo") }}
                 </span>
               </div>
               <span class="text-muted font-mono tnum text-xs">{{ item.project.period }}</span>
@@ -69,19 +69,19 @@
                 v-if="hasInteractiveDemo(item.project.id)"
                 type="button"
                 class="focus-ring fresh-button inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-black transition hover:gap-2.5"
-                :aria-label="`${item.project.title} 전체 흐름 직접 체험`"
+                :aria-label="t(`${item.project.title} 전체 흐름 직접 체험`, `Try the full ${item.project.title} flow`)"
                 @click="openInlineDemo(item)"
               >
                 <Play class="h-4 w-4" />
-                직접 체험하기
+                {{ t("직접 체험하기", "Try it yourself") }}
               </button>
               <button
                 type="button"
                 class="focus-ring inline-flex items-center gap-1.5 rounded-full px-2 py-2 text-sm font-black text-[var(--fresh-blue-strong)] transition hover:gap-2.5"
-                :aria-label="`${item.project.title} 개발 과정 상세 보기`"
+                :aria-label="t(`${item.project.title} 개발 과정 상세 보기`, `View the ${item.project.title} development story`)"
                 @click="openDetail(item)"
               >
-                개발 과정 보기
+                {{ t("개발 과정 보기", "Development story") }}
                 <ArrowRight class="h-4 w-4" />
               </button>
             </div>
@@ -106,13 +106,13 @@
                 {{ inlineDemoProject.project.title }}
               </h4>
               <p class="text-muted mt-2 max-w-2xl text-sm leading-6">
-                서비스 흐름을 샘플 데이터로 재구성하고, 각 단계에 실제 담당 범위와 공개용 시뮬레이션을 구분했습니다.
+                {{ t("서비스 흐름을 샘플 데이터로 재구성하고, 각 단계에 실제 담당 범위와 공개용 시뮬레이션을 구분했습니다.", "The service flow is rebuilt with sample data; each step marks what I actually built versus the public simulation.") }}
               </p>
             </div>
             <button
               type="button"
               class="focus-ring surface-strong text-primary absolute right-0 top-0 inline-flex h-10 w-10 items-center justify-center rounded-full transition hover:text-[var(--accent-strong)]"
-              aria-label="프로젝트 데모 닫기"
+              :aria-label="t('프로젝트 데모 닫기', 'Close project demo')"
               @click="closeInlineDemo"
             >
               <X class="h-5 w-5" />
@@ -141,6 +141,7 @@ import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import ProjectDetailModal from "@/components/ProjectDetailModal.vue";
 import { featuredProjects, focusTracks } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";
+import { t } from "@/i18n/locale";
 import { presentProject, type PresentedProject } from "@/utils/projectPresentation";
 
 const ProjectDemoPanel = defineAsyncComponent(() => import("@/components/demos/ProjectDemoPanel.vue"));

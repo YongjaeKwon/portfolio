@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, ref } from "vue";
+import { isEn, t } from "@/i18n/locale";
 
 const emit = defineEmits<{ (event: "dialog-state-change", open: boolean): void }>();
 
@@ -30,18 +31,18 @@ const DEMO_INVITE_CODE = "MODAC";
 const initialRooms: DemoRoom[] = [
   {
     id: 1,
-    title: "퇴근 후 알고리즘",
-    description: "매주 세 문제를 풀고 풀이 과정을 나눠요.",
-    category: "알고리즘",
+    title: t("퇴근 후 알고리즘", "After-work Algorithms"),
+    description: t("매주 세 문제를 풀고 풀이 과정을 나눠요.", "Solve three problems a week and share the solutions."),
+    category: t("알고리즘", "Algorithms"),
     members: 3,
     capacity: 5,
     visibility: "public",
   },
   {
     id: 2,
-    title: "프론트엔드 면접 준비",
-    description: "정해진 질문을 준비하고 서로 피드백해요.",
-    category: "취업 준비",
+    title: t("프론트엔드 면접 준비", "Frontend Interview Prep"),
+    description: t("정해진 질문을 준비하고 서로 피드백해요.", "Prepare set questions and give each other feedback."),
+    category: t("취업 준비", "Job hunting"),
     members: 2,
     capacity: 4,
     visibility: "private",
@@ -49,9 +50,9 @@ const initialRooms: DemoRoom[] = [
   },
   {
     id: 3,
-    title: "SQL 한 문제씩",
-    description: "짧게라도 매일 꾸준히 문제를 풉니다.",
-    category: "데이터베이스",
+    title: t("SQL 한 문제씩", "One SQL Problem a Day"),
+    description: t("짧게라도 매일 꾸준히 문제를 풉니다.", "A little every day, but every day."),
+    category: t("데이터베이스", "Databases"),
     members: 4,
     capacity: 4,
     visibility: "public",
@@ -60,12 +61,12 @@ const initialRooms: DemoRoom[] = [
 
 const seededMessages: Record<number, ChatMessage[]> = {
   1: [
-    { id: 1, sender: "민지", body: "오늘 문제 링크 올려두었어요!", time: "20:04" },
-    { id: 2, sender: "준호", body: "저는 9시부터 같이 풀게요.", time: "20:06" },
+    { id: 1, sender: t("민지", "Minji"), body: t("오늘 문제 링크 올려두었어요!", "I posted today's problem link!"), time: "20:04" },
+    { id: 2, sender: t("준호", "Junho"), body: t("저는 9시부터 같이 풀게요.", "I'll join and solve from 9."), time: "20:06" },
   ],
   2: [
-    { id: 3, sender: "서연", body: "오늘은 브라우저 렌더링 질문부터 볼까요?", time: "19:42" },
-    { id: 4, sender: "지훈", body: "좋아요. 정리한 내용도 공유할게요.", time: "19:44" },
+    { id: 3, sender: t("서연", "Seoyeon"), body: t("오늘은 브라우저 렌더링 질문부터 볼까요?", "Shall we start with browser rendering questions today?"), time: "19:42" },
+    { id: 4, sender: t("지훈", "Jihun"), body: t("좋아요. 정리한 내용도 공유할게요.", "Sounds good — I'll share my notes too."), time: "19:44" },
   ],
   3: [],
 };
@@ -109,44 +110,44 @@ const selectedRoom = computed(() =>
 
 const guideSteps = [
   {
-    title: "스터디 탐색",
-    shortTitle: "탐색",
-    userAction: "목록에서 스터디 선택",
-    screenChange: "인원·공개 범위·주제 확인",
-    ownership: "스터디 목록·상태 UI와 탐색 화면",
-    demo: "샘플 스터디 목록을 브라우저 메모리로 구성",
+    title: t("스터디 탐색", "Browse study groups"),
+    shortTitle: t("탐색", "Browse"),
+    userAction: t("목록에서 스터디 선택", "Pick a study group from the list"),
+    screenChange: t("인원·공개 범위·주제 확인", "Members, visibility, and topic shown"),
+    ownership: t("스터디 목록·상태 UI와 탐색 화면", "Study list/state UI and browse screens"),
+    demo: t("샘플 스터디 목록을 브라우저 메모리로 구성", "Sample study list built in browser memory"),
   },
   {
-    title: "참여 조건 확인",
-    shortTitle: "조건",
-    userAction: "선택한 스터디 상세 확인",
-    screenChange: "정원·공개/비공개 조건 표시",
-    ownership: "상세 화면과 공개·비공개 조건 분기 UI",
-    demo: "정원과 공개 범위를 고정 샘플 조건으로 재현",
+    title: t("참여 조건 확인", "Check join conditions"),
+    shortTitle: t("조건", "Conditions"),
+    userAction: t("선택한 스터디 상세 확인", "Review the selected study's details"),
+    screenChange: t("정원·공개/비공개 조건 표시", "Capacity and public/private conditions shown"),
+    ownership: t("상세 화면과 공개·비공개 조건 분기 UI", "Detail screens and public/private branching UI"),
+    demo: t("정원과 공개 범위를 고정 샘플 조건으로 재현", "Capacity and visibility re-created as fixed sample conditions"),
   },
   {
-    title: "참여 요청",
-    shortTitle: "참여",
-    userAction: "바로 참여 또는 초대 코드 입력",
-    screenChange: "입장 검증 후 참여 인원 반영",
-    ownership: "참여 요청·검증 결과·오류 상태 UI",
-    demo: "고정 초대 코드로 성공·오류 흐름을 브라우저에서 검증",
+    title: t("참여 요청", "Request to join"),
+    shortTitle: t("참여", "Join"),
+    userAction: t("바로 참여 또는 초대 코드 입력", "Join directly or enter an invite code"),
+    screenChange: t("입장 검증 후 참여 인원 반영", "Member count updates after validation"),
+    ownership: t("참여 요청·검증 결과·오류 상태 UI", "Join request, validation, and error-state UI"),
+    demo: t("고정 초대 코드로 성공·오류 흐름을 브라우저에서 검증", "Success and error flows verified in-browser with a fixed invite code"),
   },
   {
-    title: "스터디룸 활동",
-    shortTitle: "활동",
-    userAction: "메시지 작성과 참여 흐름 확인",
-    screenChange: "채팅·참여 상태 갱신",
-    ownership: "채팅 UI와 팀 WebSocket 연동 결과 반영",
-    demo: "외부 연결 없이 메시지와 지연 응답을 화면 상태로 생성",
+    title: t("스터디룸 활동", "Study room activity"),
+    shortTitle: t("활동", "Activity"),
+    userAction: t("메시지 작성과 참여 흐름 확인", "Write messages and follow the participation flow"),
+    screenChange: t("채팅·참여 상태 갱신", "Chat and membership state update"),
+    ownership: t("채팅 UI와 팀 WebSocket 연동 결과 반영", "Chat UI reflecting the team's WebSocket integration"),
+    demo: t("외부 연결 없이 메시지와 지연 응답을 화면 상태로 생성", "Messages and delayed replies generated as screen state, no external connection"),
   },
   {
-    title: "활동 기록 확인",
-    shortTitle: "기록",
-    userAction: "이번 활동 요약 확인",
-    screenChange: "참여·메시지 기록 요약",
-    ownership: "활동 기록·통계 화면 UI",
-    demo: "현재 세션의 참여·메시지 수를 브라우저에서 집계",
+    title: t("활동 기록 확인", "Review activity log"),
+    shortTitle: t("기록", "Log"),
+    userAction: t("이번 활동 요약 확인", "Review this session's summary"),
+    screenChange: t("참여·메시지 기록 요약", "Participation and message summary"),
+    ownership: t("활동 기록·통계 화면 UI", "Activity log and statistics UI"),
+    demo: t("현재 세션의 참여·메시지 수를 브라우저에서 집계", "This session's participation and messages tallied in the browser"),
   },
 ] as const;
 
@@ -159,7 +160,7 @@ const currentStep = computed(() => {
 });
 const currentGuide = computed(() => guideSteps[currentStep.value - 1]);
 
-const memberLabel = (room: DemoRoom) => `${room.members}/${room.capacity}명`;
+const memberLabel = (room: DemoRoom) => t(`${room.members}/${room.capacity}명`, `${room.members}/${room.capacity} members`);
 const isFull = (room: DemoRoom) => room.members >= room.capacity;
 
 const clearReplyTimers = () => {
@@ -169,7 +170,7 @@ const clearReplyTimers = () => {
 
 const selectRoom = (room: DemoRoom) => {
   if (isFull(room)) {
-    roomError.value = `‘${room.title}’은 현재 정원이 가득 찼습니다.`;
+    roomError.value = t(`‘${room.title}’은 현재 정원이 가득 찼습니다.`, `"${room.title}" is currently full.`);
     return;
   }
   roomError.value = "";
@@ -221,7 +222,7 @@ const enterRoom = async (room: DemoRoom) => {
 
   const currentRoom = rooms.value.find((item) => item.id === room.id);
   if (!currentRoom || isFull(currentRoom)) {
-    roomError.value = "정원이 가득 찬 방에는 입장할 수 없습니다.";
+    roomError.value = t("정원이 가득 찬 방에는 입장할 수 없습니다.", "You can't enter a room that is already full.");
     return;
   }
 
@@ -234,9 +235,9 @@ const enterRoom = async (room: DemoRoom) => {
     ...cloneMessages(currentRoom.id),
     {
       id: ++messageSequence,
-      sender: "안내",
-      body: "용재 님이 스터디룸에 입장했습니다.",
-      time: "지금",
+      sender: t("안내", "Notice"),
+      body: t("용재 님이 스터디룸에 입장했습니다.", "Yongjae joined the study room."),
+      time: t("지금", "now"),
       system: true,
     },
   ];
@@ -248,7 +249,7 @@ const enterRoom = async (room: DemoRoom) => {
 const requestEntry = async (room: DemoRoom, event?: MouseEvent) => {
   roomError.value = "";
   if (isFull(room)) {
-    roomError.value = `‘${room.title}’은 현재 정원이 가득 찼습니다.`;
+    roomError.value = t(`‘${room.title}’은 현재 정원이 가득 찼습니다.`, `"${room.title}" is currently full.`);
     return;
   }
 
@@ -271,7 +272,7 @@ const verifyInviteCode = () => {
   if (!room) return;
 
   if (inviteCode.value.trim().toUpperCase() !== room.inviteCode) {
-    inviteError.value = "초대 코드가 일치하지 않습니다. 화면에 표시된 데모 코드를 입력해 주세요.";
+    inviteError.value = t("초대 코드가 일치하지 않습니다. 화면에 표시된 데모 코드를 입력해 주세요.", "The invite code doesn't match. Enter the demo code shown on screen.");
     return;
   }
 
@@ -316,7 +317,7 @@ const returnToRoom = () => {
 };
 
 const currentTime = () =>
-  new Intl.DateTimeFormat("ko-KR", {
+  new Intl.DateTimeFormat(isEn ? "en-US" : "ko-KR", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
@@ -329,7 +330,7 @@ const sendMessage = () => {
 
   messages.value.push({
     id: ++messageSequence,
-    sender: "용재",
+    sender: t("용재", "Yongjae"),
     body,
     time: currentTime(),
     mine: true,
@@ -343,8 +344,8 @@ const sendMessage = () => {
     if (activeRoomId.value !== roomId) return;
     messages.value.push({
       id: ++messageSequence,
-      sender: "MODAC 봇",
-      body: "메시지를 확인했어요. 이 응답은 화면 흐름을 보여주기 위한 모의 응답입니다.",
+      sender: t("MODAC 봇", "MODAC bot"),
+      body: t("메시지를 확인했어요. 이 응답은 화면 흐름을 보여주기 위한 모의 응답입니다.", "Got your message. This is a mock reply that illustrates the screen flow."),
       time: currentTime(),
     });
     void scrollChatToEnd();
@@ -382,20 +383,20 @@ onBeforeUnmount(() => {
       <div>
         <div class="demo-eyebrow">
           <span class="live-dot" aria-hidden="true"></span>
-          샘플 데이터 데모
+          {{ t("샘플 데이터 데모", "Sample-data demo") }}
         </div>
-        <h3 id="modac-demo-title">스터디 탐색부터 활동 기록까지</h3>
-        <p>스터디를 찾고 참여한 뒤 활동하고 기록을 확인하는 서비스 흐름을 다섯 단계로 재현했습니다.</p>
+        <h3 id="modac-demo-title">{{ t("스터디 탐색부터 활동 기록까지", "From browsing studies to activity logs") }}</h3>
+        <p>{{ t("스터디를 찾고 참여한 뒤 활동하고 기록을 확인하는 서비스 흐름을 다섯 단계로 재현했습니다.", "Five steps re-create the service flow: find a study group, join, participate, and review your log.") }}</p>
       </div>
-      <button class="reset-button" type="button" @click="resetDemo">처음부터</button>
+      <button class="reset-button" type="button" @click="resetDemo">{{ t("처음부터", "Start over") }}</button>
     </header>
 
     <div class="simulation-notice">
-      <strong>브라우저에서 실행되는 공개용 시뮬레이션</strong>
-      <span>외부 서버·DB·WebSocket에 연결하지 않으며, 팀이 구현한 전체 서비스 중 제가 맡은 화면과 상태 처리 중심으로 재구성했습니다.</span>
+      <strong>{{ t("브라우저에서 실행되는 공개용 시뮬레이션", "A public simulation running in the browser") }}</strong>
+      <span>{{ t("외부 서버·DB·WebSocket에 연결하지 않으며, 팀이 구현한 전체 서비스 중 제가 맡은 화면과 상태 처리 중심으로 재구성했습니다.", "No external servers, DBs, or WebSockets — rebuilt around the screens and state handling I owned within the team's full service.") }}</span>
     </div>
 
-    <ol class="flow-steps" aria-label="MODAC 서비스 흐름 단계">
+    <ol class="flow-steps" :aria-label="t('MODAC 서비스 흐름 단계', 'MODAC service flow steps')">
       <li
         v-for="(step, index) in guideSteps"
         :key="step.title"
@@ -413,20 +414,20 @@ onBeforeUnmount(() => {
         <strong>{{ currentGuide.title }}</strong>
       </div>
       <div class="responsibility-grid">
-        <div><span>사용자 행동</span><strong>{{ currentGuide.userAction }}</strong></div>
-        <div><span>화면 변화</span><strong>{{ currentGuide.screenChange }}</strong></div>
-        <div><span>원 프로젝트 담당</span><strong>{{ currentGuide.ownership }}</strong></div>
-        <div><span>공개 데모 재현</span><strong>{{ currentGuide.demo }}</strong></div>
+        <div><span>{{ t("사용자 행동", "User action") }}</span><strong>{{ currentGuide.userAction }}</strong></div>
+        <div><span>{{ t("화면 변화", "Screen change") }}</span><strong>{{ currentGuide.screenChange }}</strong></div>
+        <div><span>{{ t("원 프로젝트 담당", "Built in the original") }}</span><strong>{{ currentGuide.ownership }}</strong></div>
+        <div><span>{{ t("공개 데모 재현", "Re-created in this demo") }}</span><strong>{{ currentGuide.demo }}</strong></div>
       </div>
     </section>
 
     <div v-if="currentStep === 1" class="room-stage">
       <div class="stage-heading">
         <div>
-          <h4 ref="roomListHeading" tabindex="-1">참여할 스터디를 선택하세요</h4>
-          <span>비공개방은 초대 코드 확인 후 입장할 수 있습니다.</span>
+          <h4 ref="roomListHeading" tabindex="-1">{{ t("참여할 스터디를 선택하세요", "Pick a study group to join") }}</h4>
+          <span>{{ t("비공개방은 초대 코드 확인 후 입장할 수 있습니다.", "Private rooms require an invite code before entering.") }}</span>
         </div>
-        <span class="room-count">{{ rooms.length }}개 스터디</span>
+        <span class="room-count">{{ t(`${rooms.length}개 스터디`, `${rooms.length} study groups`) }}</span>
       </div>
 
       <p v-if="roomError" class="inline-alert" role="alert">{{ roomError }}</p>
@@ -442,22 +443,22 @@ onBeforeUnmount(() => {
             <span class="category-chip">{{ room.category }}</span>
             <span class="visibility-chip" :class="room.visibility">
               <span aria-hidden="true">{{ room.visibility === "private" ? "🔒" : "○" }}</span>
-              {{ room.visibility === "private" ? "비공개" : "공개" }}
+              {{ room.visibility === "private" ? t("비공개", "Private") : t("공개", "Public") }}
             </span>
           </div>
           <h4>{{ room.title }}</h4>
           <p>{{ room.description }}</p>
           <div class="room-card-bottom">
             <span :class="{ danger: isFull(room) }">
-              {{ isFull(room) ? "정원 마감" : memberLabel(room) }}
+              {{ isFull(room) ? t("정원 마감", "Full") : memberLabel(room) }}
             </span>
             <button
               type="button"
               :disabled="isFull(room)"
-              :aria-label="`${room.title} ${isFull(room) ? '정원 마감' : '상세 보기'}`"
+              :aria-label="t(`${room.title} ${isFull(room) ? '정원 마감' : '상세 보기'}`, `${room.title} ${isFull(room) ? 'is full' : 'details'}`)"
               @click="selectRoom(room)"
             >
-              {{ isFull(room) ? "선택 불가" : "살펴보기" }}
+              {{ isFull(room) ? t("선택 불가", "Unavailable") : t("살펴보기", "Take a look") }}
             </button>
           </div>
         </article>
@@ -472,17 +473,17 @@ onBeforeUnmount(() => {
           <p>{{ selectedRoom.description }}</p>
         </div>
         <span class="visibility-chip" :class="selectedRoom.visibility">
-          {{ selectedRoom.visibility === "private" ? "비공개" : "공개" }}
+          {{ selectedRoom.visibility === "private" ? t("비공개", "Private") : t("공개", "Public") }}
         </span>
       </div>
       <dl class="condition-grid">
-        <div><dt>현재 인원</dt><dd>{{ memberLabel(selectedRoom) }}</dd></div>
-        <div><dt>참여 방식</dt><dd>{{ selectedRoom.visibility === "private" ? "초대 코드 확인" : "바로 참여" }}</dd></div>
-        <div><dt>상태</dt><dd>참여 가능</dd></div>
+        <div><dt>{{ t("현재 인원", "Members") }}</dt><dd>{{ memberLabel(selectedRoom) }}</dd></div>
+        <div><dt>{{ t("참여 방식", "How to join") }}</dt><dd>{{ selectedRoom.visibility === "private" ? t("초대 코드 확인", "Invite code check") : t("바로 참여", "Join directly") }}</dd></div>
+        <div><dt>{{ t("상태", "Status") }}</dt><dd>{{ t("참여 가능", "Open to join") }}</dd></div>
       </dl>
       <div class="stage-actions">
-        <button type="button" class="secondary-button" @click="returnToRoomList">다른 스터디 보기</button>
-        <button type="button" class="primary-button" @click="prepareJoin">참여 절차로</button>
+        <button type="button" class="secondary-button" @click="returnToRoomList">{{ t("다른 스터디 보기", "See other studies") }}</button>
+        <button type="button" class="primary-button" @click="prepareJoin">{{ t("참여 절차로", "Proceed to join") }}</button>
       </div>
     </section>
 
@@ -490,15 +491,15 @@ onBeforeUnmount(() => {
       <div class="join-check">
         <span aria-hidden="true">{{ selectedRoom.visibility === "private" ? "🔒" : "✓" }}</span>
         <div>
-          <h4>{{ selectedRoom.visibility === "private" ? "초대 코드 확인이 필요합니다" : "바로 참여할 수 있습니다" }}</h4>
-          <p v-if="selectedRoom.visibility === 'private'">화면에 제공된 데모 코드를 입력하면 검증·오류·입장 흐름을 확인할 수 있습니다.</p>
-          <p v-else>공개 스터디는 별도 승인 없이 참여 인원과 활동 화면으로 이어집니다.</p>
+          <h4>{{ selectedRoom.visibility === "private" ? t("초대 코드 확인이 필요합니다", "An invite code is required") : t("바로 참여할 수 있습니다", "You can join right away") }}</h4>
+          <p v-if="selectedRoom.visibility === 'private'">{{ t("화면에 제공된 데모 코드를 입력하면 검증·오류·입장 흐름을 확인할 수 있습니다.", "Enter the demo code shown on screen to see the validation, error, and entry flow.") }}</p>
+          <p v-else>{{ t("공개 스터디는 별도 승인 없이 참여 인원과 활동 화면으로 이어집니다.", "Public studies proceed to the member count and activity screen without approval.") }}</p>
         </div>
       </div>
       <div class="stage-actions">
-        <button type="button" class="secondary-button" @click="joinReady = false">조건 다시 보기</button>
+        <button type="button" class="secondary-button" @click="joinReady = false">{{ t("조건 다시 보기", "Review conditions") }}</button>
         <button type="button" class="primary-button" @click="requestEntry(selectedRoom, $event)">
-          {{ selectedRoom.visibility === "private" ? "초대 코드 입력" : "스터디 참여" }}
+          {{ selectedRoom.visibility === "private" ? t("초대 코드 입력", "Enter invite code") : t("스터디 참여", "Join study") }}
         </button>
       </div>
     </section>
@@ -511,16 +512,16 @@ onBeforeUnmount(() => {
         </div>
         <span class="room-status">
           <span class="room-status-dot" aria-hidden="true"></span>
-          참여 중
+          {{ t("참여 중", "Joined") }}
         </span>
       </header>
 
       <div class="chat-notice">
         <span aria-hidden="true">●</span>
-        실시간 서버 대신 미리 준비한 샘플 응답으로 동작합니다.
+        {{ t("실시간 서버 대신 미리 준비한 샘플 응답으로 동작합니다.", "Runs on prepared sample replies instead of a real-time server.") }}
       </div>
 
-      <div ref="chatLog" class="chat-log" role="log" aria-live="polite" aria-label="스터디 채팅 메시지">
+      <div ref="chatLog" class="chat-log" role="log" aria-live="polite" :aria-label="t('스터디 채팅 메시지', 'Study chat messages')">
         <div
           v-for="message in messages"
           :key="message.id"
@@ -541,7 +542,7 @@ onBeforeUnmount(() => {
       </div>
 
       <form class="chat-form" @submit.prevent="sendMessage">
-        <label class="sr-only" for="modac-chat-message">채팅 메시지</label>
+        <label class="sr-only" for="modac-chat-message">{{ t("채팅 메시지", "Chat message") }}</label>
         <input
           id="modac-chat-message"
           ref="chatInput"
@@ -549,19 +550,19 @@ onBeforeUnmount(() => {
           type="text"
           maxlength="120"
           autocomplete="off"
-          placeholder="메시지를 입력해 보세요"
+          :placeholder="t('메시지를 입력해 보세요', 'Type a message')"
         />
-        <button type="submit" :disabled="!chatDraft.trim()">보내기</button>
+        <button type="submit" :disabled="!chatDraft.trim()">{{ t("보내기", "Send") }}</button>
       </form>
 
       <div class="room-completion-action">
         <div>
-          <span>다음 단계</span>
-          <strong>이제 활동 기록을 확인해 보세요</strong>
-          <p>이번 참여와 화면에 표시된 메시지를 한눈에 정리합니다.</p>
+          <span>{{ t("다음 단계", "Next step") }}</span>
+          <strong>{{ t("이제 활동 기록을 확인해 보세요", "Now check your activity log") }}</strong>
+          <p>{{ t("이번 참여와 화면에 표시된 메시지를 한눈에 정리합니다.", "Your participation and on-screen messages, summarized at a glance.") }}</p>
         </div>
         <button type="button" class="primary-button" @click="completeActivity">
-          활동 기록 확인하기
+          {{ t("활동 기록 확인하기", "View activity log") }}
           <span aria-hidden="true">→</span>
         </button>
       </div>
@@ -571,20 +572,20 @@ onBeforeUnmount(() => {
       <div class="record-heading">
         <span class="record-check" aria-hidden="true">✓</span>
         <div>
-          <span>이번 데모 활동</span>
+          <span>{{ t("이번 데모 활동", "This demo session") }}</span>
           <h4 ref="activityRecordHeading" tabindex="-1">{{ activeRoom.title }}</h4>
-          <p>참여부터 메시지 작성까지의 화면 상태를 브라우저 메모리에서 요약했습니다.</p>
+          <p>{{ t("참여부터 메시지 작성까지의 화면 상태를 브라우저 메모리에서 요약했습니다.", "Screen state from joining through messaging, summarized from browser memory.") }}</p>
         </div>
       </div>
       <dl class="record-grid">
-        <div><dt>참여 상태</dt><dd>참여 중</dd></div>
-        <div><dt>표시된 메시지</dt><dd>{{ messages.length }}건</dd></div>
-        <div><dt>저장 위치</dt><dd>브라우저 메모리</dd></div>
+        <div><dt>{{ t("참여 상태", "Membership") }}</dt><dd>{{ t("참여 중", "Joined") }}</dd></div>
+        <div><dt>{{ t("표시된 메시지", "Messages shown") }}</dt><dd>{{ t(`${messages.length}건`, `${messages.length}`) }}</dd></div>
+        <div><dt>{{ t("저장 위치", "Stored in") }}</dt><dd>{{ t("브라우저 메모리", "Browser memory") }}</dd></div>
       </dl>
-      <p class="record-note">실제 서비스에서는 스터디 활동과 통계·기록 화면으로 이어집니다. 이 데모는 서버 저장 없이 UI 흐름만 재현합니다.</p>
+      <p class="record-note">{{ t("실제 서비스에서는 스터디 활동과 통계·기록 화면으로 이어집니다. 이 데모는 서버 저장 없이 UI 흐름만 재현합니다.", "The real service continues into study activity, statistics, and log screens. This demo re-creates only the UI flow, with nothing saved server-side.") }}</p>
       <div class="stage-actions">
-        <button type="button" class="secondary-button" @click="returnToRoom">스터디룸으로</button>
-        <button type="button" class="primary-button" @click="restartDemo">다른 흐름 다시 체험</button>
+        <button type="button" class="secondary-button" @click="returnToRoom">{{ t("스터디룸으로", "Back to the room") }}</button>
+        <button type="button" class="primary-button" @click="restartDemo">{{ t("다른 흐름 다시 체험", "Try another flow") }}</button>
       </div>
     </section>
 
@@ -603,21 +604,21 @@ onBeforeUnmount(() => {
           <button
             class="dialog-close"
             type="button"
-            aria-label="초대 코드 입력 닫기"
+            :aria-label="t('초대 코드 입력 닫기', 'Close invite code dialog')"
             @click="closeInviteDialog"
           >
             ×
           </button>
           <span class="dialog-icon" aria-hidden="true">🔒</span>
-          <h4 id="invite-dialog-title">비공개 스터디 입장</h4>
-          <p>‘{{ pendingRoom.title }}’에 참여하려면 초대 코드를 입력해 주세요.</p>
+          <h4 id="invite-dialog-title">{{ t("비공개 스터디 입장", "Enter a private study") }}</h4>
+          <p>{{ t(`‘${pendingRoom.title}’에 참여하려면 초대 코드를 입력해 주세요.`, `Enter the invite code to join "${pendingRoom.title}".`) }}</p>
 
           <div class="demo-code">
-            <span>데모 초대 코드</span>
+            <span>{{ t("데모 초대 코드", "Demo invite code") }}</span>
             <strong>{{ DEMO_INVITE_CODE }}</strong>
           </div>
 
-          <label for="modac-invite-code">초대 코드</label>
+          <label for="modac-invite-code">{{ t("초대 코드", "Invite code") }}</label>
           <input
             id="modac-invite-code"
             ref="inviteInput"
@@ -631,14 +632,14 @@ onBeforeUnmount(() => {
           <p v-if="inviteError" id="invite-code-error" class="field-error" role="alert">
             {{ inviteError }}
           </p>
-          <button class="confirm-button" type="submit">코드 확인 후 입장</button>
+          <button class="confirm-button" type="submit">{{ t("코드 확인 후 입장", "Verify code and enter") }}</button>
         </form>
       </div>
     </Teleport>
 
     <footer class="demo-footer">
-      <span>샘플 데이터는 브라우저 메모리에서만 사용됩니다.</span>
-      <span>WebSocket · OAuth · 외부 저장소 미연결</span>
+      <span>{{ t("샘플 데이터는 브라우저 메모리에서만 사용됩니다.", "Sample data lives only in browser memory.") }}</span>
+      <span>{{ t("WebSocket · OAuth · 외부 저장소 미연결", "No WebSocket · OAuth · external storage") }}</span>
     </footer>
   </section>
 </template>

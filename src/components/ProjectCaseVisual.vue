@@ -1,5 +1,5 @@
 <template>
-  <div :class="['case-story', `case-story--${projectId}`, { 'is-compact': compact }]" :aria-label="`${projectName} 대표 개선 사례 요약`">
+  <div :class="['case-story', `case-story--${projectId}`, { 'is-compact': compact }]" :aria-label="t(`${projectName} 대표 개선 사례 요약`, `${projectName} highlight case summary`)">
     <header class="story-header">
       <div>
         <p class="story-kicker">Project case</p>
@@ -12,46 +12,47 @@
       <section class="story-lead">
         <span class="story-lead-icon"><Archive class="h-5 w-5" /></span>
         <div>
-          <p>대표 개선 사례</p>
-          <h3>오래 걸리는 다운로드를<br />추적 가능한 작업으로 전환</h3>
+          <p>{{ t("대표 개선 사례", "Highlight case") }}</p>
+          <h3 v-if="isEn">Long downloads became<br />trackable jobs</h3>
+          <h3 v-else>오래 걸리는 다운로드를<br />추적 가능한 작업으로 전환</h3>
         </div>
       </section>
 
-      <div class="story-journey" aria-label="대량 다운로드 개선 흐름">
+      <div class="story-journey" :aria-label="t('대량 다운로드 개선 흐름', 'Bulk download improvement flow')">
         <article class="journey-step is-problem">
           <span>Problem</span>
-          <strong>긴 동기 요청</strong>
-          <p>진행·실패 여부를 알기 어려움</p>
+          <strong>{{ t("긴 동기 요청", "Long sync request") }}</strong>
+          <p>{{ t("진행·실패 여부를 알기 어려움", "Progress and failures invisible") }}</p>
         </article>
         <ArrowRight class="journey-arrow h-4 w-4" />
         <article class="journey-step is-decision">
           <span>Decision</span>
-          <strong>작업 ID 분리</strong>
-          <p>요청과 압축 실행을 분리</p>
+          <strong>{{ t("작업 ID 분리", "Job-ID separation") }}</strong>
+          <p>{{ t("요청과 압축 실행을 분리", "Request split from compression") }}</p>
         </article>
         <ArrowRight class="journey-arrow h-4 w-4" />
         <article class="journey-step is-result">
           <span>Result</span>
-          <strong>상태 추적</strong>
-          <p>새로고침 후에도 이어서 확인</p>
+          <strong>{{ t("상태 추적", "Status tracking") }}</strong>
+          <p>{{ t("새로고침 후에도 이어서 확인", "Resumes after page refresh") }}</p>
         </article>
       </div>
 
       <div class="story-facts">
         <article>
-          <span>처리 대상</span>
-          <strong>300~400건</strong>
-          <p>CE 증빙 첨부파일</p>
+          <span>{{ t("처리 대상", "Workload") }}</span>
+          <strong>{{ t("300~400건", "300–400 files") }}</strong>
+          <p>{{ t("CE 증빙 첨부파일", "CE evidence attachments") }}</p>
         </article>
         <article>
-          <span>상태 구분</span>
-          <strong>4단계</strong>
-          <p>대기·진행·완료·실패</p>
+          <span>{{ t("상태 구분", "States") }}</span>
+          <strong>{{ t("4단계", "4 states") }}</strong>
+          <p>{{ t("대기·진행·완료·실패", "Waiting · running · done · failed") }}</p>
         </article>
         <article>
-          <span>담당 범위</span>
+          <span>{{ t("담당 범위", "Scope") }}</span>
           <strong>End-to-end</strong>
-          <p>화면·서버·배포</p>
+          <p>{{ t("화면·서버·배포", "UI · server · deployment") }}</p>
         </article>
       </div>
     </div>
@@ -60,8 +61,9 @@
       <section class="story-lead">
         <span class="story-lead-icon"><Network class="h-5 w-5" /></span>
         <div>
-          <p>대표 업무 흐름</p>
-          <h3>분산된 운영 업무를<br />확인 가능한 이력으로 연결</h3>
+          <p>{{ t("대표 업무 흐름", "Highlight workflows") }}</p>
+          <h3 v-if="isEn">Scattered operations became<br />verifiable histories</h3>
+          <h3 v-else>분산된 운영 업무를<br />확인 가능한 이력으로 연결</h3>
         </div>
       </section>
 
@@ -69,26 +71,26 @@
         <article class="operation-case">
           <div class="operation-title">
             <span><ScanSearch class="h-4 w-4" /></span>
-            <div><small>Case 01</small><strong>중고거래 모니터링</strong></div>
+            <div><small>Case 01</small><strong>{{ t("중고거래 모니터링", "Used-market monitoring") }}</strong></div>
           </div>
-          <p>외부 사이트에 직접 요청하지 않고 담당자가 확인한 URL 문자열만 분석합니다.</p>
-          <div class="operation-flow"><span>검색 링크</span><i></i><span>URL 분석</span><i></i><span>중복·이력</span></div>
+          <p>{{ t("외부 사이트에 직접 요청하지 않고 담당자가 확인한 URL 문자열만 분석합니다.", "Only staff-verified URL strings are analyzed — no direct requests to external sites.") }}</p>
+          <div class="operation-flow"><span>{{ t("검색 링크", "Search links") }}</span><i></i><span>{{ t("URL 분석", "URL analysis") }}</span><i></i><span>{{ t("중복·이력", "Duplicates · history") }}</span></div>
         </article>
 
         <article class="operation-case">
           <div class="operation-title">
             <span><ClipboardCheck class="h-4 w-4" /></span>
-            <div><small>Case 02</small><strong>학교 방문 점검</strong></div>
+            <div><small>Case 02</small><strong>{{ t("학교 방문 점검", "On-site school inspections") }}</strong></div>
           </div>
-          <p>종이 점검을 일정과 대상, 미점검 사유와 재점검 회차까지 이어지는 흐름으로 바꿨습니다.</p>
-          <div class="operation-flow"><span>일정·대상</span><i></i><span>현장 점검</span><i></i><span>재점검·결과</span></div>
+          <p>{{ t("종이 점검을 일정과 대상, 미점검 사유와 재점검 회차까지 이어지는 흐름으로 바꿨습니다.", "Paper inspections became a connected flow: schedules, targets, missed reasons, and re-inspection rounds.") }}</p>
+          <div class="operation-flow"><span>{{ t("일정·대상", "Schedule · targets") }}</span><i></i><span>{{ t("현장 점검", "Field inspection") }}</span><i></i><span>{{ t("재점검·결과", "Re-inspection · results") }}</span></div>
         </article>
       </div>
 
       <div class="story-scope">
-        <span><QrCode class="h-4 w-4" /> QR 발급</span>
-        <span><MessageSquareText class="h-4 w-4" /> 안내 메시지</span>
-        <span><ServerCog class="h-4 w-4" /> 공통 연계</span>
+        <span><QrCode class="h-4 w-4" /> {{ t("QR 발급", "QR issuance") }}</span>
+        <span><MessageSquareText class="h-4 w-4" /> {{ t("안내 메시지", "Notifications") }}</span>
+        <span><ServerCog class="h-4 w-4" /> {{ t("공통 연계", "Shared integrations") }}</span>
       </div>
     </div>
 
@@ -96,16 +98,17 @@
       <section class="story-lead">
         <span class="story-lead-icon"><Workflow class="h-5 w-5" /></span>
         <div>
-          <p>2026.08 새 저장소 재설계</p>
-          <h3>계좌와 시장 데이터를<br />검증·운영 화면으로 연결</h3>
+          <p>{{ t("2026.08 새 저장소 재설계", "Redesigned in a new repo, Aug 2026") }}</p>
+          <h3 v-if="isEn">Account and market data<br />wired to validation & operations</h3>
+          <h3 v-else>계좌와 시장 데이터를<br />검증·운영 화면으로 연결</h3>
         </div>
       </section>
 
-      <div class="reachrich-pipeline" aria-label="ReachRich 데이터와 운영 흐름">
+      <div class="reachrich-pipeline" :aria-label="t('ReachRich 데이터와 운영 흐름', 'ReachRich data and operations flow')">
         <article>
           <span><WalletCards class="h-4 w-4" /></span>
           <small>Collect</small>
-          <strong>토스·KRX</strong>
+          <strong>{{ t("토스·KRX", "Toss · KRX") }}</strong>
         </article>
         <ArrowRight class="reachrich-arrow h-4 w-4" />
         <article>
@@ -117,13 +120,13 @@
         <article>
           <span><ShieldCheck class="h-4 w-4" /></span>
           <small>Validate</small>
-          <strong>검증·모의운용</strong>
+          <strong>{{ t("검증·모의운용", "Validation · paper trading") }}</strong>
         </article>
         <ArrowRight class="reachrich-arrow h-4 w-4" />
         <article>
           <span><Monitor class="h-4 w-4" /></span>
           <small>Observe</small>
-          <strong>React 콘솔</strong>
+          <strong>{{ t("React 콘솔", "React console") }}</strong>
         </article>
       </div>
 
@@ -131,17 +134,17 @@
         <article>
           <span>Backend</span>
           <strong>116 tests</strong>
-          <p>pytest 통과</p>
+          <p>{{ t("pytest 통과", "pytest passing") }}</p>
         </article>
         <article>
           <span>Frontend</span>
           <strong>75 tests</strong>
-          <p>Vitest·빌드 통과</p>
+          <p>{{ t("Vitest·빌드 통과", "Vitest · build passing") }}</p>
         </article>
         <article>
           <span>Automation</span>
           <strong>3 workflows</strong>
-          <p>CI·점검·모의운용</p>
+          <p>{{ t("CI·점검·모의운용", "CI · checks · paper trading") }}</p>
         </article>
       </div>
     </div>
@@ -166,6 +169,8 @@ import {
   Workflow,
 } from "@lucide/vue";
 
+import { isEn, t } from "@/i18n/locale";
+
 const props = withDefaults(defineProps<{ projectId: string; compact?: boolean }>(), { compact: false });
 const projectName = computed(() => {
   if (props.projectId === "pps") return "PPS";
@@ -173,7 +178,9 @@ const projectName = computed(() => {
   return "ReachRich";
 });
 const storyNote = computed(() =>
-  props.projectId === "reachrich" ? "개인 프로젝트 · 개발 중" : "실제 업무 기준 요약"
+  props.projectId === "reachrich"
+    ? t("개인 프로젝트 · 개발 중", "Personal project · in progress")
+    : t("실제 업무 기준 요약", "Summary of real production work")
 );
 </script>
 

@@ -16,7 +16,7 @@
         <div class="mb-7 flex items-center gap-5">
           <img
             src="/my-photo-224.webp"
-            alt="권용재 프로필 사진"
+            :alt="t('권용재 프로필 사진', 'Portrait of Yongjae Kwon')"
             width="112"
             height="112"
             loading="eager"
@@ -40,7 +40,7 @@
         </p>
 
         <div class="hero-enter hero-enter-d5 mt-7">
-          <p class="text-muted mb-3 text-xs font-bold tracking-[0.08em]">직무별 보기</p>
+          <p class="text-muted mb-3 text-xs font-bold tracking-[0.08em]">{{ t("직무별 보기", "View by role") }}</p>
           <FocusTabs />
         </div>
 
@@ -50,7 +50,7 @@
             class="focus-ring fresh-button inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-black transition hover:-translate-y-0.5 hover:brightness-105"
             @click="emit('scroll-to-section', 'experience')"
           >
-            개발 경험 보기
+            {{ t("개발 경험 보기", "See my experience") }}
             <ArrowRight class="h-4 w-4" />
           </button>
           <a class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5" :href="profile.github" target="_blank" rel="noreferrer">
@@ -62,7 +62,7 @@
             :href="profile.resume"
             download="Yongjae-Kwon-Resume.pdf"
           >
-            이력서
+            {{ t("이력서", "Resume") }}
             <FileDown class="h-4 w-4" />
           </a>
           <a class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5" href="#contact">
@@ -81,9 +81,9 @@
               {{ activeTrackData.label }}
             </span>
           </div>
-          <h2 class="text-primary mt-5 text-2xl font-black leading-9 md:text-3xl">현재 맡고 있는 업무</h2>
+          <h2 class="text-primary mt-5 text-2xl font-black leading-9 md:text-3xl">{{ t("현재 맡고 있는 업무", "What I'm working on") }}</h2>
           <p class="text-muted mt-3 text-sm leading-6 md:text-base md:leading-7">
-            운영팀과 필요한 기능을 정리하고, 개발한 기능의 검수와 배포까지 맡고 있습니다.
+            {{ t("운영팀과 필요한 기능을 정리하고, 개발한 기능의 검수와 배포까지 맡고 있습니다.", "I shape features with the operations team, then own the UAT and deployment of what I build.") }}
           </p>
 
           <div class="mt-7 grid gap-3">
@@ -99,7 +99,7 @@
           </div>
 
           <div class="mt-7 border-t border-[var(--fresh-border)] pt-5">
-            <p class="text-muted text-xs font-bold">주요 기술</p>
+            <p class="text-muted text-xs font-bold">{{ t("주요 기술", "Key technologies") }}</p>
             <div class="mt-3 flex flex-wrap gap-2">
               <span v-for="tech in activeScope.tech" :key="tech" class="rounded-full border border-[var(--fresh-border)] bg-white/75 px-3 py-1.5 text-xs font-bold text-secondary shadow-sm">
                 {{ tech }}
@@ -118,6 +118,7 @@ import { ArrowRight, ExternalLink, FileDown, Layers3, Mail, MessagesSquare, Rock
 import FocusTabs from "@/components/FocusTabs.vue";
 import { focusTracks, profile, type FocusTrackId } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";
+import { t } from "@/i18n/locale";
 
 const emit = defineEmits<{ "scroll-to-section": [id: string] }>();
 const { activeTrack } = useFocusTrack();
@@ -127,25 +128,52 @@ const scopeIcons = [MessagesSquare, Layers3, Rocket];
 const scopeByTrack: Record<FocusTrackId, { items: Array<{ title: string; description: string }>; tech: string[] }> = {
   all: {
     items: [
-      { title: "요구사항 협의", description: "운영팀·현업 담당자와 필요한 기능과 개발 일정을 정리합니다." },
-      { title: "화면·서버 개발", description: "업무 화면과 서버 기능을 만들고 필요한 SQL을 작성합니다." },
-      { title: "검수·배포", description: "담당자 검수를 거쳐 개발·운영 서버에 반영하고 결과를 확인합니다." },
+      {
+        title: t("요구사항 협의", "Requirements"),
+        description: t("운영팀·현업 담당자와 필요한 기능과 개발 일정을 정리합니다.", "I shape needed features and schedules with operations and business staff."),
+      },
+      {
+        title: t("화면·서버 개발", "UI & server development"),
+        description: t("업무 화면과 서버 기능을 만들고 필요한 SQL을 작성합니다.", "I build business screens and server features, writing the SQL they need."),
+      },
+      {
+        title: t("검수·배포", "UAT & deployment"),
+        description: t("담당자 검수를 거쳐 개발·운영 서버에 반영하고 결과를 확인합니다.", "After stakeholder review, I deploy to dev and production and verify the results."),
+      },
     ],
     tech: ["JavaScript", "Vue", "WebSquare", "Java", "Spring", "MyBatis", "Tomcat", "Linux", "Jenkins"],
   },
   frontend: {
     items: [
-      { title: "업무 화면 개발", description: "Vue와 WebSquare로 조회·등록·수정이 필요한 관리 화면을 만듭니다." },
-      { title: "상태·입력 처리", description: "권한과 진행 상태에 따라 입력 조건과 버튼을 나누고 오류 내용을 표시합니다." },
-      { title: "API 연동", description: "서버 응답과 화면 데이터를 맞추고 조회·저장 결과를 확인합니다." },
+      {
+        title: t("업무 화면 개발", "Business screens"),
+        description: t("Vue와 WebSquare로 조회·등록·수정이 필요한 관리 화면을 만듭니다.", "I build admin screens for lookup, registration, and editing in Vue and WebSquare."),
+      },
+      {
+        title: t("상태·입력 처리", "State & input handling"),
+        description: t("권한과 진행 상태에 따라 입력 조건과 버튼을 나누고 오류 내용을 표시합니다.", "I split inputs and buttons by permission and progress state, and surface errors clearly."),
+      },
+      {
+        title: t("API 연동", "API integration"),
+        description: t("서버 응답과 화면 데이터를 맞추고 조회·저장 결과를 확인합니다.", "I align server responses with screen data and verify query and save results."),
+      },
     ],
     tech: ["JavaScript", "Vue", "WebSquare", "JSP", "jQuery"],
   },
   backend: {
     items: [
-      { title: "서버 기능 개발", description: "Java·Spring으로 조회·저장·검증과 업무 처리 기능을 개발합니다." },
-      { title: "데이터·외부 연계", description: "MyBatis SQL을 작성하고 외부 시스템과 필요한 데이터를 주고받습니다." },
-      { title: "배포·운영 확인", description: "Tomcat과 Linux 환경에 배포하고 로그와 DB 상태를 확인합니다." },
+      {
+        title: t("서버 기능 개발", "Server features"),
+        description: t("Java·Spring으로 조회·저장·검증과 업무 처리 기능을 개발합니다.", "I develop lookup, persistence, validation, and business logic in Java and Spring."),
+      },
+      {
+        title: t("데이터·외부 연계", "Data & integrations"),
+        description: t("MyBatis SQL을 작성하고 외부 시스템과 필요한 데이터를 주고받습니다.", "I write MyBatis SQL and exchange data with external systems."),
+      },
+      {
+        title: t("배포·운영 확인", "Deployment & operations"),
+        description: t("Tomcat과 Linux 환경에 배포하고 로그와 DB 상태를 확인합니다.", "I deploy to Tomcat/Linux environments and verify logs and DB state."),
+      },
     ],
     tech: ["Java", "Spring Boot", "Spring MVC", "MyBatis", "MariaDB", "Tomcat", "Linux", "Jenkins"],
   },

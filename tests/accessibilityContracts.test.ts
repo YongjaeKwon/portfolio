@@ -29,7 +29,7 @@ describe("accessibility contracts", () => {
 
     expect(navbar).toContain('ref="mobileMenuToggle"');
     expect(navbar).toContain(":aria-expanded=\"isMenuOpen\"");
-    expect(navbar).toContain(":aria-label=\"isMenuOpen ? '메뉴 닫기' : '메뉴 열기'\"");
+    expect(navbar).toContain(":aria-label=\"isMenuOpen ? t('메뉴 닫기', 'Close menu') : t('메뉴 열기', 'Open menu')\"");
     expect(selection).toMatch(
       /isMenuOpen\.value\s*=\s*false;[\s\S]*?await nextTick\(\);[\s\S]*?mobileMenuToggle\.value\?\.focus\(\{ preventScroll: true \}\);[\s\S]*?moveToSection\(section\);/,
     );
@@ -71,6 +71,6 @@ describe("accessibility contracts", () => {
 
   it("keeps the condensed career section labelled as career details", () => {
     const experience = readSource("../src/views/ExperienceView.vue");
-    expect(experience).toContain('class="section-title">경력 사항</h3>');
+    expect(experience).toContain('class="section-title">{{ t("경력 사항", "Work Experience") }}</h3>');
   });
 });

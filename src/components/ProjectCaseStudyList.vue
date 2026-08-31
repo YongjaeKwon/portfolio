@@ -3,10 +3,10 @@
     <div class="deep-cases-heading">
       <div>
         <p class="section-kicker">Case Studies</p>
-        <h4 :id="headingId" class="text-primary mt-2 text-xl font-black">상세 개발 사례</h4>
+        <h4 :id="headingId" class="text-primary mt-2 text-xl font-black">{{ t("상세 개발 사례", "Detailed Case Studies") }}</h4>
       </div>
       <p class="text-muted max-w-lg text-sm leading-6">
-        프로젝트에서 해결한 문제와 구현 과정을 사례별로 정리했습니다.
+        {{ t("프로젝트에서 해결한 문제와 구현 과정을 사례별로 정리했습니다.", "Problems solved in this project and how they were implemented, case by case.") }}
       </p>
     </div>
 
@@ -30,21 +30,21 @@
         <div class="deep-case-content">
           <div class="deep-case-context">
             <div class="deep-case-phase is-problem">
-              <span>문제</span>
+              <span>{{ t("문제", "Problem") }}</span>
               <p>{{ study.problem }}</p>
             </div>
             <div class="deep-case-phase is-constraint">
-              <span>제약</span>
+              <span>{{ t("제약", "Constraint") }}</span>
               <p>{{ study.constraint }}</p>
             </div>
             <div class="deep-case-phase is-decision">
-              <span>판단</span>
+              <span>{{ t("판단", "Decision") }}</span>
               <p>{{ study.decision }}</p>
             </div>
           </div>
 
           <section class="deep-case-implementation">
-            <h5 class="text-primary text-sm font-black">주요 구현</h5>
+            <h5 class="text-primary text-sm font-black">{{ t("주요 구현", "Key implementation") }}</h5>
             <ul class="mt-3 grid gap-2.5">
               <li
                 v-for="item in study.implementation"
@@ -59,7 +59,7 @@
           <div class="deep-case-outcome">
             <CircleCheckBig class="h-5 w-5 shrink-0" aria-hidden="true" />
             <div>
-              <span>결과</span>
+              <span>{{ t("결과", "Outcome") }}</span>
               <p>{{ study.outcome }}</p>
             </div>
           </div>
@@ -72,7 +72,7 @@
               </span>
               <span>{{ study.code.language }}</span>
             </figcaption>
-            <pre tabindex="0" :aria-label="`${study.title} 코드 예시`"><code>{{ study.code.content }}</code></pre>
+            <pre tabindex="0" :aria-label="t(`${study.title} 코드 예시`, `Code example: ${study.title}`)"><code>{{ study.code.content }}</code></pre>
             <p>{{ study.code.note }}</p>
           </figure>
         </div>
@@ -85,6 +85,7 @@
 import { computed } from "vue";
 import { ChevronDown, CircleCheckBig, Code2 } from "@lucide/vue";
 import { hasProjectCaseStudies, projectCaseStudies } from "@/data/caseStudies";
+import { t } from "@/i18n/locale";
 
 const props = defineProps<{ projectId: string }>();
 

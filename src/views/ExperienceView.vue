@@ -7,8 +7,8 @@
             <span class="section-index">02</span>
             <h2 class="section-kicker">Experience</h2>
           </div>
-          <h3 class="section-title">경력 사항</h3>
-          <p class="section-copy">현재 회사에서 담당하는 업무와 개발·운영해 온 시스템을 함께 정리했습니다.</p>
+          <h3 class="section-title">{{ t("경력 사항", "Work Experience") }}</h3>
+          <p class="section-copy">{{ t("현재 회사에서 담당하는 업무와 개발·운영해 온 시스템을 함께 정리했습니다.", "What I own at my current company, alongside the systems I've built and operated.") }}</p>
         </div>
         <FocusTabs />
       </div>
@@ -25,7 +25,7 @@
             <p class="text-secondary mt-5 max-w-3xl leading-7">{{ experience.description }}</p>
           </div>
 
-          <ul class="career-responsibilities grid gap-2 sm:grid-cols-3 lg:max-w-md lg:grid-cols-1" aria-label="담당 업무 요약">
+          <ul class="career-responsibilities grid gap-2 sm:grid-cols-3 lg:max-w-md lg:grid-cols-1" :aria-label="t('담당 업무 요약', 'Responsibilities summary')">
             <li v-for="item in experience.responsibilities" :key="item">
               <CheckCircle2 class="h-4 w-4 shrink-0 text-[var(--fresh-blue)]" aria-hidden="true" />
               <span>{{ item }}</span>
@@ -37,8 +37,8 @@
       <div class="reveal mt-14">
         <div class="mb-7 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
           <div>
-            <h3 class="text-primary text-2xl font-black">담당 시스템</h3>
-            <p class="text-muted mt-2 text-sm leading-6">회사에서 실제 운영 중인 두 시스템과 대표 개선 경험입니다.</p>
+            <h3 class="text-primary text-2xl font-black">{{ t("담당 시스템", "Systems I Own") }}</h3>
+            <p class="text-muted mt-2 text-sm leading-6">{{ t("회사에서 실제 운영 중인 두 시스템과 대표 개선 경험입니다.", "Two systems running in production at my company, with a highlighted improvement for each.") }}</p>
           </div>
           <span class="text-muted font-mono text-xs">PPS · TSMS</span>
         </div>
@@ -62,7 +62,7 @@
               <div class="flex flex-col py-1">
                 <div class="flex flex-wrap items-center justify-between gap-3">
                   <span class="rounded-full bg-[var(--fresh-blue-soft)] px-3 py-1.5 text-[10px] font-black text-[var(--fresh-blue-strong)]">
-                    실무 · 운영 중
+                    {{ t("실무 · 운영 중", "Production · Live") }}
                   </span>
                   <p class="text-secondary font-mono tnum text-xs font-semibold">{{ item.project.period }}</p>
                 </div>
@@ -78,16 +78,16 @@
 
                 <div v-if="item.detail.caseStudy" class="case-result mt-5 rounded-2xl p-4">
                   <div>
-                    <p class="case-step-label">문제</p>
+                    <p class="case-step-label">{{ t("문제", "Problem") }}</p>
                     <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.detail.caseStudy.problem }}</p>
                   </div>
                   <div class="case-result-divider mt-4 pt-4">
-                    <p class="case-step-label">개선 결과</p>
+                    <p class="case-step-label">{{ t("개선 결과", "Outcome") }}</p>
                     <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.detail.caseStudy.outcome[0] }}</p>
                   </div>
                 </div>
                 <div v-else class="case-result mt-5 rounded-2xl p-4">
-                  <p class="case-step-label">실제 운영</p>
+                  <p class="case-step-label">{{ t("실제 운영", "In Production") }}</p>
                   <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.card.result }}</p>
                 </div>
 
@@ -103,16 +103,16 @@
 
                 <div class="mt-auto flex flex-wrap items-center justify-between gap-4 pt-6">
                   <p class="text-muted text-xs font-bold">
-                    <span class="text-primary">담당</span>
+                    <span class="text-primary">{{ t("담당", "Scope") }}</span>
                     {{ item.card.workRange }}
                   </p>
                   <button
                     type="button"
                     class="focus-ring fresh-button inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold transition hover:gap-2.5"
-                    :aria-label="`${item.project.title} 상세 보기`"
+                    :aria-label="t(`${item.project.title} 상세 보기`, `View ${item.project.title} details`)"
                     @click="openDetail(item)"
                   >
-                    상세 보기
+                    {{ t("상세 보기", "View details") }}
                     <ArrowRight class="h-4 w-4" />
                   </button>
                 </div>
@@ -135,6 +135,7 @@ import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import ProjectDetailModal from "@/components/ProjectDetailModal.vue";
 import { useFocusTrack } from "@/composables/useFocusTrack";
 import { experience, featuredProjects, focusTracks } from "@/data/portfolio";
+import { t } from "@/i18n/locale";
 import { vTilt } from "@/directives/tilt";
 import { presentProject, type PresentedProject } from "@/utils/projectPresentation";
 

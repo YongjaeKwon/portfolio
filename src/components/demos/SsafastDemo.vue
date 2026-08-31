@@ -4,19 +4,19 @@
       <div>
         <div class="demo-eyebrow">
           <span class="demo-dot" aria-hidden="true"></span>
-          샘플 데이터 데모
+          {{ t("샘플 데이터 데모", "Sample-data demo") }}
         </div>
-        <h3 id="ssafast-demo-title">화면 선택부터 API 테스트까지</h3>
-        <p>팀의 Figma 화면을 불러오는 단계부터 API 명세 작성, 요청 확인과 테스트 결과까지 여섯 단계로 체험합니다.</p>
+        <h3 id="ssafast-demo-title">{{ t("화면 선택부터 API 테스트까지", "From screen selection to API testing") }}</h3>
+        <p>{{ t("팀의 Figma 화면을 불러오는 단계부터 API 명세 작성, 요청 확인과 테스트 결과까지 여섯 단계로 체험합니다.", "Six steps: import the team's Figma screens, write an API spec, preview the request, and review test results.") }}</p>
       </div>
-      <button class="button is-quiet" type="button" @click="resetFromHeader">데모 초기화</button>
+      <button class="button is-quiet" type="button" @click="resetFromHeader">{{ t("데모 초기화", "Reset demo") }}</button>
     </header>
 
     <div class="demo-notice" role="note">
       <span aria-hidden="true">ⓘ</span>
       <p>
-        <strong>공개 데모에서는 실제 API를 호출하거나 성능을 측정하지 않습니다.</strong>
-        Figma 화면과 입력 데이터는 브라우저 안의 샘플이며, 마지막 성능 수치는 입력 조건으로 생성한 시뮬레이션 예시입니다.
+        <strong>{{ t("공개 데모에서는 실제 API를 호출하거나 성능을 측정하지 않습니다.", "The public demo never calls real APIs or measures real performance.") }}</strong>
+        {{ t("Figma 화면과 입력 데이터는 브라우저 안의 샘플이며, 마지막 성능 수치는 입력 조건으로 생성한 시뮬레이션 예시입니다.", "Figma screens and inputs are in-browser samples, and the final performance numbers are simulated from your inputs.") }}
       </p>
     </div>
     <p v-if="storageWarning" class="storage-warning" role="alert">{{ storageWarning }}</p>
@@ -25,7 +25,7 @@
     <div class="guide-progress" aria-hidden="true">
       <span :style="{ width: `${guidedProgress}%` }"></span>
     </div>
-    <nav class="step-tabs" aria-label="SSAFAST 전체 기능 흐름">
+    <nav class="step-tabs" :aria-label="t('SSAFAST 전체 기능 흐름', 'SSAFAST full feature flow')">
       <button
         v-for="(item, index) in guidedSteps"
         :key="item.id"
@@ -49,14 +49,14 @@
           <h4 id="guide-step-title">{{ activeGuidedStep.label }}</h4>
         </div>
         <span :class="['ownership-badge', { 'is-team': activeGuidedStep.scope === 'team' }]">
-          {{ activeGuidedStep.scope === 'team' ? '원 프로젝트 · 팀 연동 기능' : '원 프로젝트 · Frontend 담당' }}
+          {{ activeGuidedStep.scope === 'team' ? t('원 프로젝트 · 팀 연동 기능', 'Original project · team-built integration') : t('원 프로젝트 · Frontend 담당', 'Original project · my frontend work') }}
         </span>
       </div>
       <dl class="guide-facts">
-        <div><dt>사용자 행동</dt><dd>{{ activeGuidedStep.action }}</dd></div>
-        <div><dt>화면 변화</dt><dd>{{ activeGuidedStep.change }}</dd></div>
-        <div><dt>원 프로젝트 구현</dt><dd>{{ activeGuidedStep.ownership }}</dd></div>
-        <div><dt>공개 데모 재현</dt><dd>{{ activeGuidedStep.demo }}</dd></div>
+        <div><dt>{{ t("사용자 행동", "User action") }}</dt><dd>{{ activeGuidedStep.action }}</dd></div>
+        <div><dt>{{ t("화면 변화", "Screen change") }}</dt><dd>{{ activeGuidedStep.change }}</dd></div>
+        <div><dt>{{ t("원 프로젝트 구현", "Built in the original") }}</dt><dd>{{ activeGuidedStep.ownership }}</dd></div>
+        <div><dt>{{ t("공개 데모 재현", "Re-created in this demo") }}</dt><dd>{{ activeGuidedStep.demo }}</dd></div>
       </dl>
     </section>
 
@@ -65,21 +65,20 @@
         <div class="panel-heading">
           <div>
             <span class="panel-kicker">Team Integration</span>
-            <h4 id="figma-import-title">Figma 파일에서 사용할 화면 선택</h4>
+            <h4 id="figma-import-title">{{ t("Figma 파일에서 사용할 화면 선택", "Pick the screens to use from the Figma file") }}</h4>
           </div>
-          <span class="team-feature-badge">팀 기능</span>
+          <span class="team-feature-badge">{{ t("팀 기능", "Team feature") }}</span>
         </div>
 
         <p class="figma-scope-note" role="note">
-          원 프로젝트에서는 Figma OAuth와 API로 파일·프레임 이미지를 조회했습니다. 이 연동은 팀원이 담당했으며,
-          공개 데모에서는 외부 요청 없이 같은 선택 흐름만 재현합니다.
+          {{ t("원 프로젝트에서는 Figma OAuth와 API로 파일·프레임 이미지를 조회했습니다. 이 연동은 팀원이 담당했으며, 공개 데모에서는 외부 요청 없이 같은 선택 흐름만 재현합니다.", "The original project fetched files and frame images through Figma OAuth and its API — an integration a teammate owned. The public demo re-creates only the selection flow, with no external requests.") }}
         </p>
 
         <div class="figma-url-row">
           <label class="field-label">
-            Figma 공유 링크
+            {{ t("Figma 공유 링크", "Figma share link") }}
             <input v-model="figmaDemoUrl" type="text" readonly aria-describedby="figma-url-help" />
-            <small id="figma-url-help">실제 주소가 아닌 공개 데모 전용 샘플 링크입니다.</small>
+            <small id="figma-url-help">{{ t("실제 주소가 아닌 공개 데모 전용 샘플 링크입니다.", "A sample link for the public demo — not a real URL.") }}</small>
           </label>
           <button
             class="button is-primary"
@@ -87,25 +86,25 @@
             :disabled="figmaImportState === 'loading'"
             @click="loadFigmaSample"
           >
-            {{ figmaImportState === 'loading' ? '샘플 화면 불러오는 중…' : figmaReady ? '샘플 화면 다시 불러오기' : '샘플 화면 불러오기' }}
+            {{ figmaImportState === 'loading' ? t('샘플 화면 불러오는 중…', 'Loading sample screens…') : figmaReady ? t('샘플 화면 다시 불러오기', 'Reload sample screens') : t('샘플 화면 불러오기', 'Load sample screens') }}
           </button>
         </div>
 
         <div v-if="figmaImportState === 'loading'" class="figma-loading" role="status" aria-live="polite">
           <span aria-hidden="true"></span>
-          Figma 파일 구조와 프레임 목록을 불러오는 과정을 재현하고 있습니다.
+          {{ t("Figma 파일 구조와 프레임 목록을 불러오는 과정을 재현하고 있습니다.", "Re-creating how the Figma file structure and frame list load.") }}
         </div>
 
         <template v-else-if="figmaReady">
           <div class="figma-file-summary" role="status">
             <div>
               <span class="figma-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-              <span><strong>SSAFAST Team UI</strong><small>샘플 파일 · 3개 프레임</small></span>
+              <span><strong>SSAFAST Team UI</strong><small>{{ t("샘플 파일 · 3개 프레임", "Sample file · 3 frames") }}</small></span>
             </div>
-            <span>불러오기 완료</span>
+            <span>{{ t("불러오기 완료", "Import complete") }}</span>
           </div>
 
-          <ul class="figma-frame-grid" aria-label="불러온 Figma 화면 목록">
+          <ul class="figma-frame-grid" :aria-label="t('불러온 Figma 화면 목록', 'Imported Figma screens')">
             <li
               v-for="frame in figmaFrames"
               :key="frame.id"
@@ -139,7 +138,7 @@
               <strong>{{ selectedFigmaFrame.name }}</strong>
               <small>{{ selectedFigmaFrame.description }}</small>
             </div>
-            <div class="figma-api-links" aria-label="선택 화면에 연결할 API 예시">
+            <div class="figma-api-links" :aria-label="t('선택 화면에 연결할 API 예시', 'Example APIs linked to the selected screen')">
               <span v-for="api in selectedFigmaFrame.apis" :key="api">{{ api }}</span>
             </div>
           </div>
@@ -147,21 +146,21 @@
 
         <div v-else class="figma-empty-state">
           <span class="figma-mark is-large" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-          <strong>아직 불러온 화면이 없습니다.</strong>
-          <p>샘플 파일을 불러오면 워크스페이스에서 사용할 프레임을 선택할 수 있습니다.</p>
+          <strong>{{ t("아직 불러온 화면이 없습니다.", "No screens imported yet.") }}</strong>
+          <p>{{ t("샘플 파일을 불러오면 워크스페이스에서 사용할 프레임을 선택할 수 있습니다.", "Load the sample file to pick the frames your workspace will use.") }}</p>
         </div>
       </div>
 
       <aside class="figma-flow-panel" aria-labelledby="figma-flow-title">
         <span class="panel-kicker">Original Flow</span>
-        <h4 id="figma-flow-title">원 프로젝트의 Figma 연동</h4>
+        <h4 id="figma-flow-title">{{ t("원 프로젝트의 Figma 연동", "Figma integration in the original project") }}</h4>
         <ol>
-          <li><span>01</span><div><strong>공유 URL 입력</strong><small>OAuth file_read 권한 확인</small></div></li>
-          <li><span>02</span><div><strong>파일·프레임 조회</strong><small>Figma API로 이미지와 이름 조회</small></div></li>
-          <li><span>03</span><div><strong>사용 화면 선택</strong><small>워크스페이스에 프레임 저장</small></div></li>
-          <li><span>04</span><div><strong>API 명세 연결</strong><small>화면별 필요한 API를 함께 확인</small></div></li>
+          <li><span>01</span><div><strong>{{ t("공유 URL 입력", "Enter share URL") }}</strong><small>{{ t("OAuth file_read 권한 확인", "OAuth file_read permission check") }}</small></div></li>
+          <li><span>02</span><div><strong>{{ t("파일·프레임 조회", "Fetch file & frames") }}</strong><small>{{ t("Figma API로 이미지와 이름 조회", "Images and names via the Figma API") }}</small></div></li>
+          <li><span>03</span><div><strong>{{ t("사용 화면 선택", "Select screens") }}</strong><small>{{ t("워크스페이스에 프레임 저장", "Frames saved to the workspace") }}</small></div></li>
+          <li><span>04</span><div><strong>{{ t("API 명세 연결", "Link API specs") }}</strong><small>{{ t("화면별 필요한 API를 함께 확인", "APIs needed per screen shown together") }}</small></div></li>
         </ol>
-        <p>Figma OAuth·API 연동은 팀원이 담당했습니다. 저는 API 명세 동적 폼과 요청·성능 테스트 화면을 주로 개발했고, 화면별 API 연결 목록 리팩터링에 참여했습니다.</p>
+        <p>{{ t("Figma OAuth·API 연동은 팀원이 담당했습니다. 저는 API 명세 동적 폼과 요청·성능 테스트 화면을 주로 개발했고, 화면별 API 연결 목록 리팩터링에 참여했습니다.", "A teammate owned the Figma OAuth/API integration. I mainly built the dynamic spec form and the request/performance testing screens, and contributed to refactoring the per-screen API link list.") }}</p>
       </aside>
     </section>
 
@@ -171,24 +170,24 @@
     >
       <div v-if="selectedFigmaFrame" class="connected-frame-banner">
         <span class="figma-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-        <span><small>연결 화면</small><strong>{{ selectedFigmaFrame.name }}</strong></span>
+        <span><small>{{ t("연결 화면", "Linked screen") }}</small><strong>{{ selectedFigmaFrame.name }}</strong></span>
         <span>{{ selectedFigmaFrame.nodeId }}</span>
       </div>
       <form class="spec-form" novalidate @submit.prevent="saveSpec">
         <div class="panel-heading">
           <div>
             <span class="panel-kicker">API Specification</span>
-            <h4>{{ editingId ? '저장된 명세 편집' : '새 API 명세 작성' }}</h4>
+            <h4>{{ editingId ? t('저장된 명세 편집', 'Edit saved spec') : t('새 API 명세 작성', 'Write a new API spec') }}</h4>
           </div>
           <button v-if="editingId" class="text-button" type="button" @click="startNewSpec">
-            새 명세
+            {{ t("새 명세", "New spec") }}
           </button>
         </div>
 
         <div class="endpoint-grid">
           <label class="field-label">
-            명세 이름
-            <input v-model.trim="draft.name" type="text" maxlength="40" placeholder="예: 사용자 조회" />
+            {{ t("명세 이름", "Spec name") }}
+            <input v-model.trim="draft.name" type="text" maxlength="40" :placeholder="t('예: 사용자 조회', 'e.g. Get user')" />
           </label>
           <label class="field-label is-method">
             Method
@@ -206,12 +205,12 @@
               placeholder="/api/users/{id}"
               aria-describedby="path-hint"
             />
-            <small id="path-hint">외부 주소가 아닌 /로 시작하는 경로만 입력할 수 있습니다.</small>
+            <small id="path-hint">{{ t("외부 주소가 아닌 /로 시작하는 경로만 입력할 수 있습니다.", "Only paths starting with / are allowed — no external URLs.") }}</small>
           </label>
         </div>
 
         <div class="field-editor">
-          <div class="field-tabs" role="tablist" aria-label="명세 필드 종류">
+          <div class="field-tabs" role="tablist" :aria-label="t('명세 필드 종류', 'Spec field groups')">
             <button
               v-for="group in fieldGroups"
               :id="`field-tab-${group.id}`"
@@ -235,75 +234,75 @@
             :aria-labelledby="`field-tab-${activeGroup}`"
           >
             <p v-if="guidedStep === 2 && activeGroup === 'body'" class="nested-guide-note">
-              <strong>중첩 구조 예시</strong>
-              점(.)으로 하위 경로를 표현하고 object·array 타입을 조합해 요청 모델을 구성합니다.
+              <strong>{{ t("중첩 구조 예시", "Nested structure example") }}</strong>
+              {{ t("점(.)으로 하위 경로를 표현하고 object·array 타입을 조합해 요청 모델을 구성합니다.", "Use dots (.) for sub-paths and combine object/array types to shape the request model.") }}
             </p>
             <template v-if="activeGroup !== 'responses'">
               <div class="row-labels" aria-hidden="true">
-                <span>필드명</span><span>타입</span><span>설명</span><span>필수</span><span></span>
+                <span>{{ t("필드명", "Field") }}</span><span>{{ t("타입", "Type") }}</span><span>{{ t("설명", "Description") }}</span><span>{{ t("필수", "Required") }}</span><span></span>
               </div>
               <div v-if="activeRequestRows.length" class="repeat-list">
                 <div v-for="(row, index) in activeRequestRows" :key="row.id" class="repeat-row">
                   <label>
-                    <span class="sr-only">{{ activeGroupLabel }} {{ index + 1 }} 필드명</span>
-                    <input v-model.trim="row.name" type="text" maxlength="36" placeholder="필드명" />
+                    <span class="sr-only">{{ t(`${activeGroupLabel} ${index + 1} 필드명`, `${activeGroupLabel} ${index + 1} field name`) }}</span>
+                    <input v-model.trim="row.name" type="text" maxlength="36" :placeholder="t('필드명', 'Field name')" />
                   </label>
                   <label>
-                    <span class="sr-only">{{ activeGroupLabel }} {{ index + 1 }} 타입</span>
+                    <span class="sr-only">{{ t(`${activeGroupLabel} ${index + 1} 타입`, `${activeGroupLabel} ${index + 1} type`) }}</span>
                     <select v-model="row.type">
                       <option v-for="type in fieldTypes" :key="type" :value="type">{{ type }}</option>
                     </select>
                   </label>
                   <label>
-                    <span class="sr-only">{{ activeGroupLabel }} {{ index + 1 }} 설명</span>
-                    <input v-model.trim="row.description" type="text" maxlength="60" placeholder="필드 설명" />
+                    <span class="sr-only">{{ t(`${activeGroupLabel} ${index + 1} 설명`, `${activeGroupLabel} ${index + 1} description`) }}</span>
+                    <input v-model.trim="row.description" type="text" maxlength="60" :placeholder="t('필드 설명', 'Field description')" />
                   </label>
                   <label class="required-check">
                     <input v-model="row.required" type="checkbox" />
-                    <span>필수</span>
+                    <span>{{ t("필수", "Required") }}</span>
                   </label>
-                  <button class="icon-button" type="button" :aria-label="`${activeGroupLabel} ${index + 1} 삭제`" @click="removeRequestRow(index)">
+                  <button class="icon-button" type="button" :aria-label="t(`${activeGroupLabel} ${index + 1} 삭제`, `Remove ${activeGroupLabel} ${index + 1}`)" @click="removeRequestRow(index)">
                     ×
                   </button>
                 </div>
               </div>
-              <div v-else class="empty-row">아직 등록한 필드가 없습니다.</div>
-              <button class="add-button" type="button" @click="addRequestRow">+ {{ activeGroupLabel }} 추가</button>
+              <div v-else class="empty-row">{{ t("아직 등록한 필드가 없습니다.", "No fields registered yet.") }}</div>
+              <button class="add-button" type="button" @click="addRequestRow">{{ t(`+ ${activeGroupLabel} 추가`, `+ Add ${activeGroupLabel}`) }}</button>
             </template>
 
             <template v-else>
               <div class="row-labels is-response" aria-hidden="true">
-                <span>Status</span><span>설명</span><span></span>
+                <span>Status</span><span>{{ t("설명", "Description") }}</span><span></span>
               </div>
               <div class="repeat-list">
                 <div v-for="(row, index) in draft.responses" :key="row.id" class="repeat-row is-response">
                   <label>
-                    <span class="sr-only">응답 {{ index + 1 }} 상태 코드</span>
+                    <span class="sr-only">{{ t(`응답 ${index + 1} 상태 코드`, `Response ${index + 1} status code`) }}</span>
                     <input v-model.trim="row.status" type="text" inputmode="numeric" maxlength="3" placeholder="200" />
                   </label>
                   <label>
-                    <span class="sr-only">응답 {{ index + 1 }} 설명</span>
-                    <input v-model.trim="row.description" type="text" maxlength="60" placeholder="응답 설명" />
+                    <span class="sr-only">{{ t(`응답 ${index + 1} 설명`, `Response ${index + 1} description`) }}</span>
+                    <input v-model.trim="row.description" type="text" maxlength="60" :placeholder="t('응답 설명', 'Response description')" />
                   </label>
                   <button
                     class="icon-button"
                     type="button"
                     :disabled="row.status === '200'"
-                    :aria-label="row.status === '200' ? '필수 성공 응답은 삭제할 수 없음' : `응답 ${index + 1} 삭제`"
+                    :aria-label="row.status === '200' ? t('필수 성공 응답은 삭제할 수 없음', 'The required success response cannot be removed') : t(`응답 ${index + 1} 삭제`, `Remove response ${index + 1}`)"
                     @click="removeResponse(index)"
                   >
                     ×
                   </button>
                 </div>
               </div>
-              <div class="response-help">성공 응답 200은 한 개만 등록할 수 있으며 삭제할 수 없습니다.</div>
-              <button class="add-button" type="button" @click="addResponse">+ Response 추가</button>
+              <div class="response-help">{{ t("성공 응답 200은 한 개만 등록할 수 있으며 삭제할 수 없습니다.", "Exactly one 200 success response is allowed, and it can't be removed.") }}</div>
+              <button class="add-button" type="button" @click="addResponse">{{ t("+ Response 추가", "+ Add Response") }}</button>
             </template>
           </div>
         </div>
 
         <div v-if="formErrors.length" class="validation-box" role="alert">
-          <strong>입력 내용을 확인해 주세요.</strong>
+          <strong>{{ t("입력 내용을 확인해 주세요.", "Please review your input.") }}</strong>
           <ul>
             <li v-for="error in formErrors" :key="error">{{ error }}</li>
           </ul>
@@ -312,7 +311,7 @@
         <div class="form-actions">
           <span v-if="savedMessage" class="save-message" role="status">{{ savedMessage }}</span>
           <button class="button is-primary" type="submit">
-            {{ editingId ? '변경사항 저장' : '명세 저장' }}
+            {{ editingId ? t('변경사항 저장', 'Save changes') : t('명세 저장', 'Save spec') }}
           </button>
         </div>
       </form>
@@ -321,7 +320,7 @@
         <div class="panel-heading">
           <div>
             <span class="panel-kicker">Local storage</span>
-            <h4 id="saved-specs-title">저장된 명세</h4>
+            <h4 id="saved-specs-title">{{ t("저장된 명세", "Saved specs") }}</h4>
           </div>
           <span class="count-badge">{{ specs.length }}</span>
         </div>
@@ -340,24 +339,24 @@
               </span>
             </button>
             <div class="saved-card-actions">
-              <button type="button" @click="editSpec(spec)">편집</button>
-              <button type="button" @click="removeSpec(spec.id)">삭제</button>
+              <button type="button" @click="editSpec(spec)">{{ t("편집", "Edit") }}</button>
+              <button type="button" @click="removeSpec(spec.id)">{{ t("삭제", "Delete") }}</button>
             </div>
           </article>
         </div>
         <div v-else class="empty-state">
-          <strong>저장된 명세가 없습니다.</strong>
-          <p>첫 API 명세를 저장하면 구조 요약과 예시 결과 단계가 활성화됩니다.</p>
+          <strong>{{ t("저장된 명세가 없습니다.", "No saved specs.") }}</strong>
+          <p>{{ t("첫 API 명세를 저장하면 구조 요약과 예시 결과 단계가 활성화됩니다.", "Save your first API spec to unlock the structure summary and example-result steps.") }}</p>
         </div>
 
         <div v-if="selectedSpec" class="json-preview">
           <div class="json-header">
-            <span>요청 미리보기</span>
+            <span>{{ t("요청 미리보기", "Request preview") }}</span>
             <span>{{ selectedSpec.method }} {{ selectedSpec.path }}</span>
           </div>
-          <pre tabindex="0" aria-label="선택된 API 요청 JSON 미리보기"><code>{{ selectedSpecSummary }}</code></pre>
+          <pre tabindex="0" :aria-label="t('선택된 API 요청 JSON 미리보기', 'JSON preview of the selected API request')"><code>{{ selectedSpecSummary }}</code></pre>
           <button class="button is-secondary is-full" type="button" @click="goToLoadTest">
-            테스트 실행 단계로 이동 →
+            {{ t("테스트 실행 단계로 이동 →", "Go to the test step →") }}
           </button>
         </div>
       </aside>
@@ -368,13 +367,13 @@
         <div class="panel-heading">
           <div>
             <span class="panel-kicker">Simulation Setup</span>
-            <h4 id="load-config-title">테스트 실행 조건</h4>
+            <h4 id="load-config-title">{{ t("테스트 실행 조건", "Test run conditions") }}</h4>
           </div>
-          <span class="simulation-badge">시뮬레이션 · 외부 요청 없음</span>
+          <span class="simulation-badge">{{ t("시뮬레이션 · 외부 요청 없음", "Simulation · no external requests") }}</span>
         </div>
 
         <p class="simulation-callout" role="note">
-          이 버튼은 실제 서버 부하 테스트를 실행하지 않습니다. 입력한 조건으로 예시 응답 시간과 처리량을 생성합니다.
+          {{ t("이 버튼은 실제 서버 부하 테스트를 실행하지 않습니다. 입력한 조건으로 예시 응답 시간과 처리량을 생성합니다.", "This button runs no real load test — it generates example latencies and throughput from your inputs.") }}
         </p>
 
         <div v-if="specs.length" class="spec-picker">
@@ -385,34 +384,34 @@
           </label>
         </div>
         <div v-else class="empty-state is-large">
-          <strong>먼저 API 명세를 저장해 주세요.</strong>
-          <p>저장된 명세와 입력 조건을 바탕으로만 예시 결과를 만들 수 있습니다.</p>
-          <button class="button is-secondary" type="button" @click="setGuidedStepView(1)">명세 작성하기</button>
+          <strong>{{ t("먼저 API 명세를 저장해 주세요.", "Save an API spec first.") }}</strong>
+          <p>{{ t("저장된 명세와 입력 조건을 바탕으로만 예시 결과를 만들 수 있습니다.", "Example results can only be generated from a saved spec and your input conditions.") }}</p>
+          <button class="button is-secondary" type="button" @click="setGuidedStepView(1)">{{ t("명세 작성하기", "Write a spec") }}</button>
         </div>
 
         <template v-if="selectedSpec">
           <div class="load-inputs">
             <label class="field-label">
-              초당 요청 수
+              {{ t("초당 요청 수", "Requests per second") }}
               <input v-model.number="loadConfig.rate" type="number" min="1" max="500" step="1" :disabled="isRunning" />
               <small>1–500 req/s</small>
             </label>
             <label class="field-label">
-              실행 시간
+              {{ t("실행 시간", "Duration") }}
               <input v-model.number="loadConfig.duration" type="number" min="5" max="60" step="5" :disabled="isRunning" />
-              <small>5–60초 (화면에서는 빠르게 재생)</small>
+              <small>{{ t("5–60초 (화면에서는 빠르게 재생)", "5–60s (played back quickly on screen)") }}</small>
             </label>
           </div>
 
           <div v-if="isRunning || progress > 0" class="progress-panel" aria-live="polite">
             <div class="progress-meta">
-              <strong>{{ isRunning ? '예시 결과 생성 중' : '예시 결과 생성 완료' }}</strong>
+              <strong>{{ isRunning ? t('예시 결과 생성 중', 'Generating example results') : t('예시 결과 생성 완료', 'Example results ready') }}</strong>
               <span>{{ progress }}%</span>
             </div>
             <div
               class="progress-track"
               role="progressbar"
-              aria-label="예시 성능 결과 생성 진행률"
+              :aria-label="t('예시 성능 결과 생성 진행률', 'Example performance result progress')"
               :aria-valuenow="progress"
               aria-valuemin="0"
               aria-valuemax="100"
@@ -423,7 +422,7 @@
           </div>
 
           <button class="button is-primary is-full" type="button" :disabled="isRunning" @click="runLoadTest">
-            {{ isRunning ? '시뮬레이션 실행 중…' : '시뮬레이션 실행' }}
+            {{ isRunning ? t('시뮬레이션 실행 중…', 'Running simulation…') : t('시뮬레이션 실행', 'Run simulation') }}
           </button>
         </template>
       </section>
@@ -432,9 +431,9 @@
         <div class="panel-heading">
           <div>
             <span class="panel-kicker">Simulated Result</span>
-            <h4 id="result-title">응답·성능 예시</h4>
+            <h4 id="result-title">{{ t("응답·성능 예시", "Response & performance examples") }}</h4>
           </div>
-          <span v-if="latestRun" class="count-badge is-success">완료</span>
+          <span v-if="latestRun" class="count-badge is-success">{{ t("완료", "Done") }}</span>
         </div>
 
         <template v-if="latestRun">
@@ -446,20 +445,20 @@
             <div><span>p50</span><strong>{{ latestRun.result.p50 }}<small>ms</small></strong></div>
             <div><span>p95</span><strong>{{ latestRun.result.p95 }}<small>ms</small></strong></div>
             <div><span>p99</span><strong>{{ latestRun.result.p99 }}<small>ms</small></strong></div>
-            <div><span>처리량</span><strong>{{ latestRun.result.throughput }}<small>req/s</small></strong></div>
+            <div><span>{{ t("처리량", "Throughput") }}</span><strong>{{ latestRun.result.throughput }}<small>req/s</small></strong></div>
           </div>
           <div class="status-summary">
             <div><span class="status-dot is-ok"></span>2xx <strong>{{ latestRun.result.success }}</strong></div>
             <div><span class="status-dot is-error"></span>5xx <strong>{{ latestRun.result.failed }}</strong></div>
-            <span>총 {{ latestRun.result.total.toLocaleString() }}건</span>
+            <span>{{ t(`총 ${latestRun.result.total.toLocaleString()}건`, `${latestRun.result.total.toLocaleString()} total`) }}</span>
           </div>
           <p class="result-caption">
-            실제 측정값이 아닌 공개 데모용 시뮬레이션입니다. 같은 명세와 조건에는 동일한 예시 결과가 생성됩니다.
+            {{ t("실제 측정값이 아닌 공개 데모용 시뮬레이션입니다. 같은 명세와 조건에는 동일한 예시 결과가 생성됩니다.", "A public-demo simulation, not real measurements. The same spec and conditions always produce the same example results.") }}
           </p>
         </template>
         <div v-else class="empty-state is-large">
-          <strong>아직 생성한 결과가 없습니다.</strong>
-          <p>저장한 API를 선택하고 예시 결과를 만들어 보세요.</p>
+          <strong>{{ t("아직 생성한 결과가 없습니다.", "No results generated yet.") }}</strong>
+          <p>{{ t("저장한 API를 선택하고 예시 결과를 만들어 보세요.", "Pick a saved API and generate example results.") }}</p>
         </div>
       </section>
 
@@ -467,17 +466,17 @@
         <div class="panel-heading">
           <div>
             <span class="panel-kicker">History</span>
-            <h4 id="history-title">생성 이력</h4>
+            <h4 id="history-title">{{ t("생성 이력", "Run history") }}</h4>
           </div>
           <span class="count-badge">{{ runs.length }}</span>
         </div>
         <div class="history-table-wrap">
           <table>
-            <thead><tr><th>API</th><th>조건</th><th>p95</th><th>처리량</th><th>성공률</th></tr></thead>
+            <thead><tr><th>API</th><th>{{ t("조건", "Conditions") }}</th><th>p95</th><th>{{ t("처리량", "Throughput") }}</th><th>{{ t("성공률", "Success rate") }}</th></tr></thead>
             <tbody>
               <tr v-for="run in runs" :key="run.id">
                 <td><strong>{{ run.specName }}</strong><code>{{ run.method }} {{ run.path }}</code></td>
-                <td>{{ run.rate }} req/s · {{ run.duration }}초</td>
+                <td>{{ run.rate }} req/s · {{ run.duration }}{{ t("초", "s") }}</td>
                 <td>{{ run.result.p95 }}ms</td>
                 <td>{{ run.result.throughput }} req/s</td>
                 <td>{{ successRate(run) }}%</td>
@@ -488,14 +487,14 @@
       </section>
     </div>
 
-    <footer class="guided-footer" aria-label="데모 단계 이동">
+    <footer class="guided-footer" :aria-label="t('데모 단계 이동', 'Demo step navigation')">
       <button
         class="button is-quiet"
         type="button"
         :disabled="guidedStep === 0 || isRunning"
         @click="moveToPreviousStep"
       >
-        ← 이전 단계
+        {{ t("← 이전 단계", "← Previous step") }}
       </button>
       <p>{{ guidedStep + 1 }} / {{ guidedSteps.length }} · {{ activeGuidedStep.label }}</p>
       <button class="button is-primary" type="button" :disabled="nextStepDisabled" @click="moveToNextStep">
@@ -507,6 +506,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from "vue";
+import { t } from "@/i18n/locale";
 
 type Stage = "figma" | "spec" | "load";
 type FieldGroupId = "headers" | "queries" | "body" | "responses";
@@ -602,93 +602,93 @@ const figmaFrames: FigmaFrame[] = [
   {
     id: "workspace-create",
     nodeId: "12:104",
-    name: "워크스페이스 생성",
-    description: "프로젝트 정보와 사용할 Figma 화면을 선택하는 시작 화면",
+    name: t("워크스페이스 생성", "Create workspace"),
+    description: t("프로젝트 정보와 사용할 Figma 화면을 선택하는 시작 화면", "The starting screen for project info and picking Figma screens"),
     visual: "workspace",
-    apis: ["프로젝트 생성", "선택 화면 저장"],
+    apis: [t("프로젝트 생성", "Create project"), t("선택 화면 저장", "Save selected screens")],
   },
   {
     id: "api-specification",
     nodeId: "18:207",
-    name: "API 명세 작성",
-    description: "요청·응답 필드를 조합해 API 명세를 만드는 작업 화면",
+    name: t("API 명세 작성", "Write API spec"),
+    description: t("요청·응답 필드를 조합해 API 명세를 만드는 작업 화면", "The working screen for composing request/response fields into a spec"),
     visual: "spec",
-    apis: ["API 명세 저장", "요청 필드 구성"],
+    apis: [t("API 명세 저장", "Save API spec"), t("요청 필드 구성", "Compose request fields")],
   },
   {
     id: "api-testing",
     nodeId: "24:318",
-    name: "API 테스트",
-    description: "작성한 명세로 요청과 성능 테스트 결과를 확인하는 화면",
+    name: t("API 테스트", "API testing"),
+    description: t("작성한 명세로 요청과 성능 테스트 결과를 확인하는 화면", "The screen for running requests and reviewing performance results from your spec"),
     visual: "testing",
-    apis: ["API 요청", "테스트 결과 조회"],
+    apis: [t("API 요청", "API request"), t("테스트 결과 조회", "View test results")],
   },
 ];
 const guidedSteps: GuidedStep[] = [
   {
     id: "figma",
     number: "01",
-    label: "Figma 화면 선택",
+    label: t("Figma 화면 선택", "Select Figma screens"),
     eyebrow: "Team Integration",
-    action: "공개용 샘플 파일을 불러온 뒤 작업에 사용할 화면을 하나 선택합니다.",
-    change: "선택한 프레임의 이름과 연결될 API 예시가 다음 단계의 맥락으로 이어집니다.",
-    ownership: "Figma OAuth·파일 및 프레임 조회·저장 연동은 팀원이 담당했습니다. 저는 화면별 API 연결 목록 리팩터링에 참여했습니다.",
-    demo: "고정된 샘플 프레임만 브라우저 상태로 보여 주며 외부 OAuth·API·서버 저장은 연결하지 않습니다.",
+    action: t("공개용 샘플 파일을 불러온 뒤 작업에 사용할 화면을 하나 선택합니다.", "Load the public sample file, then pick one screen to work with."),
+    change: t("선택한 프레임의 이름과 연결될 API 예시가 다음 단계의 맥락으로 이어집니다.", "The selected frame's name and its linked API examples carry into the next step."),
+    ownership: t("Figma OAuth·파일 및 프레임 조회·저장 연동은 팀원이 담당했습니다. 저는 화면별 API 연결 목록 리팩터링에 참여했습니다.", "A teammate owned the Figma OAuth, file/frame fetch, and save integration. I contributed to refactoring the per-screen API link list."),
+    demo: t("고정된 샘플 프레임만 브라우저 상태로 보여 주며 외부 OAuth·API·서버 저장은 연결하지 않습니다.", "Only fixed sample frames are shown as browser state — no external OAuth, API, or server storage."),
     scope: "team",
   },
   {
     id: "spec",
     number: "02",
-    label: "명세 작성",
+    label: t("명세 작성", "Write the spec"),
     eyebrow: "Define API",
-    action: "Method와 경로, Header·Query·Response 조건을 확인하고 수정합니다.",
-    change: "입력값이 하나의 API 명세 상태로 즉시 반영됩니다.",
-    ownership: "명세 편집 폼, 반복 필드 UI, 입력 검증과 저장 흐름을 구현했습니다.",
-    demo: "샘플 명세와 브라우저 저장소로 저장·수정 흐름을 재현했습니다.",
+    action: t("Method와 경로, Header·Query·Response 조건을 확인하고 수정합니다.", "Review and edit the method, path, and header/query/response conditions."),
+    change: t("입력값이 하나의 API 명세 상태로 즉시 반영됩니다.", "Inputs immediately update a single API spec state."),
+    ownership: t("명세 편집 폼, 반복 필드 UI, 입력 검증과 저장 흐름을 구현했습니다.", "I built the spec-editing form, repeating-field UI, validation, and save flow."),
+    demo: t("샘플 명세와 브라우저 저장소로 저장·수정 흐름을 재현했습니다.", "The save/edit flow is re-created with a sample spec and browser storage."),
     scope: "frontend",
   },
   {
     id: "nested",
     number: "03",
-    label: "중첩 입력",
+    label: t("중첩 입력", "Nested input"),
     eyebrow: "Compose Payload",
-    action: "Body 탭에서 object·array 타입과 하위 경로를 조합합니다.",
-    change: "중첩된 요청 모델이 명세에 포함되고 미리보기 데이터로 변환됩니다.",
-    ownership: "동적 Body 필드와 중첩 DTO 입력 상태를 다루는 화면을 구현했습니다.",
-    demo: "object·array 조합을 샘플 요청 모델로 즉시 변환합니다.",
+    action: t("Body 탭에서 object·array 타입과 하위 경로를 조합합니다.", "Combine object/array types and sub-paths in the Body tab."),
+    change: t("중첩된 요청 모델이 명세에 포함되고 미리보기 데이터로 변환됩니다.", "The nested request model joins the spec and converts into preview data."),
+    ownership: t("동적 Body 필드와 중첩 DTO 입력 상태를 다루는 화면을 구현했습니다.", "I built the screens handling dynamic body fields and nested DTO input state."),
+    demo: t("object·array 조합을 샘플 요청 모델로 즉시 변환합니다.", "Object/array combinations convert instantly into a sample request model."),
     scope: "frontend",
   },
   {
     id: "preview",
     number: "04",
-    label: "요청 확인",
+    label: t("요청 확인", "Preview the request"),
     eyebrow: "Preview Request",
-    action: "저장된 명세와 전송 직전의 요청 구조를 나란히 확인합니다.",
-    change: "작성한 Header·Query·Body가 JSON 요청 미리보기로 정리됩니다.",
-    ownership: "폼 상태를 요청 데이터로 변환하고 검토하는 미리보기 UI를 구현했습니다.",
-    demo: "외부 API 호출 없이 입력값으로 요청 JSON 예시를 생성합니다.",
+    action: t("저장된 명세와 전송 직전의 요청 구조를 나란히 확인합니다.", "Compare the saved spec with the request structure just before sending."),
+    change: t("작성한 Header·Query·Body가 JSON 요청 미리보기로 정리됩니다.", "Your headers, query, and body come together as a JSON request preview."),
+    ownership: t("폼 상태를 요청 데이터로 변환하고 검토하는 미리보기 UI를 구현했습니다.", "I built the preview UI that converts form state into reviewable request data."),
+    demo: t("외부 API 호출 없이 입력값으로 요청 JSON 예시를 생성합니다.", "A JSON request example is generated from inputs — no external API calls."),
     scope: "frontend",
   },
   {
     id: "test",
     number: "05",
-    label: "테스트 실행",
+    label: t("테스트 실행", "Run the test"),
     eyebrow: "Run Simulation",
-    action: "요청 수와 실행 시간을 정한 뒤 공개용 시뮬레이션을 실행합니다.",
-    change: "진행률과 실행 대상 API가 표시되며 완료 후 결과 단계로 이동합니다.",
-    ownership: "실행 조건 입력, 진행 상태와 완료 전환 UI를 구현했습니다.",
-    demo: "브라우저 타이머로 실행 과정만 재현하며 실제 부하를 만들지 않습니다.",
+    action: t("요청 수와 실행 시간을 정한 뒤 공개용 시뮬레이션을 실행합니다.", "Set request rate and duration, then run the public simulation."),
+    change: t("진행률과 실행 대상 API가 표시되며 완료 후 결과 단계로 이동합니다.", "Progress and the target API are shown; completion moves to the results step."),
+    ownership: t("실행 조건 입력, 진행 상태와 완료 전환 UI를 구현했습니다.", "I built the run-condition inputs and the progress/completion UI."),
+    demo: t("브라우저 타이머로 실행 과정만 재현하며 실제 부하를 만들지 않습니다.", "Only the run experience is re-created with browser timers — no real load."),
     scope: "frontend",
   },
   {
     id: "result",
     number: "06",
-    label: "응답·성능 확인",
+    label: t("응답·성능 확인", "Review results"),
     eyebrow: "Review Result",
-    action: "응답 상태, 지연시간 분포와 처리량 예시를 비교합니다.",
-    change: "최근 결과와 이전 실행 이력이 같은 화면에 누적됩니다.",
-    ownership: "응답·성능 결과 요약과 실행 이력 테이블을 구현했습니다.",
-    demo: "입력 조건으로 만든 예시 지표를 표시하며 측정값이 아님을 함께 안내합니다.",
+    action: t("응답 상태, 지연시간 분포와 처리량 예시를 비교합니다.", "Compare response statuses, latency distribution, and throughput examples."),
+    change: t("최근 결과와 이전 실행 이력이 같은 화면에 누적됩니다.", "The latest result and previous runs accumulate on one screen."),
+    ownership: t("응답·성능 결과 요약과 실행 이력 테이블을 구현했습니다.", "I built the response/performance summary and the run-history table."),
+    demo: t("입력 조건으로 만든 예시 지표를 표시하며 측정값이 아님을 함께 안내합니다.", "Example metrics from your inputs are shown, clearly labeled as not real measurements."),
     scope: "frontend",
   },
 ];
@@ -715,19 +715,19 @@ const makeResponseField = (status: string, description: string): ResponseField =
   description,
 });
 const createDraft = (): ApiDraft => ({
-  name: "프로젝트 생성",
+  name: t("프로젝트 생성", "Create project"),
   method: "POST",
   path: "/api/projects",
-  headers: [makeRequestField({ name: "Authorization", description: "사용자 인증 토큰", required: true })],
-  queries: [makeRequestField({ name: "notify", type: "boolean", description: "멤버 알림 여부" })],
+  headers: [makeRequestField({ name: "Authorization", description: t("사용자 인증 토큰", "User auth token"), required: true })],
+  queries: [makeRequestField({ name: "notify", type: "boolean", description: t("멤버 알림 여부", "Whether to notify members") })],
   body: [
-    makeRequestField({ name: "project", type: "object", description: "프로젝트 기본 정보", required: true }),
-    makeRequestField({ name: "project.members", type: "array", description: "참여 멤버 목록", required: true }),
-    makeRequestField({ name: "project.settings", type: "object", description: "실행 환경 설정" }),
+    makeRequestField({ name: "project", type: "object", description: t("프로젝트 기본 정보", "Basic project info"), required: true }),
+    makeRequestField({ name: "project.members", type: "array", description: t("참여 멤버 목록", "Member list"), required: true }),
+    makeRequestField({ name: "project.settings", type: "object", description: t("실행 환경 설정", "Runtime settings") }),
   ],
   responses: [
-    makeResponseField("200", "프로젝트 생성 성공"),
-    makeResponseField("400", "요청 형식 오류"),
+    makeResponseField("200", t("프로젝트 생성 성공", "Project created")),
+    makeResponseField("400", t("요청 형식 오류", "Malformed request")),
   ],
 });
 const copyDraft = (source: ApiDraft): ApiDraft => JSON.parse(JSON.stringify(source)) as ApiDraft;
@@ -760,7 +760,7 @@ const activeRequestRows = computed(() =>
   activeGroup.value === "responses" ? [] : draft[activeGroup.value]
 );
 const activeGroupLabel = computed(
-  () => fieldGroups.find((group) => group.id === activeGroup.value)?.label ?? "필드"
+  () => fieldGroups.find((group) => group.id === activeGroup.value)?.label ?? t("필드", "Field")
 );
 const selectedSpec = computed(() => specs.value.find((spec) => spec.id === selectedSpecId.value));
 const figmaReady = computed(() => figmaImportState.value === "ready");
@@ -772,11 +772,11 @@ const latestRun = computed(() => runs.value[0]);
 const activeGuidedStep = computed(() => guidedSteps[guidedStep.value] ?? guidedSteps[0]);
 const guidedProgress = computed(() => ((guidedStep.value + 1) / guidedSteps.length) * 100);
 const nextStepLabel = computed(() => {
-  if (guidedStep.value === 0) return "선택한 화면으로 명세 작성 →";
-  if (guidedStep.value === 2) return "명세 저장 후 요청 확인 →";
-  if (guidedStep.value === 4) return latestRun.value ? "다시 실행하고 결과 보기 →" : "시뮬레이션 실행 후 결과 보기 →";
-  if (guidedStep.value === guidedSteps.length - 1) return "처음부터 다시 보기";
-  return "다음 단계 →";
+  if (guidedStep.value === 0) return t("선택한 화면으로 명세 작성 →", "Write a spec for this screen →");
+  if (guidedStep.value === 2) return t("명세 저장 후 요청 확인 →", "Save the spec, preview the request →");
+  if (guidedStep.value === 4) return latestRun.value ? t("다시 실행하고 결과 보기 →", "Run again and see results →") : t("시뮬레이션 실행 후 결과 보기 →", "Run the simulation, see results →");
+  if (guidedStep.value === guidedSteps.length - 1) return t("처음부터 다시 보기", "Start over");
+  return t("다음 단계 →", "Next step →");
 });
 const nextStepDisabled = computed(() => {
   if (isRunning.value) return true;
@@ -884,7 +884,7 @@ const safelyPersist = (key: string, value: unknown) => {
     localStorage.setItem(key, JSON.stringify(value));
     return true;
   } catch {
-    flashStorageWarning("브라우저 저장공간을 사용할 수 없어 이번 화면에서만 변경사항을 유지합니다.");
+    flashStorageWarning(t("브라우저 저장공간을 사용할 수 없어 이번 화면에서만 변경사항을 유지합니다.", "Browser storage is unavailable, so changes persist only on this screen."));
     return false;
   }
 };
@@ -894,7 +894,7 @@ const safelyRemove = (key: string) => {
     localStorage.removeItem(key);
     return true;
   } catch {
-    flashStorageWarning("브라우저 저장 데이터를 삭제하지 못했습니다. 저장공간 설정을 확인해 주세요.");
+    flashStorageWarning(t("브라우저 저장 데이터를 삭제하지 못했습니다. 저장공간 설정을 확인해 주세요.", "Couldn't clear browser storage. Please check your storage settings."));
     return false;
   }
 };
@@ -907,11 +907,11 @@ const safelyLoadArray = <T,>(key: string, validator: (value: unknown) => value i
     if (!Array.isArray(parsed)) throw new Error("invalid storage shape");
     const validItems = parsed.filter(validator);
     if (validItems.length !== parsed.length) {
-      flashStorageWarning("형식이 맞지 않는 이전 데모 데이터는 제외하고 불러왔습니다.");
+      flashStorageWarning(t("형식이 맞지 않는 이전 데모 데이터는 제외하고 불러왔습니다.", "Older demo data with a mismatched format was skipped."));
     }
     return validItems;
   } catch {
-    flashStorageWarning("저장된 데모 데이터를 읽지 못해 빈 상태로 시작합니다.");
+    flashStorageWarning(t("저장된 데모 데이터를 읽지 못해 빈 상태로 시작합니다.", "Saved demo data couldn't be read — starting fresh."));
     return [];
   }
 };
@@ -953,30 +953,30 @@ const removeResponse = (index: number) => {
 
 const validateDraft = () => {
   const errors: string[] = [];
-  if (!draft.name) errors.push("명세 이름을 입력해 주세요.");
+  if (!draft.name) errors.push(t("명세 이름을 입력해 주세요.", "Please enter a spec name."));
   if (!/^\/(?!\/)[A-Za-z0-9_{}\-./]*$/.test(draft.path)) {
-    errors.push("API Path는 /로 시작하고 영문, 숫자, -, _, { }만 사용할 수 있습니다.");
+    errors.push(t("API Path는 /로 시작하고 영문, 숫자, -, _, { }만 사용할 수 있습니다.", "API Path must start with / and use only letters, digits, -, _, and { }."));
   }
 
   (["headers", "queries", "body"] as RequestGroupId[]).forEach((groupId) => {
     const label = fieldGroups.find((group) => group.id === groupId)?.label ?? groupId;
     draft[groupId].forEach((field, index) => {
-      if (!field.name) errors.push(`${label} ${index + 1}의 필드명을 입력해 주세요.`);
+      if (!field.name) errors.push(t(`${label} ${index + 1}의 필드명을 입력해 주세요.`, `Please name ${label} field ${index + 1}.`));
     });
     const normalizedNames = draft[groupId].map((field) => field.name.trim().toLowerCase()).filter(Boolean);
-    if (new Set(normalizedNames).size !== normalizedNames.length) errors.push(`${label}에 중복된 필드명이 있습니다.`);
+    if (new Set(normalizedNames).size !== normalizedNames.length) errors.push(t(`${label}에 중복된 필드명이 있습니다.`, `${label} has duplicate field names.`));
   });
 
   draft.responses.forEach((response, index) => {
-    if (!/^[1-5]\d{2}$/.test(response.status)) errors.push(`Response ${index + 1}의 상태 코드는 100–599 사이의 세 자리 숫자여야 합니다.`);
-    if (!response.description) errors.push(`Response ${index + 1}의 설명을 입력해 주세요.`);
+    if (!/^[1-5]\d{2}$/.test(response.status)) errors.push(t(`Response ${index + 1}의 상태 코드는 100–599 사이의 세 자리 숫자여야 합니다.`, `Response ${index + 1} needs a 3-digit status code between 100 and 599.`));
+    if (!response.description) errors.push(t(`Response ${index + 1}의 설명을 입력해 주세요.`, `Please describe response ${index + 1}.`));
   });
   const successResponses = draft.responses.filter((response) => response.status === "200");
-  if (successResponses.length === 0) errors.push("성공 응답 200을 한 개 등록해 주세요.");
-  if (successResponses.length > 1) errors.push("성공 응답 200은 중복해서 등록할 수 없습니다.");
+  if (successResponses.length === 0) errors.push(t("성공 응답 200을 한 개 등록해 주세요.", "Please register one 200 success response."));
+  if (successResponses.length > 1) errors.push(t("성공 응답 200은 중복해서 등록할 수 없습니다.", "The 200 success response cannot be registered twice."));
 
   formErrors.value = [...new Set(errors)];
-  if (errors.some((error) => error.startsWith("Response") || error.includes("응답 200"))) activeGroup.value = "responses";
+  if (errors.some((error) => error.startsWith("Response") || error.includes("응답 200") || error.includes("200 success"))) activeGroup.value = "responses";
   return errors.length === 0;
 };
 
@@ -1000,7 +1000,7 @@ const saveSpec = () => {
   }
   selectedSpecId.value = editingId.value ?? specs.value[0]?.id ?? "";
   const persisted = persistSpecs();
-  flashSavedMessage(persisted ? "브라우저에 명세를 저장했습니다." : "명세를 현재 화면에만 반영했습니다.");
+  flashSavedMessage(persisted ? t("브라우저에 명세를 저장했습니다.", "Spec saved in the browser.") : t("명세를 현재 화면에만 반영했습니다.", "Spec applied to this screen only."));
   return true;
 };
 
@@ -1186,7 +1186,7 @@ const resetDemo = (options: { moveFocus?: boolean } = {}) => {
   safelyRemove(HISTORY_KEY);
   setGuidedStepView(0, options);
   startNewSpec();
-  flashSavedMessage("샘플 데이터를 초기화했습니다.");
+  flashSavedMessage(t("샘플 데이터를 초기화했습니다.", "Sample data reset."));
 };
 
 const resetFromHeader = () => {

@@ -4,7 +4,7 @@
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:px-4 focus:py-2 focus:text-sm focus:font-black accent-bg focus:outline-none"
     >
-      본문으로 건너뛰기
+      {{ t("본문으로 건너뛰기", "Skip to main content") }}
     </a>
 
     <ScrollProgress />
@@ -38,6 +38,12 @@ import {
   createSectionNavigator,
   type SectionScrollBehavior,
 } from "@/utils/sectionNavigation";
+import { locale, t } from "@/i18n/locale";
+
+if (typeof document !== "undefined") {
+  document.documentElement.lang = locale;
+  document.title = t("권용재 | Web Developer Portfolio", "Yongjae Kwon | Web Developer Portfolio");
+}
 
 let cleanup: (() => void) | undefined;
 let initialHashTimer: number | null = null;
