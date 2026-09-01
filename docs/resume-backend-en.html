@@ -596,9 +596,9 @@
           <strong>Fixing a consolidated-view lookup that could not finish in 60 seconds</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Repair-history and settlement-detail lookups went through a consolidated multi-table view, and as data grew the screens degraded to waiting tens of seconds.</span></li>
-            <li><span class="case-label">Decision</span><span>The execution plan showed the customer filter never reached inside the view — the whole view was materialized and then filtered (about 7.7 billion estimated rows) — so the query structure had to change, not the indexes.</span></li>
+            <li><span class="case-label">Decision</span><span>The execution plan showed the customer filter never reached inside the view — the whole view was materialized and then filtered (about 2.1 trillion estimated rows on production) — so the query structure had to change, not the indexes.</span></li>
             <li><span class="case-label">Implementation</span><span>Removed the view and rewrote the lookups as direct base-table joins over only the columns the screens actually use, so the customer condition applies through indexes from the start.</span></li>
-            <li><span class="case-label">Result</span><span>Re-measured on production data (Sep 2026, heaviest customer): the old query could not finish within a 60-second cap, while the rewrite returns the same rows in 77–124 ms — at least a 770x improvement; plan estimate down from ~7.7 billion to 1,852 rows.</span></li>
+            <li><span class="case-label">Result</span><span>Re-measured on production data (Sep 2026, heaviest customer): the old query could not finish within a 60-second cap, while the rewrite returns the same rows in 63–69 ms — at least an 870x improvement; plan estimate down from ~2.1 trillion to 1,854 rows.</span></li>
           </ul>
         </div>
       </section>
