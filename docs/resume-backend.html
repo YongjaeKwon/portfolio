@@ -610,12 +610,12 @@
         </div>
 
         <div class="case">
-          <strong>현장 점검 및 재점검 이력 관리</strong>
+          <strong>60초에도 못 끝나던 통합 뷰 조회의 성능 개선</strong>
           <ul class="case-flow">
-            <li><span class="case-label">문제</span><span>학교 방문 점검을 종이로 관리해 결과를 전체적으로 확인하기 어려웠고, 분실 · 미지참 단말의 2 · 3차 재방문 이력도 연결되지 않았습니다.</span></li>
-            <li><span class="case-label">판단</span><span>학교별 완료 여부만으로는 재방문 대상을 이어갈 수 없어, 단말별 점검 회차와 결과를 연결하는 구조로 정리했습니다.</span></li>
-            <li><span class="case-label">구현</span><span>미완료 단말을 다음 차수로 넘기고, 필수값과 전자서명을 검증한 뒤 확인서와 결과 파일을 발급하도록 구성했습니다.</span></li>
-            <li><span class="case-label">결과</span><span>119개 대상 학교에 적용했으며, 21개 학교의 점검 완료와 단말 점검 3,800건을 시스템에 축적했습니다. (2026.07 기준)</span></li>
+            <li><span class="case-label">문제</span><span>AS 이력 · 정산 세부현황 조회가 여러 테이블을 합쳐 둔 통합 뷰를 거치는데, 데이터가 쌓이면서 화면이 수십 초를 기다리는 수준까지 느려졌습니다.</span></li>
+            <li><span class="case-label">판단</span><span>실행계획을 확인하니 고객 조건이 뷰 안까지 전달되지 못해 뷰 전체를 만들어 놓고 거르는 구조였고(추정 약 77억 행), 인덱스 추가가 아니라 조회 구조 자체를 바꿔야 한다고 판단했습니다.</span></li>
+            <li><span class="case-label">구현</span><span>통합 뷰를 걷어내고 화면이 실제로 쓰는 컬럼만 기본 테이블 조인으로 재작성해, 고객 조건이 처음부터 인덱스로 적용되게 했습니다.</span></li>
+            <li><span class="case-label">결과</span><span>운영 DB 재측정(2026.09, 이력 최다 고객 기준)에서 기존 쿼리는 60초 상한 내 완료 불가, 개선 쿼리는 77~124ms로 같은 결과를 반환했습니다 — 최소 770배 이상 단축. 실행계획 추정 행 약 77억 → 1,852행.</span></li>
           </ul>
         </div>
       </section>

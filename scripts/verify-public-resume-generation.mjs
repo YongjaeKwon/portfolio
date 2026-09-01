@@ -152,6 +152,16 @@ assert.match(
 );
 assert.match(
   backendResumeSource,
+  /통합 뷰 조회의 성능 개선/,
+  "The backend resume must include the measured query-performance case",
+);
+assert.match(
+  backendEnResumeSource,
+  /could not finish in 60 seconds/,
+  "The English backend resume must include the measured query-performance case",
+);
+assert.match(
+  backendResumeSource,
   /ticket-rush · 선착순 티켓팅 예매 시스템/,
   "The backend resume must feature ticket-rush as the lead personal project",
 );
