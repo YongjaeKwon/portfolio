@@ -624,6 +624,22 @@
       <section class="system project-item">
         <div class="system-head">
           <div class="system-title">
+            <a href="https://github.com/YongjaeKwon/ticket-rush">ticket-rush · 선착순 티켓팅 예매 시스템</a>
+          </div>
+          <div class="meta">2026.08 ~ 진행 중 · 개인</div>
+        </div>
+        <p class="system-desc">
+          동시 요청이 몰려도 이중 예매 0건을 목표로 하는 예매 시스템입니다. Redis SET NX 선점, 만료 홀드의 결제 거부, DB (회차 · 좌석) 유니크 제약의 세 겹 방어를 두고, Redis 장애 상황을 통합 테스트로 재현해 확정이 정확히 1건만 남는 것을 검증했습니다. 멱등 처리 · 트랜잭셔널 아웃박스 · SSE 좌석 상태 스트림을 구현했고, 1석 100동시요청 경합 테스트에서 성공 1건 · 중복 예매 0건을 확인했습니다. 자동화 테스트 65건.
+        </p>
+        <p class="system-tech">
+          <span class="tech-label">사용 기술</span>
+          <span>Java 21 · Spring Boot 4 · Spring Modulith · MySQL · Redis · Flyway · Testcontainers · GitHub Actions</span>
+        </p>
+      </section>
+
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">
             <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">ReachRich · 개인 투자 연구·운영 플랫폼</a>
           </div>
           <div class="meta">2026.03 ~ 현재 · 개인</div>
@@ -637,23 +653,6 @@
         <p class="system-tech">
           <span class="tech-label">사용 기술</span>
           <span>Python · FastAPI · SQLAlchemy · SQLite · Parquet · React · TypeScript · GitHub Actions</span>
-        </p>
-      </section>
-
-      <section class="system project-item">
-        <div class="system-head">
-          <div class="system-title">
-            <a href="https://github.com/SSAFAST/ssafast">SSAFAST · API 명세·테스트 협업 도구</a>
-          </div>
-          <div class="meta">2023.04 ~ 2023.05 · 6인 팀</div>
-        </div>
-        <p class="system-desc">
-          6인 팀에서 프론트엔드 · UI/UX를 담당해 반복 · 중첩 입력을 지원하는 API 명세 작성 화면과
-          요청 성공 여부, 응답 내용, 처리 시간 분포를 확인하는 테스트 결과 화면을 개발했습니다.
-        </p>
-        <p class="system-tech">
-          <span class="tech-label">사용 기술</span>
-          <span>TypeScript · React · Next.js · Redux Toolkit · React Hook Form · TanStack Query</span>
         </p>
       </section>
 

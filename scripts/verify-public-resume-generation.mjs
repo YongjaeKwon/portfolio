@@ -12,16 +12,18 @@ const digest = (filePath) => createHash("sha256").update(readFileSync(filePath))
 const directoryState = (directory) => {
   if (!existsSync(directory)) return { exists: false, files: [] };
 
-  return {
-    exists: true,
-    files: readdirSync(directory)
+  const collect = (dir, prefix) =>
+    readdirSync(dir)
       .sort()
-      .map((name) => {
-        const filePath = path.join(directory, name);
+      .flatMap((name) => {
+        const filePath = path.join(dir, name);
+        const relative = prefix ? `${prefix}/${name}` : name;
         const stat = statSync(filePath);
-        return { name, hash: digest(filePath), modified: stat.mtimeMs, size: stat.size };
-      }),
-  };
+        if (stat.isDirectory()) return collect(filePath, relative);
+        return [{ name: relative, hash: digest(filePath), modified: stat.mtimeMs, size: stat.size }];
+      });
+
+  return { exists: true, files: collect(directory, "") };
 };
 
 const applicationSourcesBefore = directoryState(applicationsSourceDir);
@@ -147,6 +149,16 @@ assert.match(
   backendResumeSource,
   /시리얼 기준 재정립과 중복 정리/,
   "The backend resume must include the production data-cleanup case",
+);
+assert.match(
+  backendResumeSource,
+  /ticket-rush · 선착순 티켓팅 예매 시스템/,
+  "The backend resume must feature ticket-rush as the lead personal project",
+);
+assert.match(
+  backendEnResumeSource,
+  /ticket-rush · first-come ticketing reservation system/,
+  "The English backend resume must feature ticket-rush",
 );
 assert.match(
   backendResumeSource,

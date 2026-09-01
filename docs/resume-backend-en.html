@@ -607,6 +607,22 @@
       <section class="system project-item">
         <div class="system-head">
           <div class="system-title">
+            <a href="https://github.com/YongjaeKwon/ticket-rush">ticket-rush · first-come ticketing reservation system</a>
+          </div>
+          <div class="meta">Aug 2026 – Present · Personal</div>
+        </div>
+        <p class="system-desc">
+          A reservation system built for zero double-bookings under concurrent load. Each seat is guarded by three layers — Redis SET NX holds, domain rules rejecting expired holds at payment, and a DB unique constraint on (show, seat) — with a Redis-outage scenario reproduced in integration tests to prove exactly one confirmation survives. Implements idempotent processing, a transactional outbox, and SSE seat-status streams; a contention test with 100 concurrent requests for one seat yields exactly one success and zero double bookings. 65 automated tests.
+        </p>
+        <p class="system-tech">
+          <span class="tech-label">Tech</span>
+          <span>Java 21 · Spring Boot 4 · Spring Modulith · MySQL · Redis · Flyway · Testcontainers · GitHub Actions</span>
+        </p>
+      </section>
+
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">
             <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">ReachRich · personal investment research &amp; operations platform</a>
           </div>
           <div class="meta">Mar 2026 – Present · Personal</div>
@@ -617,22 +633,6 @@
         <p class="system-tech">
           <span class="tech-label">Tech</span>
           <span>Python · FastAPI · SQLAlchemy · SQLite · Parquet · React · TypeScript · GitHub Actions</span>
-        </p>
-      </section>
-
-      <section class="system project-item">
-        <div class="system-head">
-          <div class="system-title">
-            <a href="https://github.com/SSAFAST/ssafast">SSAFAST · API spec &amp; testing collaboration tool</a>
-          </div>
-          <div class="meta">Apr 2023 – May 2023 · Team of 6</div>
-        </div>
-        <p class="system-desc">
-          As the frontend / UI-UX developer on a team of six, I built the API spec authoring screens with repeated and nested inputs, and the test result screens showing request success, response contents, and response-time distribution.
-        </p>
-        <p class="system-tech">
-          <span class="tech-label">Tech</span>
-          <span>TypeScript · React · Next.js · Redux Toolkit · React Hook Form · TanStack Query</span>
         </p>
       </section>
 
