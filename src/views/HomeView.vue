@@ -59,8 +59,8 @@
           </a>
           <a
             class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
-            :href="profile.resume"
-            download="Yongjae-Kwon-Resume.pdf"
+            :href="resumeHref"
+            :download="resumeFileName"
           >
             {{ t("이력서", "Resume") }}
             <FileDown class="h-4 w-4" />
@@ -117,11 +117,13 @@ import { computed } from "vue";
 import { ArrowRight, ExternalLink, FileDown, Layers3, Mail, MessagesSquare, Rocket } from "@lucide/vue";
 import FocusTabs from "@/components/FocusTabs.vue";
 import { focusTracks, profile, type FocusTrackId } from "@/data/portfolio";
+import { useActiveResume } from "@/composables/useActiveResume";
 import { useFocusTrack } from "@/composables/useFocusTrack";
 import { t } from "@/i18n/locale";
 
 const emit = defineEmits<{ "scroll-to-section": [id: string] }>();
 const { activeTrack } = useFocusTrack();
+const { resumeHref, resumeFileName } = useActiveResume();
 const activeTrackData = computed(() => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]);
 const scopeIcons = [MessagesSquare, Layers3, Rocket];
 

@@ -10,8 +10,10 @@ export const profile = {
   phone: "010-9470-1704",
   github: "https://github.com/YongjaeKwon",
   location: "경기도 용인시 수지구",
-  resume: "/resume.pdf?v=20260819-2",
+  resume: "/resume.pdf?v=20260901",
 };
+
+export const backendResume = "/resume-backend.pdf?v=20260901";
 
 export const focusTracks = [
   {
@@ -45,7 +47,7 @@ export const focusTracks = [
     headline: "업무 흐름에 맞는 서버 기능을 개발하고 운영합니다.",
     target:
       "Spring 기반 업무 시스템에서 서버 로직과 SQL, 외부 연계 기능을 개발하고 배포와 운영 과정까지 맡아 왔습니다.",
-    resume: profile.resume,
+    resume: backendResume,
     resumeLabel: "이력서 다운로드",
     projectIntro: "개인 프로젝트의 서버 처리, 데이터 검증과 운영 자동화 경험을 보여드립니다.",
     projectOrder: ["pps", "tsms", "reachrich"],

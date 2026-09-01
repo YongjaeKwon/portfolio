@@ -52,10 +52,12 @@ src/
   data/caseStudies.ts  프로젝트별 상세 사례와 공개 가능한 코드 예시
   views/               Home / Experience / Projects / TechStack / Education / Contact 섹션
 public/
-  resume.pdf           공개 이력서
+  resume.pdf           공개 이력서 (프론트엔드 기준본 — 전체·Frontend 트랙)
+  resume-backend.pdf   공개 이력서 (백엔드 기준본 — Backend 트랙)
 docs/
   case-studies/        공개용 프로젝트 메모 (현재 화면 렌더링에는 직접 사용하지 않음)
-  resume-general.html  이력서 HTML 원본
+  resume-frontend.html 프론트엔드 이력서 HTML 원본
+  resume-backend.html  백엔드 이력서 HTML 원본
 scripts/
   generate-resumes.mjs HTML → PDF 변환 스크립트
 ```
@@ -73,7 +75,7 @@ npm run dev
 
 ## 이력서 PDF 만들기
 
-이력서 원본은 `docs/resume-general.html`입니다. 수정한 뒤 아래 명령으로 `public/resume.pdf`를 다시 만듭니다.
+이력서 원본은 포지션별로 두 개입니다 — `docs/resume-frontend.html`(공개 기본, `public/resume.pdf`)과 `docs/resume-backend.html`(`public/resume-backend.pdf`). 수정한 뒤 아래 명령으로 PDF를 다시 만듭니다.
 
 ```bash
 npm run resumes:pdf

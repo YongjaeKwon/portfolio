@@ -37,8 +37,8 @@
           </a>
           <a
             class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
-            :href="profile.resume"
-            download="Yongjae-Kwon-Resume.pdf"
+            :href="resumeHref"
+            :download="resumeFileName"
           >
             <FileDown class="h-4 w-4" />
             {{ t("이력서 다운로드", "Download resume") }}
@@ -83,6 +83,7 @@
 import { Copy, ExternalLink, FileDown, Mail } from "@lucide/vue";
 import { computed, onBeforeUnmount, ref } from "vue";
 import { profile } from "@/data/portfolio";
+import { useActiveResume } from "@/composables/useActiveResume";
 import { t } from "@/i18n/locale";
 import {
   createGmailComposeUrl,
@@ -91,6 +92,7 @@ import {
   shouldShowMailFallback,
 } from "@/utils/contactEmail";
 
+const { resumeHref, resumeFileName } = useActiveResume();
 const showMailFallback = ref(false);
 const mailOpenedExternally = ref(false);
 const copyStatus = ref<"idle" | "copied" | "failed">("idle");

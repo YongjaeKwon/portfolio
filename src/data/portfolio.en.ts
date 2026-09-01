@@ -9,8 +9,10 @@ export const profile = {
   phone: "010-9470-1704",
   github: "https://github.com/YongjaeKwon",
   location: "Yongin, South Korea",
-  resume: "/resume.pdf?v=20260819-2",
+  resume: "/resume.pdf?v=20260901",
 };
+
+export const backendResume = "/resume-backend.pdf?v=20260901";
 
 export const focusTracks = [
   {
@@ -44,7 +46,7 @@ export const focusTracks = [
     headline: "I build and operate server features that fit real business workflows.",
     target:
       "In Spring-based business systems I develop server logic, SQL, and external integrations, and own the deployment and operations that follow.",
-    resume: profile.resume,
+    resume: backendResume,
     resumeLabel: "Download resume",
     projectIntro: "Server-side processing, data validation, and operational automation from my personal projects.",
     projectOrder: ["pps", "tsms", "reachrich"],

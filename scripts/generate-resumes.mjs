@@ -16,11 +16,20 @@ const finalPdfDir = path.join(rootDir, "output", "pdf");
 
 const resumes = [
   {
-    // 새 디자인(스타일드 HTML) 공통 이력서 — 사이트의 기본 다운로드(public/resume.pdf)
-    source: "docs/resume-general.html",
-    html: "resume.html",
+    // 프론트엔드 기준본 — 사이트 기본 다운로드(전체·Frontend 트랙, public/resume.pdf)
+    source: "docs/resume-frontend.html",
+    html: "resume-frontend.html",
     output: "public/resume.pdf",
-    title: "권용재 - 웹 개발자 이력서",
+    title: "권용재 - 프론트엔드 개발자 이력서",
+    finalCopy: "yongjae-kwon-frontend-developer-resume.pdf",
+  },
+  {
+    // 백엔드 기준본 — Backend 트랙 다운로드(public/resume-backend.pdf)
+    source: "docs/resume-backend.html",
+    html: "resume-backend.html",
+    output: "public/resume-backend.pdf",
+    title: "권용재 - Java·Spring 백엔드 개발자 이력서",
+    finalCopy: "yongjae-kwon-backend-developer-resume.pdf",
   },
 ];
 
@@ -335,8 +344,8 @@ for (const resume of allResumes) {
   printPdf(browser, htmlPath, outputPath);
   console.log(`Generated ${resume.output}`);
 
-  if (resume.output === "public/resume.pdf") {
-    const finalCopy = path.join(finalPdfDir, "yongjae-kwon-web-developer-resume.pdf");
+  if (resume.finalCopy) {
+    const finalCopy = path.join(finalPdfDir, resume.finalCopy);
     copyFileSync(outputPath, finalCopy);
     console.log(`Copied ${path.relative(rootDir, finalCopy)}`);
   }
