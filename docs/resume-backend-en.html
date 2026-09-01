@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yongjae Kwon - Backend Developer Resume</title>
+    <style>
+      :root {
+        --ink: #252c38;
+        --ink-strong: #111827;
+        --muted: #667085;
+        --accent: #15b373;
+        --rule: #d8dee8;
+        --rule-light: #eaedf2;
+      }
+
+      @page {
+        size: A4;
+        margin: 9mm 14mm;
+      }
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: #fff;
+        font-family: "Pretendard", "Malgun Gothic", "맑은 고딕",
+          "Apple SD Gothic Neo", "Noto Sans KR", "Nanum Gothic", sans-serif;
+        font-size: 9.2pt;
+        line-height: 1.42;
+        letter-spacing: 0;
+        overflow-wrap: break-word;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .resume {
+        width: 100%;
+        max-width: 182mm;
+        margin: 0 auto;
+      }
+
+      .header {
+        padding: 2px 0 8px;
+        border-bottom: 1.5px solid var(--ink-strong);
+      }
+      .header-main {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 18px;
+      }
+      h1 {
+        margin: 0;
+        color: var(--ink-strong);
+        font-size: 22pt;
+        line-height: 1.05;
+        letter-spacing: -0.5px;
+      }
+      .english-name {
+        margin-left: 7px;
+        color: var(--muted);
+        font-size: 10.5pt;
+        font-weight: 700;
+      }
+      .role {
+        color: var(--muted);
+        font-size: 11pt;
+        font-weight: 750;
+      }
+      .contact {
+        margin-top: 7px;
+        font-size: 8.8pt;
+      }
+      .contact-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: baseline;
+        gap: 2px 7px;
+      }
+      .contact-row + .contact-row {
+        margin-top: 2px;
+      }
+      .contact-item {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 5px;
+      }
+      .contact-item b {
+        color: var(--muted);
+        font-size: 7.6pt;
+        font-weight: 850;
+        letter-spacing: 0.3px;
+      }
+      .contact-item span,
+      .contact-item a {
+        color: #475467;
+        font-weight: 650;
+      }
+      .contact-sep {
+        color: var(--rule);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0 4px;
+        color: var(--accent);
+        font-size: 10pt;
+        font-weight: 850;
+        letter-spacing: 0.9px;
+        break-after: avoid;
+        text-transform: uppercase;
+      }
+      h2::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      p {
+        margin: 3px 0;
+      }
+      .intro {
+        margin: 0;
+        color: #344054;
+        font-size: 9.3pt;
+        line-height: 1.46;
+      }
+      .skill-row {
+        display: grid;
+        grid-template-columns: 96px minmax(0, 1fr);
+        align-items: start;
+        gap: 14px;
+        padding: 3px 0;
+        border-bottom: 1px solid var(--rule-light);
+        break-inside: avoid;
+      }
+      .skill-row:last-child {
+        border-bottom: 0;
+      }
+      .skill-name {
+        color: var(--ink-strong);
+        font-size: 9pt;
+        font-weight: 800;
+        line-height: 1.5;
+        white-space: nowrap;
+      }
+      .skill-value {
+        color: #475467;
+        font-size: 9.1pt;
+        line-height: 1.46;
+      }
+      .skill-detail {
+        margin: 2px 0 0;
+        color: var(--muted);
+        font-size: 8.2pt;
+        line-height: 1.38;
+      }
+      .stack-line {
+        display: grid;
+        grid-template-columns: 60px minmax(0, 1fr);
+        align-items: baseline;
+        gap: 8px;
+      }
+      .stack-scope {
+        color: var(--accent);
+        font-size: 8.2pt;
+        font-weight: 850;
+      }
+
+      .company-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        break-after: avoid;
+      }
+      .company-name {
+        color: var(--ink-strong);
+        font-size: 12pt;
+        font-weight: 850;
+      }
+      .company-role {
+        color: var(--muted);
+        font-size: 9.5pt;
+        font-weight: 700;
+      }
+      .meta {
+        flex: 0 0 auto;
+        color: var(--muted);
+        font-size: 9pt;
+        white-space: nowrap;
+      }
+      .company-summary {
+        margin: 3px 0 8px;
+        color: #475467;
+        break-inside: avoid;
+      }
+
+      .system {
+        margin-top: 8px;
+        padding-top: 5px;
+        border-top: 1px solid var(--rule);
+      }
+      .career-system {
+        padding-top: 0;
+        border-top: 0;
+      }
+      .career-system + .career-system {
+        margin-top: 14px;
+      }
+      .system-overview {
+        padding: 7px 10px 6px 11px;
+        border: 1px solid #dce8e2;
+        border-left: 3px solid var(--accent);
+        border-radius: 5px;
+        background: #f7fbf9;
+        break-inside: avoid;
+      }
+      .system-overview .system-tech {
+        margin-top: 1px;
+      }
+      .system-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        break-after: avoid;
+      }
+      .system-title {
+        color: var(--ink-strong);
+        font-size: 11pt;
+        font-weight: 850;
+      }
+      .system-desc {
+        margin: 2px 0 1px;
+        color: #344054;
+        font-weight: 650;
+        line-height: 1.44;
+        break-after: avoid;
+        break-inside: avoid;
+      }
+      .system-tech {
+        margin: 0;
+        color: var(--muted);
+        font-size: 8.9pt;
+        break-after: avoid;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      .tech-label {
+        flex: 0 0 auto;
+        padding-right: 10px;
+        border-right: 1px solid var(--rule);
+        color: var(--accent);
+        font-size: 8.6pt;
+        font-weight: 850;
+      }
+      .project-item {
+        margin-top: 7px;
+        padding-top: 0;
+        border-top: 0;
+        break-inside: avoid;
+      }
+      .project-item + .project-item {
+        margin-top: 5px;
+        padding-top: 4px;
+        border-top: 1px solid var(--rule-light);
+      }
+      .project-item .system-title {
+        font-size: 9.6pt;
+      }
+      .project-item .system-desc {
+        margin: 2px 0;
+        font-size: 8.4pt;
+        line-height: 1.4;
+        break-after: auto;
+      }
+      .project-item .system-tech {
+        font-size: 7.9pt;
+        break-after: auto;
+      }
+      .project-item + h2 {
+        margin-top: 10px;
+      }
+      .case-section-heading {
+        margin-top: 8px;
+      }
+      .print-continuation {
+        display: none;
+      }
+      @media print {
+        .print-continuation {
+          display: block;
+          break-before: page;
+          page-break-before: always;
+          margin: 0 0 10px;
+          color: var(--accent);
+          font-size: 9.2pt;
+          font-weight: 850;
+          letter-spacing: 0.5px;
+        }
+      }
+      .career-system .case-section-heading {
+        color: var(--accent);
+      }
+      .case-section-heading + .case {
+        margin-top: 6px;
+      }
+
+      .case {
+        margin: 6px 0;
+        break-inside: avoid;
+      }
+      .case + .case {
+        padding-top: 5px;
+        border-top: 1px solid var(--rule-light);
+      }
+      .case > strong {
+        display: block;
+        color: var(--ink-strong);
+        font-size: 9.4pt;
+        font-weight: 850;
+        line-height: 1.34;
+        break-after: avoid;
+      }
+      .case-flow {
+        margin: 5px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .case-flow li {
+        display: grid;
+        grid-template-columns: 92px minmax(0, 1fr);
+        gap: 8px;
+        margin: 0;
+        color: #475467;
+        font-size: 8.5pt;
+        line-height: 1.4;
+        break-inside: avoid;
+      }
+      .case-flow li + li {
+        margin-top: 3px;
+      }
+      .case-label {
+        color: var(--muted);
+        font-size: 8.2pt;
+        font-weight: 850;
+        white-space: nowrap;
+      }
+      .scale {
+        color: var(--muted);
+        font-size: 8.9pt;
+      }
+
+      .subheading {
+        margin: 6px 0 2px;
+        color: var(--ink-strong);
+        font-size: 9.2pt;
+        font-weight: 850;
+        break-after: avoid;
+      }
+
+      strong {
+        color: var(--ink-strong);
+        font-weight: 800;
+      }
+
+      .credential-item {
+        display: grid;
+        grid-template-columns: 74px 1fr auto;
+        align-items: baseline;
+        gap: 10px;
+        padding: 0;
+        border-bottom: 1px solid var(--rule-light);
+        break-inside: avoid;
+      }
+      .credential-item:last-child {
+        border-bottom: 0;
+      }
+      .credential-item b {
+        color: var(--ink-strong);
+        font-size: 8.6pt;
+        font-weight: 850;
+      }
+      .credential-item strong {
+        font-size: 9.5pt;
+      }
+      .credential-item strong em {
+        color: var(--muted);
+        font-size: 8.9pt;
+        font-style: normal;
+        font-weight: 600;
+      }
+      .credential-item span {
+        color: var(--muted);
+        font-size: 8.9pt;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="resume">
+      <header class="header">
+        <div class="header-main">
+          <h1>Yongjae Kwon <span class="english-name">권용재</span></h1>
+          <div class="role">Backend Developer</div>
+        </div>
+        <div class="contact">
+          <div class="contact-row">
+            <span class="contact-item"
+              ><b>EMAIL</b
+              ><a href="mailto:yongjae116@gmail.com">yongjae116@gmail.com</a></span
+            >
+            <span class="contact-sep">|</span>
+            <span class="contact-item"
+              ><b>PHONE</b><a href="tel:+821094701704">+82 10-9470-1704</a></span
+            >
+            <span class="contact-sep">|</span>
+            <span class="contact-item"><b>LOCATION</b><span>Yongin, South Korea</span></span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-item"
+              ><b>GITHUB</b
+              ><a href="https://github.com/YongjaeKwon">github.com/YongjaeKwon</a></span
+            >
+            <span class="contact-sep">|</span>
+            <span class="contact-item"
+              ><b>PORTFOLIO</b
+              ><a href="https://www.yongjaekwon.com/?lang=en">www.yongjaekwon.com</a></span
+            >
+          </div>
+        </div>
+      </header>
+
+      <h2>Summary</h2>
+      <p class="intro">
+        A Java/Spring backend developer who turns complex field operations into systems users can run without interruption. I replaced paper-based school inspections with a flow that connects scheduling, checklists, signatures, and re-inspection history, and moved long-running bulk attachment jobs to async processing so users can watch progress and download results. I align with operations staff on the real task order, then design the UI, server, and DB together — owning testing, deployment, and operations after release.
+      </p>
+
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="skill-row">
+          <div class="skill-name">Backend</div>
+          <div class="skill-value">Java, Spring Boot, Spring MVC, Spring Security, MyBatis</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Database</div>
+          <div class="skill-value">Oracle, MariaDB, MySQL</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Frontend</div>
+          <div class="skill-value">
+            <div class="stack-line">
+              <span class="stack-scope">WORK</span>
+              <span>JavaScript, Vue, HTML, CSS, JSP, WebSquare5, jQuery</span>
+            </div>
+            <div class="stack-line">
+              <span class="stack-scope">PROJECTS</span>
+              <span>TypeScript, React, Next.js, Redux Toolkit, Pinia</span>
+            </div>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Infra · Delivery</div>
+          <div class="skill-value">Linux, Tomcat, Jenkins, Gradle, Maven, Git, SVN</div>
+        </div>
+      </div>
+
+      <h2>Experience</h2>
+      <div class="company-head">
+        <div>
+          <span class="company-name">TG Narae LLC</span>
+          <span class="company-role">Web Developer · Solutions Team</span>
+        </div>
+        <div class="meta">Jun 2024 – Present · Full-time</div>
+      </div>
+
+      <section class="system career-system">
+        <div class="system-overview">
+          <div class="system-head">
+            <div class="system-title">B2B Partner Portal (PPS)</div>
+            <div class="meta">Feb 2025 – Present</div>
+          </div>
+          <p class="system-desc">
+            A B2B portal where headquarters and about 500 partner companies handle partner registration and contracts, plus training, certification, documentation, and evaluation for 824 field engineers (CEs). I coordinate requirements with operations and business staff, analyze existing data flows, and own DB modeling, HTTP API and SQL design and development, external-system integrations, user acceptance, and Jenkins deployment and operations.
+          </p>
+          <p class="system-tech">
+            <span class="tech-label">Tech</span>
+            <span>Java 21 · Spring Boot · MyBatis · MariaDB · Oracle · Vue</span>
+          </p>
+        </div>
+        <div class="subheading case-section-heading">PPS Highlights</div>
+
+        <div class="case">
+          <strong>Moving bulk attachment downloads to async processing</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>Collecting and zipping attachments for 300–400 engineers in a single request held the screen for minutes, with no way to tell whether the job was running or had failed.</span></li>
+            <li><span class="case-label">Decision</span><span>The real issue was the request and the job being tied into one flow, not compression speed — so I split the job out and exposed its status.</span></li>
+            <li><span class="case-label">Implementation</span><span>A Spring async job handles compression; the request API returns a job ID and a status API reports running / done / failed. The same job can be picked up again after a refresh.</span></li>
+            <li><span class="case-label">Result</span><span>Freed HTTP requests from long-running zip jobs and gave users a flow where they track progress and download only finished results.</span></li>
+          </ul>
+        </div>
+
+        <div class="case">
+          <strong>Unifying the split headquarters account provisioning process</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>Accounts had to be created separately in the internal system and the portal, with the portal ID entered directly into the DB — risking omissions and mismatched records.</span></li>
+            <li><span class="case-label">Decision</span><span>Entering data into two systems separately could not prevent omissions, so the portal became the single provisioning gateway.</span></li>
+            <li><span class="case-label">Implementation</span><span>Combined ID creation, organization validation, initial credential issuance, and the internal-system integration into one procedure; if the integration fails, the portal save rolls back in the same transaction.</span></li>
+            <li><span class="case-label">Result</span><span>Collapsed the three-step process — internal account, portal account, manual DB entry — into a single screen, and added inventory and service-ownership checks before account changes to block wrongful deactivations.</span></li>
+          </ul>
+        </div>
+
+        <div class="print-continuation">PPS Highlights · continued</div>
+        <div class="case">
+          <strong>Automating deployment with a Jenkins Pipeline</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>Build, file transfer, backup, and sequential deployment to two servers were manual, so every run meant re-checking for missed steps.</span></li>
+            <li><span class="case-label">Decision</span><span>The repeated order should be fixed as a single job rather than left to memory.</span></li>
+            <li><span class="case-label">Implementation</span><span>A Jenkins Pipeline chains source checkout, build, transfer to the servers, backup, and sequential deployment to both servers.</span></li>
+            <li><span class="case-label">Result</span><span>202 successful development and 148 production runs so far; the last 20 pipeline runs averaged 45 seconds (development) and 48 seconds (production).</span></li>
+          </ul>
+        </div>
+
+        <div class="case">
+          <strong>Centralizing notification-message policy</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>Recipients and send conditions were written into each feature's source, so a policy change meant editing several code paths.</span></li>
+            <li><span class="case-label">Decision</span><span>Separate the frequently changing rules from the shared send logic, so policy changes no longer require a deployment.</span></li>
+            <li><span class="case-label">Implementation</span><span>Recipients and send conditions moved to DB-managed configuration; a shared send service looks up the policy for each message type. Key conditions and exception paths are pinned by unit tests.</span></li>
+            <li><span class="case-label">Result</span><span>Five send points across four business services now go through one shared service; a policy change is a DB configuration update verified by four unit tests.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="system career-system">
+        <div class="system-overview">
+          <div class="system-head">
+            <div class="system-title">Education Device Management System (TSMS)</div>
+            <div class="meta">Sep 2025 – Present</div>
+          </div>
+          <p class="system-desc">
+            Manages about 110,000 education devices for the Seoul Metropolitan Office of Education's one-device-per-student program — registration through delivery, installation, repairs, and inspections, with full history. I align business rules and reference data with operations staff and own DB modeling, HTTP API and SQL design, screen and server development, external integrations, user acceptance, and deployment.
+          </p>
+          <p class="system-tech">
+            <span class="tech-label">Tech</span>
+            <span>WebSquare5 · JavaScript · JSP · Java 11 · Spring MVC · MyBatis · MariaDB</span>
+          </p>
+        </div>
+        <div class="subheading case-section-heading">TSMS Highlights</div>
+
+        <div class="case">
+          <strong>Removing exposed API keys and unifying external call paths</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>25 screens called map, address, and education-administration APIs directly, exposing keys in the browser and requiring per-screen edits whenever integration details changed.</span></li>
+            <li><span class="case-label">Decision</span><span>Rotating the keys would not stop the exposure or the repeated edits from recurring — the external-call responsibility had to move from the screens to the server.</span></li>
+            <li><span class="case-label">Implementation</span><span>Consolidated external calls into a shared server-side API layer, with keys and endpoint URLs held in server configuration. The affected screens were switched to one common path and response shape.</span></li>
+            <li><span class="case-label">Result</span><span>Eliminated browser key exposure across 25 screens and reduced the scattered call and configuration change points to a single server path.</span></li>
+          </ul>
+        </div>
+
+        <div class="case">
+          <strong>Building secondhand-marketplace monitoring</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>The operations team searched multiple marketplaces by keyword and region by hand and tracked suspicious listings manually. Security policy and site restrictions ruled out direct search or crawling by the system.</span></li>
+            <li><span class="case-label">Decision</span><span>With direct calls to external sites off the table, keep human review and let the server analyze only the pasted listing URL string.</span></li>
+            <li><span class="case-label">Implementation</span><span>The server identifies the site and listing ID from the URL to detect duplicates, with per-site rules managed in reference data. Links, captures, sale details, and handling history are connected on one screen.</span></li>
+            <li><span class="case-label">Result</span><span>Systematized the recording, duplicate checks, and case history that follow a search — without the system ever contacting external sites directly.</span></li>
+          </ul>
+        </div>
+
+        <div class="print-continuation">TSMS Highlights · continued</div>
+        <div class="case">
+          <strong>Bulk device registration checks and QR issuance</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>Bulk spreadsheet uploads could include serial numbers missing from production records, or devices that were already registered.</span></li>
+            <li><span class="case-label">Decision</span><span>Move validation ahead of the save — checking reference data and duplicates before registration instead of cleaning up afterward.</span></li>
+            <li><span class="case-label">Implementation</span><span>Serial numbers are checked against production records, and already-registered devices return their current school and user. QR codes carry an encrypted token instead of internal identifiers.</span></li>
+            <li><span class="case-label">Result</span><span>Applied to the QR issuance flow for 108,237 of 111,593 devices, blocking wrong registrations and identifier exposure up front. (as of Jul 2026)</span></li>
+          </ul>
+        </div>
+
+        <div class="case">
+          <strong>Field inspection and re-inspection history</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>Paper-based school inspections made overall status hard to see, and the 2nd and 3rd revisit history for lost or missing devices was not connected.</span></li>
+            <li><span class="case-label">Decision</span><span>School-level completion flags could not carry revisits forward — inspections needed per-device rounds linked to results.</span></li>
+            <li><span class="case-label">Implementation</span><span>Unfinished devices roll into the next round; required fields and e-signatures are validated before confirmation documents and result files are issued.</span></li>
+            <li><span class="case-label">Result</span><span>Rolled out to 119 target schools; 21 schools completed, with 3,800 device inspections recorded in the system. (as of Jul 2026)</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <h2>Personal Projects</h2>
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">
+            <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">ReachRich · personal investment research &amp; operations platform</a>
+          </div>
+          <div class="meta">Mar 2026 – Present · Personal</div>
+        </div>
+        <p class="system-desc">
+          Rebuilt a personal investment platform into six modules — account tracking on the Toss Securities Open API, KRX data collection, strategy validation, paper trading, and a dashboard. Implemented date-keyed idempotent persistence with partial-failure isolation, FastAPI query APIs, a React UI, and GitHub Actions health checks with Telegram alerts; 205 backend tests cover the data collection, validation, and operation logic.
+        </p>
+        <p class="system-tech">
+          <span class="tech-label">Tech</span>
+          <span>Python · FastAPI · SQLAlchemy · SQLite · Parquet · React · TypeScript · GitHub Actions</span>
+        </p>
+      </section>
+
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">
+            <a href="https://github.com/SSAFAST/ssafast">SSAFAST · API spec &amp; testing collaboration tool</a>
+          </div>
+          <div class="meta">Apr 2023 – May 2023 · Team of 6</div>
+        </div>
+        <p class="system-desc">
+          As the frontend / UI-UX developer on a team of six, I built the API spec authoring screens with repeated and nested inputs, and the test result screens showing request success, response contents, and response-time distribution.
+        </p>
+        <p class="system-tech">
+          <span class="tech-label">Tech</span>
+          <span>TypeScript · React · Next.js · Redux Toolkit · React Hook Form · TanStack Query</span>
+        </p>
+      </section>
+
+      <h2>Education</h2>
+      <div class="credentials">
+        <div class="credential-item">
+          <b>Training</b>
+          <strong>Samsung SW Academy For Youth (SSAFY), 8th cohort <em>· Web development program</em></strong>
+          <span>Jul 2022 – Jun 2023</span>
+        </div>
+        <div class="credential-item">
+          <b>Education</b>
+          <strong>Ajou University <em>· B.S. in e-Business (transfer)</em></strong>
+          <span>Mar 2018 – Aug 2020</span>
+        </div>
+        <div class="credential-item">
+          <b>Education</b>
+          <strong>California State University, Chico <em>· Business Administration, attended before transfer</em></strong>
+          <span>Jan 2014 – May 2015</span>
+        </div>
+        <div class="credential-item">
+          <b>Certification</b>
+          <strong>SQLD (SQL Developer) <em>· Korea Data Agency</em></strong>
+          <span>Sep 2024</span>
+        </div>
+      </div>
+
+    </main>
+  </body>
+</html>

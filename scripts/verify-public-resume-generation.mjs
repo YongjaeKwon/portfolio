@@ -39,10 +39,14 @@ assert.deepEqual(directoryState(applicationsOutDir), applicationOutputsBefore, "
 
 const frontendResumeSource = readFileSync(path.join(rootDir, "docs", "resume-frontend.html"), "utf8");
 const backendResumeSource = readFileSync(path.join(rootDir, "docs", "resume-backend.html"), "utf8");
+const frontendEnResumeSource = readFileSync(path.join(rootDir, "docs", "resume-frontend-en.html"), "utf8");
+const backendEnResumeSource = readFileSync(path.join(rootDir, "docs", "resume-backend-en.html"), "utf8");
 
 for (const [label, source] of [
   ["frontend", frontendResumeSource],
   ["backend", backendResumeSource],
+  ["frontend-en", frontendEnResumeSource],
+  ["backend-en", backendEnResumeSource],
 ]) {
   assert.match(
     source,
@@ -135,15 +139,54 @@ assert.match(
   "The backend resume must include the deployment automation case",
 );
 
-assert.equal(
-  digest(path.join(rootDir, "public", "resume.pdf")),
-  digest(path.join(rootDir, "output", "pdf", "yongjae-kwon-frontend-developer-resume.pdf")),
-  "Public and local frontend-resume PDFs must be identical",
+// 영문판 — 단일 타이틀, 영문 사이트로 돌아오는 포트폴리오 링크, 핵심 근거 문구를 잠근다.
+assert.match(
+  frontendEnResumeSource,
+  />Frontend Developer</,
+  "The English frontend resume must use the single Frontend Developer title",
 );
-assert.equal(
-  digest(path.join(rootDir, "public", "resume-backend.pdf")),
-  digest(path.join(rootDir, "output", "pdf", "yongjae-kwon-backend-developer-resume.pdf")),
-  "Public and local backend-resume PDFs must be identical",
+assert.doesNotMatch(
+  frontendEnResumeSource,
+  /Full-stack/,
+  "The English frontend resume must not dilute the title with Full-stack",
 );
+assert.match(
+  frontendEnResumeSource,
+  /www\.yongjaekwon\.com\/\?lang=en/,
+  "The English frontend resume must link to the English portfolio",
+);
+assert.match(
+  frontendEnResumeSource,
+  /FormProvider and useFieldArray/,
+  "The English frontend resume must include the React project evidence",
+);
+assert.match(
+  backendEnResumeSource,
+  />Backend Developer</,
+  "The English backend resume must use the single Backend Developer title",
+);
+assert.match(
+  backendEnResumeSource,
+  /www\.yongjaekwon\.com\/\?lang=en/,
+  "The English backend resume must link to the English portfolio",
+);
+assert.match(
+  backendEnResumeSource,
+  /Automating deployment with a Jenkins Pipeline/,
+  "The English backend resume must include the deployment automation case",
+);
+
+for (const [publicName, finalName] of [
+  ["resume.pdf", "yongjae-kwon-frontend-developer-resume.pdf"],
+  ["resume-backend.pdf", "yongjae-kwon-backend-developer-resume.pdf"],
+  ["resume-en.pdf", "yongjae-kwon-frontend-developer-resume-en.pdf"],
+  ["resume-backend-en.pdf", "yongjae-kwon-backend-developer-resume-en.pdf"],
+]) {
+  assert.equal(
+    digest(path.join(rootDir, "public", publicName)),
+    digest(path.join(rootDir, "output", "pdf", finalName)),
+    `Public and local PDFs must be identical for ${publicName}`,
+  );
+}
 
 console.log("Public resume generation verification passed.");

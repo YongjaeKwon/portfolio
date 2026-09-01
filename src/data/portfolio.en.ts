@@ -9,10 +9,10 @@ export const profile = {
   phone: "010-9470-1704",
   github: "https://github.com/YongjaeKwon",
   location: "Yongin, South Korea",
-  resume: "/resume.pdf?v=20260901",
+  resume: "/resume-en.pdf?v=20260901",
 };
 
-export const backendResume = "/resume-backend.pdf?v=20260901";
+export const backendResume = "/resume-backend-en.pdf?v=20260901";
 
 export const focusTracks = [
   {

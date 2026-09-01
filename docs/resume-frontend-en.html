@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yongjae Kwon - Frontend Developer Resume</title>
+    <style>
+      :root {
+        --ink: #252c38;
+        --ink-strong: #111827;
+        --muted: #667085;
+        --accent: #15b373;
+        --rule: #d8dee8;
+        --rule-light: #eaedf2;
+      }
+
+      @page {
+        size: A4;
+        margin: 9mm 14mm;
+      }
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: #fff;
+        font-family: "Pretendard", "Malgun Gothic", "맑은 고딕",
+          "Apple SD Gothic Neo", "Noto Sans KR", "Nanum Gothic", sans-serif;
+        font-size: 9.2pt;
+        line-height: 1.42;
+        letter-spacing: 0;
+        overflow-wrap: break-word;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .resume {
+        width: 100%;
+        max-width: 182mm;
+        margin: 0 auto;
+      }
+
+      .header {
+        padding: 2px 0 6px;
+        border-bottom: 1.5px solid var(--ink-strong);
+      }
+      .header-main {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 18px;
+      }
+      h1 {
+        margin: 0;
+        color: var(--ink-strong);
+        font-size: 22pt;
+        line-height: 1.05;
+        letter-spacing: -0.5px;
+      }
+      .english-name {
+        margin-left: 7px;
+        color: var(--muted);
+        font-size: 10.5pt;
+        font-weight: 700;
+      }
+      .role {
+        color: var(--muted);
+        font-size: 11pt;
+        font-weight: 750;
+      }
+      .contact {
+        margin-top: 5px;
+        font-size: 8.8pt;
+      }
+      .contact-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: baseline;
+        gap: 2px 7px;
+      }
+      .contact-row + .contact-row {
+        margin-top: 2px;
+      }
+      .contact-item {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 5px;
+      }
+      .contact-item b {
+        color: var(--muted);
+        font-size: 7.6pt;
+        font-weight: 850;
+        letter-spacing: 0.3px;
+      }
+      .contact-item span,
+      .contact-item a {
+        color: #475467;
+        font-weight: 650;
+      }
+      .contact-sep {
+        color: var(--rule);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 9px 0 4px;
+        color: var(--accent);
+        font-size: 10pt;
+        font-weight: 850;
+        letter-spacing: 0.9px;
+        break-after: avoid;
+        text-transform: uppercase;
+      }
+      h2::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      p {
+        margin: 3px 0;
+      }
+      .intro {
+        margin: 0;
+        color: #344054;
+        font-size: 9.3pt;
+        line-height: 1.46;
+      }
+      .skill-row {
+        display: grid;
+        grid-template-columns: 96px minmax(0, 1fr);
+        align-items: start;
+        gap: 14px;
+        padding: 2px 0;
+        border-bottom: 1px solid var(--rule-light);
+        break-inside: avoid;
+      }
+      .skill-row:last-child {
+        border-bottom: 0;
+      }
+      .skill-name {
+        color: var(--ink-strong);
+        font-size: 9pt;
+        font-weight: 800;
+        line-height: 1.5;
+        white-space: nowrap;
+      }
+      .skill-value {
+        color: #475467;
+        font-size: 9.1pt;
+        line-height: 1.46;
+      }
+      .skill-detail {
+        margin: 2px 0 0;
+        color: var(--muted);
+        font-size: 8.2pt;
+        line-height: 1.38;
+      }
+      .stack-line {
+        display: grid;
+        grid-template-columns: 60px minmax(0, 1fr);
+        align-items: baseline;
+        gap: 8px;
+      }
+      .stack-scope {
+        color: var(--accent);
+        font-size: 8.2pt;
+        font-weight: 850;
+      }
+
+      .company-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        break-after: avoid;
+      }
+      .company-name {
+        color: var(--ink-strong);
+        font-size: 12pt;
+        font-weight: 850;
+      }
+      .company-role {
+        color: var(--muted);
+        font-size: 9.5pt;
+        font-weight: 700;
+      }
+      .meta {
+        flex: 0 0 auto;
+        color: var(--muted);
+        font-size: 9pt;
+        white-space: nowrap;
+      }
+      .company-summary {
+        margin: 3px 0 6px;
+        color: #475467;
+        break-inside: avoid;
+      }
+
+      .system {
+        margin-top: 6px;
+        padding-top: 5px;
+        border-top: 1px solid var(--rule);
+      }
+      .career-system {
+        padding-top: 0;
+        border-top: 0;
+      }
+      .career-system + .career-system {
+        margin-top: 10px;
+      }
+      .system-overview {
+        padding: 6px 10px 5px 11px;
+        border: 1px solid #dce8e2;
+        border-left: 3px solid var(--accent);
+        border-radius: 5px;
+        background: #f7fbf9;
+        break-inside: avoid;
+      }
+      .system-overview .system-tech {
+        margin-top: 1px;
+      }
+      .system-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        break-after: avoid;
+      }
+      .system-title {
+        color: var(--ink-strong);
+        font-size: 11pt;
+        font-weight: 850;
+      }
+      .system-desc {
+        margin: 2px 0 1px;
+        color: #344054;
+        font-weight: 650;
+        line-height: 1.44;
+        break-after: avoid;
+        break-inside: avoid;
+      }
+      .system-tech {
+        margin: 0;
+        color: var(--muted);
+        font-size: 8.9pt;
+        break-after: avoid;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      .tech-label {
+        flex: 0 0 auto;
+        padding-right: 10px;
+        border-right: 1px solid var(--rule);
+        color: var(--accent);
+        font-size: 8.6pt;
+        font-weight: 850;
+      }
+      .project-item {
+        margin-top: 5px;
+        padding-top: 0;
+        border-top: 0;
+        break-inside: avoid;
+      }
+      .project-item + .project-item {
+        margin-top: 4px;
+        padding-top: 3px;
+        border-top: 1px solid var(--rule-light);
+      }
+      .project-item .system-title {
+        font-size: 9.6pt;
+      }
+      .project-item .system-desc {
+        margin: 2px 0;
+        font-size: 8.4pt;
+        line-height: 1.4;
+        break-after: auto;
+      }
+      .project-item .system-tech {
+        font-size: 7.9pt;
+        break-after: auto;
+      }
+      .project-item + h2 {
+        margin-top: 10px;
+      }
+      .case-section-heading {
+        margin-top: 8px;
+      }
+      .print-continuation {
+        display: none;
+      }
+      @media print {
+        .print-continuation {
+          display: block;
+          break-before: page;
+          page-break-before: always;
+          margin: 0 0 10px;
+          color: var(--accent);
+          font-size: 9.2pt;
+          font-weight: 850;
+          letter-spacing: 0.5px;
+        }
+      }
+      .career-system .case-section-heading {
+        color: var(--accent);
+      }
+      .case-section-heading + .case {
+        margin-top: 6px;
+      }
+
+      .case {
+        margin: 4px 0;
+        break-inside: avoid;
+      }
+      .case + .case {
+        padding-top: 5px;
+        border-top: 1px solid var(--rule-light);
+      }
+      .case > strong {
+        display: block;
+        color: var(--ink-strong);
+        font-size: 9.4pt;
+        font-weight: 850;
+        line-height: 1.34;
+        break-after: avoid;
+      }
+      .case-flow {
+        margin: 4px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .case-flow li {
+        display: grid;
+        grid-template-columns: 92px minmax(0, 1fr);
+        gap: 8px;
+        margin: 0;
+        color: #475467;
+        font-size: 8.5pt;
+        line-height: 1.4;
+        break-inside: avoid;
+      }
+      .case-flow li + li {
+        margin-top: 3px;
+      }
+      .case-label {
+        color: var(--muted);
+        font-size: 8.2pt;
+        font-weight: 850;
+        white-space: nowrap;
+      }
+      .scale {
+        color: var(--muted);
+        font-size: 8.9pt;
+      }
+
+      .subheading {
+        margin: 6px 0 2px;
+        color: var(--ink-strong);
+        font-size: 9.2pt;
+        font-weight: 850;
+        break-after: avoid;
+      }
+
+      strong {
+        color: var(--ink-strong);
+        font-weight: 800;
+      }
+
+      .credential-item {
+        display: grid;
+        grid-template-columns: 74px 1fr auto;
+        align-items: baseline;
+        gap: 10px;
+        padding: 0;
+        border-bottom: 1px solid var(--rule-light);
+        break-inside: avoid;
+      }
+      .credential-item:last-child {
+        border-bottom: 0;
+      }
+      .credential-item b {
+        color: var(--ink-strong);
+        font-size: 8.6pt;
+        font-weight: 850;
+      }
+      .credential-item strong {
+        font-size: 9.2pt;
+        line-height: 1.35;
+      }
+      .credential-item strong em {
+        color: var(--muted);
+        font-size: 8.9pt;
+        font-style: normal;
+        font-weight: 600;
+      }
+      .credential-item span {
+        color: var(--muted);
+        font-size: 8.9pt;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="resume">
+      <header class="header">
+        <div class="header-main">
+          <h1>Yongjae Kwon <span class="english-name">권용재</span></h1>
+          <div class="role">Frontend Developer</div>
+        </div>
+        <div class="contact">
+          <div class="contact-row">
+            <span class="contact-item"
+              ><b>EMAIL</b
+              ><a href="mailto:yongjae116@gmail.com">yongjae116@gmail.com</a></span
+            >
+            <span class="contact-sep">|</span>
+            <span class="contact-item"
+              ><b>PHONE</b><a href="tel:+821094701704">+82 10-9470-1704</a></span
+            >
+            <span class="contact-sep">|</span>
+            <span class="contact-item"><b>LOCATION</b><span>Yongin, South Korea</span></span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-item"
+              ><b>GITHUB</b
+              ><a href="https://github.com/YongjaeKwon">github.com/YongjaeKwon</a></span
+            >
+            <span class="contact-sep">|</span>
+            <span class="contact-item"
+              ><b>PORTFOLIO</b
+              ><a href="https://www.yongjaekwon.com/?lang=en">www.yongjaekwon.com</a></span
+            >
+          </div>
+        </div>
+      </header>
+
+      <h2>Summary</h2>
+      <p class="intro">
+        A frontend developer who keeps users on track through complex business work — surfacing input, progress, and error states clearly, and wiring up the APIs and data handling each screen needs. On production Vue/JavaScript systems I have owned everything from the UI to Spring APIs, SQL, and deployment; in React/TypeScript projects I built dynamic forms, REST-backed dashboards, and user-flow tests. I pin down task order and edge cases with operations staff, and keep fixing what real usage reveals.
+      </p>
+
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="skill-row">
+          <div class="skill-name">Frontend</div>
+          <div class="skill-value">
+            <div class="stack-line">
+              <span class="stack-scope">WORK</span>
+              <span>JavaScript, Vue, HTML, CSS, WebSquare5</span>
+            </div>
+            <div class="stack-line">
+              <span class="stack-scope">PROJECTS</span>
+              <span>TypeScript, React, React Router, Next.js, Vite, Tailwind CSS</span>
+            </div>
+            <p class="skill-detail">In ReachRich I connected FastAPI responses to TypeScript types and shared query helpers, splitting the dashboard, trading journal, stock ratings, and weekly reports into React Router routes.</p>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">State · Forms</div>
+          <div class="skill-value">
+            React Hook Form, TanStack Query, Redux Toolkit, Pinia
+            <p class="skill-detail">In SSAFAST, React Hook Form's FormProvider and useFieldArray managed repeated and nested inputs; TanStack Query handled server data and post-save refreshes; Redux Toolkit held shared UI state like theme and toasts.</p>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Responsive UI</div>
+          <div class="skill-value">
+            CSS Grid, Flexbox, Tailwind CSS
+            <p class="skill-detail">My portfolio keeps reading order on small screens — a single column for cards, details, and inputs — expanding to two columns only on wide screens; long step tabs scroll horizontally.</p>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Server · DB</div>
+          <div class="skill-value">
+            <div class="stack-line">
+              <span class="stack-scope">SERVER</span>
+              <span>Java, Spring Boot, Spring MVC, Python, FastAPI, MyBatis</span>
+            </div>
+            <div class="stack-line">
+              <span class="stack-scope">DB</span>
+              <span>MariaDB, MySQL, Oracle, SQLite</span>
+            </div>
+            <p class="skill-detail">At work I build Spring APIs and MyBatis SQL together with each screen's permission, state, and save conditions; in ReachRich I connected FastAPI query APIs and SQLite data to React screens.</p>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Test · Delivery</div>
+          <div class="skill-value">
+            Vitest, Testing Library, pytest, Git, GitHub Actions, Jenkins, SVN
+            <p class="skill-detail">With Vitest and Testing Library I verified loading and empty states, refetch on period change, polling that pauses in hidden tabs and resumes on return, and duplicate-submit prevention. GitHub Actions runs the frontend tests and TypeScript build.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>Experience</h2>
+      <div class="company-head">
+        <div>
+          <span class="company-name">TG Narae LLC</span>
+          <span class="company-role">Web Developer · Solutions Team</span>
+        </div>
+        <div class="meta">Jun 2024 – Present · Full-time</div>
+      </div>
+      <p class="company-summary">
+        On a B2B partner portal and the Seoul Metropolitan Office of Education's device-management system, I shape requirements with operations staff and own UI, REST API, and SQL development through user acceptance, deployment, and operations.
+      </p>
+
+      <section class="system career-system">
+        <div class="system-overview">
+          <div class="system-head">
+            <div class="system-title">B2B Partner Portal (PPS)</div>
+            <div class="meta">Feb 2025 – Present</div>
+          </div>
+          <p class="system-desc">
+            A portal where headquarters and about 500 partner companies handle partner registration and contracts, plus training, certification, and documentation for 824 field engineers. I own the Vue screens, Spring APIs and SQL, external-system integrations, and operations.
+          </p>
+          <p class="system-tech">
+            <span class="tech-label">Tech</span>
+            <span>Vue · JavaScript · Java 21 · Spring Boot · MyBatis · MariaDB · Oracle</span>
+          </p>
+        </div>
+        <div class="subheading case-section-heading">Highlights</div>
+
+        <div class="case">
+          <strong>Stopping attachment cross-linking caused by leaked shared Vue state</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>When registering a new field engineer, the previously viewed engineer's attachment group lingered on screen, so the previous person's files could be linked to the new record.</span></li>
+            <li><span class="case-label">Approach</span><span>Rather than just clearing values on open, give every Vue instance fresh state — and have the server block wrong links again at save time.</span></li>
+            <li><span class="case-label">Implementation</span><span>Replaced shallow copies of a shared object with a state-factory function, resetting attachment state on register, detail view, and failed lookups. The server now rejects saves referencing an attachment group owned by another engineer.</span></li>
+            <li><span class="case-label">Result</span><span>Removed the root cause of stale attachments reappearing after navigation, and made sure a UI slip can no longer corrupt stored links.</span></li>
+          </ul>
+        </div>
+
+        <div class="case">
+          <strong>Async processing and progress UI for bulk downloads</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>Collecting and zipping attachments for 300–400 engineers in one request kept the screen waiting for minutes, with no way to tell progress from failure.</span></li>
+            <li><span class="case-label">Approach</span><span>Instead of only speeding up compression, separate the HTTP request from the long-running file job and let the screen follow the job's status.</span></li>
+            <li><span class="case-label">Implementation</span><span>A Spring async job returns a job ID immediately; the Vue screen polls waiting / running / done / failed status. The job ID is kept in the browser so the same job can be found again after a refresh.</span></li>
+            <li><span class="case-label">Result</span><span>Users can track progress and download only completed files, without the browser holding an HTTP connection open.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="system career-system">
+        <div class="system-overview">
+          <div class="system-head">
+            <div class="system-title">Education Device Management System (TSMS)</div>
+            <div class="meta">Sep 2025 – Present</div>
+          </div>
+          <p class="system-desc">
+            Manages about 110,000 devices for the Seoul Metropolitan Office of Education's one-device-per-student program — from registration through delivery, installation, repairs, and inspections. I own the WebSquare screens, Spring APIs and SQL, external integrations, user acceptance, and deployment.
+          </p>
+          <p class="system-tech">
+            <span class="tech-label">Tech</span>
+            <span>WebSquare5 · JavaScript · Java 11 · Spring MVC · MyBatis · MariaDB</span>
+          </p>
+        </div>
+        <div class="subheading case-section-heading">Highlights</div>
+
+        <div class="case">
+          <strong>Building the school inspection flow from scheduling to sign-off</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>Schedule approval, roster checks, checklists, e-signatures, and confirmations had to flow together — and multiple staff on the same school risked duplicate approvals or overwriting earlier results.</span></li>
+            <li><span class="case-label">Approach</span><span>Connect the screens in the order staff actually work, but have the server and DB re-verify current state at save time.</span></li>
+            <li><span class="case-label">Implementation</span><span>Linked the WebSquare screens along the real task order and locked school data before approval. Results save only if the version number read at load time still matches; re-inspections preserve earlier confirmations and device records.</span></li>
+            <li><span class="case-label">Result</span><span>One continuous flow from scheduling to sign-off, with duplicate processing and stale-screen overwrites blocked on the server.</span></li>
+          </ul>
+        </div>
+
+        <div class="case">
+          <strong>Row-level error guidance and pre-save revalidation for bulk device registration</strong>
+          <ul class="case-flow">
+            <li><span class="case-label">Problem</span><span>Uploaded spreadsheets could mix serial numbers missing from production records, or already assigned elsewhere, in with valid rows.</span></li>
+            <li><span class="case-label">Approach</span><span>Show users the cause of each bad row instead of silently dropping it, and re-check right before saving in case assignments changed after validation.</span></li>
+            <li><span class="case-label">Implementation</span><span>Classified serials as valid, not-in-stock, or already-assigned, showing the conflicting school and user. The save API re-queries assignment state and processes only valid rows; QR URLs carry encrypted values, not raw identifiers.</span></li>
+            <li><span class="case-label">Result</span><span>Users resolve row-level causes and process only valid rows, and assignment changes after validation are caught before save.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <h2>Selected Projects</h2>
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">
+            <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">ReachRich · React operations dashboard</a>
+          </div>
+          <div class="meta">Mar 2026 – Present · Personal</div>
+        </div>
+        <p class="system-desc">
+          Connected FastAPI query APIs to a React + TypeScript UI — assets, trading journal, stock ratings, and weekly reports as routes. Polling pauses in hidden tabs and refreshes on return; key data states and query flows are verified with Vitest and Testing Library.
+        </p>
+        <p class="system-tech">
+          <span class="tech-label">Tech</span>
+          <span>React · TypeScript · Vite · Vitest · Testing Library · FastAPI · GitHub Actions</span>
+        </p>
+      </section>
+
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">
+            <a href="https://github.com/SSAFAST/ssafast">SSAFAST · API spec &amp; testing collaboration tool</a>
+          </div>
+          <div class="meta">Apr 2023 – May 2023 · Team of 6</div>
+        </div>
+        <p class="system-desc">
+          As the frontend / UI-UX developer, I built the flow from API spec authoring to request execution and result review — React Hook Form for repeated and nested inputs, TanStack Query for server data, Redux Toolkit for shared UI state.
+        </p>
+        <p class="system-tech">
+          <span class="tech-label">Tech</span>
+          <span>React · TypeScript · Next.js · React Hook Form · TanStack Query · Redux Toolkit</span>
+        </p>
+      </section>
+
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">
+            <a href="https://www.yongjaekwon.com/?lang=en">Personal portfolio · responsive project archive</a>
+          </div>
+          <div class="meta">Mar 2025 – Present · Personal</div>
+        </div>
+        <p class="system-desc">
+          Built from scratch with Vue 3, TypeScript, Vite, and Tailwind CSS. Single-column on small screens, two-column on wide; the shared detail modal supports keyboard navigation, focus restoration, and reduced motion.
+        </p>
+        <p class="system-tech">
+          <span class="tech-label">Tech</span>
+          <span>Vue 3 · TypeScript · Vite · Tailwind CSS · Vitest</span>
+        </p>
+      </section>
+
+      <h2>Education</h2>
+      <div class="credentials">
+        <div class="credential-item">
+          <b>Training</b>
+          <strong>Samsung SW Academy For Youth (SSAFY), 8th cohort <em>· Web development program</em></strong>
+          <span>Jul 2022 – Jun 2023</span>
+        </div>
+        <div class="credential-item">
+          <b>Education</b>
+          <strong>Ajou University <em>· B.S. in e-Business (transfer)</em></strong>
+          <span>Mar 2018 – Aug 2020</span>
+        </div>
+        <div class="credential-item">
+          <b>Education</b>
+          <strong>California State University, Chico <em>· Business Administration, attended before transfer</em></strong>
+          <span>Jan 2014 – May 2015</span>
+        </div>
+        <div class="credential-item">
+          <b>Certification</b>
+          <strong>SQLD (SQL Developer) <em>· Korea Data Agency</em></strong>
+          <span>Sep 2024</span>
+        </div>
+      </div>
+
+    </main>
+  </body>
+</html>

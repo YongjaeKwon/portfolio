@@ -31,6 +31,22 @@ const resumes = [
     title: "권용재 - Java·Spring 백엔드 개발자 이력서",
     finalCopy: "yongjae-kwon-backend-developer-resume.pdf",
   },
+  {
+    // 프론트엔드 영문판 — 영어 모드(?lang=en) 기본 다운로드
+    source: "docs/resume-frontend-en.html",
+    html: "resume-frontend-en.html",
+    output: "public/resume-en.pdf",
+    title: "Yongjae Kwon - Frontend Developer Resume",
+    finalCopy: "yongjae-kwon-frontend-developer-resume-en.pdf",
+  },
+  {
+    // 백엔드 영문판 — 영어 모드 Backend 트랙 다운로드
+    source: "docs/resume-backend-en.html",
+    html: "resume-backend-en.html",
+    output: "public/resume-backend-en.pdf",
+    title: "Yongjae Kwon - Backend Developer Resume",
+    finalCopy: "yongjae-kwon-backend-developer-resume-en.pdf",
+  },
 ];
 
 const css = `

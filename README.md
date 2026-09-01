@@ -52,12 +52,14 @@ src/
   data/caseStudies.ts  프로젝트별 상세 사례와 공개 가능한 코드 예시
   views/               Home / Experience / Projects / TechStack / Education / Contact 섹션
 public/
-  resume.pdf           공개 이력서 (프론트엔드 기준본 — 전체·Frontend 트랙)
-  resume-backend.pdf   공개 이력서 (백엔드 기준본 — Backend 트랙)
+  resume.pdf              공개 이력서 (프론트엔드 기준본 — 전체·Frontend 트랙)
+  resume-backend.pdf      공개 이력서 (백엔드 기준본 — Backend 트랙)
+  resume-en.pdf           영문 이력서 (영어 모드 기본 다운로드)
+  resume-backend-en.pdf   영문 이력서 (영어 모드 Backend 트랙)
 docs/
-  case-studies/        공개용 프로젝트 메모 (현재 화면 렌더링에는 직접 사용하지 않음)
-  resume-frontend.html 프론트엔드 이력서 HTML 원본
-  resume-backend.html  백엔드 이력서 HTML 원본
+  case-studies/           공개용 프로젝트 메모 (현재 화면 렌더링에는 직접 사용하지 않음)
+  resume-frontend.html    프론트엔드 이력서 HTML 원본 (+ -en 영문판)
+  resume-backend.html     백엔드 이력서 HTML 원본 (+ -en 영문판)
 scripts/
   generate-resumes.mjs HTML → PDF 변환 스크립트
 ```
