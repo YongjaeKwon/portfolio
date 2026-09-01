@@ -12,20 +12,28 @@ const demoSources = {
   ssafast: readSource("../src/components/demos/SsafastDemo.vue"),
   ddoing: readSource("../src/components/demos/DdoingDemo.vue"),
   modac: readSource("../src/components/demos/ModacDemo.vue"),
+  ticketrush: readSource("../src/components/demos/TicketRushDemo.vue"),
+};
+
+const demoComponentNames: Record<keyof typeof demoSources, string> = {
+  ssafast: "Ssafast",
+  ddoing: "Ddoing",
+  modac: "Modac",
+  ticketrush: "TicketRush",
 };
 
 describe("interactive project demos", () => {
   it("loads the demo panel and each project demo lazily", () => {
     expect(projectView).toContain('defineAsyncComponent(() => import("@/components/demos/ProjectDemoPanel.vue"))');
-    expect(projectView).toContain('new Set(["ssafast", "ddoing", "modac"])');
+    expect(projectView).toContain('new Set(["ticketrush", "ssafast", "ddoing", "modac"])');
     expect(projectView).toContain("직접 체험하기");
     expect(projectView).toContain("openInlineDemo(item)");
     expect(projectView).toContain("start-expanded");
     expect(projectView).toContain("embedded");
     expect(demoPanel).toContain("startExpanded?: boolean");
 
-    for (const projectId of Object.keys(demoSources)) {
-      expect(demoPanel).toContain(`import("@/components/demos/${projectId === "ssafast" ? "Ssafast" : projectId === "ddoing" ? "Ddoing" : "Modac"}Demo.vue")`);
+    for (const projectId of Object.keys(demoSources) as Array<keyof typeof demoSources>) {
+      expect(demoPanel).toContain(`import("@/components/demos/${demoComponentNames[projectId]}Demo.vue")`);
     }
   });
 

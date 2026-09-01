@@ -18,7 +18,7 @@ export type ProjectCaseStudy = {
   code?: CaseStudyCode;
 };
 
-export type CaseStudyProjectId = "pps" | "tsms" | "ssafast" | "ddoing" | "modac" | "reachrich";
+export type CaseStudyProjectId = "pps" | "tsms" | "ticketrush" | "ssafast" | "ddoing" | "modac" | "reachrich";
 
 export const projectCaseStudies: Record<CaseStudyProjectId, ProjectCaseStudy[]> = {
   pps: [
@@ -329,6 +329,78 @@ return postId != null
       ],
       outcome:
         "학부모가 안내만 보고 접수를 마칠 수 있는 화면으로 여러 접수 기간에 운영됐고, 기간 중의 일정 변경과 마감 요청을 당일 반영하며 지원했습니다.",
+    },
+  ],
+  ticketrush: [
+    {
+      id: "three-layer-defense",
+      area: "Backend",
+      title: "같은 좌석을 지키는 세 겹의 방어",
+      summary: "빠른 선점, 도메인 규칙, DB 제약이 각자 다른 실패 상황을 막도록 역할을 나눴습니다.",
+      problem:
+        "동시 요청이 몰리는 선착순 예매에서 한 겹의 방어에만 의존하면, 그 계층이 실패하는 순간 같은 좌석이 두 번 팔릴 수 있습니다.",
+      constraint:
+        "선점은 빠르게 응답해야 했고, Redis 장애나 홀드 만료처럼 각 계층이 실패하는 상황에서도 최종 확정은 반드시 한 건이어야 했습니다.",
+      decision:
+        "속도는 Redis SET NX 선점이, 흐름 검증은 도메인 규칙이, 최종 정합성은 DB 유니크 제약이 맡도록 계층별 책임을 나눴습니다.",
+      implementation: [
+        "Redis SET NX EX 5분 홀드로 동시 요청 중 첫 한 건만 좌석을 선점하게 했습니다.",
+        "만료됐거나 존재하지 않는 홀드로는 결제를 진행할 수 없도록 도메인 규칙에서 거부했습니다.",
+        "확정 테이블의 (회차·좌석) 유니크 제약이 같은 좌석의 두 번째 INSERT를 물리적으로 거부하게 했습니다.",
+      ],
+      outcome:
+        "1좌석 100동시요청 경합 테스트에서 성공은 정확히 1건, 중복 예매는 0건입니다. 어떤 계층이 실패해도 다음 계층이 같은 결론을 지킵니다.",
+      code: {
+        language: "Java",
+        title: "선점과 최종 방어의 역할 분리",
+        content: `boolean held = redis.setIfAbsent(seatKey(showId, seatId), holdToken, HOLD_TTL);
+if (!held) throw new SeatAlreadyHeldException();
+
+// 결제 시점: 만료된 홀드는 도메인 규칙이 거부
+hold.ensureActive(clock.now());
+
+// 최종 확정: (회차, 좌석) 유니크 제약이 두 번째 INSERT를 거부
+confirmedSeatRepository.insert(showId, seatId, reservationId);`,
+        note: "공개 저장소의 실제 흐름에서 예외 처리와 트랜잭션 경계를 덜어내고, 세 계층이 각자 맡는 지점만 순서대로 보여주는 예시입니다.",
+      },
+    },
+    {
+      id: "redis-outage-proof",
+      area: "Backend",
+      title: "Redis가 죽는 상황을 테스트로 재현",
+      summary: "1차 방어가 사라져 홀드가 두 건 생겨도 확정은 한 건임을 통합 테스트로 증명했습니다.",
+      problem:
+        "Redis 선점은 빠르지만 Redis가 죽으면 홀드 정보가 사라져, 같은 좌석에 두 명이 동시에 홀드를 가진 것처럼 진행될 수 있습니다.",
+      constraint:
+        "장애 상황은 운영에서 기다릴 수 없으니 테스트에서 재현해야 했고, 모킹이 아니라 실제 DB·Redis를 띄운 환경에서 검증해야 의미가 있었습니다.",
+      decision:
+        "Testcontainers로 실제 MySQL·Redis를 띄운 통합 테스트에서 Redis 컨테이너를 의도적으로 중단시키고, 이후 흐름이 DB 제약까지 도달하는 경로를 검증했습니다.",
+      implementation: [
+        "같은 좌석에 홀드 두 건이 존재하는 비정상 상태를 만들어 두 건 모두 확정을 시도하게 했습니다.",
+        "첫 확정은 성공하고 두 번째 확정은 DB (회차·좌석) 유니크 제약 위반으로 실패하는 것을 검증했습니다.",
+        "실패한 쪽이 사용자에게 어떤 오류로 전달되는지까지 테스트 범위에 포함했습니다.",
+      ],
+      outcome:
+        "1차 방어가 완전히 사라진 상황에서도 확정이 정확히 1건만 남는 것을 자동화 테스트로 증명했고, 이 시나리오는 CI에서 계속 실행됩니다.",
+    },
+    {
+      id: "outbox-idempotency",
+      area: "Backend",
+      title: "정확히 한 번의 확정을 위한 멱등 처리와 아웃박스",
+      summary: "재시도와 이벤트 발행이 겹쳐도 결제·확정이 두 번 실행되지 않게 했습니다.",
+      problem:
+        "결제 요청은 네트워크 오류로 재시도될 수 있고, 확정 이후의 이벤트 발행이 저장과 분리돼 있으면 저장은 됐는데 이벤트만 유실되는 상황이 생길 수 있습니다.",
+      constraint:
+        "재시도는 사용자가 제어할 수 없어 서버가 흡수해야 했고, 이벤트는 확정 저장과 같은 운명이어야 했습니다(둘 다 성공하거나 둘 다 취소).",
+      decision:
+        "요청에는 멱등성 키를 두어 같은 키의 재시도가 새 처리를 만들지 않게 하고, 이벤트는 별도 발행 대신 확정과 같은 트랜잭션에서 아웃박스 테이블에 기록했습니다.",
+      implementation: [
+        "같은 멱등성 키의 요청은 처음 처리 결과를 그대로 반환하도록 저장 시점에 판정했습니다.",
+        "예약 확정과 이벤트 행 기록을 한 트랜잭션으로 묶고, 릴레이가 아웃박스를 읽어 이벤트를 전달하게 했습니다.",
+        "이벤트를 소비하는 쪽도 이벤트 ID 기준으로 멱등 처리해 중복 전달을 흡수했습니다.",
+      ],
+      outcome:
+        "재시도·중복 전달·발행 유실이 겹치는 경우에도 확정과 이벤트가 한 번씩만 반영되는 구조를 만들었고, 관련 경로를 통합 테스트로 검증했습니다.",
     },
   ],
   ssafast: [

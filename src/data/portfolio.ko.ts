@@ -26,7 +26,7 @@ export const focusTracks = [
     resume: profile.resume,
     resumeLabel: "이력서 다운로드",
     projectIntro: "개인·팀 프로젝트에서 직접 구현한 화면과 기능 흐름을 정리했습니다.",
-    projectOrder: ["pps", "tsms", "reachrich", "ssafast", "ddoing", "modac"],
+    projectOrder: ["pps", "tsms", "ticketrush", "reachrich", "ssafast", "ddoing", "modac"],
   },
   {
     id: "frontend" as const,
@@ -50,7 +50,7 @@ export const focusTracks = [
     resume: backendResume,
     resumeLabel: "이력서 다운로드",
     projectIntro: "개인 프로젝트의 서버 처리, 데이터 검증과 운영 자동화 경험을 보여드립니다.",
-    projectOrder: ["pps", "tsms", "reachrich"],
+    projectOrder: ["pps", "tsms", "ticketrush", "reachrich"],
   },
 ];
 
@@ -544,6 +544,57 @@ export const featuredProjects: FeaturedProject[] = [
         { label: "GitHub 저장소", href: "https://github.com/YongjaeKwon/MODAC", type: "github" },
         { label: "화면 이미지", href: "/projects/modac.png", type: "image" },
       ],
+    },
+  },
+  {
+    id: "ticketrush",
+    title: "선착순 티켓팅 시스템(ticket-rush)",
+    shortTitle: "티켓러시",
+    period: "2026.08 ~ 진행 중",
+    category: "Personal Backend",
+    focuses: ["all", "backend"],
+    stack: ["Java 21", "Spring Boot", "Spring Modulith", "MySQL", "Redis", "Flyway", "Testcontainers", "GitHub Actions"],
+    card: {
+      summary: "수천 명이 같은 좌석을 동시에 잡아도 이중 예매 0건 — 동시성과 정합성을 테스트 수치로 증명하는 진행 중인 예매 시스템입니다.",
+      description: [
+        "Redis SET NX 선점, 만료 홀드의 결제 거부, DB (회차·좌석) 유니크 제약의 세 겹으로 좌석을 지키고 Redis 장애 상황까지 통합 테스트로 재현했습니다.",
+        "1단계 모놀리스 백엔드를 완료했고 ZSET 대기열·JWT 입장권·멱등 처리·트랜잭셔널 아웃박스·아키텍처 규칙 테스트를 구현했습니다.",
+      ],
+      result: "1좌석 100동시요청 경합 테스트에서 성공 정확히 1건·중복 예매 0건을 확인했고, 자동화 테스트 65건과 CI를 통과하고 있습니다. (2026.09 기준)",
+      keywords: ["좌석 3겹 방어", "트랜잭셔널 아웃박스", "경합 테스트 증명"],
+      visibility: "공개 GitHub 프로젝트",
+      workRange: "설계 · 백엔드 개발 · 동시성 테스트 · CI",
+      environment: "Spring Boot · Spring Modulith · MySQL · Redis",
+    },
+    detail: {
+      overview:
+        "선착순 티켓팅에서 같은 좌석이 두 번 팔리지 않는다는 것을 테스트와 수치로 증명하기 위해 진행 중인 개인 프로젝트입니다. 모놀리스로 시작해 Kafka 기반 분리까지 단계별 로드맵을 두고 1단계(모놀리스 백엔드)를 완료했으며, 헥사고날 구조(adapter→application→domain 단방향)를 아키텍처 테스트로 강제합니다.",
+      scope: [
+        "좌석 3겹 방어 설계와 동시성 테스트",
+        "ZSET 대기열과 JWT 입장권",
+        "멱등 처리·트랜잭셔널 아웃박스·SSE 상태 스트림",
+        "Testcontainers 통합 테스트와 GitHub Actions CI",
+      ],
+      workPoints: [
+        "Redis SET NX EX 5분 홀드가 동시 요청 중 한 건만 통과시키고, 만료된 홀드는 도메인 규칙이 결제를 거부하며, DB confirmed_seat의 (회차·좌석) 유니크 제약이 최종 방어를 맡습니다.",
+        "Redis가 죽어 홀드가 두 건 생기는 상황을 통합 테스트로 재현해 확정이 정확히 1건만 남는 것을 검증했습니다.",
+        "결제 요청은 멱등성 키로 중복 실행을 막고, 예약 확정과 이벤트 기록을 한 트랜잭션으로 묶는 아웃박스 패턴을 구현했습니다.",
+        "adapter→application→domain 단방향 의존과 도메인의 프레임워크 무지를 아키텍처 규칙 테스트로 강제합니다.",
+      ],
+      results: [
+        "1좌석 100동시요청 경합 테스트에서 성공 1건·중복 예매 0건을 확인했습니다. (2026.09 기준)",
+        "자동화 테스트 65건(Testcontainers 통합 테스트 포함)과 GitHub Actions CI를 통과하고 있습니다.",
+        "Redis 장애 재현 통합 테스트로 DB 최종 방어가 동작하는 것을 검증했습니다.",
+      ],
+      techUsage: [
+        "Spring Boot와 Spring Modulith로 catalog·queue·reservation 모듈 경계를 나눴습니다.",
+        "Redis는 SET NX EX 좌석 홀드와 ZSET 대기열·배치 입장에 사용했습니다.",
+        "MySQL·Flyway로 confirmed_seat 유니크 제약과 스키마 이력을 관리하고, Testcontainers로 실제 DB·Redis 기반 통합 테스트를 실행합니다.",
+        "GitHub Actions에서 테스트와 빌드를 실행해 CI 배지로 상태를 공개합니다.",
+      ],
+      disclosure:
+        "공개 GitHub 프로젝트로 전체 코드와 테스트를 확인할 수 있습니다. 진행 중인 프로젝트라 완료된 1단계 범위만 사실로 서술하고, 이후 단계(웹 프론트·Kafka 분리·부하 수치)는 로드맵으로 표시합니다.",
+      resources: [{ label: "GitHub 저장소·README", href: "https://github.com/YongjaeKwon/ticket-rush", type: "github" }],
     },
   },
   {

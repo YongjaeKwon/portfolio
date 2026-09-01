@@ -45,6 +45,7 @@ const demos = {
   ssafast: defineAsyncComponent(() => import("@/components/demos/SsafastDemo.vue")),
   ddoing: defineAsyncComponent(() => import("@/components/demos/DdoingDemo.vue")),
   modac: defineAsyncComponent(() => import("@/components/demos/ModacDemo.vue")),
+  ticketrush: defineAsyncComponent(() => import("@/components/demos/TicketRushDemo.vue")),
 } as const;
 
 const copyByProject = {
@@ -59,6 +60,10 @@ const copyByProject = {
   modac: t(
     "스터디 탐색과 참여, 스터디룸 활동과 기록 확인까지 서비스 흐름을 단계별로 따라갑니다.",
     "Follow the service flow step by step — from browsing and joining a study group to room activity and study logs.",
+  ),
+  ticketrush: t(
+    "대기열 입장부터 좌석 홀드, 100명 동시 요청 경쟁과 결제 확정까지 3겹 방어 설계를 단계별로 체험합니다.",
+    "Experience the three-layer defense step by step — queue admission, seat holds, a 100-request race, and payment confirmation.",
   ),
 } as const;
 

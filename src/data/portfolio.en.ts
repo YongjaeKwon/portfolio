@@ -25,7 +25,7 @@ export const focusTracks = [
     resume: profile.resume,
     resumeLabel: "Download resume",
     projectIntro: "Screens and feature flows I built hands-on in personal and team projects.",
-    projectOrder: ["pps", "tsms", "reachrich", "ssafast", "ddoing", "modac"],
+    projectOrder: ["pps", "tsms", "ticketrush", "reachrich", "ssafast", "ddoing", "modac"],
   },
   {
     id: "frontend" as const,
@@ -49,7 +49,7 @@ export const focusTracks = [
     resume: backendResume,
     resumeLabel: "Download resume",
     projectIntro: "Server-side processing, data validation, and operational automation from my personal projects.",
-    projectOrder: ["pps", "tsms", "reachrich"],
+    projectOrder: ["pps", "tsms", "ticketrush", "reachrich"],
   },
 ];
 
@@ -520,6 +520,59 @@ export const featuredProjects: FeaturedProject[] = [
         { label: "GitHub repository", href: "https://github.com/YongjaeKwon/MODAC", type: "github" },
         { label: "Screenshot", href: "/projects/modac.png", type: "image" },
       ],
+    },
+  },
+  {
+    id: "ticketrush",
+    title: "First-come Ticketing System (ticket-rush)",
+    shortTitle: "ticket-rush",
+    period: "Aug 2026 – in progress",
+    category: "Personal Backend",
+    focuses: ["all", "backend"],
+    stack: ["Java 21", "Spring Boot", "Spring Modulith", "MySQL", "Redis", "Flyway", "Testcontainers", "GitHub Actions"],
+    card: {
+      summary:
+        "Zero double bookings even when thousands grab the same seat — an in-progress reservation system that proves its concurrency and consistency with test numbers.",
+      description: [
+        "Each seat is guarded by three layers — Redis SET NX holds, domain rules rejecting expired holds at payment, and a DB unique constraint on (show, seat) — with a Redis-outage scenario reproduced in integration tests.",
+        "Stage 1 (monolith backend) is complete: ZSET queue, JWT entry tokens, idempotent processing, a transactional outbox, and architecture-rule tests.",
+      ],
+      result:
+        "The contention test — 100 concurrent requests for one seat — yields exactly one success and zero double bookings; 65 automated tests and CI pass. (as of Sep 2026)",
+      keywords: ["Three-layer seat defense", "Transactional outbox", "Proven by contention tests"],
+      visibility: "Public GitHub project",
+      workRange: "Design · backend development · concurrency testing · CI",
+      environment: "Spring Boot · Spring Modulith · MySQL · Redis",
+    },
+    detail: {
+      overview:
+        "An in-progress personal project built to prove, with tests and numbers, that the same seat can never be sold twice in first-come ticketing. It follows a staged roadmap from a monolith to Kafka-based separation; stage 1 (the monolith backend) is complete, and a hexagonal structure (adapter→application→domain, one direction) is enforced by architecture tests.",
+      scope: [
+        "Three-layer seat defense and concurrency tests",
+        "ZSET queue with JWT entry tokens",
+        "Idempotent processing, transactional outbox, SSE status streams",
+        "Testcontainers integration tests and GitHub Actions CI",
+      ],
+      workPoints: [
+        "A Redis SET NX EX five-minute hold lets only one concurrent request through; domain rules reject payment on expired holds; and the DB unique constraint on confirmed_seat (show, seat) is the final guard.",
+        "The Redis-down scenario — two holds slipping through — is reproduced in integration tests to verify exactly one confirmation survives.",
+        "Payment requests are deduplicated by idempotency keys, and reservation confirmation plus event records are written in one transaction via the outbox pattern.",
+        "Architecture-rule tests enforce one-directional adapter→application→domain dependencies and a framework-free domain.",
+      ],
+      results: [
+        "The one-seat, 100-concurrent-request contention test yields exactly one success and zero double bookings. (as of Sep 2026)",
+        "65 automated tests, including Testcontainers integration tests, pass in GitHub Actions CI.",
+        "The Redis-outage integration test verifies the DB's final guard works.",
+      ],
+      techUsage: [
+        "Spring Boot and Spring Modulith divide the catalog, queue, and reservation module boundaries.",
+        "Redis provides SET NX EX seat holds and the ZSET queue with batch admission.",
+        "MySQL and Flyway manage the confirmed_seat unique constraint and schema history; Testcontainers runs integration tests against real DB and Redis instances.",
+        "GitHub Actions runs the tests and build, with the CI badge published on the README.",
+      ],
+      disclosure:
+        "A public GitHub project — all code and tests are open. As work in progress, only the completed stage 1 is described as fact; later stages (web frontend, Kafka separation, load numbers) are shown as a roadmap.",
+      resources: [{ label: "GitHub repository & README", href: "https://github.com/YongjaeKwon/ticket-rush", type: "github" }],
     },
   },
   {

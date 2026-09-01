@@ -21,7 +21,7 @@ describe("experience and project ownership", () => {
     const personalIds = idsFromSet(projectsView, "personalProjectIds");
 
     expect(workIds).toEqual(["pps", "tsms"]);
-    expect(personalIds).toEqual(["reachrich", "ssafast", "ddoing", "modac"]);
+    expect(personalIds).toEqual(["ticketrush", "reachrich", "ssafast", "ddoing", "modac"]);
     expect(workIds.filter((id) => personalIds.includes(id))).toEqual([]);
     expect(new Set([...workIds, ...personalIds])).toEqual(
       new Set(featuredProjects.map((project) => project.id)),
@@ -29,7 +29,7 @@ describe("experience and project ownership", () => {
 
     expect(experienceView).toContain("workProjectIds.has(project.id)");
     expect(projectsView).toContain("personalProjectIds.has(project.id)");
-    expect(projectsView).toContain('new Set(["ssafast", "ddoing", "modac"])');
+    expect(projectsView).toContain('new Set(["ticketrush", "ssafast", "ddoing", "modac"])');
     expect(projectsView).toContain('import("@/components/demos/ProjectDemoPanel.vue")');
     expect(experienceView).not.toContain("ProjectDemoPanel");
   });

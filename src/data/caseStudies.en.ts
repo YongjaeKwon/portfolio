@@ -311,6 +311,78 @@ return postId != null
         "Parents complete enrollment from the guidance alone; the screens ran through several enrollment periods, with schedule and deadline changes applied same-day.",
     },
   ],
+  ticketrush: [
+    {
+      id: "three-layer-defense",
+      area: "Backend",
+      title: "Three layers of defense for the same seat",
+      summary: "Fast holds, domain rules, and a DB constraint each guard against a different failure.",
+      problem:
+        "In first-come booking under concurrent load, relying on a single defense means the moment that layer fails, the same seat can be sold twice.",
+      constraint:
+        "Holds had to respond fast, and even when a layer fails — a Redis outage, an expired hold — the final confirmation had to be exactly one.",
+      decision:
+        "Split responsibility by layer: Redis SET NX holds own speed, domain rules own flow validation, and the DB unique constraint owns final consistency.",
+      implementation: [
+        "A Redis SET NX EX five-minute hold lets only the first concurrent request claim the seat.",
+        "Domain rules refuse payment on an expired or missing hold.",
+        "The unique constraint on (show, seat) in the confirmation table physically rejects a second INSERT for the same seat.",
+      ],
+      outcome:
+        "The one-seat, 100-concurrent-request contention test yields exactly one success and zero double bookings. Whichever layer fails, the next one reaches the same conclusion.",
+      code: {
+        language: "Java",
+        title: "Separating the hold from the final guard",
+        content: `boolean held = redis.setIfAbsent(seatKey(showId, seatId), holdToken, HOLD_TTL);
+if (!held) throw new SeatAlreadyHeldException();
+
+// at payment: domain rules reject expired holds
+hold.ensureActive(clock.now());
+
+// final confirmation: the (show, seat) unique constraint rejects a second INSERT
+confirmedSeatRepository.insert(showId, seatId, reservationId);`,
+        note: "Exception handling and transaction boundaries are trimmed from the real flow in the public repository; this shows only where each of the three layers takes over.",
+      },
+    },
+    {
+      id: "redis-outage-proof",
+      area: "Backend",
+      title: "Reproducing a Redis outage in tests",
+      summary: "Even with the first defense gone and two holds alive, integration tests prove one confirmation.",
+      problem:
+        "Redis holds are fast, but if Redis dies the hold data disappears — two people can proceed as if each holds the same seat.",
+      constraint:
+        "You cannot wait for the outage in production, so it had to be reproduced in tests — and against a real DB and Redis, not mocks, for the proof to mean anything.",
+      decision:
+        "In Testcontainers-based integration tests running real MySQL and Redis, deliberately stop the Redis container and verify the flow reaches the DB constraint.",
+      implementation: [
+        "Created the abnormal state of two live holds on the same seat and had both attempt confirmation.",
+        "Verified the first confirmation succeeds and the second fails on the (show, seat) unique constraint.",
+        "Included in the test what error the losing side surfaces to the user.",
+      ],
+      outcome:
+        "Automated tests prove exactly one confirmation survives even with the first defense entirely gone — and the scenario keeps running in CI.",
+    },
+    {
+      id: "outbox-idempotency",
+      area: "Backend",
+      title: "Idempotency and an outbox for exactly-once confirmation",
+      summary: "Retries and event publishing can overlap without running payment or confirmation twice.",
+      problem:
+        "Payment requests get retried on network errors, and if event publishing is separate from the save, the save can succeed while the event is lost.",
+      constraint:
+        "Retries can't be controlled by users, so the server had to absorb them — and events had to share the confirmation's fate (both commit or both roll back).",
+      decision:
+        "Give requests an idempotency key so retries with the same key never create new work, and record events in an outbox table within the same transaction as the confirmation.",
+      implementation: [
+        "Requests with a known idempotency key return the original result, decided at save time.",
+        "Reservation confirmation and the event row commit in one transaction; a relay reads the outbox and delivers events.",
+        "Consumers are idempotent by event ID, absorbing duplicate delivery.",
+      ],
+      outcome:
+        "Confirmation and its events apply exactly once even when retries, duplicate delivery, and publish failures overlap — with the paths verified by integration tests.",
+    },
+  ],
   ssafast: [
     {
       id: "dynamic-api-form",

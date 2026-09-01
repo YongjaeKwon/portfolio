@@ -174,7 +174,7 @@ const emit = defineEmits<{
 }>();
 
 const ProjectCaseStudyList = defineAsyncComponent(() => import("@/components/ProjectCaseStudyList.vue"));
-const detailedCaseProjectIds = new Set(["pps", "tsms", "ssafast", "ddoing", "modac", "reachrich"]);
+const detailedCaseProjectIds = new Set(["pps", "tsms", "ticketrush", "ssafast", "ddoing", "modac", "reachrich"]);
 const hasDetailedCaseStudies = (projectId: string) => detailedCaseProjectIds.has(projectId);
 
 const DetailBlock = defineComponent({
