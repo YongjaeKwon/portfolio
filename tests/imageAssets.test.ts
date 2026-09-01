@@ -76,12 +76,14 @@ const expectedAssets = [
   { output: "public/projects/ssafast-preview.webp", width: 960, height: 540, maxBytes: 120_000 },
   { output: "public/projects/ddoing-preview.webp", width: 800, height: 459, maxBytes: 120_000 },
   { output: "public/projects/modac-preview.webp", width: 600, height: 338, maxBytes: 120_000 },
+  { output: "public/projects/ticketrush-preview.webp", width: 960, height: 540, maxBytes: 120_000 },
 ] as const;
 
 const expectedProjects = {
   ssafast: { src: "/projects/ssafast.png", width: 1200, height: 675, previewSrc: "/projects/ssafast-preview.webp", previewWidth: 960, previewHeight: 540 },
   ddoing: { src: "/projects/ddoing.png", width: 800, height: 459, previewSrc: "/projects/ddoing-preview.webp", previewWidth: 800, previewHeight: 459 },
   modac: { src: "/projects/modac.png", width: 600, height: 338, previewSrc: "/projects/modac-preview.webp", previewWidth: 600, previewHeight: 338 },
+  ticketrush: { src: "/projects/ticketrush.png", width: 1200, height: 675, previewSrc: "/projects/ticketrush-preview.webp", previewWidth: 960, previewHeight: 540 },
 } as const;
 
 describe("optimized image assets", () => {

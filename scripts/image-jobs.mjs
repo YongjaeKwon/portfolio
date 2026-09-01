@@ -8,6 +8,7 @@ export const imageJobs = [
   { input: "public/projects/ssafast.png", output: "public/projects/ssafast-preview.webp", width: 960, height: 640, fit: "inside" },
   { input: "public/projects/ddoing.png", output: "public/projects/ddoing-preview.webp", width: 960, height: 640, fit: "inside" },
   { input: "public/projects/modac.png", output: "public/projects/modac-preview.webp", width: 960, height: 640, fit: "inside" },
+  { input: "public/projects/ticketrush.png", output: "public/projects/ticketrush-preview.webp", width: 960, height: 640, fit: "inside" },
 ];
 
 export const renderImageJob = (job) => sharp(resolveImagePath(job.input))

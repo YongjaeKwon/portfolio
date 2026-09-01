@@ -554,6 +554,15 @@ export const featuredProjects: FeaturedProject[] = [
     category: "Personal Backend",
     focuses: ["all", "backend"],
     stack: ["Java 21", "Spring Boot", "Spring Modulith", "MySQL", "Redis", "Flyway", "Testcontainers", "GitHub Actions"],
+    image: {
+      src: "/projects/ticketrush.png",
+      width: 1200,
+      height: 675,
+      previewSrc: "/projects/ticketrush-preview.webp",
+      previewWidth: 960,
+      previewHeight: 540,
+      alt: "티켓러시 좌석 선택 목업 — 구역 탭, 좌석 배치도와 잔여석 표시",
+    },
     card: {
       summary: "수천 명이 같은 좌석을 동시에 잡아도 이중 예매 0건 — 동시성과 정합성을 테스트 수치로 증명하는 진행 중인 예매 시스템입니다.",
       description: [

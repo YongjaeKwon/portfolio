@@ -530,6 +530,15 @@ export const featuredProjects: FeaturedProject[] = [
     category: "Personal Backend",
     focuses: ["all", "backend"],
     stack: ["Java 21", "Spring Boot", "Spring Modulith", "MySQL", "Redis", "Flyway", "Testcontainers", "GitHub Actions"],
+    image: {
+      src: "/projects/ticketrush.png",
+      width: 1200,
+      height: 675,
+      previewSrc: "/projects/ticketrush-preview.webp",
+      previewWidth: 960,
+      previewHeight: 540,
+      alt: "ticket-rush seat-selection mockup — section tabs, seat map, and remaining-seat count",
+    },
     card: {
       summary:
         "Zero double bookings even when thousands grab the same seat — an in-progress reservation system that proves its concurrency and consistency with test numbers.",
