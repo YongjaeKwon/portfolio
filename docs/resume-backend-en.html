@@ -508,7 +508,7 @@
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Collecting and zipping attachments for 300–400 engineers in a single request held the screen for minutes, with no way to tell whether the job was running or had failed.</span></li>
             <li><span class="case-label">Decision</span><span>The real issue was the request and the job being tied into one flow, not compression speed — so I split the job out and exposed its status.</span></li>
-            <li><span class="case-label">Implementation</span><span>A Spring async job handles compression; the request API returns a job ID and a status API reports running / done / failed. The same job can be picked up again after a refresh.</span></li>
+            <li><span class="case-label">Implementation</span><span>A Spring async job handles compression; the request API returns a job ID and a status API reports running / done / failed. Job state lives in a Hazelcast distributed map, so both servers report the same progress and the job survives a refresh.</span></li>
             <li><span class="case-label">Result</span><span>Freed HTTP requests from long-running zip jobs and gave users a flow where they track progress and download only finished results.</span></li>
           </ul>
         </div>
@@ -525,12 +525,12 @@
 
         <div class="print-continuation">PPS Highlights · continued</div>
         <div class="case">
-          <strong>Automating deployment with a Jenkins Pipeline</strong>
+          <strong>Rate-limiting password-reset codes across two servers</strong>
           <ul class="case-flow">
-            <li><span class="case-label">Problem</span><span>Build, file transfer, backup, and sequential deployment to two servers were manual, so every run meant re-checking for missed steps.</span></li>
-            <li><span class="case-label">Decision</span><span>The repeated order should be fixed as a single job rather than left to memory.</span></li>
-            <li><span class="case-label">Implementation</span><span>A Jenkins Pipeline chains source checkout, build, transfer to the servers, backup, and sequential deployment to both servers.</span></li>
-            <li><span class="case-label">Result</span><span>215 successful development and 153 production runs so far; the last 20 pipeline runs averaged 39 seconds (development) and 46 seconds (production). (as of Sep 2026)</span></li>
+            <li><span class="case-label">Problem</span><span>Password reset sends a verification code by notification message, but nothing stopped repeated clicks or automated requests — and with two servers, per-server in-memory limits fall apart once requests are load-balanced.</span></li>
+            <li><span class="case-label">Decision</span><span>The limit state had to be shared between servers, and identifying values such as account and phone number must not be stored raw as limiter keys.</span></li>
+            <li><span class="case-label">Implementation</span><span>Stored TTL cooldowns in a Hazelcast distributed map with putIfAbsent-based atomic acquisition, so only one of any concurrent requests sends a code. Limiter keys are SHA-256 hashes of account + phone number, environments without Hazelcast fall back to a local map, and codes come from SecureRandom.</span></li>
+            <li><span class="case-label">Result</span><span>The same limit applies whichever server receives the request, and users see the remaining wait time. Boundary conditions — acquisition right after expiry, concurrent races — are pinned by 30 related unit tests.</span></li>
           </ul>
         </div>
 

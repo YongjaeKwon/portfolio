@@ -135,8 +135,13 @@ assert.match(
 );
 assert.match(
   backendResumeSource,
-  /Jenkins Pipeline 기반 배포 자동화/,
-  "The backend resume must include the deployment automation case",
+  /비밀번호 초기화 인증번호 요청 제한/,
+  "The backend resume must include the distributed rate-limiting case",
+);
+assert.match(
+  backendResumeSource,
+  /Hazelcast 분산 맵에 저장해 서버 2대 어디로 조회해도/,
+  "The backend resume must state the distributed zip-job state",
 );
 
 // 영문판 — 단일 타이틀, 영문 사이트로 돌아오는 포트폴리오 링크, 핵심 근거 문구를 잠근다.
@@ -172,8 +177,8 @@ assert.match(
 );
 assert.match(
   backendEnResumeSource,
-  /Automating deployment with a Jenkins Pipeline/,
-  "The English backend resume must include the deployment automation case",
+  /Rate-limiting password-reset codes across two servers/,
+  "The English backend resume must include the distributed rate-limiting case",
 );
 
 for (const [publicName, finalName] of [

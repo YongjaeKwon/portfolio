@@ -523,7 +523,7 @@
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>CE 300~400건의 첨부파일을 한 요청에서 수집 · 압축해 화면이 장시간 대기했고, 진행 중인지 실패한 것인지 확인할 수 없었습니다.</span></li>
             <li><span class="case-label">판단</span><span>압축 속도보다 요청과 작업이 한 흐름에 묶인 구조가 문제라고 보고, 작업을 분리해 상태를 조회하는 방식을 선택했습니다.</span></li>
-            <li><span class="case-label">구현</span><span>Spring 비동기 작업으로 압축을 분리하고, 요청 API는 작업 ID를 반환하며 상태 조회 API에서 진행 · 완료 · 실패를 확인하도록 구성했습니다. 새로고침 후에도 같은 작업을 이어서 확인할 수 있게 했습니다.</span></li>
+            <li><span class="case-label">구현</span><span>Spring 비동기 작업으로 압축을 분리하고, 요청 API는 작업 ID를 반환하며 상태 조회 API에서 진행 · 완료 · 실패를 확인하도록 구성했습니다. 작업 상태는 Hazelcast 분산 맵에 저장해 서버 2대 어디로 조회해도 같은 진행 상황을 보여주고, 새로고침 후에도 같은 작업을 이어서 확인할 수 있게 했습니다.</span></li>
             <li><span class="case-label">결과</span><span>300~400건 단위 압축 작업이 HTTP 요청을 장시간 점유하던 문제를 해소하고, 사용자가 진행 상태를 확인하며 내려받도록 바꿨습니다.</span></li>
           </ul>
         </div>
@@ -540,12 +540,12 @@
         <div class="print-continuation">PPS 주요 성과 · 계속</div>
 
         <div class="case">
-          <strong>Jenkins Pipeline 기반 배포 자동화</strong>
+          <strong>서버 2대 환경의 비밀번호 초기화 인증번호 요청 제한</strong>
           <ul class="case-flow">
-            <li><span class="case-label">문제</span><span>빌드 · 파일 전송 · 기존 파일 백업과 2대 서버 배포를 수동으로 반복해 단계 누락 여부를 매번 확인해야 했습니다.</span></li>
-            <li><span class="case-label">판단</span><span>반복 순서를 사람의 기억에 맡기지 않고 하나의 작업으로 고정하는 것이 우선이라고 판단했습니다.</span></li>
-            <li><span class="case-label">구현</span><span>Jenkins Pipeline에 소스 반영, 빌드, 서버 전송, 백업과 2대 서버 순차 배포를 연결했습니다.</span></li>
-            <li><span class="case-label">결과</span><span>개발 215회 · 운영 153회의 성공 기록을 쌓았고, 최근 20회 Pipeline 실행은 개발 평균 39초 · 운영 평균 46초가 걸렸습니다. (2026.09 기준)</span></li>
+            <li><span class="case-label">문제</span><span>비밀번호 초기화가 인증번호를 알림톡으로 발송하는데 반복 클릭과 자동화된 요청을 막는 장치가 없었고, 서버가 2대라 서버별 메모리 제한만으로는 요청이 분산되면 제한이 무력화됩니다.</span></li>
+            <li><span class="case-label">판단</span><span>제한 상태를 서버 간에 공유해야 하고, 계정 · 전화번호 같은 식별값을 제한 키로 원문 저장하지 않아야 한다고 판단했습니다.</span></li>
+            <li><span class="case-label">구현</span><span>Hazelcast 분산 맵에 TTL 쿨다운을 저장하고 putIfAbsent 기반 원자적 획득으로 동시 요청 중 한 건만 발송되게 했습니다. 제한 키는 계정 · 전화번호의 SHA-256 해시를 쓰고, Hazelcast가 없는 환경은 로컬 맵으로 폴백하며, 인증번호는 SecureRandom으로 생성했습니다.</span></li>
+            <li><span class="case-label">결과</span><span>어느 서버로 요청해도 같은 제한이 적용되고 화면에는 남은 대기 시간이 안내됩니다. 만료 직후 획득과 동시 요청 경쟁 같은 경계 조건은 관련 단위 테스트 30건으로 고정했습니다.</span></li>
           </ul>
         </div>
 
