@@ -217,7 +217,7 @@
         border-top: 0;
       }
       .career-system + .career-system {
-        margin-top: 10px;
+        margin-top: 8px;
       }
       .system-overview {
         padding: 6px 10px 5px 11px;
@@ -292,7 +292,7 @@
         break-after: auto;
       }
       .project-item + h2 {
-        margin-top: 10px;
+        margin-top: 8px;
       }
       .case-section-heading {
         margin-top: 8px;
@@ -477,7 +477,7 @@
           <div class="skill-name">Responsive UI</div>
           <div class="skill-value">
             CSS Grid, Flexbox, Tailwind CSS
-            <p class="skill-detail">My portfolio keeps reading order on small screens — a single column for cards, details, and inputs — expanding to two columns only on wide screens; long step tabs scroll horizontally.</p>
+            <p class="skill-detail">My portfolio keeps reading order on small screens — a single column for cards, details, and inputs — expanding to two columns only on wide screens.</p>
           </div>
         </div>
         <div class="skill-row">
@@ -579,12 +579,12 @@
         </div>
 
         <div class="case">
-          <strong>Row-level error guidance and pre-save revalidation for bulk device registration</strong>
+          <strong>Public enrollment screens for parents across four education offices</strong>
           <ul class="case-flow">
-            <li><span class="case-label">Problem</span><span>Uploaded spreadsheets could mix serial numbers missing from production records, or already assigned elsewhere, in with valid rows.</span></li>
-            <li><span class="case-label">Approach</span><span>Show users the cause of each bad row instead of silently dropping it, and re-check right before saving in case assignments changed after validation.</span></li>
-            <li><span class="case-label">Implementation</span><span>Classified serials as valid, not-in-stock, or already-assigned, showing the conflicting school and user. The save API re-queries assignment state and processes only valid rows; QR URLs carry encrypted values, not raw identifiers.</span></li>
-            <li><span class="case-label">Result</span><span>Users resolve row-level causes and process only valid rows, and assignment changes after validation are caught before save.</span></li>
+            <li><span class="case-label">Problem</span><span>Parents handle rental consent, delivery-date booking, and QR handout checks on public screens with no login — so late submissions, duplicates, and mobile rendering issues all had to be handled in the UI.</span></li>
+            <li><span class="case-label">Approach</span><span>Unlike admin screens, put guidance text, error screens, and deadline locking first, and design mobile-first by default.</span></li>
+            <li><span class="case-label">Implementation</span><span>Built consent, QR check, and delivery-booking screens for four education offices (Jeju, Sejong, Gyeonggi, Gangwon), handling submission locks after deadlines, back-navigation guards, a dedicated error screen on parse failures, and QR codes unreadable in dark mode.</span></li>
+            <li><span class="case-label">Result</span><span>Parents complete enrollment from the guidance alone; schedule changes and deadline requests during live periods were applied same-day.</span></li>
           </ul>
         </div>
       </section>

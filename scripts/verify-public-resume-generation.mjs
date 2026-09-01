@@ -111,6 +111,11 @@ assert.match(
   /숨긴 탭의 조회 중단 · 복귀와 연속 클릭의 중복 제출 방지/,
   "The frontend resume must describe behavior-focused frontend testing",
 );
+assert.match(
+  frontendResumeSource,
+  /학부모 대상 공개 접수 화면/,
+  "The frontend resume must include the public enrollment screens case",
+);
 
 // 백엔드 기준본 — 단일 타이틀과 서버·운영 근거 문구를 잠근다.
 assert.match(
@@ -137,6 +142,11 @@ assert.match(
   backendResumeSource,
   /비밀번호 초기화 인증번호 요청 제한/,
   "The backend resume must include the distributed rate-limiting case",
+);
+assert.match(
+  backendResumeSource,
+  /시리얼 기준 재정립과 중복 정리/,
+  "The backend resume must include the production data-cleanup case",
 );
 assert.match(
   backendResumeSource,
@@ -179,6 +189,16 @@ assert.match(
   backendEnResumeSource,
   /Rate-limiting password-reset codes across two servers/,
   "The English backend resume must include the distributed rate-limiting case",
+);
+assert.match(
+  backendEnResumeSource,
+  /Re-keying live inspection data/,
+  "The English backend resume must include the production data-cleanup case",
+);
+assert.match(
+  frontendEnResumeSource,
+  /Public enrollment screens for parents/,
+  "The English frontend resume must include the public enrollment screens case",
 );
 
 for (const [publicName, finalName] of [

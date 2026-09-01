@@ -572,12 +572,12 @@
         </div>
 
         <div class="case">
-          <strong>Building secondhand-marketplace monitoring</strong>
+          <strong>Re-keying live inspection data and cleaning duplicates in production</strong>
           <ul class="case-flow">
-            <li><span class="case-label">Problem</span><span>The operations team searched multiple marketplaces by keyword and region by hand and tracked suspicious listings manually. Security policy and site restrictions ruled out direct search or crawling by the system.</span></li>
-            <li><span class="case-label">Decision</span><span>With direct calls to external sites off the table, keep human review and let the server analyze only the pasted listing URL string.</span></li>
-            <li><span class="case-label">Implementation</span><span>The server identifies the site and listing ID from the URL to detect duplicates, with per-site rules managed in reference data. Links, captures, sale details, and handling history are connected on one screen.</span></li>
-            <li><span class="case-label">Result</span><span>Systematized the recording, duplicate checks, and case history that follow a search — without the system ever contacting external sites directly.</span></li>
+            <li><span class="case-label">Problem</span><span>Inspection targets were stored by a 14-digit input serial while full serials have 15 digits, so ambiguous matches could map wrongly or store duplicates — and with the system already live, fixing the screens alone would not clean the accumulated data.</span></li>
+            <li><span class="case-label">Decision</span><span>Re-key storage to the full 15-digit serial, and clean the existing data while preserving inspection results — with a procedure that could be rolled back before it touched production.</span></li>
+            <li><span class="case-label">Implementation</span><span>Switched storage to 15-digit serials, resolving 14-digit input through candidate search confirmed by school assignment. Wrote de-duplication SQL prioritized by grade, class, number, and inspection history, and applied it to the production DB together with backup, rollback, and post-verification SQL.</span></li>
+            <li><span class="case-label">Result</span><span>Removed duplicate rows while preserving inspection results and details, and ID-based updates keep the problem from recurring. (applied to production, Jul 2026)</span></li>
           </ul>
         </div>
 
