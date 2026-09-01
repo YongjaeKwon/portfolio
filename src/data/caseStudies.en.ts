@@ -14,7 +14,7 @@ export const enProjectCaseStudies: Record<CaseStudyProjectId, ProjectCaseStudy[]
       decision:
         "Separate compression from the browser request, and link progress and result files through a server-issued job ID.",
       implementation: [
-        "The archive request returns a job ID first; the actual compression runs in a separate worker.",
+        "The archive request returns a job ID first; the actual compression runs in a separate worker, with job state kept in a distributed map shared by both servers.",
         "The screen checks waiting / running / done / failed states every 2 seconds and keeps the job ID in the browser.",
         "Completed files download through a separate request, and old result files are cleaned up by an expiry policy.",
       ],
@@ -35,6 +35,41 @@ for (let count = 0; count < MAX_POLL_COUNT; count += 1) {
 
 showRetryGuide();`,
         note: "An abbreviated example showing only the screen's status polling and exit conditions — the actual internal code is not disclosed.",
+      },
+    },
+    {
+      id: "password-reset-limiter",
+      area: "Backend",
+      title: "A verification-code rate limit that holds across two servers",
+      summary: "Password-reset code sends now go through a distributed cooldown with atomic acquisition.",
+      problem:
+        "Password reset sends a verification code by notification message, but nothing stopped repeated clicks or automated requests — and with two servers, per-server in-memory limits fall apart once requests are load-balanced.",
+      constraint:
+        "The limit state had to be shared between servers, identifying values like account and phone number could not be stored raw as limiter keys, and the same code had to work in local environments without a distributed store.",
+      decision:
+        "Store TTL cooldowns in the distributed map already running in production, using an atomic acquisition so only one of any concurrent requests passes. Limiter keys carry only hashes of the identifying values.",
+      implementation: [
+        "Cooldowns are acquired atomically with putIfAbsent on the distributed map, and stale entries are removed conditionally so a concurrent acquisition is never overwritten.",
+        "Limiter keys are SHA-256 hashes of the normalized account and phone number, so no raw values are stored.",
+        "Environments without the distributed store fall back to a local map, and the screen receives the remaining wait time to guide retries.",
+        "Boundary conditions — acquisition right after expiry, concurrent races — are pinned by unit tests.",
+      ],
+      outcome:
+        "The same limit applies whichever server receives the request, and users see how long to wait. Thirty related unit tests cover the key branches.",
+      code: {
+        language: "Java",
+        title: "Atomic cooldown acquisition on a distributed map",
+        content: `public Decision tryAcquire(String key) {
+  while (true) {
+    long now = clock.millis();
+    Long current = cooldowns.putIfAbsent(key, now + ttlMillis, ttlSeconds, SECONDS);
+    if (current == null) return Decision.permit();
+    if (current > now) return Decision.reject(remainingSeconds(current, now));
+    // conditional remove so slow TTL eviction never clobbers a concurrent acquire
+    cooldowns.remove(key, current);
+  }
+}`,
+        note: "The key hashing and fallback handling are trimmed away; this shows only the core loop that acquires a cooldown atomically on the distributed map.",
       },
     },
     {
@@ -150,6 +185,25 @@ Object.assign(vm.$data, createInitialState());`,
         "API keys visible in the browser were pulled back to the server, and integration changes now happen in one common server path instead of per-screen code.",
     },
     {
+      id: "view-query-rewrite",
+      area: "Backend",
+      title: "Rewriting a consolidated-view lookup that could not finish in 60 seconds",
+      summary: "A view query whose plan exploded was rewritten as base-table joins, dropping to milliseconds.",
+      problem:
+        "Repair-history and settlement-detail lookups went through a consolidated multi-table view, and as data grew the screens degraded to waiting tens of seconds.",
+      constraint:
+        "The screens' filters and displayed columns had to stay identical, and other screens using the same view could not be affected.",
+      decision:
+        "The execution plan showed the customer filter never reached inside the view — the whole view was materialized and then filtered. The fix was not another index but rewriting the lookup as direct base-table joins over only the columns the screens use.",
+      implementation: [
+        "Joined the base tables directly instead of the view, so the customer condition applies through indexes from the start.",
+        "Kept only the columns the screens use, attaching the latest handling history via a subquery to preserve the result shape.",
+        "Ran the old and new queries with identical parameters and compared row-for-row to confirm the same results.",
+      ],
+      outcome:
+        "Re-measured on the production DB (Sep 2026, heaviest customer): the old query could not finish within a 60-second cap, while the rewrite returns the same rows in 63–69 ms. The plan estimate dropped from about 2.1 trillion rows to 1,854.",
+    },
+    {
       id: "resale-monitoring",
       area: "Full Stack",
       title: "Digitizing used-market listing monitoring",
@@ -216,7 +270,45 @@ return postId != null
         "Included touch signatures, unsaved-navigation warnings, and certificate/result file issuance in the same inspection flow.",
       ],
       outcome:
-        "Inspections and re-inspections are now managed per school and device in one system. As of July 2026, about 3,800 inspection records span the 119-school program.",
+        "Inspections and re-inspections are now managed per school and device in one system. As of September 2026, 14,882 inspection sheets have been saved across 71 of the 119 target schools.",
+    },
+    {
+      id: "inspection-data-rekey",
+      area: "Backend",
+      title: "Re-keying live inspection data to a consistent serial standard",
+      summary: "Mixed serial formats were fixed and production duplicates cleaned with backup and rollback prepared.",
+      problem:
+        "Inspection targets were stored by a 14-digit input serial while full serials have 15 digits, so ambiguous matches could map wrongly or store duplicates.",
+      constraint:
+        "With the system already live, fixing the screens alone would not clean the accumulated data — and saved inspection results and details had to be preserved.",
+      decision:
+        "Re-key storage to the full 15-digit serial, and clean the existing data while preserving results — with a procedure that could be rolled back before it touched production.",
+      implementation: [
+        "Switched storage to 15-digit serials, resolving 14-digit input through candidate search confirmed by school assignment.",
+        "Wrote de-duplication SQL prioritized by grade, class, number, and inspection history, removing only duplicate rows while preserving results.",
+        "Prepared backup, rollback, and post-verification SQL together and applied them in order to the production DB.",
+      ],
+      outcome:
+        "Duplicates were removed without losing any inspection results, and ID-based updates keep the problem from recurring. Applied to production in July 2026.",
+    },
+    {
+      id: "parent-enrollment",
+      area: "Frontend",
+      title: "Public enrollment screens parents use without logging in",
+      summary: "Consent, QR check, and delivery-booking screens for four education offices, built mobile-first.",
+      problem:
+        "Parents handle rental consent, delivery-date booking, and QR handout checks themselves — on public screens with no login, so late submissions after deadlines, duplicates, and mobile rendering issues all had to be handled in the UI.",
+      constraint:
+        "Enrollment periods and deadlines differed per education office and changed mid-period, and most parents connected by phone — a different standard from admin screens.",
+      decision:
+        "Put guidance text, error screens, and deadline locking first, and design mobile-first by default. Mid-period schedule changes were applied same-day as a rule.",
+      implementation: [
+        "Built consent, QR handout check, and delivery-booking screens for the Jeju, Sejong, Gyeonggi, and Gangwon education offices.",
+        "Applied submission locks after deadlines and back-navigation guards, switching to a dedicated error screen on parse failures.",
+        "Fixed QR codes unreadable in dark mode by forcing a light background behind the QR area.",
+      ],
+      outcome:
+        "Parents complete enrollment from the guidance alone; the screens ran through several enrollment periods, with schedule and deadline changes applied same-day.",
     },
   ],
   ssafast: [
