@@ -1,94 +1,58 @@
-# portfolio
+# 권용재 · 웹 개발자 포트폴리오
 
-개인 포트폴리오 사이트입니다. 템플릿을 쓰지 않고 Vue 3 + TypeScript + Vite로 처음부터 만들었습니다.
+B2B·공공 업무 시스템에서 요구사항 협의부터 화면·API·SQL 개발, 검수와 배포까지 담당합니다. 이 저장소는 실무에서 맡은 범위와 기술적 판단을 정리한 **Vue 3 · TypeScript 포트폴리오 사이트**의 소스 코드입니다.
 
-- 사이트: https://www.yongjaekwon.com/
-- 이력서 PDF: https://www.yongjaekwon.com/resume.pdf
+[포트폴리오 보기](https://www.yongjaekwon.com/) · [프론트엔드 이력서](https://www.yongjaekwon.com/resume.pdf) · [백엔드 이력서](https://www.yongjaekwon.com/resume-backend.pdf)
 
-채용 제출용 직접 링크로만 운영하고 있어서 검색 노출은 robots.txt로 막아 두었습니다.
+## 실무에서 해결한 문제
 
-![포트폴리오 미리보기](public/og-image-v3.png)
+| 프로젝트 | 문제와 구현 | 상세 설명 |
+| --- | --- | --- |
+| **PPS · B2B 협력사 포털** | 대량 파일 압축을 비동기 작업으로 분리하고, 작업 ID로 진행 상태와 새로고침 이후 결과를 확인하도록 구현했습니다. | [파일 처리·계정 발급·배포 사례](docs/case-studies/pps.md) |
+| **PPS · Vue 상태 관리** | 공통 스크립트의 중첩 상태를 여러 화면이 공유하던 문제를 화면별 초기 상태 팩토리로 수정했습니다. | [상태 분리 사례](docs/case-studies/pps.md#2-vue-화면-사이에-남던-공통-상태-분리) |
+| **TSMS · 교육용 단말 운영 시스템** | 외부 API 호출을 서버로 옮겨 키와 연계 설정을 공통화하고, 대량 단말 검증과 점검·재점검 업무를 구현했습니다. | [API 연계·단말 등록·현장 점검 사례](docs/case-studies/tsms.md) |
 
-## 어떤 내용을 담았나
+실무 사례는 담당 업무를 설명한 공개용 문서입니다. 실제 사내 소스 코드, 운영 화면과 고객 데이터는 포함하지 않으며, 문서의 코드는 처리 흐름을 설명하기 위한 축약 예시입니다.
 
-운영 중인 B2B·공공 업무 시스템에서 화면부터 API·SQL·배포까지 이어서 개발한 경험을 담았습니다. 직무 탭에서는 Frontend와 Backend에서 맡은 부분을 나눠 볼 수 있고, 상세 화면에서는 문제와 제약, 선택 이유, 구현과 확인된 변화를 함께 설명합니다.
+## 이 저장소에서 확인할 코드
 
-실무 시스템 두 개를 주요 프로젝트로 담았습니다.
+| 확인할 내용 | 구현 | 검증 |
+| --- | --- | --- |
+| 빠르게 연속 이동할 때 마지막 요청만 반영하고, 예약된 프레임을 취소하는 섹션 이동 | [sectionNavigation.ts](src/utils/sectionNavigation.ts) | [단위 테스트](tests/sectionNavigation.test.ts) |
+| 스크롤 이벤트의 최신 값만 프레임당 한 번 반영하는 스케줄러 | [frameScheduler.ts](src/utils/frameScheduler.ts) | [단위 테스트](tests/frameScheduler.test.ts) |
+| 상세 모달의 키보드 포커스 관리와 배경 접근 차단·복원 | [ProjectDetailModal.vue](src/components/ProjectDetailModal.vue) | [접근성 관련 소스 검사](tests/accessibilityContracts.test.ts) |
+| 실행할 때 불러오는 데모, 종료 시 타이머와 상태 정리 | [ProjectDemoPanel.vue](src/components/demos/ProjectDemoPanel.vue) · [데모 구현](src/components/demos) | [데모 관련 소스 검사](tests/projectDemos.test.ts) |
 
-- **PPS (B2B 협력사 포털)** — 대량 파일의 비동기 처리, Vue 화면 상태 분리, 본사 계정 발급 절차, 알림 정책과 Jenkins 배포 순서를 정리했습니다.
-- **TSMS (교육용 단말 운영 시스템)** — 외부 API 호출 공통화, 중고거래 모니터링, 대량 단말 검증·QR 발급과 현장 점검·재점검 업무를 개발했습니다.
+프로젝트 소개와 상세 사례는 화면 코드에서 분리해 [portfolio.ko.ts](src/data/portfolio.ko.ts), [caseStudies.ko.ts](src/data/caseStudies.ko.ts)에서 관리하며, 각 파일의 영문판을 함께 제공합니다.
 
-개인·팀 프로젝트에는 진행 중인 티켓러시(ticket-rush)와 재설계 중인 ReachRich, SSAFAST, 또잉, MODAC을 담았습니다. 공개 가능한 팀 프로젝트는 GitHub 코드를 연결하고, 비공개인 ReachRich는 구조를 선택한 이유와 데이터 수집·React 화면·운영 자동화의 검증 근거를 상세 사례로 설명합니다.
+## 연결된 프로젝트
 
-프로젝트별 상세 사례를 제공하고, 일부 사례에는 공개 가능한 코드 예시를 함께 담았습니다. 상세 내용은 상세보기를 열 때 별도 청크로 불러옵니다. 실제 사내 코드와 화면, 고객사 정보, 개인 계좌·전략 데이터는 공개하지 않습니다.
-
-티켓러시, SSAFAST, 또잉, MODAC 상세보기에는 담당한 화면과 기능 흐름을 포트폴리오용으로 재구성한 인터랙티브 데모를 함께 제공합니다. 대기열·좌석 홀드·100명 동시 요청 경쟁(3겹 방어), API 명세·예시 성능 결과, Canvas 드로잉·타이머, 스터디룸 입장·채팅 흐름을 샘플 데이터로 직접 조작할 수 있으며 각 데모는 실행 버튼을 누를 때만 불러옵니다.
-
-| ddoing | MODAC |
+| 프로젝트 | 구분 · 담당 범위 |
 | --- | --- |
-| <img src="public/projects/ddoing.png" width="360" alt="또잉 Drawing 영어 학습 게임 화면" /> | <img src="public/projects/modac.png" width="360" alt="MODAC 학습방 화면" /> |
+| [ticket-rush](https://github.com/YongjaeKwon/ticket-rush) | 진행 중인 개인 예매 시스템. Java/Spring 기반 좌석 선점·예약 확정과 웹 화면을 구현하고, 동시 요청·홀드 만료·중복 확정을 테스트합니다. |
+| [SSAFAST](https://github.com/SSAFAST/ssafast) | SSAFY 팀 프로젝트. React·TypeScript 기반 동적 API 명세 입력 폼과 테스트 결과 화면을 담당했습니다. |
+| [ddoing](https://github.com/GomGom-Team/ddoing) | SSAFY 팀 프로젝트. React·Canvas 기반 그림 학습 화면, 타이머와 판정 서버 연동을 담당했습니다. |
+| [MODAC](https://github.com/YongjaeKwon/MODAC) | SSAFY 팀 프로젝트. Vue 기반 스터디룸 입장 흐름, 학습 기록 화면과 채팅 UI 연동을 담당했습니다. |
+| [데이터 검증·조회 데모](https://github.com/YongjaeKwon/quant-lab) | 개인 프로젝트. 합성 데이터를 저장·검증하고 FastAPI·React로 조회합니다. 재실행 시 데이터 정합성, 오류 처리와 화면 상태를 테스트합니다. |
 
-## 제출용 정리 방향
+사이트의 ticket-rush·SSAFAST·ddoing·MODAC 데모는 각 프로젝트의 기능 흐름을 **샘플 데이터로 재구성한 브라우저 시뮬레이션**입니다. 외부 서버·DB에 연결하지 않으며, 데모의 성능 수치·동시 요청·AI 판정·채팅 결과는 실제 서비스 실행 결과가 아닙니다. 원본 구현과 테스트는 연결된 공개 저장소에서 확인할 수 있습니다.
 
-현재 사이트는 채용 제출용으로 한 가지 디자인만 보이도록 했습니다. 여러 디자인 실험보다 내용의 신뢰도와 읽는 순서를 우선합니다.
+## 로컬 실행과 검증
 
-- 주요 프로젝트 안에서는 실무 경험을 중심으로 두고, 팀·개인 프로젝트는 보조 경험으로 배치했습니다.
-- 기술명은 많이 나열하기보다 각 프로젝트에서 실제로 만든 기능을 중심으로 보이도록 줄였습니다.
-- “성과처럼 보이는 숫자”보다 어떤 방식으로 문제를 재현하고 맞췄는지 설명하는 문장을 우선했습니다.
-- 배치, 배포, 운영 확인 경험은 직접 수행한 범위 안에서만 짧게 설명했습니다.
-- 디자인 전환 버튼은 제출 화면에서 숨기고, Fresh UI Kit 기반 대표 디자인으로 고정했습니다.
-- 최신 대표 디자인은 `src/ui-kit`의 Fresh UI Kit을 사용합니다. 밝은 배경, 파란 CTA, 둥근 카드, 메쉬 그라디언트를 재사용 가능한 CSS 유틸리티로 분리했습니다.
-
-자세한 사용법은 [docs/ui-kit.md](docs/ui-kit.md)에 있습니다.
-
-## 구조
-
-```text
-src/
-  components/          Navbar, Footer, 공통 모달 등 UI 컴포넌트
-    demos/              개인·팀 프로젝트의 샘플 데이터 인터랙티브 데모
-  composables/         useSkin, useProjectFilter 등 공통 상태 훅
-  data/portfolio.ts    프로필·프로젝트·기술 데이터 (내용 수정은 대부분 이 파일)
-  data/caseStudies.ts  프로젝트별 상세 사례와 공개 가능한 코드 예시
-  views/               Home / Experience / Projects / TechStack / Education / Contact 섹션
-public/
-  resume.pdf              공개 이력서 (프론트엔드 기준본 — 전체·Frontend 트랙)
-  resume-backend.pdf      공개 이력서 (백엔드 기준본 — Backend 트랙)
-  resume-en.pdf           영문 이력서 (영어 모드 기본 다운로드)
-  resume-backend-en.pdf   영문 이력서 (영어 모드 Backend 트랙)
-docs/
-  case-studies/           공개용 프로젝트 메모 (현재 화면 렌더링에는 직접 사용하지 않음)
-  resume-frontend.html    프론트엔드 이력서 HTML 원본 (+ -en 영문판)
-  resume-backend.html     백엔드 이력서 HTML 원본 (+ -en 영문판)
-scripts/
-  generate-resumes.mjs HTML → PDF 변환 스크립트
-```
-
-라우터 없이 App.vue가 섹션 뷰를 이어 붙이는 단일 페이지 구성입니다. 상세 사례 컴포넌트와 데이터는 프로젝트 모달을 열 때 동적으로 불러옵니다.
-
-## 실행
+Node.js 20.9 이상과 npm이 필요합니다.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-빌드는 `npm run build`. vue-tsc 타입 체크가 먼저 돌고 Vite 빌드가 이어집니다.
-
-## 이력서 PDF 만들기
-
-이력서 원본은 포지션별로 두 개입니다 — `docs/resume-frontend.html`(공개 기본, `public/resume.pdf`)과 `docs/resume-backend.html`(`public/resume-backend.pdf`). 수정한 뒤 아래 명령으로 PDF를 다시 만듭니다.
-
 ```bash
-npm run resumes:pdf
+npm test
+npm run build
 ```
 
-사이트와 이력서를 한 레포에서 관리하니 둘의 문구가 어긋나는 일을 줄일 수 있습니다.
+- `npm test`: 프로젝트의 직무별 표시 검증 후 Vitest를 실행합니다. 로직 단위 테스트와 UI·콘텐츠의 소스 검사로 구성되며, 실제 브라우저의 전체 사용자 흐름을 검증하는 E2E 테스트는 아닙니다.
+- `npm run build`: `vue-tsc` 타입 검사 후 Vite가 `dist/`에 정적 배포 파일을 생성합니다.
+- `npm run preview`: 빌드 결과를 로컬에서 확인합니다.
 
-## 배포
-
-Vercel에 올려져 있습니다. 정적 사이트라 특별한 설정은 없습니다.
-
-- Build command: `npm run build`
-- Output directory: `dist`
-- Node 20 이상
+이 테스트의 대상은 포트폴리오 사이트입니다. 소개된 실무 시스템이나 다른 프로젝트의 테스트 결과와는 구분합니다.

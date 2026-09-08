@@ -30,11 +30,10 @@ describe("YK Flow brand assets", () => {
   });
 
   it("wires the refreshed assets into the document and shared layout", async () => {
-    const [html, navbar, footer, readme] = await Promise.all([
+    const [html, navbar, footer] = await Promise.all([
       readFile(file("index.html"), "utf8"),
       readFile(file("src/components/Navbar.vue"), "utf8"),
       readFile(file("src/components/Footer.vue"), "utf8"),
-      readFile(file("README.md"), "utf8"),
     ]);
 
     expect(html).toContain('/favicon-32x32.png');
@@ -42,6 +41,5 @@ describe("YK Flow brand assets", () => {
     expect(html).toContain('/og-image-v3.png');
     expect(navbar).toContain('/brand/yongjae-mark.svg');
     expect(footer).toContain('/brand/yongjae-mark.svg');
-    expect(readme).toContain('public/og-image-v3.png');
   });
 });
