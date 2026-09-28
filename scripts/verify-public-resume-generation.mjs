@@ -57,7 +57,7 @@ for (const [label, source] of [
   );
   assert.doesNotMatch(
     source,
-    /Google Forms|자동화 테스트 221개|자동화 테스트 84개/,
+    /Google Forms|자동화 테스트 221개|자동화 테스트 84개|주간 보고서|weekly report/i,
     `The ${label} resume must not foreground unfinished work or stale test counts`,
   );
   assert.doesNotMatch(
@@ -85,7 +85,7 @@ assert.doesNotMatch(
 );
 assert.match(
   frontendResumeSource,
-  /사용자가 복잡한 업무를 놓치지 않도록 입력 · 진행 · 오류 상태를 화면에 분명히 보여주고/,
+  /입력, 진행, 오류 상태가 한눈에 보이는 업무 화면을 만듭니다/,
   "The frontend resume must include the approved introduction",
 );
 assert.match(
@@ -100,7 +100,7 @@ assert.match(
 );
 assert.match(
   frontendResumeSource,
-  /React Router로 대시보드 · 매매일지 · 종목 등급 · 주간 보고서를 경로별로 나눴습니다/,
+  /React Router로 대시보드 · 매매일지 · 종목 등급을 경로별로 나눴습니다/,
   "The frontend resume must explain how React Router was used",
 );
 assert.match(
