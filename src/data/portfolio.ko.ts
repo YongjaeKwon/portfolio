@@ -128,7 +128,7 @@ export const featuredProjects: FeaturedProject[] = [
     period: "2025.02 ~ 현재",
     category: "B2B Partner Portal",
     focuses: ["all", "frontend", "backend"],
-    stack: ["Vue", "Java", "Spring Boot", "MyBatis", "MariaDB", "Jenkins"],
+    stack: ["Vue", "Java 21", "Spring Boot", "MyBatis", "MariaDB", "Oracle", "Hazelcast", "Jenkins"],
     card: {
       summary: "본사와 협력사 약 500곳이 쓰는 B2B 포털입니다. 파트너 등록과 계약, 현장 엔지니어(CE) 계정 824개의 교육·자격·증빙을 처리합니다.",
       description: [
