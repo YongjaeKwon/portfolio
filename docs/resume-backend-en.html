@@ -46,6 +46,43 @@
         padding: 2px 0 8px;
         border-bottom: 1.5px solid var(--ink-strong);
       }
+      .highlights {
+        margin: 2px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .highlights li {
+        position: relative;
+        padding-left: 11px;
+        break-inside: avoid;
+      }
+      .highlights li + li {
+        margin-top: 2px;
+      }
+      .highlights li::before {
+        content: "";
+        position: absolute;
+        top: 0.62em;
+        left: 1px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .highlights b,
+      .case b {
+        color: var(--ink-strong);
+      }
+      .project-points {
+        margin: 3px 0 3px;
+        padding-left: 14px;
+        color: #344054;
+        font-size: 8.6pt;
+        line-height: 1.42;
+      }
+      .project-points li + li {
+        margin-top: 1px;
+      }
       .header-main {
         display: flex;
         align-items: baseline;
@@ -446,8 +483,16 @@
 
       <h2>Summary</h2>
       <p class="intro">
-        A Java/Spring backend developer who turns complex field operations into systems users can run without interruption. I replaced paper-based school inspections with a flow that connects scheduling, checklists, signatures, and re-inspection history, and moved long-running bulk attachment jobs to async processing so users can watch progress and download results. I align with operations staff on the real task order, then design the UI, server, and DB together — owning testing, deployment, and operations after release.
+        A Java/Spring backend developer responsible for live public-sector and B2B business systems. I start slow queries from the execution plan, make sure rules hold the same way no matter how many servers run, and prepare a way back before changing production data. I agree on the task order with operations staff, then build the UI, server, and DB together and stay with the system through deployment and operations.
       </p>
+
+      <h2>Key achievements</h2>
+      <ul class="highlights">
+        <li><b>A lookup that could not finish in 60 seconds, now 63–69 ms</b> — Rewrote a consolidated view as base-table joins, cutting the plan's estimated rows from ~2.1 trillion to 1,854 (measured on production, at least ~870x).</li>
+        <li><b>Password-reset code limits that hold the same on two servers</b> — A Hazelcast distributed map with atomic acquisition lets only one of any concurrent requests send a code, with boundary conditions pinned by 30 unit tests.</li>
+        <li><b>External API keys removed from the browser on 25 screens</b> — Moved external calls to a shared server path, so an integration change is a single server-side edit.</li>
+        <li><b>Inspection data re-keyed in the production DB</b> — Prepared backup, rollback, and post-verification SQL first, then removed duplicate rows while preserving inspection results.</li>
+      </ul>
 
       <h2>Skills</h2>
       <div class="skills">
@@ -504,7 +549,7 @@
         <div class="subheading case-section-heading">PPS Highlights</div>
 
         <div class="case">
-          <strong>Moving bulk attachment downloads to async processing</strong>
+          <strong>Moving bulk attachment downloads to async processing — 300–400-file zips decoupled from the request</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Collecting and zipping attachments for 300–400 engineers in a single request held the screen for minutes, with no way to tell whether the job was running or had failed.</span></li>
             <li><span class="case-label">Decision</span><span>The real issue was the request and the job being tied into one flow, not compression speed — so I split the job out and exposed its status.</span></li>
@@ -514,7 +559,7 @@
         </div>
 
         <div class="case">
-          <strong>Unifying the split headquarters account provisioning process</strong>
+          <strong>Unifying headquarters account provisioning — three steps into one screen</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Accounts had to be created separately in the internal system and the portal, with the portal ID entered directly into the DB — risking omissions and mismatched records.</span></li>
             <li><span class="case-label">Decision</span><span>Entering data into two systems separately could not prevent omissions, so the portal became the single provisioning gateway.</span></li>
@@ -523,9 +568,8 @@
           </ul>
         </div>
 
-        <div class="print-continuation">PPS Highlights · continued</div>
         <div class="case">
-          <strong>Rate-limiting password-reset codes across two servers</strong>
+          <strong>Rate-limiting password-reset codes across two servers — one rule on both, 30 tests</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Password reset sends a verification code by notification message, but nothing stopped repeated clicks or automated requests — and with two servers, per-server in-memory limits fall apart once requests are load-balanced.</span></li>
             <li><span class="case-label">Decision</span><span>The limit state had to be shared between servers, and identifying values such as account and phone number must not be stored raw as limiter keys.</span></li>
@@ -535,7 +579,7 @@
         </div>
 
         <div class="case">
-          <strong>Centralizing notification-message policy</strong>
+          <strong>Centralizing notification-message policy — five send points into one</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Recipients and send conditions were written into each feature's source, so a policy change meant editing several code paths.</span></li>
             <li><span class="case-label">Decision</span><span>Separate the frequently changing rules from the shared send logic, so policy changes no longer require a deployment.</span></li>
@@ -562,7 +606,7 @@
         <div class="subheading case-section-heading">TSMS Highlights</div>
 
         <div class="case">
-          <strong>Removing exposed API keys and unifying external call paths</strong>
+          <strong>Removing exposed API keys and unifying external call paths — 25 screens</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>25 screens called map, address, and education-administration APIs directly, exposing keys in the browser and requiring per-screen edits whenever integration details changed.</span></li>
             <li><span class="case-label">Decision</span><span>Rotating the keys would not stop the exposure or the repeated edits from recurring — the external-call responsibility had to move from the screens to the server.</span></li>
@@ -572,7 +616,7 @@
         </div>
 
         <div class="case">
-          <strong>Re-keying live inspection data and cleaning duplicates in production</strong>
+          <strong>Re-keying live inspection data and cleaning duplicates — shipped with backup, rollback, and verification SQL</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Inspection targets were stored by a 14-digit input serial while full serials have 15 digits, so ambiguous matches could map wrongly or store duplicates — and with the system already live, fixing the screens alone would not clean the accumulated data.</span></li>
             <li><span class="case-label">Decision</span><span>Re-key storage to the full 15-digit serial, and clean the existing data while preserving inspection results — with a procedure that could be rolled back before it touched production.</span></li>
@@ -581,9 +625,8 @@
           </ul>
         </div>
 
-        <div class="print-continuation">TSMS Highlights · continued</div>
         <div class="case">
-          <strong>Bulk device registration checks and QR issuance</strong>
+          <strong>Bulk device registration checks and QR issuance — applied to 108,237 devices</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Bulk spreadsheet uploads could include serial numbers missing from production records, or devices that were already registered.</span></li>
             <li><span class="case-label">Decision</span><span>Move validation ahead of the save — checking reference data and duplicates before registration instead of cleaning up afterward.</span></li>
@@ -593,7 +636,7 @@
         </div>
 
         <div class="case">
-          <strong>Fixing a consolidated-view lookup that could not finish in 60 seconds</strong>
+          <strong>Fixing a consolidated-view lookup that could not finish in 60 seconds — now 63–69 ms</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Repair-history and settlement-detail lookups went through a consolidated multi-table view, and as data grew the screens degraded to waiting tens of seconds.</span></li>
             <li><span class="case-label">Decision</span><span>The execution plan showed the customer filter never reached inside the view — the whole view was materialized and then filtered (about 2.1 trillion estimated rows on production) — so the query structure had to change, not the indexes.</span></li>
@@ -609,11 +652,16 @@
           <div class="system-title">
             <a href="https://github.com/YongjaeKwon/ticket-rush">ticket-rush · first-come ticketing reservation system</a>
           </div>
-          <div class="meta">Aug 2026 – Present · Personal</div>
+          <div class="meta">Aug 2026 – Present · Personal · Public</div>
         </div>
         <p class="system-desc">
-          A concert reservation system built so the same seat is never confirmed twice under concurrent load. Redis holds a seat for five minutes, expired holds are rejected at payment, and MySQL's (schedule, seat) primary key limits final confirmation. When 100 threads try to hold one seat, exactly one succeeds; after deleting hold keys to create 10 duplicate holds and confirming them concurrently, integration tests still find exactly one confirmed seat and one CONFIRMED reservation. Stage 2 (completed Sep 2026) added a Next.js web app with a Canvas seat map, SSE, and payment screens; stage 3, relaying outbox events to Kafka, is in progress. CI runs backend integration and concurrency tests plus web unit tests and Playwright E2E.
+          A concert reservation system where the same seat is never confirmed twice under load. Redis holds a seat for five minutes, expired holds are rejected at payment, and final confirmation is guarded by MySQL's (schedule, seat) primary key.
         </p>
+        <ul class="project-points">
+          <li>100 concurrent requests for one seat produce exactly <b>one</b> hold. After deleting hold keys to create 10 duplicate holds and confirming them concurrently, exactly <b>one</b> confirmed seat and <b>one</b> confirmed reservation remain (Testcontainers integration tests).</li>
+          <li>If a payment response is lost, the retry reuses the same attempt key; a new attempt after a decline gets a new key (per-attempt Idempotency-Key).</li>
+          <li>Stage 2 (Sep 2026) added a Next.js web app with a Canvas seat map, SSE, payment screens, and Playwright E2E; stage 3, relaying outbox events to Kafka, is in progress.</li>
+        </ul>
         <p class="system-tech">
           <span class="tech-label">Tech</span>
           <span>Java 21 · Spring Boot 4 · Spring Modulith · MySQL 8.4 · Redis 7 · Flyway · Next.js · TypeScript · Testcontainers · Playwright</span>
@@ -622,14 +670,36 @@
 
       <section class="system project-item">
         <div class="system-head">
-          <div class="system-title">
-            ReachRich · personal investment research &amp; operations platform
-          </div>
-          <div class="meta">Mar 2026 – Present · Personal</div>
+          <div class="system-title">ONULSAI · offline dating event service</div>
+          <div class="meta">Sep 2026 – Present · Personal · Private</div>
         </div>
         <p class="system-desc">
-          Rebuilt a personal investment platform into six modules — account tracking on the Toss Securities Open API, daily KRX candles for the top 200 stocks by trading value, strategy validation, paper trading, and a dashboard. Implemented date-keyed idempotent persistence with partial-failure isolation, FastAPI query APIs, and a React UI; the trading journal and market-regime and stock-rating calculations run daily, with Telegram alerts on failure. 205 Python tests and 96 web tests (as of Aug 2026). The repository is private; the storage, validation, and query flow is reproduced with synthetic data in a <a href="https://github.com/YongjaeKwon/quant-lab">public demo repository (quant-lab)</a>.
+          A service for running offline dating events where participants talk one-on-one with seven people at a café and are matched only when both choose each other. Member, schedule, matching, notification, and payment services sit behind an API Gateway, each with its own DB, and each feature's design doc is finalized before implementation.
         </p>
+        <ul class="project-points">
+          <li>An application locks the event row first, then counts seats by gender and saves. With one seat left and 20 simultaneous applications, exactly <b>one</b> succeeds; the same member clicking 8 times at once still yields <b>one</b> application (integration tests on real PostgreSQL).</li>
+          <li>Lock waits are capped at 2 seconds, so a request holding a lock too long cannot exhaust the connection pool and stall the whole service.</li>
+          <li>The Gateway verifies JWTs and forwards internal headers and tokens; services ask each other only over REST, never through another service's DB.</li>
+        </ul>
+        <p class="system-tech">
+          <span class="tech-label">Tech</span>
+          <span>TypeScript · NestJS · PostgreSQL · Prisma · Next.js · Turborepo · Vitest · Playwright</span>
+        </p>
+      </section>
+
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">ReachRich · personal investment research &amp; operations platform</div>
+          <div class="meta">Mar 2026 – Present · Personal · Private</div>
+        </div>
+        <p class="system-desc">
+          A Python backend rebuilt into six modules covering Toss Securities account tracking, KRX data collection, strategy validation, paper trading, and a dashboard. The storage, validation, and query flow is reproduced with synthetic data in a <a href="https://github.com/YongjaeKwon/quant-lab">public demo repository (quant-lab)</a>.
+        </p>
+        <ul class="project-points">
+          <li>Accounts are replaced per date, and daily KRX candles for the top 200 stocks by trading value are upserted by stock and date, so re-runs never create duplicates.</li>
+          <li>One stock failing does not stop the rest; if more than 30% fail, the whole job is marked failed and a Telegram alert is sent.</li>
+          <li><b>205</b> Python tests and <b>96</b> web tests run on GitHub Actions (as of Aug 2026).</li>
+        </ul>
         <p class="system-tech">
           <span class="tech-label">Tech</span>
           <span>Python · FastAPI · SQLAlchemy · SQLite · Parquet · React · TypeScript · GitHub Actions</span>
