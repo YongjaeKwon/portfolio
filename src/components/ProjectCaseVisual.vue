@@ -1,5 +1,5 @@
 <template>
-  <div :class="['case-story', `case-story--${projectId}`, { 'is-compact': compact }]" :aria-label="t(`${projectName} 대표 개선 사례 요약`, `${projectName} highlight case summary`)">
+  <div :class="['case-story', `case-story--${projectId}`, { 'is-compact': compact }]" role="img" :aria-label="t(`${projectName} 대표 개선 사례 요약`, `${projectName} highlight case summary`)">
     <header class="story-header">
       <div>
         <p class="story-kicker">Project case</p>
@@ -191,7 +191,6 @@ const storyNote = computed(() =>
   border: 1px solid rgba(49, 130, 246, 0.13);
   border-radius: 1.4rem;
   background:
-    radial-gradient(circle at 92% 8%, rgba(83, 199, 245, 0.15), transparent 32%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(244, 249, 255, 0.92));
   box-shadow: 0 20px 52px rgba(38, 69, 111, 0.1);
   color: var(--text-primary);
@@ -199,8 +198,6 @@ const storyNote = computed(() =>
 
 .case-story--tsms {
   background:
-    radial-gradient(circle at 8% 5%, rgba(90, 118, 255, 0.12), transparent 30%),
-    radial-gradient(circle at 96% 96%, rgba(36, 192, 111, 0.1), transparent 28%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(245, 249, 255, 0.92));
 }
 
@@ -350,6 +347,10 @@ const storyNote = computed(() =>
 .case-story.is-compact .story-facts strong { margin-top: 0.08rem; font-size: 0.55rem; }
 .case-story.is-compact .story-facts p { display: none; }
 
+/* 전체 크기(경력 · 상세)에서는 읽히는 크기 11px 이상. compact 썸네일은 위 값을 유지한다 */
+.case-story:not(.is-compact) :is(.story-kicker, .story-note, .story-lead p, .journey-step > span, .story-facts span, .operation-title small, .operation-flow span, .story-scope span, .reachrich-pipeline small) { font-size: 0.6875rem; }
+.case-story:not(.is-compact) :is(.journey-step strong, .journey-step p, .story-facts p, .operation-title strong, .operation-case > p, .reachrich-pipeline strong) { font-size: 0.75rem; }
+
 @media (max-width: 480px) {
   .story-note { display: none; }
   .story-journey { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -358,7 +359,10 @@ const storyNote = computed(() =>
   .journey-step p { display: none; }
   .operation-cases { grid-template-columns: 1fr; }
   .operation-case > p { min-height: 0; }
+  .case-story:not(.is-compact) .operation-flow { flex-wrap: wrap; }
+  .case-story:not(.is-compact) .operation-flow i { display: none; }
   .reachrich-pipeline { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .case-story:not(.is-compact) .reachrich-pipeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .reachrich-arrow { display: none; }
   .reachrich-pipeline article { justify-items: center; text-align: center; }
   .reachrich-pipeline strong { font-size: 0.5rem; }

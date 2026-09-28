@@ -27,7 +27,7 @@
                 </span>
                 <span
                   v-if="hasInteractiveDemo(item.project.id)"
-                  class="rounded-full bg-[var(--fresh-blue-soft)] px-2.5 py-1 text-[10px] font-black text-[var(--fresh-blue-strong)]"
+                  class="rounded-full bg-[var(--fresh-blue-soft)] px-2.5 py-1 text-[11px] font-black text-[var(--fresh-blue-strong)]"
                 >
                   {{ t("샘플 데모", "Sample demo") }}
                 </span>
@@ -261,7 +261,6 @@ onBeforeUnmount(() => {
 .guided-demo-shell {
   border: 1px solid rgba(49, 130, 246, 0.16);
   background:
-    radial-gradient(circle at 8% 0%, rgba(49, 130, 246, 0.12), transparent 34%),
     rgba(255, 255, 255, 0.96);
   box-shadow: 0 24px 70px rgba(38, 69, 111, 0.12);
 }

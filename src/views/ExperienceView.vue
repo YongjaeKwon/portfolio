@@ -52,7 +52,6 @@
           >
             <div :class="['grid items-stretch gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:gap-8', index % 2 === 1 ? 'case-layout-reverse' : '']">
               <div class="case-visual relative flex min-h-64 items-center justify-center overflow-hidden rounded-[1.75rem] p-3 md:p-4">
-                <div class="case-visual-orb pointer-events-none absolute inset-0" />
                 <ProjectCaseVisual
                   :project-id="item.project.id"
                   class="relative transition duration-500 group-hover:scale-[1.01]"
@@ -61,7 +60,7 @@
 
               <div class="flex flex-col py-1">
                 <div class="flex flex-wrap items-center justify-between gap-3">
-                  <span class="rounded-full bg-[var(--fresh-blue-soft)] px-3 py-1.5 text-[10px] font-black text-[var(--fresh-blue-strong)]">
+                  <span class="rounded-full bg-[var(--fresh-blue-soft)] px-3 py-1.5 text-[11px] font-black text-[var(--fresh-blue-strong)]">
                     {{ t("실무 · 운영 중", "Production · Live") }}
                   </span>
                   <p class="text-secondary font-mono tnum text-xs font-semibold">{{ item.project.period }}</p>
@@ -169,7 +168,6 @@ watch(activeTrack, closeDetail);
 .career-context {
   border: 1px solid rgba(255, 255, 255, 0.92);
   background:
-    radial-gradient(circle at 92% 12%, rgba(83, 199, 245, 0.12), transparent 32%),
     rgba(255, 255, 255, 0.96);
   box-shadow: 0 20px 60px rgba(38, 69, 111, 0.09);
 }
@@ -200,12 +198,6 @@ watch(activeTrack, closeDetail);
   background:
     linear-gradient(145deg, rgba(49, 130, 246, 0.11), rgba(83, 199, 245, 0.055)),
     rgba(248, 251, 255, 0.92);
-}
-
-.case-visual-orb {
-  background:
-    radial-gradient(circle at 18% 22%, rgba(49, 130, 246, 0.18), transparent 38%),
-    radial-gradient(circle at 88% 80%, rgba(83, 199, 245, 0.2), transparent 42%);
 }
 
 @media (min-width: 64rem) {
