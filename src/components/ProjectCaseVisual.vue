@@ -133,12 +133,12 @@
       <div class="story-facts reachrich-facts">
         <article>
           <span>Backend</span>
-          <strong>116 tests</strong>
+          <strong>205 tests</strong>
           <p>{{ t("pytest 통과", "pytest passing") }}</p>
         </article>
         <article>
           <span>Frontend</span>
-          <strong>75 tests</strong>
+          <strong>96 tests</strong>
           <p>{{ t("Vitest·빌드 통과", "Vitest · build passing") }}</p>
         </article>
         <article>

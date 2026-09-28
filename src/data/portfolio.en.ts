@@ -64,7 +64,7 @@ export const featuredProjects: FeaturedProject[] = [
     stack: ["Vue", "Java", "Spring Boot", "MyBatis", "MariaDB", "Jenkins"],
     card: {
       summary:
-        "A B2B operations portal where headquarters and ~500 partner companies handle partner registration and contracts, plus training, certification, and evidence documents for 824 field engineers.",
+        "A B2B operations portal where headquarters and ~500 partner companies handle partner registration and contracts, plus training, certification, and evidence documents for 824 field-engineer accounts.",
       description: [
         "I build the screens, APIs, and SQL for partner and field-engineer management, training, and evidence workflows, and own their deployment and operations.",
         "I improved recurring work and operational pain points: bulk file downloads, HQ account provisioning, notification policies, and the deployment process.",
@@ -295,8 +295,8 @@ export const featuredProjects: FeaturedProject[] = [
               "Aligned status displays so confirmed schedules, unfinished targets, re-inspection results, and result files share one flow.",
             ],
             outcome: [
-              "As of July 2026, 56 of 119 schools in the program have confirmed schedules.",
-              "About 3,800 devices have been inspected across 21 schools.",
+              "As of September 2026, inspections have been saved for 71 of the 119 schools in the program.",
+              "14,882 inspection sheets have been saved in the system.",
             ],
           },
         },
@@ -506,7 +506,7 @@ export const featuredProjects: FeaturedProject[] = [
     period: "Aug 2026 – in progress",
     category: "Personal Backend",
     focuses: ["all", "backend"],
-    stack: ["Java 21", "Spring Boot", "Spring Modulith", "MySQL", "Redis", "Flyway", "Testcontainers", "GitHub Actions"],
+    stack: ["Java 21", "Spring Boot 4", "Spring Modulith", "MySQL 8.4", "Redis 7", "Flyway", "Next.js", "TypeScript", "JUnit", "Testcontainers", "Vitest", "Playwright"],
     image: {
       src: "/projects/ticketrush.png",
       width: 1200,
@@ -518,46 +518,46 @@ export const featuredProjects: FeaturedProject[] = [
     },
     card: {
       summary:
-        "Zero double bookings even when thousands grab the same seat — an in-progress reservation system that proves its concurrency and consistency with test numbers.",
+        "An in-progress reservation system whose tests check that the same seat is never confirmed twice under concurrent requests.",
       description: [
-        "Each seat is guarded by three layers — Redis SET NX holds, domain rules rejecting expired holds at payment, and a DB unique constraint on (show, seat) — with a Redis-outage scenario reproduced in integration tests.",
-        "Stage 1 (monolith backend) is complete: ZSET queue, JWT entry tokens, idempotent processing, a transactional outbox, and architecture-rule tests.",
+        "Each seat is guarded by three layers — Redis SET NX holds, domain rules rejecting expired holds at payment, and a MySQL primary key on (show, seat) — with lost hold data reproduced in integration tests.",
+        "Stage 1 (monolith backend: ZSET queue, JWT entry tokens, idempotent processing, a transactional outbox, architecture-rule tests) and stage 2 (Next.js web with a Canvas seat map, SSE, payment/completion screens, and Playwright E2E, finished Sep 2026) are complete; stage 3 (outbox relay to Kafka) is in progress.",
       ],
       result:
-        "The contention test — 100 concurrent requests for one seat — yields exactly one success and zero double bookings; 65 automated tests and CI pass. (as of Sep 2026)",
-      keywords: ["Three-layer seat defense", "Transactional outbox", "Proven by contention tests"],
+        "In the contention test, 100 threads competing for one seat produce exactly one successful hold; backend integration and concurrency tests plus web unit and Playwright E2E tests run in CI.",
+      keywords: ["Three-layer seat defense", "Transactional outbox", "Checked by contention tests"],
       visibility: "Public GitHub project",
-      workRange: "Design · backend development · concurrency testing · CI",
-      environment: "Spring Boot · Spring Modulith · MySQL · Redis",
+      workRange: "Design · backend development · web frontend · concurrency testing · CI",
+      environment: "Spring Boot · Spring Modulith · MySQL · Redis · Next.js",
     },
     detail: {
       overview:
-        "An in-progress personal project built to prove, with tests and numbers, that the same seat can never be sold twice in first-come ticketing. It follows a staged roadmap from a monolith to Kafka-based separation; stage 1 (the monolith backend) is complete, and a hexagonal structure (adapter→application→domain, one direction) is enforced by architecture tests.",
+        "An in-progress personal project built to check, with tests, that the same seat is never sold twice in first-come ticketing. It follows a staged roadmap from a monolith to Kafka-based separation: stage 1 (the monolith backend) and stage 2 (the Next.js web app, Sep 2026) are complete, stage 3 (outbox relay to Kafka) is in progress, and a hexagonal structure (adapter→application→domain, one direction) is checked by architecture tests.",
       scope: [
         "Three-layer seat defense and concurrency tests",
         "ZSET queue with JWT entry tokens",
         "Idempotent processing, transactional outbox, SSE status streams",
-        "Testcontainers integration tests and GitHub Actions CI",
+        "Next.js web with a Canvas seat map, Testcontainers/Playwright tests, and GitHub Actions CI",
       ],
       workPoints: [
-        "A Redis SET NX EX five-minute hold lets only one concurrent request through; domain rules reject payment on expired holds; and the DB unique constraint on confirmed_seat (show, seat) is the final guard.",
-        "The Redis-down scenario — two holds slipping through — is reproduced in integration tests to verify exactly one confirmation survives.",
-        "Payment requests are deduplicated by idempotency keys, and reservation confirmation plus event records are written in one transaction via the outbox pattern.",
-        "Architecture-rule tests enforce one-directional adapter→application→domain dependencies and a framework-free domain.",
+        "A Redis SET NX EX five-minute hold lets only one concurrent request through; domain rules reject payment on expired holds; and the MySQL primary key on confirmed_seat (show, seat) is the final guard.",
+        "Lost hold data is reproduced by deleting hold keys to create 10 overlapping holds on one seat; integration tests check that concurrent confirmation leaves exactly one confirmed seat and one CONFIRMED reservation.",
+        "Payment requests carry a per-attempt Idempotency-Key (a repeated key replays the stored response; a new attempt after a decline gets a new key), and reservation confirmation plus event records are written in one transaction via the outbox pattern.",
+        "ArchUnit and Spring Modulith tests check one-directional adapter→application→domain dependencies and a domain free of Spring and JPA dependencies.",
       ],
       results: [
-        "The one-seat, 100-concurrent-request contention test yields exactly one success and zero double bookings. (as of Sep 2026)",
-        "65 automated tests, including Testcontainers integration tests, pass in GitHub Actions CI.",
-        "The Redis-outage integration test verifies the DB's final guard works.",
+        "In the contention test, 100 threads competing for one seat produce exactly one successful hold.",
+        "Backend integration and concurrency tests (Testcontainers) plus web unit and Playwright E2E tests run in GitHub Actions CI.",
+        "With 10 overlapping holds, concurrent confirmation leaves exactly one confirmed seat and one CONFIRMED reservation.",
       ],
       techUsage: [
         "Spring Boot and Spring Modulith divide the catalog, queue, and reservation module boundaries.",
         "Redis provides SET NX EX seat holds and the ZSET queue with batch admission.",
-        "MySQL and Flyway manage the confirmed_seat unique constraint and schema history; Testcontainers runs integration tests against real DB and Redis instances.",
-        "GitHub Actions runs the tests and build, with the CI badge published on the README.",
+        "MySQL and Flyway manage the confirmed_seat (show, seat) primary key and schema history; Testcontainers runs integration tests against real DB and Redis instances.",
+        "GitHub Actions runs the backend suite and the web checks (types, unit tests, Playwright E2E) on pushes to main and on pull requests.",
       ],
       disclosure:
-        "A public GitHub project — all code and tests are open. As work in progress, only the completed stage 1 is described as fact; later stages (web frontend, Kafka separation, load numbers) are shown as a roadmap.",
+        "A public GitHub project — all code and tests are open. As work in progress, only the completed stages 1–2 are described as fact; stage 3 (Kafka delivery) is in progress, and HTTP load numbers have not been measured yet.",
       resources: [{ label: "GitHub repository & README", href: "https://github.com/YongjaeKwon/ticket-rush", type: "github" }],
     },
   },
@@ -577,7 +577,7 @@ export const featuredProjects: FeaturedProject[] = [
         "Connected brokerage account queries, KRX collection, a FastAPI read API, a React dashboard, daily health checks, and failure alerts.",
       ],
       result:
-        "205 backend and 95 React dashboard automated tests pass along with the production build; real account queries, KRX loading, and automated failure alerts are verified.",
+        "Per the README (Aug 11, 2026), 205 Python and 96 web automated tests pass along with the production build; real account queries, daily KRX loading, and automated failure alerts are verified.",
       keywords: ["Selective porting of validated logic", "Idempotent data collection", "React operations UI"],
       visibility: "Private personal project",
       workRange: "Redesign · data collection · API · dashboard · automation",
@@ -585,7 +585,7 @@ export const featuredProjects: FeaturedProject[] = [
     },
     detail: {
       overview:
-        "I'm redesigning the investment research core I've been building since March 2026 in a new repository as of August 2026. Rather than moving the old code wholesale, I ported only validated assets — lookahead prevention, repeatable validation, the experiment ledger, and the paper-trading ledger. In the new repository I built account tracking, KRX data collection, read APIs, a React dashboard, and automated runs with failure detection from scratch.",
+        "I'm redesigning the investment research core I've been building since March 2026 in a new repository as of August 2026. Rather than moving the old code wholesale, I ported only validated assets — lookahead prevention, repeatable validation, the experiment ledger, and the paper-trading ledger. In the new repository I built account tracking, KRX data collection, read APIs, a React dashboard, and automated runs with failure detection from scratch. Per the README, a trading journal, market-regime and stock-grade views, and a pre-registered strategy-combination batch are also complete; no real-money orders are placed until a strategy passes the promotion gate.",
       scope: [
         "Full architecture redesign and module boundaries",
         "Brokerage account and KRX data collection with local storage",
@@ -599,8 +599,8 @@ export const featuredProjects: FeaturedProject[] = [
         "Ran daily health checks and paper-trading accrual on GitHub Actions, with separate Telegram alerts for local job and Actions failures.",
       ],
       results: [
-        "As of August 11, 2026, 205 backend and 95 React dashboard automated tests pass, with the production build verified.",
-        "Verified real brokerage account queries and actual KRX loading: 5 symbols × 10 daily candles (50 rows) plus 1 FX row.",
+        "As of the August 11, 2026 README, 205 Python and 96 web automated tests pass, with the production build verified.",
+        "Verified real brokerage account queries; KRX collection now loads the top-200 universe by trading value and its daily candles every day.",
         "Verified CI, daily health check, and paper-trading workflow runs, including Telegram alerts on forced failures.",
       ],
       techUsage: [
@@ -613,7 +613,7 @@ export const featuredProjects: FeaturedProject[] = [
         "A private personal project: API credentials, real account amounts and holdings, strategy parameters, and investment performance are not disclosed. Screens are shown in privacy mode with structural summaries.",
       resources: [
         {
-          label: "ReachRich public companion repository",
+          label: "Public demo repository (quant-lab, synthetic data)",
           href: "https://github.com/YongjaeKwon/quant-lab/blob/main/README.md",
           type: "github",
         },
@@ -628,7 +628,7 @@ export const featuredProjects: FeaturedProject[] = [
             "Built reusable UI primitives and per-state empty screens, with PWA support for mobile access on the same network.",
           ],
           result:
-            "95 component and state tests pass with the production build, and the JavaScript bundle stays within the 180KB design budget at 140.28KB gzipped.",
+            "Per the README (Aug 11, 2026), 96 web tests pass along with the production build.",
           keywords: ["React & TypeScript", "Privacy mode", "Visibility-based polling"],
           workRange: "React screens · state handling · UI system · tests",
         },
@@ -649,7 +649,7 @@ export const featuredProjects: FeaturedProject[] = [
             "Per-symbol failures are isolated, but if the failure rate exceeds 30% the whole job is failed and an alert is sent.",
           ],
           result:
-            "205 automated tests pass across collection, validation, and operations, with real brokerage queries and KRX loading (5 symbols × 10 candles, 50 rows) verified.",
+            "Per the README (Aug 11, 2026), 205 Python tests pass across collection, validation, and operations; real brokerage queries are verified, and KRX collection loads the top-200 universe by trading value every day.",
           keywords: ["FastAPI", "SQLite & Parquet", "Idempotent collection & failure isolation"],
           workRange: "Architecture redesign · API · data collection · automation",
         },
