@@ -146,7 +146,7 @@ import { presentProject, type PresentedProject } from "@/utils/projectPresentati
 
 const ProjectDemoPanel = defineAsyncComponent(() => import("@/components/demos/ProjectDemoPanel.vue"));
 const interactiveDemoProjectIds = new Set(["ticketrush", "ssafast", "ddoing", "modac"]);
-const personalProjectIds = new Set(["ticketrush", "reachrich", "ssafast", "ddoing", "modac"]);
+const personalProjectIds = new Set(["ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"]);
 const hasInteractiveDemo = (projectId: string) => interactiveDemoProjectIds.has(projectId);
 
 const { activeTrack } = useFocusTrack();
