@@ -7,7 +7,7 @@
           {{ t("샘플 데이터 데모", "Sample-data demo") }}
         </div>
         <h3 id="ssafast-demo-title">{{ t("화면 선택부터 API 테스트까지", "From screen selection to API testing") }}</h3>
-        <p>{{ t("팀의 Figma 화면을 불러오는 단계부터 API 명세 작성, 요청 확인과 테스트 결과까지 여섯 단계로 체험합니다.", "Six steps: import the team's Figma screens, write an API spec, preview the request, and review test results.") }}</p>
+        <p>{{ t("팀의 Figma 화면 불러오기부터 API 명세 작성, 요청 확인, 테스트 결과까지 여섯 단계로 체험합니다.", "Six steps: import the team's Figma screens, write an API spec, preview the request, and review test results.") }}</p>
       </div>
       <button class="button is-quiet" type="button" @click="resetFromHeader">{{ t("데모 초기화", "Reset demo") }}</button>
     </header>
@@ -16,7 +16,7 @@
       <span aria-hidden="true">ⓘ</span>
       <p>
         <strong>{{ t("공개 데모에서는 실제 API를 호출하거나 성능을 측정하지 않습니다.", "The public demo never calls real APIs or measures real performance.") }}</strong>
-        {{ t("Figma 화면과 입력 데이터는 브라우저 안의 샘플이며, 마지막 성능 수치는 입력 조건으로 생성한 시뮬레이션 예시입니다.", "Figma screens and inputs are in-browser samples, and the final performance numbers are simulated from your inputs.") }}
+        {{ t("Figma 화면과 입력 데이터는 브라우저 안의 샘플입니다. 마지막 단계의 성능 수치도 입력 조건으로 만든 시뮬레이션 값입니다.", "Figma screens and inputs are in-browser samples, and the final performance numbers are simulated from your inputs.") }}
       </p>
     </div>
     <p v-if="storageWarning" class="storage-warning" role="alert">{{ storageWarning }}</p>
@@ -55,7 +55,7 @@
       <dl class="guide-facts">
         <div><dt>{{ t("사용자 행동", "User action") }}</dt><dd>{{ activeGuidedStep.action }}</dd></div>
         <div><dt>{{ t("화면 변화", "Screen change") }}</dt><dd>{{ activeGuidedStep.change }}</dd></div>
-        <div><dt>{{ t("원 프로젝트 구현", "Built in the original") }}</dt><dd>{{ activeGuidedStep.ownership }}</dd></div>
+        <div><dt>{{ t("원 프로젝트 담당", "Built in the original") }}</dt><dd>{{ activeGuidedStep.ownership }}</dd></div>
         <div><dt>{{ t("공개 데모 재현", "Re-created in this demo") }}</dt><dd>{{ activeGuidedStep.demo }}</dd></div>
       </dl>
     </section>
@@ -71,7 +71,7 @@
         </div>
 
         <p class="figma-scope-note" role="note">
-          {{ t("원 프로젝트에서는 Figma OAuth와 API로 파일·프레임 이미지를 조회했습니다. 이 연동은 팀원이 담당했으며, 공개 데모에서는 외부 요청 없이 같은 선택 흐름만 재현합니다.", "The original project fetched files and frame images through Figma OAuth and its API — an integration a teammate owned. The public demo re-creates only the selection flow, with no external requests.") }}
+          {{ t("원 프로젝트는 Figma OAuth와 API로 파일과 프레임 이미지를 불러왔고, 이 연동은 팀원이 맡았습니다. 공개 데모는 외부 요청 없이 화면을 고르는 흐름만 재현합니다.", "The original project fetched files and frame images through Figma OAuth and its API — an integration a teammate owned. The public demo re-creates only the selection flow, with no external requests.") }}
         </p>
 
         <div class="figma-url-row">
@@ -311,7 +311,7 @@
         <div class="form-actions">
           <span v-if="savedMessage" class="save-message" role="status">{{ savedMessage }}</span>
           <button class="button is-primary" type="submit">
-            {{ editingId ? t('변경사항 저장', 'Save changes') : t('명세 저장', 'Save spec') }}
+            {{ editingId ? t('변경 사항 저장', 'Save changes') : t('명세 저장', 'Save spec') }}
           </button>
         </div>
       </form>
@@ -346,7 +346,7 @@
         </div>
         <div v-else class="empty-state">
           <strong>{{ t("저장된 명세가 없습니다.", "No saved specs.") }}</strong>
-          <p>{{ t("첫 API 명세를 저장하면 구조 요약과 예시 결과 단계가 활성화됩니다.", "Save your first API spec to unlock the structure summary and example-result steps.") }}</p>
+          <p>{{ t("첫 API 명세를 저장하면 구조 요약과 예시 결과 단계를 열 수 있습니다.", "Save your first API spec to unlock the structure summary and example-result steps.") }}</p>
         </div>
 
         <div v-if="selectedSpec" class="json-preview">
@@ -385,7 +385,7 @@
         </div>
         <div v-else class="empty-state is-large">
           <strong>{{ t("먼저 API 명세를 저장해 주세요.", "Save an API spec first.") }}</strong>
-          <p>{{ t("저장된 명세와 입력 조건을 바탕으로만 예시 결과를 만들 수 있습니다.", "Example results can only be generated from a saved spec and your input conditions.") }}</p>
+          <p>{{ t("예시 결과는 저장한 명세와 입력 조건으로만 만들 수 있습니다.", "Example results can only be generated from a saved spec and your input conditions.") }}</p>
           <button class="button is-secondary" type="button" @click="setGuidedStepView(1)">{{ t("명세 작성하기", "Write a spec") }}</button>
         </div>
 
@@ -453,7 +453,7 @@
             <span>{{ t(`총 ${latestRun.result.total.toLocaleString()}건`, `${latestRun.result.total.toLocaleString()} total`) }}</span>
           </div>
           <p class="result-caption">
-            {{ t("실제 측정값이 아닌 공개 데모용 시뮬레이션입니다. 같은 명세와 조건에는 동일한 예시 결과가 생성됩니다.", "A public-demo simulation, not real measurements. The same spec and conditions always produce the same example results.") }}
+            {{ t("실제 측정값이 아닌 공개 데모용 시뮬레이션입니다. 같은 명세와 조건이면 늘 같은 예시 결과가 나옵니다.", "A public-demo simulation, not real measurements. The same spec and conditions always produce the same example results.") }}
           </p>
         </template>
         <div v-else class="empty-state is-large">
@@ -631,9 +631,9 @@ const guidedSteps: GuidedStep[] = [
     label: t("Figma 화면 선택", "Select Figma screens"),
     eyebrow: "Team Integration",
     action: t("공개용 샘플 파일을 불러온 뒤 작업에 사용할 화면을 하나 선택합니다.", "Load the public sample file, then pick one screen to work with."),
-    change: t("선택한 프레임의 이름과 연결될 API 예시가 다음 단계의 맥락으로 이어집니다.", "The selected frame's name and its linked API examples carry into the next step."),
-    ownership: t("Figma OAuth·파일 및 프레임 조회·저장 연동은 팀원이 담당했습니다. 저는 화면별 API 연결 목록 리팩터링에 참여했습니다.", "A teammate owned the Figma OAuth, file/frame fetch, and save integration. I contributed to refactoring the per-screen API link list."),
-    demo: t("고정된 샘플 프레임만 브라우저 상태로 보여 주며 외부 OAuth·API·서버 저장은 연결하지 않습니다.", "Only fixed sample frames are shown as browser state — no external OAuth, API, or server storage."),
+    change: t("선택한 프레임 이름과 연결할 API 예시가 다음 단계로 넘어갑니다.", "The selected frame's name and its linked API examples carry into the next step."),
+    ownership: t("Figma OAuth, 파일·프레임 조회, 저장 연동은 팀원이 맡았습니다. 저는 화면별 API 연결 목록 리팩터링에 참여했습니다.", "A teammate owned the Figma OAuth, file/frame fetch, and save integration. I contributed to refactoring the per-screen API link list."),
+    demo: t("고정 샘플 프레임만 브라우저에서 보여 줍니다. 외부 OAuth, API, 서버 저장은 연결하지 않습니다.", "Only fixed sample frames are shown as browser state — no external OAuth, API, or server storage."),
     scope: "team",
   },
   {
@@ -642,7 +642,7 @@ const guidedSteps: GuidedStep[] = [
     label: t("명세 작성", "Write the spec"),
     eyebrow: "Define API",
     action: t("Method와 경로, Header·Query·Response 조건을 확인하고 수정합니다.", "Review and edit the method, path, and header/query/response conditions."),
-    change: t("입력값이 하나의 API 명세 상태로 즉시 반영됩니다.", "Inputs immediately update a single API spec state."),
+    change: t("입력한 값이 바로 API 명세에 반영됩니다.", "Inputs immediately update a single API spec state."),
     ownership: t("명세 편집 폼, 반복 필드 UI, 입력 검증과 저장 흐름을 구현했습니다.", "I built the spec-editing form, repeating-field UI, validation, and save flow."),
     demo: t("샘플 명세와 브라우저 저장소로 저장·수정 흐름을 재현했습니다.", "The save/edit flow is re-created with a sample spec and browser storage."),
     scope: "frontend",
@@ -653,7 +653,7 @@ const guidedSteps: GuidedStep[] = [
     label: t("중첩 입력", "Nested input"),
     eyebrow: "Compose Payload",
     action: t("Body 탭에서 object·array 타입과 하위 경로를 조합합니다.", "Combine object/array types and sub-paths in the Body tab."),
-    change: t("중첩된 요청 모델이 명세에 포함되고 미리보기 데이터로 변환됩니다.", "The nested request model joins the spec and converts into preview data."),
+    change: t("중첩된 요청 모델이 명세에 들어가고, 미리보기용 데이터로 바뀝니다.", "The nested request model joins the spec and converts into preview data."),
     ownership: t("동적 Body 필드와 중첩 DTO 입력 상태를 다루는 화면을 구현했습니다.", "I built the screens handling dynamic body fields and nested DTO input state."),
     demo: t("object·array 조합을 샘플 요청 모델로 즉시 변환합니다.", "Object/array combinations convert instantly into a sample request model."),
     scope: "frontend",
@@ -675,7 +675,7 @@ const guidedSteps: GuidedStep[] = [
     label: t("테스트 실행", "Run the test"),
     eyebrow: "Run Simulation",
     action: t("요청 수와 실행 시간을 정한 뒤 공개용 시뮬레이션을 실행합니다.", "Set request rate and duration, then run the public simulation."),
-    change: t("진행률과 실행 대상 API가 표시되며 완료 후 결과 단계로 이동합니다.", "Progress and the target API are shown; completion moves to the results step."),
+    change: t("진행률과 실행 중인 API를 보여 주고, 끝나면 결과 단계로 넘어갑니다.", "Progress and the target API are shown; completion moves to the results step."),
     ownership: t("실행 조건 입력, 진행 상태와 완료 전환 UI를 구현했습니다.", "I built the run-condition inputs and the progress/completion UI."),
     demo: t("브라우저 타이머로 실행 과정만 재현하며 실제 부하를 만들지 않습니다.", "Only the run experience is re-created with browser timers — no real load."),
     scope: "frontend",
@@ -686,9 +686,9 @@ const guidedSteps: GuidedStep[] = [
     label: t("응답·성능 확인", "Review results"),
     eyebrow: "Review Result",
     action: t("응답 상태, 지연시간 분포와 처리량 예시를 비교합니다.", "Compare response statuses, latency distribution, and throughput examples."),
-    change: t("최근 결과와 이전 실행 이력이 같은 화면에 누적됩니다.", "The latest result and previous runs accumulate on one screen."),
+    change: t("최근 결과 아래로 이전 실행 이력이 쌓입니다.", "The latest result and previous runs accumulate on one screen."),
     ownership: t("응답·성능 결과 요약과 실행 이력 테이블을 구현했습니다.", "I built the response/performance summary and the run-history table."),
-    demo: t("입력 조건으로 만든 예시 지표를 표시하며 측정값이 아님을 함께 안내합니다.", "Example metrics from your inputs are shown, clearly labeled as not real measurements."),
+    demo: t("입력 조건으로 만든 예시 지표를 보여 주고, 실제 측정값이 아니라고 함께 적습니다.", "Example metrics from your inputs are shown, clearly labeled as not real measurements."),
     scope: "frontend",
   },
 ];
@@ -884,7 +884,7 @@ const safelyPersist = (key: string, value: unknown) => {
     localStorage.setItem(key, JSON.stringify(value));
     return true;
   } catch {
-    flashStorageWarning(t("브라우저 저장공간을 사용할 수 없어 이번 화면에서만 변경사항을 유지합니다.", "Browser storage is unavailable, so changes persist only on this screen."));
+    flashStorageWarning(t("브라우저 저장소를 쓸 수 없어 변경 사항은 이 화면에서만 유지됩니다.", "Browser storage is unavailable, so changes persist only on this screen."));
     return false;
   }
 };
@@ -894,7 +894,7 @@ const safelyRemove = (key: string) => {
     localStorage.removeItem(key);
     return true;
   } catch {
-    flashStorageWarning(t("브라우저 저장 데이터를 삭제하지 못했습니다. 저장공간 설정을 확인해 주세요.", "Couldn't clear browser storage. Please check your storage settings."));
+    flashStorageWarning(t("브라우저 저장 데이터를 삭제하지 못했습니다. 저장소 설정을 확인해 주세요.", "Couldn't clear browser storage. Please check your storage settings."));
     return false;
   }
 };

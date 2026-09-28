@@ -108,7 +108,7 @@ describe("MODAC guided demo", () => {
     expect(recordHeading?.focusCount).toBeGreaterThan(0);
     expect(recordHeading?.scrollIntoViewCount).toBeGreaterThan(0);
 
-    const restart = wrapper.findButton("다른 흐름 다시 체험");
+    const restart = wrapper.findButton("처음부터 다시 체험");
     expect(restart).toBeTruthy();
     restart?.focus();
     await wrapper.trigger(restart!, "click");
@@ -160,15 +160,15 @@ describe("MODAC guided demo", () => {
     expect(source).toContain("화면 변화");
     expect(source).toContain("원 프로젝트 담당");
     expect(source).toContain("공개 데모 재현");
-    expect(source).toContain("팀이 구현한 전체 서비스 중 제가 맡은 화면과 상태 처리 중심");
-    expect(source).toContain("채팅 UI와 팀 WebSocket 연동 결과 반영");
+    expect(source).toContain("팀이 함께 만든 서비스 가운데 제가 맡은 화면과 상태 처리를 중심으로");
+    expect(source).toContain("팀이 구성한 실시간 연결을 채팅 UI에 연결");
     expect(source).toContain("활동 기록·통계 화면 UI");
     expect(source.match(/^\s+demo:/gm)).toHaveLength(5);
   });
 
   it("keeps the public demo browser-only and explicit about simulated data", () => {
     expect(source).toContain("브라우저에서 실행되는 공개용 시뮬레이션");
-    expect(source).toContain("외부 서버·DB·WebSocket에 연결하지 않으며");
+    expect(source).toContain("외부 서버, DB, WebSocket에는 연결하지 않습니다");
     expect(source).toContain("서버 저장 없이 UI 흐름만 재현");
     expect(source).not.toMatch(/\bfetch\s*\(|\baxios\b|new\s+WebSocket|https?:\/\//i);
   });
