@@ -1,19 +1,10 @@
 <template>
-  <section id="hero" class="fresh-mesh relative overflow-hidden pb-20 pt-28 md:pt-32">
-    <div class="pointer-events-none absolute inset-0">
-      <div class="grid-backdrop hero-grid-mask absolute inset-0 opacity-20"></div>
-      <div class="hero-glow absolute right-[-12rem] top-24 h-[34rem] w-[34rem] rounded-full"></div>
-      <div class="hero-bottom-fade absolute inset-x-0 bottom-0 h-36"></div>
-    </div>
+  <section id="hero" class="fresh-mesh relative overflow-hidden pb-16 pt-24 md:pt-28">
+    <div class="hero-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 h-36"></div>
 
-    <div class="section-shell relative z-10 grid min-h-[calc(100dvh-8rem)] items-center gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
+    <div class="section-shell relative z-10 grid min-h-[calc(100dvh-8rem)] items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
       <div class="max-w-3xl">
-        <div class="hero-enter mb-5 flex items-center gap-3">
-          <span class="section-index" aria-hidden="true">00</span>
-          <p class="section-kicker">About Me</p>
-        </div>
-
-        <div class="mb-7 flex items-center gap-5">
+        <div class="flex items-center gap-4">
           <img
             src="/my-photo-224.webp"
             :alt="t('권용재 프로필 사진', 'Portrait of Yongjae Kwon')"
@@ -22,91 +13,54 @@
             loading="eager"
             fetchpriority="high"
             decoding="async"
-            class="hero-photo h-24 w-24 shrink-0 rounded-full object-cover ring-1 ring-white/50 shadow-lg md:h-28 md:w-28"
+            class="hero-photo h-16 w-16 shrink-0 rounded-full object-cover ring-1 ring-white/50 shadow-md md:h-20 md:w-20"
           />
-          <div class="hero-enter inline-flex items-center gap-2 rounded-full border border-[var(--fresh-border)] bg-white/80 px-3 py-2 text-xs font-bold tracking-[0.16em] text-[var(--fresh-blue-strong)] shadow-sm">
-            Web Developer
-          </div>
+          <p class="text-primary text-lg font-black leading-tight">
+            {{ profile.name }}
+            <span class="text-muted mt-1 block text-sm font-semibold">{{ activeTrackData.role }}</span>
+          </p>
         </div>
 
-        <h1 class="text-5xl font-black leading-[1.04] text-primary md:text-7xl">
-          {{ profile.name }}
-        </h1>
-        <p class="mt-6 max-w-2xl whitespace-pre-line text-xl font-semibold leading-9 text-secondary md:text-2xl md:leading-10">
+        <h1 class="text-primary mt-8 text-3xl font-black leading-[1.25] md:text-4xl">
           {{ activeTrackData.headline }}
-        </p>
-        <p class="hero-enter hero-enter-d4 mt-4 max-w-2xl whitespace-pre-line text-base leading-7 text-muted md:text-lg md:leading-8">
+        </h1>
+        <p class="text-secondary mt-5 max-w-2xl text-lg leading-8">
           {{ activeTrackData.target }}
         </p>
 
-        <div class="hero-enter hero-enter-d5 mt-7">
-          <p class="text-muted mb-3 text-xs font-bold tracking-[0.08em]">{{ t("직무별 보기", "View by role") }}</p>
+        <div class="mt-7">
           <FocusTabs />
         </div>
 
-        <div class="hero-enter mt-8 flex flex-wrap gap-3">
+        <div class="mt-8 flex flex-wrap gap-3">
           <button
             type="button"
-            class="focus-ring fresh-button inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-black transition hover:-translate-y-0.5 hover:brightness-105"
+            class="focus-ring fresh-button inline-flex min-h-11 items-center gap-2 rounded-full px-6 py-3 text-sm font-black transition active:scale-[0.98]"
             @click="emit('scroll-to-section', 'experience')"
           >
             {{ t("개발 경험 보기", "See my experience") }}
-            <ArrowRight class="h-4 w-4" />
+            <ArrowRight class="h-4 w-4" aria-hidden="true" />
           </button>
-          <a class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5" :href="profile.github" target="_blank" rel="noreferrer">
-            GitHub
-            <ExternalLink class="h-4 w-4" />
-          </a>
           <a
-            class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
+            class="focus-ring fresh-button-soft inline-flex min-h-11 items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[0.98]"
             :href="resumeHref"
             :download="resumeFileName"
           >
             {{ t("이력서", "Resume") }}
-            <FileDown class="h-4 w-4" />
-          </a>
-          <a class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5" href="#contact">
-            Contact
-            <Mail class="h-4 w-4" />
+            <FileDown class="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
       </div>
 
-      <aside class="reveal hero-scope-card relative overflow-hidden rounded-[2.25rem] p-6 md:p-8">
-        <div class="hero-scope-grid pointer-events-none absolute inset-0 opacity-50"></div>
-        <div class="relative">
-          <div class="flex items-center justify-between gap-4">
-            <p class="section-kicker">Current Work</p>
-            <span class="rounded-full border border-[var(--fresh-border)] bg-white/75 px-3 py-1.5 text-xs font-bold text-[var(--fresh-blue-strong)]">
-              {{ activeTrackData.label }}
-            </span>
-          </div>
-          <h2 class="text-primary mt-5 text-2xl font-black leading-9 md:text-3xl">{{ t("현재 맡고 있는 업무", "What I'm working on") }}</h2>
-          <p class="text-muted mt-3 text-sm leading-6 md:text-base md:leading-7">
-            {{ t("운영팀과 필요한 기능을 정리하고, 개발한 기능의 검수와 배포까지 맡고 있습니다.", "I shape features with the operations team, then own the UAT and deployment of what I build.") }}
-          </p>
-
-          <div class="mt-7 grid gap-3">
-            <article v-for="(item, index) in activeScope.items" :key="item.title" class="scope-row flex gap-4 rounded-2xl p-4">
-              <div class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--fresh-blue-soft)] text-[var(--fresh-blue)]">
-                <component :is="scopeIcons[index]" class="h-5 w-5" />
-              </div>
-              <div>
-                <h3 class="text-primary text-sm font-black">{{ item.title }}</h3>
-                <p class="text-secondary mt-1 text-sm leading-6">{{ item.description }}</p>
-              </div>
-            </article>
-          </div>
-
-          <div class="mt-7 border-t border-[var(--fresh-border)] pt-5">
-            <p class="text-muted text-xs font-bold">{{ t("주요 기술", "Key technologies") }}</p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              <span v-for="tech in activeScope.tech" :key="tech" class="rounded-full border border-[var(--fresh-border)] bg-white/75 px-3 py-1.5 text-xs font-bold text-secondary shadow-sm">
-                {{ tech }}
-              </span>
-            </div>
-          </div>
-        </div>
+      <aside class="hero-proof rounded-[1.5rem] p-6 md:p-8" :aria-label="t('대표 성과', 'Selected results')">
+        <h2 class="text-primary text-xl font-black">{{ t("대표 성과", "Selected results") }}</h2>
+        <ul class="mt-5 divide-y divide-[var(--fresh-border)]">
+          <li v-for="item in activeProof" :key="item.title" class="py-4 first:pt-0 last:pb-0">
+            <p class="text-primary font-bold leading-7">{{ item.title }}</p>
+            <p class="text-secondary mt-1 text-sm leading-6">{{ item.detail }}</p>
+            <p class="text-muted mt-2 text-xs font-semibold">{{ item.project }}</p>
+          </li>
+        </ul>
       </aside>
     </div>
   </section>
@@ -114,7 +68,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { ArrowRight, ExternalLink, FileDown, Layers3, Mail, MessagesSquare, Rocket } from "@lucide/vue";
+import { ArrowRight, FileDown } from "@lucide/vue";
 import FocusTabs from "@/components/FocusTabs.vue";
 import { focusTracks, profile, type FocusTrackId } from "@/data/portfolio";
 import { useActiveResume } from "@/composables/useActiveResume";
@@ -125,98 +79,59 @@ const emit = defineEmits<{ "scroll-to-section": [id: string] }>();
 const { activeTrack } = useFocusTrack();
 const { resumeHref, resumeFileName } = useActiveResume();
 const activeTrackData = computed(() => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]);
-const scopeIcons = [MessagesSquare, Layers3, Rocket];
 
-const scopeByTrack: Record<FocusTrackId, { items: Array<{ title: string; description: string }>; tech: string[] }> = {
-  all: {
-    items: [
-      {
-        title: t("요구사항 협의", "Requirements"),
-        description: t("운영팀·현업 담당자와 필요한 기능과 개발 일정을 정리합니다.", "I shape needed features and schedules with operations and business staff."),
-      },
-      {
-        title: t("화면·서버 개발", "UI & server development"),
-        description: t("업무 화면과 서버 기능을 만들고 필요한 SQL을 작성합니다.", "I build business screens and server features, writing the SQL they need."),
-      },
-      {
-        title: t("검수·배포", "UAT & deployment"),
-        description: t("담당자 검수를 거쳐 개발·운영 서버에 반영하고 결과를 확인합니다.", "After stakeholder review, I deploy to dev and production and verify the results."),
-      },
-    ],
-    tech: ["JavaScript", "Vue", "WebSquare", "Java", "Spring", "MyBatis", "Tomcat", "Linux", "Jenkins"],
+type Proof = { title: string; detail: string; project: string };
+
+// 이력서 핵심 성과와 같은 실측 사례만 쓴다(규모 숫자 제외).
+const proof = {
+  query: {
+    title: t("60초 안에 끝나지 않던 조회를 63~69ms로", "A lookup that never finished in 60 s now returns in 63–69 ms"),
+    detail: t("통합 뷰를 기본 테이블 조인으로 다시 써서 운영 DB에서 다시 쟀습니다.", "Rewrote a union view as base-table joins and re-measured on the production DB."),
+    project: t("교육용 단말 운영 시스템(TSMS)", "Education device operations (TSMS)"),
   },
-  frontend: {
-    items: [
-      {
-        title: t("업무 화면 개발", "Business screens"),
-        description: t("Vue와 WebSquare로 조회·등록·수정이 필요한 관리 화면을 만듭니다.", "I build admin screens for lookup, registration, and editing in Vue and WebSquare."),
-      },
-      {
-        title: t("상태·입력 처리", "State & input handling"),
-        description: t("권한과 진행 상태에 따라 입력 조건과 버튼을 나누고 오류 내용을 표시합니다.", "I split inputs and buttons by permission and progress state, and surface errors clearly."),
-      },
-      {
-        title: t("API 연동", "API integration"),
-        description: t("서버 응답과 화면 데이터를 맞추고 조회·저장 결과를 확인합니다.", "I align server responses with screen data and verify query and save results."),
-      },
-    ],
-    tech: ["JavaScript", "Vue", "WebSquare", "JSP", "jQuery"],
+  download: {
+    title: t("300~400건 첨부파일 압축을 진행 상태가 보이는 작업으로", "Zipping 300–400 attachments became a job with visible progress"),
+    detail: t("작업 ID를 먼저 돌려주고, 새로고침 후에도 같은 작업을 이어서 확인합니다.", "The request returns a job ID first, and the same job resumes after a refresh."),
+    project: t("B2B 협력사 포털(PPS)", "B2B partner portal (PPS)"),
   },
-  backend: {
-    items: [
-      {
-        title: t("서버 기능 개발", "Server features"),
-        description: t("Java·Spring으로 조회·저장·검증과 업무 처리 기능을 개발합니다.", "I develop lookup, persistence, validation, and business logic in Java and Spring."),
-      },
-      {
-        title: t("데이터·외부 연계", "Data & integrations"),
-        description: t("MyBatis SQL을 작성하고 외부 시스템과 필요한 데이터를 주고받습니다.", "I write MyBatis SQL and exchange data with external systems."),
-      },
-      {
-        title: t("배포·운영 확인", "Deployment & operations"),
-        description: t("Tomcat과 Linux 환경에 배포하고 로그와 DB 상태를 확인합니다.", "I deploy to Tomcat/Linux environments and verify logs and DB state."),
-      },
-    ],
-    tech: ["Java", "Spring Boot", "Spring MVC", "MyBatis", "MariaDB", "Tomcat", "Linux", "Jenkins"],
+  rateLimit: {
+    title: t("서버 2대에서 똑같이 걸리는 인증번호 요청 제한", "One reset-code rate limit across two servers"),
+    detail: t("분산 맵의 원자적 획득으로 동시 요청 중 한 건만 보내고, 경계 조건은 단위 테스트 30건으로 고정했습니다.", "Atomic acquisition on a distributed map sends only one of concurrent requests; 30 unit tests pin the edge cases."),
+    project: t("B2B 협력사 포털(PPS)", "B2B partner portal (PPS)"),
   },
+  dataFix: {
+    title: t("운영 DB 점검 데이터를 되돌릴 수 있게 정리", "Cleaned live inspection data with a way back"),
+    detail: t("백업, 롤백, 사후 검증 SQL을 먼저 준비하고 점검 결과를 보존한 채 중복을 없앴습니다.", "Prepared backup, rollback and verification SQL first, then removed duplicates while keeping results."),
+    project: t("교육용 단말 운영 시스템(TSMS)", "Education device operations (TSMS)"),
+  },
+  stateLeak: {
+    title: t("Vue 공통 상태 누수로 생긴 첨부파일 오연결 원인 제거", "Removed the Vue shared-state leak that mislinked attachments"),
+    detail: t("화면마다 새 상태를 만들고, 서버 저장 단계에서도 잘못된 연결을 한 번 더 막았습니다.", "Each screen now creates fresh state, and the server rejects a wrong link on save."),
+    project: t("B2B 협력사 포털(PPS)", "B2B partner portal (PPS)"),
+  },
+  enrollment: {
+    title: t("4개 교육청 학부모 공개 접수 화면", "Public enrollment screens for four education offices"),
+    detail: t("로그인 없이 모바일에서 동의, 배송 예약, QR 배부 확인을 마치게 했습니다.", "Parents finish consent, delivery booking and QR pickup on mobile without logging in."),
+    project: t("교육용 단말 운영 시스템(TSMS)", "Education device operations (TSMS)"),
+  },
+} satisfies Record<string, Proof>;
+
+const proofByTrack: Record<FocusTrackId, Proof[]> = {
+  all: [proof.query, proof.download, proof.rateLimit],
+  backend: [proof.query, proof.rateLimit, proof.dataFix],
+  frontend: [proof.stateLeak, proof.download, proof.enrollment],
 };
 
-const activeScope = computed(() => scopeByTrack[activeTrack.value]);
+const activeProof = computed(() => proofByTrack[activeTrack.value]);
 </script>
 
 <style scoped>
-.hero-grid-mask {
-  -webkit-mask-image: radial-gradient(ellipse 90% 72% at 35% 40%, #000 20%, transparent 82%);
-  mask-image: radial-gradient(ellipse 90% 72% at 35% 40%, #000 20%, transparent 82%);
-}
-.hero-glow {
-  background: radial-gradient(circle, rgba(83, 199, 245, 0.18), rgba(49, 130, 246, 0.04) 48%, transparent 72%);
-  filter: blur(8px);
-}
 .hero-bottom-fade {
   background: linear-gradient(to bottom, transparent, var(--fresh-bg));
 }
-.hero-scope-card {
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 28px 80px rgba(38, 69, 111, 0.14);
-}
-.hero-scope-grid {
-  background-image:
-    linear-gradient(rgba(49, 130, 246, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(49, 130, 246, 0.055) 1px, transparent 1px);
-  background-size: 32px 32px;
-  -webkit-mask-image: linear-gradient(to bottom left, #000, transparent 78%);
-  mask-image: linear-gradient(to bottom left, #000, transparent 78%);
-}
-.scope-row {
-  border: 1px solid rgba(49, 130, 246, 0.09);
-  background: rgba(255, 255, 255, 0.68);
-  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
-}
-.scope-row:hover {
-  transform: translateX(4px);
-  border-color: rgba(49, 130, 246, 0.2);
-  background: rgba(255, 255, 255, 0.9);
+.hero-proof {
+  border: 1px solid var(--fresh-border);
+  background: var(--fresh-surface-solid);
+  box-shadow: var(--fresh-shadow-md);
 }
 </style>

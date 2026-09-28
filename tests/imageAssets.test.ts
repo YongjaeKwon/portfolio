@@ -59,16 +59,6 @@ const expectHeroLcpAnimationContract = (home: string) => {
     expect(classTokens(element)).not.toContain("hero-enter");
   }
 
-  const badges = elementPaths
-    .map((path) => path.at(-1)!)
-    .filter((element) =>
-      element.children.some(
-        (child) =>
-          child.type === NodeTypes.TEXT && child.content.trim() === "Web Developer",
-      ),
-    );
-  expect(badges).toHaveLength(1);
-  expect(classTokens(badges[0])).toContain("hero-enter");
 };
 
 const expectedAssets = [
@@ -155,7 +145,7 @@ describe("optimized image assets", () => {
     expect(html).toContain('rel="preload"');
   });
 
-  it("paints the hero LCP image immediately while keeping the badge entrance", async () => {
+  it("paints the hero LCP image immediately", async () => {
     const home = await readFile(file("src/views/HomeView.vue"), "utf8");
     expectHeroLcpAnimationContract(home);
   });
@@ -182,11 +172,6 @@ describe("optimized image assets", () => {
       mutate: (home: string) =>
         home.replace('class="fresh-mesh ', 'class="hero-enter fresh-mesh '),
     },
-    {
-      defect: "the badge losing its entrance",
-      mutate: (home: string) =>
-        home.replace('class="hero-enter inline-flex ', 'class="inline-flex '),
-    },
   ])("rejects $defect", async ({ mutate }) => {
     const home = await readFile(file("src/views/HomeView.vue"), "utf8");
     const broken = mutate(home);
@@ -208,20 +193,12 @@ describe("optimized image assets", () => {
   ])("accepts reordered, single-quoted LCP attributes with $lineEnding", async ({ normalize }) => {
     const home = await readFile(file("src/views/HomeView.vue"), "utf8");
     const normalizedHome = normalize(home);
-    const badgeOpeningTag =
-      /<div\s+class="([^"]*\bhero-enter\b[^"]*)">(?=\r?\n[ \t]*Web Developer)/;
-    const reformattedBadge = normalizedHome.replace(
-      badgeOpeningTag,
-      "<div data-lcp='badge' class='$1'>",
-    );
-    const reformatted = reformattedBadge.replace(
+    const reformatted = normalizedHome.replace(
       'src="/my-photo-224.webp"',
       "data-lcp='portrait' src='/my-photo-224.webp'",
     );
 
-    expect(normalizedHome).toMatch(badgeOpeningTag);
-    expect(reformattedBadge).not.toBe(normalizedHome);
-    expect(reformatted).not.toBe(reformattedBadge);
+    expect(reformatted).not.toBe(normalizedHome);
     expect(() => expectHeroLcpAnimationContract(reformatted)).not.toThrow();
   });
 });

@@ -3,21 +3,16 @@
     <div class="section-shell">
       <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <div class="flex items-center gap-3">
-            <span class="section-index">02</span>
-            <h2 class="section-kicker">Experience</h2>
-          </div>
-          <h3 class="section-title">{{ t("경력 사항", "Work Experience") }}</h3>
-          <p class="section-copy">{{ t("현재 회사에서 담당하는 업무와 개발·운영해 온 시스템을 함께 정리했습니다.", "What I own at my current company, alongside the systems I've built and operated.") }}</p>
+          <h2 class="section-title">{{ t("경력 사항", "Work Experience") }}</h2>
+          <p class="section-copy">{{ t("지금 회사에서 맡은 일과 운영 중인 시스템입니다.", "What I own at my current company, alongside the systems I've built and operated.") }}</p>
         </div>
-        <FocusTabs />
       </div>
 
-      <article class="career-context reveal reveal-d2 mt-8 rounded-[2rem] p-6 md:p-7">
+      <article class="career-context reveal mt-8 rounded-[2rem] p-6 md:p-7">
         <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
           <div>
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-              <BriefcaseBusiness class="h-5 w-5 text-[var(--fresh-blue)]" />
+              <BriefcaseBusiness class="text-muted h-5 w-5" aria-hidden="true" />
               <span class="font-mono tnum text-muted text-sm font-semibold">{{ experience.period }}</span>
             </div>
             <h3 class="text-primary mt-3 text-2xl font-black">{{ experience.title }}</h3>
@@ -27,7 +22,7 @@
 
           <ul class="career-responsibilities grid gap-2 sm:grid-cols-3 lg:max-w-md lg:grid-cols-1" :aria-label="t('담당 업무 요약', 'Responsibilities summary')">
             <li v-for="item in experience.responsibilities" :key="item">
-              <CheckCircle2 class="h-4 w-4 shrink-0 text-[var(--fresh-blue)]" aria-hidden="true" />
+              <CheckCircle2 class="text-muted h-4 w-4 shrink-0" aria-hidden="true" />
               <span>{{ item }}</span>
             </li>
           </ul>
@@ -47,11 +42,10 @@
           <article
             v-for="(item, index) in workProjects"
             :key="item.project.id"
-            v-tilt
-            class="case-study-card interactive-surface tilt group overflow-hidden rounded-[2.25rem] p-5 md:p-7"
+            class="case-study-card interactive-surface group overflow-hidden rounded-[2.25rem] p-5 md:p-7"
           >
             <div :class="['grid items-stretch gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:gap-8', index % 2 === 1 ? 'case-layout-reverse' : '']">
-              <div class="case-visual relative flex min-h-64 items-center justify-center overflow-hidden rounded-[1.75rem] p-3 md:p-4">
+              <div class="case-visual relative flex min-h-64 items-center justify-center">
                 <ProjectCaseVisual
                   :project-id="item.project.id"
                   class="relative transition duration-500 group-hover:scale-[1.01]"
@@ -60,7 +54,7 @@
 
               <div class="flex flex-col py-1">
                 <div class="flex flex-wrap items-center justify-between gap-3">
-                  <span class="rounded-full bg-[var(--fresh-blue-soft)] px-3 py-1.5 text-[11px] font-black text-[var(--fresh-blue-strong)]">
+                  <span class="text-secondary rounded-full border border-[var(--fresh-border)] px-3 py-1.5 text-[11px] font-black">
                     {{ t("실무 · 운영 중", "Production · Live") }}
                   </span>
                   <p class="text-secondary font-mono tnum text-xs font-semibold">{{ item.project.period }}</p>
@@ -75,7 +69,7 @@
                   </p>
                 </div>
 
-                <div v-if="item.detail.caseStudy" class="case-result mt-5 rounded-2xl p-4">
+                <div v-if="item.detail.caseStudy" class="case-result mt-5 pt-5">
                   <div>
                     <p class="case-step-label">{{ t("문제", "Problem") }}</p>
                     <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.detail.caseStudy.problem }}</p>
@@ -85,7 +79,7 @@
                     <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.detail.caseStudy.outcome[0] }}</p>
                   </div>
                 </div>
-                <div v-else class="case-result mt-5 rounded-2xl p-4">
+                <div v-else class="case-result mt-5 pt-5">
                   <p class="case-step-label">{{ t("실제 운영", "In Production") }}</p>
                   <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.card.result }}</p>
                 </div>
@@ -129,13 +123,11 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { ArrowRight, BriefcaseBusiness, CheckCircle2 } from "@lucide/vue";
-import FocusTabs from "@/components/FocusTabs.vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import ProjectDetailModal from "@/components/ProjectDetailModal.vue";
 import { useFocusTrack } from "@/composables/useFocusTrack";
 import { experience, featuredProjects, focusTracks } from "@/data/portfolio";
 import { t } from "@/i18n/locale";
-import { vTilt } from "@/directives/tilt";
 import { presentProject, type PresentedProject } from "@/utils/projectPresentation";
 
 const workProjectIds = new Set(["pps", "tsms"]);
@@ -193,13 +185,6 @@ watch(activeTrack, closeDetail);
   box-shadow: 0 24px 70px rgba(38, 69, 111, 0.11);
 }
 
-.case-visual {
-  border: 1px solid rgba(49, 130, 246, 0.1);
-  background:
-    linear-gradient(145deg, rgba(49, 130, 246, 0.11), rgba(83, 199, 245, 0.055)),
-    rgba(248, 251, 255, 0.92);
-}
-
 @media (min-width: 64rem) {
   .case-layout-reverse .case-visual {
     order: 2;
@@ -207,17 +192,16 @@ watch(activeTrack, closeDetail);
 }
 
 .case-result {
-  border: 1px solid rgba(49, 130, 246, 0.12);
-  background: linear-gradient(105deg, rgba(49, 130, 246, 0.075), rgba(83, 199, 245, 0.05));
+  border-top: 1px solid var(--fresh-border);
 }
 
 .case-step-label {
-  color: var(--fresh-blue-strong);
+  color: var(--text-primary);
   font-size: 0.6875rem;
   font-weight: 900;
 }
 
 .case-result-divider {
-  border-top: 1px solid rgba(49, 130, 246, 0.12);
+  border-top: 1px solid var(--fresh-border);
 }
 </style>

@@ -2,7 +2,6 @@
   <section :class="['project-demo', { 'project-demo-embedded': embedded }]" :aria-labelledby="embedded ? undefined : titleId">
     <div v-if="!embedded" class="project-demo-heading">
       <div>
-        <p class="section-kicker">Interactive Demo</p>
         <h4 :id="titleId">{{ t("전체 흐름 직접 체험", "Try the full flow") }}</h4>
         <p>{{ copy }}</p>
         <small v-if="expanded" class="project-demo-reset-hint">{{ t("데모를 종료하면 현재 진행 화면이 초기화됩니다.", "Closing the demo resets the current screen.") }}</small>
@@ -122,7 +121,7 @@ const handleDialogStateChange = (open: boolean) => emit("dialog-state-change", o
   font-weight: 900;
 }
 
-.project-demo-heading p:not(.section-kicker) {
+.project-demo-heading p {
   max-width: 38rem;
   margin: 0.45rem 0 0;
   color: var(--text-muted);

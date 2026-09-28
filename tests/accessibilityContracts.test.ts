@@ -71,6 +71,6 @@ describe("accessibility contracts", () => {
 
   it("keeps the condensed career section labelled as career details", () => {
     const experience = readSource("../src/views/ExperienceView.vue");
-    expect(experience).toContain('class="section-title">{{ t("경력 사항", "Work Experience") }}</h3>');
+    expect(experience).toContain('<h2 class="section-title">{{ t("경력 사항", "Work Experience") }}</h2>');
   });
 });

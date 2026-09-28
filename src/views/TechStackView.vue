@@ -1,16 +1,13 @@
 <template>
   <section id="techstack" class="py-24">
     <div class="section-shell">
-      <div class="reveal flex items-center gap-3">
-        <span class="section-index">01</span>
-        <h2 class="section-kicker">Tech Stack</h2>
-      </div>
+      <h2 class="reveal section-title">{{ t("기술 스택", "Tech Stack") }}</h2>
 
       <div class="mt-7 grid gap-3 md:grid-cols-2">
         <article
-          v-for="(group, idx) in techGroups"
+          v-for="group in techGroups"
           :key="group.title"
-          :class="['reveal fresh-card interactive-surface rounded-[1.5rem] p-5', `reveal-d${idx + 1}`]"
+          class="reveal fresh-card interactive-surface rounded-[1.5rem] p-5"
         >
           <h3 class="text-primary text-lg font-black">{{ group.title }}</h3>
 
@@ -33,4 +30,5 @@
 <script setup lang="ts">
 import TechIcon from "@/components/TechIcon.vue";
 import { techGroups } from "@/data/portfolio";
+import { t } from "@/i18n/locale";
 </script>

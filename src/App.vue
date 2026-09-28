@@ -7,13 +7,12 @@
       {{ t("본문으로 건너뛰기", "Skip to main content") }}
     </a>
 
-    <ScrollProgress />
     <Navbar @scroll-to-section="scrollToSection" />
     <main id="main" class="portfolio-flow">
       <HomeView @scroll-to-section="scrollToSection" />
-      <TechStackView />
       <ExperienceView />
       <ProjectsView />
+      <TechStackView />
       <EducationView />
       <ContactView />
     </main>
@@ -33,7 +32,6 @@ import EducationView from "@/views/EducationView.vue";
 import ContactView from "@/views/ContactView.vue";
 import Footer from "@/components/Footer.vue";
 import ScrollToTop from "@/components/ScrollToTop.vue";
-import ScrollProgress from "@/components/ScrollProgress.vue";
 import {
   createSectionNavigator,
   type SectionScrollBehavior,
