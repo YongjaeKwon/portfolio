@@ -24,22 +24,19 @@ src/ui-kit/
 
 ## 주요 클래스
 
-- `fresh-shell`: 밝은 페이지 배경과 기본 텍스트 톤
 - `fresh-nav`: 반투명 고정 내비게이션
 - `fresh-card`: 흰색 글래스 카드
 - `fresh-list-item`: 모바일 앱 리스트형 카드
 - `fresh-button`: 파란 메인 CTA
 - `fresh-button-soft`: 옅은 파란 보조 버튼
 - `fresh-mesh`: 히어로용 부드러운 메쉬 배경
-- `fresh-orb-card`: 말랑한 그라디언트 카드
-- `fresh-phone`: 모바일 화면 같은 큰 패널
 - `fresh-cta-panel`: 연락/마무리 섹션용 강조 패널
 - `fresh-aurora`: CTA 패널 안에서 쓰는 오로라 글로우
 
 ## 사용 예시
 
 ```html
-<section class="fresh-shell">
+<section>
   <div class="fresh-mesh">
     <h1>서비스형 포트폴리오</h1>
     <a class="fresh-button" href="/resume.pdf">이력서 보기</a>

@@ -13,7 +13,7 @@ export const profile = {
   resume: "/resume.pdf?v=20260901",
 };
 
-export const backendResume = "/resume-backend.pdf?v=20260901";
+const backendResume = "/resume-backend.pdf?v=20260901";
 
 export const focusTracks = [
   {
@@ -51,26 +51,6 @@ export const focusTracks = [
     resumeLabel: "이력서 다운로드",
     projectIntro: "개인 프로젝트의 서버 처리, 데이터 검증과 운영 자동화 경험을 보여드립니다.",
     projectOrder: ["pps", "tsms", "ticketrush", "reachrich"],
-  },
-];
-
-export const hero = focusTracks[0];
-
-export const coreStrengths = [
-  {
-    label: "요구사항 정리",
-    title: "업무 담당자와 기능 범위를 구체화합니다",
-    description: "회의에서 들은 요청을 화면 조건, 처리 순서, 예외 상황으로 나누어 개발 범위와 일정을 정합니다.",
-  },
-  {
-    label: "기능 구현",
-    title: "한 기능에 필요한 영역을 함께 봅니다",
-    description: "화면만 따로 보지 않고 서버 로직, SQL, 외부 연계까지 실제 처리 흐름에 맞춰 개발합니다.",
-  },
-  {
-    label: "운영 확인",
-    title: "배포 이후에도 결과를 확인합니다",
-    description: "운영 데이터와 사용자 피드백을 확인하고, 문제가 생기면 로그와 DB 상태를 따라가며 원인을 찾습니다.",
   },
 ];
 
@@ -718,12 +698,6 @@ export const education = [
   { title: "삼성 청년 SW 아카데미(SSAFY) 8기", period: "2022.07 ~ 2023.06", description: "웹 개발 과정 수료. 세 차례의 팀 프로젝트에서 프론트엔드를 담당했습니다.", icon: "Award" },
   { title: "California State University, Chico", period: "2014.01 ~ 2015.05", description: "Business Administration 전공 후 아주대학교 편입", icon: "GraduationCap" },
   { title: "SQLD", period: "2024.09", description: "SQL 개발자 자격 취득", icon: "Database" },
-];
-
-export const heroStats = [
-  { label: "실무 시스템", value: "PPS · TSMS", unit: "" },
-  { label: "담당 범위", value: "화면 · 서버 · DB", unit: "" },
-  { label: "운영 경험", value: "검수 · 배포 · 대응", unit: "" },
 ];
 
 export const projects = featuredProjects;

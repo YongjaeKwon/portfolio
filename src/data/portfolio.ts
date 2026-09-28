@@ -20,11 +20,8 @@ const data = isEn ? en : ko;
 
 export const profile = data.profile;
 export const focusTracks = data.focusTracks;
-export const hero = data.hero;
-export const coreStrengths = data.coreStrengths;
 export const featuredProjects = data.featuredProjects;
 export const techGroups = data.techGroups;
 export const experience = data.experience;
 export const education = data.education;
-export const heroStats = data.heroStats;
 export const projects = data.projects;
