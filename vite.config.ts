@@ -22,5 +22,9 @@ export default defineConfig({
   test: {
     include: ["tests/**/*.{test,spec}.{ts,tsx}"],
   },
+  // 영어 데이터를 최상위 await로 필요할 때만 불러온다(Chrome 89 · Safari 15 · Firefox 89 이상).
+  build: {
+    target: "es2022",
+  },
   base: "/",
 });
