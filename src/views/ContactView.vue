@@ -1,16 +1,12 @@
 <template>
   <section id="contact" class="section-tone-blue py-24 md:py-28">
     <div class="section-shell">
-      <div class="reveal flex items-center gap-3">
-        <span class="section-index">05</span>
-        <h2 class="section-kicker">Contact</h2>
-      </div>
-      <p class="reveal reveal-d2 section-copy">
-        {{ t("새로운 기회에 열려 있습니다.", "I'm open to new opportunities.") }}
+      <h2 class="reveal section-title">{{ t("연락처", "Contact") }}</h2>
+      <p class="reveal section-copy">
+        {{ t("채용이나 협업 제안은 이메일로 받습니다.", "For hiring or collaboration, email works best.") }}
       </p>
 
-      <div class="reveal reveal-d3 fresh-cta-panel mt-10 rounded-[2rem] p-8">
-        <div class="fresh-aurora" aria-hidden="true"></div>
+      <div class="reveal fresh-cta-panel mt-10 rounded-[2rem] p-8">
 
         <h3 class="text-primary text-2xl font-black">{{ t("더 궁금한 내용이 있으시면", "Want to know more?") }}</h3>
         <p class="text-secondary mt-4 max-w-2xl leading-7">

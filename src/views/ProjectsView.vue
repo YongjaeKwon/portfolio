@@ -3,14 +3,9 @@
     <div class="section-shell">
       <div class="reveal mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <div class="flex items-center gap-3">
-            <span class="section-index">03</span>
-            <h2 class="section-kicker">Projects</h2>
-          </div>
-          <h3 class="section-title">{{ t("개인·팀 프로젝트", "Personal & Team Projects") }}</h3>
+          <h2 class="section-title">{{ t("개인·팀 프로젝트", "Personal & Team Projects") }}</h2>
           <p class="section-copy">{{ activeTrackData.projectIntro }}</p>
         </div>
-        <FocusTabs />
       </div>
 
       <div v-if="projectItems.length" class="reveal">
@@ -22,12 +17,12 @@
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex flex-wrap items-center gap-2">
-                <span class="rounded-full border border-[var(--fresh-border)] bg-white/70 px-3 py-1.5 text-xs font-bold text-[var(--fresh-blue-strong)]">
+                <span class="text-secondary rounded-full border border-[var(--fresh-border)] bg-white/70 px-3 py-1.5 text-xs font-bold">
                   {{ item.project.category }}
                 </span>
                 <span
                   v-if="hasInteractiveDemo(item.project.id)"
-                  class="rounded-full bg-[var(--fresh-blue-soft)] px-2.5 py-1 text-[11px] font-black text-[var(--fresh-blue-strong)]"
+                  class="text-secondary rounded-full border border-[var(--fresh-border)] px-2.5 py-1 text-[11px] font-black"
                 >
                   {{ t("샘플 데모", "Sample demo") }}
                 </span>
@@ -50,9 +45,15 @@
               />
             </div>
 
-            <h4 class="text-primary mt-5 text-xl font-black leading-7">{{ item.project.shortTitle }}</h4>
+            <h3 class="text-primary mt-5 text-xl font-black leading-7">{{ item.project.shortTitle }}</h3>
             <p class="text-secondary mt-3 text-sm font-semibold leading-6">{{ item.card.summary }}</p>
             <p class="text-muted mt-3 text-sm leading-6">{{ item.card.description[0] }}</p>
+            <p
+              v-if="item.project.id !== 'reachrich' && !item.project.image && item.card.description[1]"
+              class="text-muted mt-2 text-sm leading-6"
+            >
+              {{ item.card.description[1] }}
+            </p>
 
             <div class="mt-4 flex flex-wrap gap-2">
               <span
@@ -96,15 +97,14 @@
         >
           <div class="relative mb-5 pr-14">
             <div>
-              <p class="section-kicker">Guided Project Demo</p>
-              <h4
+              <h3
                 id="guided-demo-title"
                 data-demo-heading
                 tabindex="-1"
                 class="text-primary mt-2 break-keep text-2xl font-black outline-none"
               >
                 {{ inlineDemoProject.project.title }}
-              </h4>
+              </h3>
               <p class="text-muted mt-2 max-w-2xl text-sm leading-6">
                 {{ t("서비스 흐름을 샘플 데이터로 재구성하고, 각 단계에 실제 담당 범위와 공개용 시뮬레이션을 구분했습니다.", "The service flow is rebuilt with sample data; each step marks what I actually built versus the public simulation.") }}
               </p>
@@ -136,7 +136,6 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import { ArrowRight, Play, X } from "@lucide/vue";
-import FocusTabs from "@/components/FocusTabs.vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import ProjectDetailModal from "@/components/ProjectDetailModal.vue";
 import { featuredProjects, focusTracks } from "@/data/portfolio";

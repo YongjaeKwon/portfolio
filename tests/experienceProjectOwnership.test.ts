@@ -52,7 +52,7 @@ describe("experience and project ownership", () => {
     expect(experienceView).not.toMatch(/v-for=["']bullet\s+in/);
   });
 
-  it("keeps the same role focus available in Experience and Projects", async () => {
+  it("keeps one role focus in the hero that Experience and Projects follow", async () => {
     const replaceState = vi.fn();
     const addEventListener = vi.fn();
     vi.stubGlobal("window", {
@@ -69,8 +69,11 @@ describe("experience and project ownership", () => {
     const experienceFocus = useFocusTrack();
     const projectFocus = useFocusTrack();
 
-    expect(experienceView).toContain("<FocusTabs />");
-    expect(projectsView).toContain("<FocusTabs />");
+    expect(readFileSync(fileURLToPath(new URL("../src/views/HomeView.vue", import.meta.url)), "utf8")).toContain("<FocusTabs />");
+    expect(experienceView).not.toContain("<FocusTabs />");
+    expect(projectsView).not.toContain("<FocusTabs />");
+    expect(experienceView).toContain("activeTrack");
+    expect(projectsView).toContain("activeTrack");
     expect(experienceFocus.activeTrack).toBe(projectFocus.activeTrack);
     expect(experienceFocus.activeTrack.value).toBe("frontend");
     expect(addEventListener).toHaveBeenCalledTimes(1);

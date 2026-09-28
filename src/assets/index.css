@@ -27,7 +27,6 @@
   --text-primary: var(--fresh-ink);
   --text-secondary: var(--fresh-ink-soft);
   --text-muted: var(--fresh-muted);
-  --text-kicker: rgba(49, 65, 88, 0.54);
   --surface: var(--fresh-surface);
   --surface-strong: var(--fresh-surface-solid);
   --surface-soft: rgba(49, 130, 246, 0.06);
@@ -62,13 +61,17 @@ html {
   scroll-margin-top: 5.5rem;
 }
 
-/* Atmospheric glow + ultra-fine noise overlay (kills gradient banding) */
 body {
   margin: 0;
-  background:
-    radial-gradient(ellipse 70% 45% at 10% 0%, rgba(49, 130, 246, 0.14), transparent),
-    radial-gradient(ellipse 50% 35% at 90% 10%, rgba(83, 199, 245, 0.11), transparent),
-    var(--page-bg);
+  background: var(--page-bg);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
 
 button,
@@ -105,22 +108,8 @@ a {
     background: var(--surface);
   }
 
-  .grid-backdrop {
-    background-image:
-      linear-gradient(var(--page-grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--page-grid) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
-
   .section-shell {
     @apply mx-auto w-full max-w-6xl px-6;
-  }
-
-  /* Kicker — display font, the "designed" English label look */
-  .section-kicker {
-    color: var(--text-kicker);
-    font-family: var(--font-display);
-    @apply text-xs font-semibold uppercase tracking-[0.28em];
   }
 
   .section-title {
@@ -132,13 +121,6 @@ a {
   .section-copy {
     color: var(--text-muted);
     @apply mt-4 max-w-3xl text-base leading-7;
-  }
-
-  /* Section index number — editorial accent */
-  .section-index {
-    font-family: var(--font-mono);
-    color: var(--accent);
-    @apply text-xs font-bold;
   }
 
   .surface {
@@ -201,8 +183,6 @@ a {
       transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-d2 { transition-delay: 0.2s; }
-  .reveal-d3 { transition-delay: 0.3s; }
 
   /* ── Active nav ── */
   .nav-active {
@@ -243,23 +223,9 @@ a {
   .tech-chip:hover svg {
     filter: none;
   }
-
-  /* ── 3D tilt card ── */
-  .tilt {
-    transform-style: preserve-3d;
-    transition: transform 160ms ease;
-    will-change: transform;
-  }
 }
 
-@keyframes hero-fade-up {
-  from { opacity: 0; transform: translateY(1.5rem); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
-.hero-enter    { animation: hero-fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.hero-enter-d4 { animation-delay: 0.4s; }
-.hero-enter-d5 { animation-delay: 0.5s; }
 
 /* ── Light mode: remap white/* Tailwind utilities to dark equivalents ── */
 :root[data-theme="light"] {
@@ -293,19 +259,13 @@ a {
     scroll-behavior: auto !important;
   }
   .reveal { opacity: 1 !important; transform: none !important; }
-  .tilt { transform: none !important; }
 }
 
-/* ── Print ── */
+/* ── Page flow ── */
 .portfolio-flow {
   position: relative;
   isolation: isolate;
-  background:
-    radial-gradient(ellipse 70rem 42rem at -10rem 8%, rgba(49, 130, 246, 0.1), transparent 68%),
-    radial-gradient(ellipse 64rem 40rem at calc(100% + 12rem) 31%, rgba(83, 199, 245, 0.09), transparent 70%),
-    radial-gradient(ellipse 68rem 42rem at -12rem 58%, rgba(124, 92, 255, 0.055), transparent 72%),
-    radial-gradient(ellipse 66rem 40rem at calc(100% + 10rem) 84%, rgba(49, 130, 246, 0.075), transparent 70%),
-    linear-gradient(180deg, #f8fbff 0%, var(--fresh-bg) 18%, #f5f9ff 46%, #f7f9fc 72%, #f4f9ff 90%, var(--fresh-bg) 100%);
+  background: var(--fresh-bg);
 }
 
 /* Keep one continuous page background instead of stacking full-width section panels. */
@@ -373,6 +333,5 @@ a {
   .text-primary   { color: #0f172a !important; }
   .text-secondary { color: #374151 !important; }
   .text-muted     { color: #5d6578 !important; }
-  .section-kicker { color: #64748b !important; }
   .text-white     { color: #0f172a !important; }
 }

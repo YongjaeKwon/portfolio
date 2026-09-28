@@ -15,14 +15,14 @@ const expectInOrder = (source: string, tokens: string[]) => {
 };
 
 describe("portfolio section order", () => {
-  it("renders the detailed tech stack immediately after About", () => {
+  it("shows work evidence (experience, projects) before the tech stack", () => {
     const app = readSource("../src/App.vue");
 
     expectInOrder(app, [
       "<HomeView",
-      "<TechStackView",
       "<ExperienceView",
       "<ProjectsView",
+      "<TechStackView",
       "<EducationView",
       "<ContactView",
     ]);
@@ -34,32 +34,26 @@ describe("portfolio section order", () => {
 
     expectInOrder(navbar, [
       '{ id: "hero", label: "About" }',
-      '{ id: "techstack", label: "Tech" }',
       '{ id: "experience", label: "Experience" }',
       '{ id: "projects", label: "Projects" }',
+      '{ id: "techstack", label: "Tech" }',
       '{ id: "education", label: "Education" }',
       '{ id: "contact", label: "Contact" }',
     ]);
     expect(navbar).toContain("const sectionIds = navItems.map((item) => item.id)");
   });
 
-  it("numbers visible sections according to their rendered order", () => {
-    const numberedViews = [
-      ["../src/views/TechStackView.vue", "01"],
-      ["../src/views/ExperienceView.vue", "02"],
-      ["../src/views/ProjectsView.vue", "03"],
-      ["../src/views/EducationView.vue", "04"],
-      ["../src/views/ContactView.vue", "05"],
-    ] as const;
-
-    for (const [path, index] of numberedViews) {
-      expect(readSource(path)).toContain(`<span class="section-index">${index}</span>`);
+  it("uses plain headings without section numbers or eyebrow labels", () => {
+    const views = ["HomeView", "ExperienceView", "ProjectsView", "TechStackView", "EducationView", "ContactView"];
+    for (const view of views) {
+      const source = readSource(`../src/views/${view}.vue`);
+      expect(source).not.toContain("section-index");
+      expect(source).not.toContain("section-kicker");
     }
-
-    const home = readSource("../src/views/HomeView.vue");
-    expect(home).toContain('<section id="hero"');
-    expect(home).toContain('<span class="section-index" aria-hidden="true">00</span>');
-    expect(home).toContain('<p class="section-kicker">About Me</p>');
+    for (const view of views.slice(1)) {
+      expect(readSource(`../src/views/${view}.vue`)).toMatch(/<h2 class="(reveal )?section-title">/);
+    }
+    expect(readSource("../src/views/HomeView.vue")).toContain('<section id="hero"');
   });
 
   it("keeps the existing tech stack presentation while moving its section", () => {
@@ -71,7 +65,7 @@ describe("portfolio section order", () => {
     expect(home).not.toContain("hero-tech-summary");
     expect(home).not.toContain("activeTechSummary");
     expect(home).not.toContain("techByTrack");
-    expect(home).toContain("activeScope.tech");
+    expect(home).toContain("activeProof");
     expect(techStack).not.toContain("group.description");
     expect(techStack).not.toContain("iconMap[group.icon]");
 

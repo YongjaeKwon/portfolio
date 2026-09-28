@@ -26,7 +26,6 @@
   --fresh-gradient-mesh:
     radial-gradient(circle at 18% 22%, rgba(49, 130, 246, 0.32), transparent 28%),
     radial-gradient(circle at 72% 20%, rgba(83, 199, 245, 0.28), transparent 30%),
-    radial-gradient(circle at 48% 78%, rgba(124, 92, 255, 0.16), transparent 34%),
     linear-gradient(135deg, #f7fbff 0%, #ffffff 52%, #eef6ff 100%);
 }
 

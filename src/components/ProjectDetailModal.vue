@@ -12,8 +12,7 @@
         <div ref="modalRef" class="case-study-modal flex max-h-[88dvh] w-full max-w-4xl flex-col overflow-hidden rounded-xl">
           <div class="flex shrink-0 items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
             <div>
-              <p class="section-kicker">Project Detail</p>
-              <h3 :id="detailTitleId" class="text-primary mt-2 text-2xl font-black">{{ project.project.title }}</h3>
+              <h3 :id="detailTitleId" class="text-primary text-2xl font-black">{{ project.project.title }}</h3>
               <p class="text-muted mt-2 text-sm">{{ project.project.period }} · {{ project.project.category }}</p>
             </div>
             <button

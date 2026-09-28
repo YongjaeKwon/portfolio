@@ -103,9 +103,9 @@ const mobileMenuToggle = ref<HTMLButtonElement | null>(null);
 const activeSection = ref("hero");
 const navItems = [
   { id: "hero", label: "About" },
-  { id: "techstack", label: "Tech" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
+  { id: "techstack", label: "Tech" },
   { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ];

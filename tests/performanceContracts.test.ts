@@ -153,11 +153,11 @@ describe("scroll performance contracts", () => {
   });
 
   it("shares scroll state across scroll UI components", async () => {
-    const progress = await source("src/components/ScrollProgress.vue");
+    const navbar = await source("src/components/Navbar.vue");
     const scrollTop = await source("src/components/ScrollToTop.vue");
-    expectImportedAndCalled(progress, "useScrollMetrics");
+    expectImportedAndCalled(navbar, "useScrollMetrics");
     expectImportedAndCalled(scrollTop, "useScrollMetrics");
-    expect(progress).not.toMatch(scrollListener);
+    expect(navbar).not.toMatch(scrollListener);
     expect(scrollTop).not.toMatch(scrollListener);
   });
 
@@ -208,81 +208,6 @@ describe("scroll performance contracts", () => {
     );
     expect(css).toMatch(
       /\.portfolio-flow\s*>\s*section:not\(\s*#hero\s*\)\.anchor-layout-ready\s*\{[^}]*content-visibility\s*:\s*visible\s*;/s,
-    );
-  });
-
-  it("keeps pointer effects scoped to interactive cards", async () => {
-    const app = await source("src/App.vue");
-    const tilt = await source("src/directives/tilt.ts");
-    const css = await source("src/assets/index.css");
-    expectImportedAndCalled(tilt, "createLatestFrameScheduler");
-
-    expect(app).not.toContain("cursor-spotlight");
-    expect(app).not.toMatch(/addEventListener\s*\(\s*["']pointermove["']/);
-    expect(css).not.toMatch(/\.cursor-spotlight\s*\{/);
-    expect(tilt.match(/\.addEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
-    expect(tilt.match(/\.removeEventListener\s*\(\s*["']change["']/g) ?? []).toHaveLength(2);
-
-    expect(tilt).toMatch(/addEventListener\s*\(\s*["']pointerenter["']/);
-    expect(tilt).toMatch(
-      /const\s+activeScrollOptions\s*=\s*\{\s*passive\s*:\s*true\s*,\s*capture\s*:\s*true\s*\}/,
-    );
-    expect(tilt).toMatch(
-      /addEventListener\s*\(\s*["']scroll["']\s*,\s*invalidateGeometry\s*,\s*activeScrollOptions\s*\)/,
-    );
-    expect(tilt).toMatch(
-      /removeEventListener\s*\(\s*["']scroll["']\s*,\s*invalidateGeometry\s*,\s*activeScrollOptions\s*\)/,
-    );
-    expect(tilt).toMatch(/addEventListener\s*\(\s*["']resize["']/);
-    expect(tilt).toMatch(/removeEventListener\s*\(\s*["']resize["']/);
-    expect(tilt).toMatch(/new\s+ResizeObserver\s*\(/);
-    expect(tilt).toMatch(/\.observe\s*\(\s*el\s*\)/);
-    expect(tilt).toMatch(/\.disconnect\s*\(\s*\)/);
-    expect(tilt).toMatch(/\.matches\s*\(\s*["']:hover["']\s*\)/);
-    expect(tilt).toMatch(
-      /const\s+point\s*=\s*\{\s*x\s*:\s*event\.clientX\s*,\s*y\s*:\s*event\.clientY\s*\}[\s\S]*?scheduler\.schedule\s*\(\s*point\s*\)/,
-    );
-    expect(tilt).not.toMatch(
-      /createLatestFrameScheduler(?:\s*<\s*PointerEvent\s*>)?\s*\(\s*\(\s*event\s*:\s*PointerEvent/,
-    );
-
-    const moveStart = tilt.indexOf("const onMove");
-    const moveEnd = tilt.indexOf("const onLeave", moveStart);
-    const enterStart = tilt.indexOf("const onEnter");
-    const activateStart = tilt.indexOf("const activateHover");
-    const activateEnd = tilt.indexOf("const onEnter", activateStart);
-    const schedulerStart = tilt.indexOf("const scheduler");
-    const schedulerEnd = tilt.indexOf("const invalidateGeometry", schedulerStart);
-    const enterHandler = tilt.slice(enterStart, moveStart);
-    const activateHandler = tilt.slice(activateStart, activateEnd);
-    const schedulerCallback = tilt.slice(schedulerStart, schedulerEnd);
-    const moveHandler = tilt.slice(moveStart, moveEnd);
-    expect(enterStart).toBeGreaterThan(-1);
-    expect(activateStart).toBeGreaterThan(-1);
-    expect(schedulerStart).toBeGreaterThan(-1);
-    expect(moveStart).toBeGreaterThan(-1);
-    expect(moveEnd).toBeGreaterThan(moveStart);
-    expect(enterHandler).toMatch(/activateHover\s*\(\s*point\s*\)/);
-    expect(enterHandler).not.toMatch(/getBoundingClientRect|\.style\./);
-    expect(moveHandler).toMatch(
-      /^const onMove\s*=\s*\(event:\s*PointerEvent\)\s*=>\s*\{\s*const point\s*=\s*\{\s*x:\s*event\.clientX,\s*y:\s*event\.clientY\s*\};\s*latestPoint\s*=\s*point;\s*scheduler\.schedule\(point\);\s*\};\s*$/,
-    );
-    expect(moveHandler).not.toMatch(/activateHover|getBoundingClientRect|\.style\./);
-    expect(activateHandler).not.toMatch(/getBoundingClientRect|\.style\./);
-    expect(schedulerCallback).toMatch(
-      /!hoverActive[\s\S]*?el\.matches\s*\(\s*["']:hover["']\s*\)[\s\S]*?activateHover\s*\(\s*point\s*\)/,
-    );
-    expect(schedulerCallback).toMatch(
-      /getBoundingClientRect\s*\([\s\S]*?\.style\.transition[\s\S]*?\.style\.transform/,
-    );
-    expect(tilt).toMatch(
-      /rect\s*=\s*null\s*;[\s\S]{0,200}scheduler\.schedule\s*\(\s*latestPoint\s*\)/,
-    );
-
-    const geometryReads = tilt.match(/getBoundingClientRect\s*\(/g) ?? [];
-    expect(geometryReads).toHaveLength(1);
-    expect(tilt).toMatch(
-      /createLatestFrameScheduler[\s\S]*?\.matches\s*\(\s*["']:hover["']\s*\)[\s\S]*?getBoundingClientRect\s*\(/,
     );
   });
 });

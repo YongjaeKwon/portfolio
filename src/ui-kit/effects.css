@@ -69,11 +69,8 @@
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(49, 130, 246, 0.12);
-  background:
-    radial-gradient(circle at 20% 20%, rgba(49, 130, 246, 0.18), transparent 24rem),
-    radial-gradient(circle at 88% 12%, rgba(83, 199, 245, 0.18), transparent 22rem),
-    #ffffff;
-  box-shadow: var(--fresh-shadow-lg);
+  background: var(--fresh-surface-solid);
+  box-shadow: var(--fresh-shadow-md);
 }
 
 .fresh-cta-panel > :not(.fresh-aurora) {
