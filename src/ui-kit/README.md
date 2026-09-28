@@ -1,6 +1,6 @@
 # Fresh UI Kit
 
-Portable CSS utilities for clean service-style interfaces.
+Portable CSS utilities for calm, operations-console style interfaces. See `docs/ui-kit.md` for the rules.
 
 ## Import
 
@@ -11,11 +11,9 @@ Portable CSS utilities for clean service-style interfaces.
 
 ## Core Classes
 
-- `fresh-nav`: translucent fixed navigation.
-- `fresh-card`: white glass card with restrained shadow.
-- `fresh-button`: blue primary CTA.
+- `fresh-nav`: translucent fixed navigation (floating, so it keeps a shadow).
+- `fresh-card`: white card with a 1px gray border, no shadow.
+- `fresh-list-item`: same rule for small rows and chips.
+- `fresh-button`: solid blue primary CTA.
 - `fresh-button-soft`: pale secondary CTA.
-- `fresh-mesh`: animated soft mesh background.
-- `fresh-list-item`: mobile app inspired row/card.
-- `fresh-cta-panel`: large CTA block with aurora glow support.
-
+- `fresh-cta-panel`: bordered panel for the contact section.

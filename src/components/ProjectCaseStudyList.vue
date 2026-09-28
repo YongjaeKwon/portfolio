@@ -115,14 +115,12 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 .deep-case {
   overflow: hidden;
   border: 1px solid rgba(49, 130, 246, 0.13);
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.76);
-  box-shadow: 0 10px 30px rgba(38, 69, 111, 0.055);
 }
 
 .deep-case[open] {
   border-color: rgba(49, 130, 246, 0.24);
-  box-shadow: 0 16px 42px rgba(38, 69, 111, 0.09);
 }
 
 .deep-case-summary {
@@ -149,7 +147,7 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
   height: 2.25rem;
   flex: 0 0 auto;
   place-items: center;
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
   background: var(--fresh-blue-soft);
   color: var(--fresh-blue-strong);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -190,7 +188,7 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 .deep-case-phase {
   min-width: 0;
   border: 1px solid rgba(49, 130, 246, 0.1);
-  border-radius: 0.8rem;
+  border-radius: 0.375rem;
   padding: 0.85rem;
   background: rgba(255, 255, 255, 0.78);
 }
@@ -217,7 +215,7 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 .deep-case-phase.is-decision > span { color: var(--fresh-blue-strong); }
 
 .deep-case-implementation {
-  border-radius: 0.8rem;
+  border-radius: 0.375rem;
   padding: 0.95rem;
   background: rgba(255, 255, 255, 0.68);
 }
@@ -242,7 +240,7 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
   display: flex;
   gap: 0.75rem;
   border: 1px solid rgba(25, 158, 104, 0.16);
-  border-radius: 0.8rem;
+  border-radius: 0.375rem;
   padding: 0.9rem;
   color: #128154;
   background: rgba(241, 252, 247, 0.82);
@@ -262,10 +260,9 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
   overflow: hidden;
   margin: 0;
   border: 1px solid rgba(31, 45, 71, 0.14);
-  border-radius: 0.9rem;
+  border-radius: 0.5rem;
   color: #dce8ff;
   background: #172033;
-  box-shadow: 0 16px 36px rgba(18, 29, 51, 0.16);
 }
 
 .deep-case-code-header {

@@ -1,12 +1,12 @@
 <template>
-  <section id="contact" class="section-tone-blue py-24 md:py-28">
+  <section id="contact" class="py-24 md:py-28">
     <div class="section-shell">
       <h2 class="reveal section-title">{{ t("연락처", "Contact") }}</h2>
       <p class="reveal section-copy">
         {{ t("채용이나 협업 제안은 이메일로 받습니다.", "For hiring or collaboration, email works best.") }}
       </p>
 
-      <div class="reveal fresh-cta-panel mt-10 rounded-[2rem] p-8">
+      <div class="reveal fresh-cta-panel mt-10 rounded-lg p-8">
 
         <h3 class="text-primary text-2xl font-black">{{ t("더 궁금한 내용이 있으시면", "Want to know more?") }}</h3>
         <p class="text-secondary mt-4 max-w-2xl leading-7">
@@ -43,7 +43,7 @@
 
         <div
           v-if="showMailFallback || copyStatus !== 'idle'"
-          class="mt-6 rounded-[1.5rem] border border-[var(--fresh-border)] bg-white/70 p-5 shadow-sm"
+          class="mt-6 rounded-lg border border-[var(--fresh-border)] bg-white/70 p-5 shadow-sm"
         >
           <p class="text-primary text-sm font-black">{{ t("메일 앱이 열리지 않나요?", "Mail app didn't open?") }}</p>
           <p class="text-secondary mt-2 text-sm leading-6">

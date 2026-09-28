@@ -176,11 +176,11 @@ describe("scroll performance contracts", () => {
     );
     expect(hasDeferredSection).toBe(true);
     const mobileIntrinsicSizes = {
-      techstack: 940,
-      experience: 3490,
-      projects: 2665,
-      education: 980,
-      contact: 495,
+      techstack: 1047,
+      experience: 3646,
+      projects: 4210,
+      education: 699,
+      contact: 664,
     };
     for (const [id, height] of Object.entries(mobileIntrinsicSizes)) {
       expect(css).toMatch(

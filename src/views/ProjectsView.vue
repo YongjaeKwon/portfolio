@@ -13,7 +13,7 @@
           <article
             v-for="item in projectItems"
             :key="item.project.id"
-            class="project-compact-card interactive-surface group flex h-full flex-col overflow-hidden rounded-[1.75rem] p-5"
+            class="project-compact-card interactive-surface group flex h-full flex-col overflow-hidden rounded-lg p-5"
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex flex-wrap items-center gap-2">
@@ -30,10 +30,10 @@
               <span class="text-muted font-mono tnum text-xs">{{ item.project.period }}</span>
             </div>
 
-            <div v-if="item.project.id === 'reachrich'" class="project-thumb mt-5 h-40 overflow-hidden rounded-2xl p-2">
+            <div v-if="item.project.id === 'reachrich'" class="project-thumb mt-5 h-40 overflow-hidden rounded-lg p-2">
               <ProjectCaseVisual :project-id="item.project.id" compact />
             </div>
-            <div v-else-if="item.project.image" class="project-thumb mt-5 flex h-40 items-center justify-center overflow-hidden rounded-2xl p-3">
+            <div v-else-if="item.project.image" class="project-thumb mt-5 flex h-40 items-center justify-center overflow-hidden rounded-lg p-3">
               <img
                 :src="item.project.image.previewSrc ?? item.project.image.src"
                 :alt="item.project.image.alt"
@@ -41,7 +41,7 @@
                 :height="item.project.image.previewHeight ?? item.project.image.height"
                 loading="lazy"
                 decoding="async"
-                class="h-full w-full object-contain transition duration-300 group-hover:scale-[1.02]"
+                class="h-full w-full object-contain"
               />
             </div>
 
@@ -92,7 +92,7 @@
         <section
           v-if="inlineDemoProject"
           ref="inlineDemoRef"
-          class="guided-demo-shell mt-10 scroll-mt-28 rounded-[2rem] p-5 md:p-7"
+          class="guided-demo-shell mt-10 scroll-mt-28 rounded-lg p-5 md:p-7"
           aria-labelledby="guided-demo-title"
         >
           <div class="relative mb-5 pr-14">
@@ -249,7 +249,6 @@ onBeforeUnmount(() => {
 .project-compact-card {
   border: 1px solid rgba(255, 255, 255, 0.9);
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 16px 45px rgba(38, 69, 111, 0.08);
 }
 
 .project-thumb {
@@ -261,6 +260,5 @@ onBeforeUnmount(() => {
   border: 1px solid rgba(49, 130, 246, 0.16);
   background:
     rgba(255, 255, 255, 0.96);
-  box-shadow: 0 24px 70px rgba(38, 69, 111, 0.12);
 }
 </style>

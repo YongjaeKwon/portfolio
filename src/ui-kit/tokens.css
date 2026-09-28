@@ -15,17 +15,13 @@
   --fresh-pink: #ff5da8;
   --fresh-green: #24c06f;
   --fresh-orange: #ff9f2f;
-  --fresh-radius-sm: 14px;
-  --fresh-radius-md: 22px;
-  --fresh-radius-lg: 32px;
-  --fresh-radius-xl: 44px;
+  --fresh-radius-sm: 6px;
+  --fresh-radius-md: 8px;
+  --fresh-radius-lg: 8px;
+  --fresh-radius-xl: 8px;
   --fresh-shadow-sm: 0 8px 24px rgba(31, 45, 61, 0.06);
   --fresh-shadow-md: 0 18px 48px rgba(31, 45, 61, 0.11);
   --fresh-shadow-lg: 0 32px 90px rgba(31, 45, 61, 0.16);
   --fresh-gradient-blue: linear-gradient(135deg, #1b64da 0%, #0a78b8 100%);
-  --fresh-gradient-mesh:
-    radial-gradient(circle at 18% 22%, rgba(49, 130, 246, 0.32), transparent 28%),
-    radial-gradient(circle at 72% 20%, rgba(83, 199, 245, 0.28), transparent 30%),
-    linear-gradient(135deg, #f7fbff 0%, #ffffff 52%, #eef6ff 100%);
 }
 

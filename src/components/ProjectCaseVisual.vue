@@ -2,7 +2,6 @@
   <div :class="['case-story', `case-story--${projectId}`, { 'is-compact': compact }]" role="img" :aria-label="t(`${projectName} 대표 개선 사례 요약`, `${projectName} highlight case summary`)">
     <header class="story-header">
       <div>
-        <p class="story-kicker">Project case</p>
         <strong>{{ projectName }}</strong>
       </div>
       <span class="story-note">{{ storyNote }}</span>
@@ -20,19 +19,19 @@
 
       <div class="story-journey" :aria-label="t('대량 다운로드 개선 흐름', 'Bulk download improvement flow')">
         <article class="journey-step is-problem">
-          <span>Problem</span>
+          <span>{{ t("문제", "Problem") }}</span>
           <strong>{{ t("긴 동기 요청", "Long sync request") }}</strong>
           <p>{{ t("진행·실패 여부를 알기 어려움", "Progress and failures invisible") }}</p>
         </article>
         <ArrowRight class="journey-arrow h-4 w-4" />
         <article class="journey-step is-decision">
-          <span>Decision</span>
+          <span>{{ t("판단", "Decision") }}</span>
           <strong>{{ t("작업 ID 분리", "Job-ID separation") }}</strong>
           <p>{{ t("요청과 압축 실행을 분리", "Request split from compression") }}</p>
         </article>
         <ArrowRight class="journey-arrow h-4 w-4" />
         <article class="journey-step is-result">
-          <span>Result</span>
+          <span>{{ t("결과", "Result") }}</span>
           <strong>{{ t("상태 추적", "Status tracking") }}</strong>
           <p>{{ t("새로고침 후에도 이어서 확인", "Resumes after page refresh") }}</p>
         </article>
@@ -51,7 +50,7 @@
         </article>
         <article>
           <span>{{ t("담당 범위", "Scope") }}</span>
-          <strong>End-to-end</strong>
+          <strong>{{ t("전 과정", "End-to-end") }}</strong>
           <p>{{ t("화면·서버·배포", "UI · server · deployment") }}</p>
         </article>
       </div>
@@ -71,7 +70,7 @@
         <article class="operation-case">
           <div class="operation-title">
             <span><ScanSearch class="h-4 w-4" /></span>
-            <div><small>Case 01</small><strong>{{ t("중고거래 모니터링", "Used-market monitoring") }}</strong></div>
+            <div><small>{{ t("사례 1", "Case 1") }}</small><strong>{{ t("중고거래 모니터링", "Used-market monitoring") }}</strong></div>
           </div>
           <p>{{ t("외부 사이트에 직접 요청하지 않고 담당자가 확인한 URL 문자열만 분석합니다.", "Only staff-verified URL strings are analyzed — no direct requests to external sites.") }}</p>
           <div class="operation-flow"><span>{{ t("검색 링크", "Search links") }}</span><i></i><span>{{ t("URL 분석", "URL analysis") }}</span><i></i><span>{{ t("중복·이력", "Duplicates · history") }}</span></div>
@@ -80,7 +79,7 @@
         <article class="operation-case">
           <div class="operation-title">
             <span><ClipboardCheck class="h-4 w-4" /></span>
-            <div><small>Case 02</small><strong>{{ t("학교 방문 점검", "On-site school inspections") }}</strong></div>
+            <div><small>{{ t("사례 2", "Case 2") }}</small><strong>{{ t("학교 방문 점검", "On-site school inspections") }}</strong></div>
           </div>
           <p>{{ t("종이 점검을 일정과 대상, 미점검 사유와 재점검 회차까지 이어지는 흐름으로 바꿨습니다.", "Paper inspections became a connected flow: schedules, targets, missed reasons, and re-inspection rounds.") }}</p>
           <div class="operation-flow"><span>{{ t("일정·대상", "Schedule · targets") }}</span><i></i><span>{{ t("현장 점검", "Field inspection") }}</span><i></i><span>{{ t("재점검·결과", "Re-inspection · results") }}</span></div>
@@ -107,25 +106,25 @@
       <div class="reachrich-pipeline" :aria-label="t('ReachRich 데이터와 운영 흐름', 'ReachRich data and operations flow')">
         <article>
           <span><WalletCards class="h-4 w-4" /></span>
-          <small>Collect</small>
+          <small>{{ t("수집", "Collect") }}</small>
           <strong>{{ t("토스·KRX", "Toss · KRX") }}</strong>
         </article>
         <ArrowRight class="reachrich-arrow h-4 w-4" />
         <article>
           <span><Database class="h-4 w-4" /></span>
-          <small>Mirror</small>
+          <small>{{ t("저장", "Mirror") }}</small>
           <strong>SQLite·Parquet</strong>
         </article>
         <ArrowRight class="reachrich-arrow h-4 w-4" />
         <article>
           <span><ShieldCheck class="h-4 w-4" /></span>
-          <small>Validate</small>
+          <small>{{ t("검증", "Validate") }}</small>
           <strong>{{ t("검증·모의운용", "Validation · paper trading") }}</strong>
         </article>
         <ArrowRight class="reachrich-arrow h-4 w-4" />
         <article>
           <span><Monitor class="h-4 w-4" /></span>
-          <small>Observe</small>
+          <small>{{ t("모니터링", "Observe") }}</small>
           <strong>{{ t("React 콘솔", "React console") }}</strong>
         </article>
       </div>
@@ -188,26 +187,18 @@ const storyNote = computed(() =>
 .case-story {
   width: 100%;
   overflow: hidden;
-  border: 1px solid rgba(49, 130, 246, 0.13);
-  border-radius: 1.4rem;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(244, 249, 255, 0.92));
-  box-shadow: 0 20px 52px rgba(38, 69, 111, 0.1);
+  border-radius: 0.5rem;
+  background: var(--fresh-bg);
   color: var(--text-primary);
 }
 
 .case-story--tsms {
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(245, 249, 255, 0.92));
+  background: var(--fresh-bg);
 }
 
 .case-story--reachrich {
   border-color: rgba(109, 163, 255, 0.24);
-  background:
-    radial-gradient(circle at 92% 12%, rgba(70, 147, 252, 0.24), transparent 34%),
-    radial-gradient(circle at 7% 95%, rgba(227, 197, 103, 0.11), transparent 28%),
-    linear-gradient(145deg, #111725, #0d111b 72%);
-  box-shadow: 0 22px 56px rgba(13, 17, 27, 0.2);
+  background: linear-gradient(145deg, #111725, #0d111b 72%);
   color: #f0ede6;
 }
 
@@ -245,9 +236,9 @@ const storyNote = computed(() =>
 
 .story-body { display: grid; gap: 0.9rem; padding: 1rem; }
 .story-lead { display: flex; align-items: center; gap: 0.75rem; }
-.story-lead-icon { display: grid; width: 2.65rem; height: 2.65rem; flex: 0 0 auto; place-items: center; border-radius: 0.85rem; background: linear-gradient(145deg, var(--fresh-blue), #53c7f5); box-shadow: 0 10px 22px rgba(49, 130, 246, 0.2); color: white; }
-.case-story--tsms .story-lead-icon { background: linear-gradient(145deg, #496ee9, #2ab987); }
-.case-story--reachrich .story-lead-icon { background: linear-gradient(145deg, #3182f6, #7c5cff); box-shadow: 0 10px 24px rgba(49, 130, 246, 0.26); }
+.story-lead-icon { display: grid; width: 2.65rem; height: 2.65rem; flex: 0 0 auto; place-items: center; border-radius: 0.5rem; background: var(--fresh-blue-strong); color: white; }
+.case-story--tsms .story-lead-icon { background: var(--fresh-blue-strong); }
+.case-story--reachrich .story-lead-icon { background: var(--fresh-blue-strong); }
 .story-lead p { margin: 0 0 0.18rem; color: var(--fresh-blue-strong); font-size: 0.58rem; font-weight: 900; letter-spacing: 0.08em; }
 .story-lead h3 { margin: 0; font-size: clamp(0.86rem, 2.2vw, 1.03rem); font-weight: 950; line-height: 1.34; letter-spacing: -0.02em; }
 
@@ -257,8 +248,8 @@ const storyNote = computed(() =>
   align-items: stretch;
   gap: 0.35rem;
 }
-.journey-step { min-width: 0; border: 1px solid rgba(49, 130, 246, 0.1); border-radius: 0.85rem; background: rgba(255, 255, 255, 0.82); padding: 0.65rem; }
-.journey-step > span { display: block; margin-bottom: 0.25rem; color: var(--text-muted); font-size: 0.48rem; font-weight: 950; letter-spacing: 0.08em; text-transform: uppercase; }
+.journey-step { min-width: 0; border: 1px solid rgba(49, 130, 246, 0.1); border-radius: 0.5rem; background: rgba(255, 255, 255, 0.82); padding: 0.65rem; }
+.journey-step > span { display: block; margin-bottom: 0.25rem; color: var(--text-muted); font-size: 0.48rem; font-weight: 800; }
 .journey-step strong { display: block; font-size: 0.66rem; font-weight: 950; line-height: 1.35; }
 .journey-step p { margin: 0.28rem 0 0; color: var(--text-muted); font-size: 0.52rem; font-weight: 700; line-height: 1.45; }
 .journey-step.is-problem { border-color: rgba(239, 112, 96, 0.14); background: rgba(255, 248, 247, 0.88); }
@@ -276,11 +267,11 @@ const storyNote = computed(() =>
 .story-facts p { margin: 0.13rem 0 0; color: var(--text-muted); font-size: 0.48rem; font-weight: 700; line-height: 1.35; }
 
 .operation-cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; }
-.operation-case { min-width: 0; border: 1px solid rgba(49, 130, 246, 0.1); border-radius: 1rem; background: rgba(255, 255, 255, 0.84); padding: 0.75rem; box-shadow: 0 8px 24px rgba(38, 69, 111, 0.05); }
+.operation-case { min-width: 0; border: 1px solid rgba(49, 130, 246, 0.1); border-radius: 0.5rem; background: rgba(255, 255, 255, 0.84); padding: 0.75rem; }
 .operation-title { display: flex; align-items: center; gap: 0.55rem; }
-.operation-title > span { display: grid; width: 2rem; height: 2rem; flex: 0 0 auto; place-items: center; border-radius: 0.65rem; background: var(--fresh-blue-soft); color: var(--fresh-blue-strong); }
+.operation-title > span { display: grid; width: 2rem; height: 2rem; flex: 0 0 auto; place-items: center; border-radius: 0.375rem; background: var(--fresh-blue-soft); color: var(--fresh-blue-strong); }
 .operation-title div { display: grid; gap: 0.08rem; min-width: 0; }
-.operation-title small { color: var(--text-muted); font-size: 0.46rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.operation-title small { color: var(--text-muted); font-size: 0.46rem; font-weight: 800; }
 .operation-title strong { font-size: 0.63rem; font-weight: 950; white-space: nowrap; }
 .operation-case > p { min-height: 2.5rem; margin: 0.55rem 0 0; color: var(--text-muted); font-size: 0.52rem; font-weight: 700; line-height: 1.5; }
 .operation-flow { display: flex; align-items: center; gap: 0.25rem; margin-top: 0.6rem; }
@@ -303,7 +294,7 @@ const storyNote = computed(() =>
   justify-items: start;
   gap: 0.18rem;
   border: 1px solid rgba(126, 181, 255, 0.15);
-  border-radius: 0.85rem;
+  border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.045);
   padding: 0.62rem;
 }
@@ -314,12 +305,12 @@ const storyNote = computed(() =>
   height: 1.75rem;
   margin-bottom: 0.1rem;
   place-items: center;
-  border-radius: 0.56rem;
+  border-radius: 0.375rem;
   background: rgba(70, 147, 252, 0.13);
   color: #7eb5ff;
 }
 
-.reachrich-pipeline small { color: #8a94a6; font-size: 0.46rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.reachrich-pipeline small { color: #8a94a6; font-size: 0.46rem; font-weight: 800; }
 .reachrich-pipeline strong { color: #f0ede6; font-size: 0.57rem; font-weight: 900; line-height: 1.35; white-space: nowrap; }
 .reachrich-arrow { color: rgba(126, 181, 255, 0.46); }
 
@@ -328,7 +319,7 @@ const storyNote = computed(() =>
 .reachrich-facts p { color: #8a94a6; }
 .reachrich-facts strong { color: #e3c567; }
 
-.case-story.is-compact { height: 100%; border-radius: 1rem; }
+.case-story.is-compact { height: 100%; border-radius: 0.5rem; }
 .case-story.is-compact .story-header { min-height: 2.35rem; padding: 0.48rem 0.65rem; }
 .case-story.is-compact .story-kicker { font-size: 0.48rem; }
 .case-story.is-compact .story-header strong { font-size: 0.66rem; }
