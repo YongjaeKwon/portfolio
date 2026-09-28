@@ -46,6 +46,43 @@
         padding: 2px 0 6px;
         border-bottom: 1.5px solid var(--ink-strong);
       }
+      .highlights {
+        margin: 2px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .highlights li {
+        position: relative;
+        padding-left: 11px;
+        break-inside: avoid;
+      }
+      .highlights li + li {
+        margin-top: 2px;
+      }
+      .highlights li::before {
+        content: "";
+        position: absolute;
+        top: 0.62em;
+        left: 1px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .highlights b,
+      .case b {
+        color: var(--ink-strong);
+      }
+      .project-points {
+        margin: 3px 0 3px;
+        padding-left: 14px;
+        color: #344054;
+        font-size: 8.6pt;
+        line-height: 1.42;
+      }
+      .project-points li + li {
+        margin-top: 1px;
+      }
       .header-main {
         display: flex;
         align-items: baseline;
@@ -450,6 +487,14 @@
         A frontend developer who keeps users on track through complex business work — surfacing input, progress, and error states clearly, and wiring up the APIs and data handling each screen needs. On production Vue/JavaScript systems I have owned everything from the UI to Spring APIs, SQL, and deployment; in React/TypeScript projects I built dynamic forms, REST-backed dashboards, and user-flow tests. I pin down task order and edge cases with operations staff, and keep fixing what real usage reveals.
       </p>
 
+      <h2>Key achievements</h2>
+      <ul class="highlights">
+        <li><b>Removed the root cause of attachment cross-linking from leaked shared Vue state</b> — Each screen now creates fresh state, and the server also rejects saves that reference another engineer's attachment group.</li>
+        <li><b>300–400-file bulk downloads turned into a flow with visible progress</b> — The screen gets a job ID first, shows waiting / running / done / failed, and picks the same job back up after a refresh.</li>
+        <li><b>School inspections moved from paper to screens</b> — One flow from schedule approval to sign-off; as of Sep 2026, 14,882 inspection sheets have been saved through it across 71 schools.</li>
+        <li><b>Public enrollment screens for parents in four education offices</b> — Parents finish consent, delivery booking, and QR handout checks on mobile without logging in, with deadline locks and error screens for real-world use.</li>
+      </ul>
+
       <h2>Skills</h2>
       <div class="skills">
         <div class="skill-row">
@@ -532,7 +577,7 @@
         <div class="subheading case-section-heading">Highlights</div>
 
         <div class="case">
-          <strong>Stopping attachment cross-linking caused by leaked shared Vue state</strong>
+          <strong>Stopping attachment cross-linking caused by leaked shared Vue state — blocked on both screen and server</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>When registering a new field engineer, the previously viewed engineer's attachment group lingered on screen, so the previous person's files could be linked to the new record.</span></li>
             <li><span class="case-label">Approach</span><span>Rather than just clearing values on open, give every Vue instance fresh state — and have the server block wrong links again at save time.</span></li>
@@ -542,7 +587,7 @@
         </div>
 
         <div class="case">
-          <strong>Async processing and progress UI for bulk downloads</strong>
+          <strong>Async processing and progress UI for bulk downloads — 300–400-file jobs that survive a refresh</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Collecting and zipping attachments for 300–400 engineers in one request kept the screen waiting for minutes, with no way to tell progress from failure.</span></li>
             <li><span class="case-label">Approach</span><span>Instead of only speeding up compression, separate the HTTP request from the long-running file job and let the screen follow the job's status.</span></li>
@@ -569,7 +614,7 @@
         <div class="subheading case-section-heading">Highlights</div>
 
         <div class="case">
-          <strong>Building the school inspection flow from scheduling to sign-off</strong>
+          <strong>Building the school inspection flow — 14,882 inspection sheets across 71 schools</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Schedule approval, roster checks, checklists, e-signatures, and confirmations had to flow together — and multiple staff on the same school risked duplicate approvals or overwriting earlier results.</span></li>
             <li><span class="case-label">Approach</span><span>Connect the screens in the order staff actually work, but have the server and DB re-verify current state at save time.</span></li>
@@ -579,7 +624,7 @@
         </div>
 
         <div class="case">
-          <strong>Public enrollment screens for parents across four education offices</strong>
+          <strong>Public enrollment screens for parents — four education offices</strong>
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Parents handle rental consent, delivery-date booking, and QR handout checks on public screens with no login — so late submissions, duplicates, and mobile rendering issues all had to be handled in the UI.</span></li>
             <li><span class="case-label">Approach</span><span>Unlike admin screens, put guidance text, error screens, and deadline locking first, and design mobile-first by default.</span></li>
@@ -589,13 +634,13 @@
         </div>
       </section>
 
-      <h2>Selected Projects</h2>
+      <h2>Personal &amp; Team Projects</h2>
       <section class="system project-item">
         <div class="system-head">
           <div class="system-title">
             ReachRich · React operations dashboard
           </div>
-          <div class="meta">Mar 2026 – Present · Personal</div>
+          <div class="meta">Mar 2026 – Present · Personal · Private</div>
         </div>
         <p class="system-desc">
           Connected FastAPI query APIs to a React + TypeScript UI — dashboard, trading journal, and stock ratings as routes. Polling pauses in hidden tabs and refreshes on return; verified with Vitest and Testing Library (96 web tests, Aug 2026). Private repo; a synthetic-data <a href="https://github.com/YongjaeKwon/quant-lab">public demo (quant-lab)</a> is available.
@@ -603,6 +648,25 @@
         <p class="system-tech">
           <span class="tech-label">Tech</span>
           <span>React · TypeScript · Vite · Vitest · Testing Library · FastAPI · GitHub Actions</span>
+        </p>
+      </section>
+
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">ONULSAI · offline dating event service</div>
+          <div class="meta">Sep 2026 – Present · Personal · Private</div>
+        </div>
+        <p class="system-desc">
+          A service for running offline dating events. I build the participant web app (sign-up, schedule, applications, my applications) and the operator web app (member lookup, event management, application list, cancellation) in Next.js, finalizing each feature's design doc before implementation.
+        </p>
+        <ul class="project-points">
+          <li>Request and response types live in one place through NestJS services behind an API Gateway and a shared contract package.</li>
+          <li>The server locks the event row so that with one seat left and 20 simultaneous applications, exactly <b>one</b> succeeds; on a duplicate application (409) the screen reloads the user's applications.</li>
+          <li>Playwright browser E2E runs on GitHub Actions.</li>
+        </ul>
+        <p class="system-tech">
+          <span class="tech-label">Tech</span>
+          <span>Next.js · React · TypeScript · Tailwind CSS · NestJS · PostgreSQL · Playwright</span>
         </p>
       </section>
 
@@ -627,7 +691,7 @@
           <div class="system-title">
             <a href="https://www.yongjaekwon.com/?lang=en">Personal portfolio · responsive project archive</a>
           </div>
-          <div class="meta">Mar 2025 – Present · Personal</div>
+          <div class="meta">Mar 2025 – Present · Personal · Public</div>
         </div>
         <p class="system-desc">
           Built from scratch with Vue 3, TypeScript, Vite, and Tailwind CSS. Single-column on small screens, two-column on wide; the shared detail modal supports keyboard navigation, focus restoration, and reduced motion.
