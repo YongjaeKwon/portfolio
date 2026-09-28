@@ -40,7 +40,7 @@ import { locale, t } from "@/i18n/locale";
 
 if (typeof document !== "undefined") {
   document.documentElement.lang = locale;
-  document.title = t("권용재 | Web Developer Portfolio", "Yongjae Kwon | Web Developer Portfolio");
+  document.title = t("권용재 | 웹 개발자 포트폴리오", "Yongjae Kwon | Web Developer Portfolio");
 }
 
 let cleanup: (() => void) | undefined;

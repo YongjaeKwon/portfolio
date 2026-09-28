@@ -33,7 +33,7 @@
         <div class="mb-7 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
           <div>
             <h3 class="text-primary text-2xl font-black">{{ t("담당 시스템", "Systems I Own") }}</h3>
-            <p class="text-muted mt-2 text-sm leading-6">{{ t("회사에서 실제 운영 중인 두 시스템과 대표 개선 경험입니다.", "Two systems running in production at my company, with a highlighted improvement for each.") }}</p>
+            <p class="text-muted mt-2 text-sm leading-6">{{ t("운영 중인 두 시스템과 각각의 대표 개선 사례입니다.", "Two systems running in production at my company, with a highlighted improvement for each.") }}</p>
           </div>
         </div>
 
@@ -55,7 +55,7 @@
                 <div class="flex flex-wrap items-center justify-between gap-3">
                   <span class="text-secondary inline-flex items-center gap-1.5 rounded-full border border-[var(--fresh-border)] px-3 py-1.5 text-[11px] font-black">
                     <span class="h-1.5 w-1.5 rounded-full bg-[var(--fresh-green)]" aria-hidden="true"></span>
-                    {{ t("실무 · 운영 중", "Production · Live") }}
+                    {{ t("운영 중", "Live in production") }}
                   </span>
                   <p class="text-secondary font-mono tnum text-xs font-semibold">{{ item.project.period }}</p>
                 </div>
@@ -80,7 +80,7 @@
                   </div>
                 </div>
                 <div v-else class="case-result mt-5 pt-5">
-                  <p class="case-step-label">{{ t("실제 운영", "In Production") }}</p>
+                  <p class="case-step-label">{{ t("운영 결과", "In production") }}</p>
                   <p class="text-secondary mt-2 text-sm font-semibold leading-6">{{ item.card.result }}</p>
                 </div>
 
@@ -105,7 +105,7 @@
                     :aria-label="t(`${item.project.title} 상세 보기`, `View ${item.project.title} details`)"
                     @click="openDetail(item)"
                   >
-                    {{ t("상세 보기", "View details") }}
+                    {{ t("개발 과정 보기", "Development story") }}
                     <ArrowRight class="h-4 w-4" />
                   </button>
                 </div>

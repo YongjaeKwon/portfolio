@@ -3,7 +3,7 @@
     <div class="section-shell">
       <div class="reveal mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <h2 class="section-title">{{ t("개인·팀 프로젝트", "Personal & Team Projects") }}</h2>
+          <h2 class="section-title">{{ t("개인 · 팀 프로젝트", "Personal & Team Projects") }}</h2>
           <p class="section-copy">{{ activeTrackData.projectIntro }}</p>
         </div>
       </div>
@@ -106,7 +106,7 @@
                 {{ inlineDemoProject.project.title }}
               </h3>
               <p class="text-muted mt-2 max-w-2xl text-sm leading-6">
-                {{ t("서비스 흐름을 샘플 데이터로 재구성하고, 각 단계에 실제 담당 범위와 공개용 시뮬레이션을 구분했습니다.", "The service flow is rebuilt with sample data; each step marks what I actually built versus the public simulation.") }}
+                {{ t("샘플 데이터로 서비스를 재현했습니다. 단계마다 제가 실제로 맡은 부분과 데모로 만든 부분을 나눠 표시했습니다.", "The service flow is rebuilt with sample data; each step marks what I actually built versus the public simulation.") }}
               </p>
             </div>
             <button
