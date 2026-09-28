@@ -12,7 +12,7 @@
       </div>
       <div class="flex items-center gap-4">
         <a
-          class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+          class="focus-ring text-muted inline-flex min-h-11 items-center text-sm font-semibold transition hover:text-[var(--accent-strong)]"
           :href="profile.github"
           target="_blank"
           rel="noreferrer"
@@ -21,14 +21,14 @@
         </a>
         <span class="text-muted/50 text-xs select-none" aria-hidden="true">·</span>
         <a
-          class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+          class="focus-ring text-muted inline-flex min-h-11 items-center text-sm font-semibold transition hover:text-[var(--accent-strong)]"
           href="#contact"
         >
           {{ t("이메일", "Email") }}
         </a>
         <span class="text-muted/50 text-xs select-none" aria-hidden="true">·</span>
         <a
-          class="focus-ring text-muted text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+          class="focus-ring text-muted inline-flex min-h-11 items-center text-sm font-semibold transition hover:text-[var(--accent-strong)]"
           :href="resumeHref"
           :download="resumeFileName"
         >

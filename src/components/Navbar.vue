@@ -39,7 +39,7 @@
 
         <button
           type="button"
-          class="focus-ring nav-panel fresh-card text-muted rounded-full px-3 py-2 text-xs font-black tracking-wide transition hover:text-[var(--accent-strong)]"
+          class="focus-ring nav-panel fresh-card text-muted inline-flex min-h-11 min-w-11 items-center justify-center rounded-full px-3 py-2 text-xs font-black tracking-wide transition hover:text-[var(--accent-strong)]"
           :aria-label="t('English 페이지로 전환', 'Switch to the Korean page')"
           @click="switchLocale(isEn ? 'ko' : 'en')"
         >
@@ -49,7 +49,7 @@
         <button
           ref="mobileMenuToggle"
           type="button"
-          class="focus-ring nav-panel fresh-card text-primary rounded-full px-3 py-2 text-sm font-semibold md:hidden"
+          class="focus-ring nav-panel fresh-card text-primary inline-flex min-h-11 min-w-11 items-center justify-center rounded-full px-3 py-2 text-sm font-semibold md:hidden"
           :aria-expanded="isMenuOpen"
           aria-controls="mobile-navigation"
           :aria-label="isMenuOpen ? t('메뉴 닫기', 'Close menu') : t('메뉴 열기', 'Open menu')"
