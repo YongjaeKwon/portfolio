@@ -44,8 +44,62 @@
       }
 
       .header {
+        display: grid;
+        grid-template-columns: 25mm minmax(0, 1fr);
+        align-items: center;
+        gap: 6mm;
         padding: 2px 0 8px;
         border-bottom: 1.5px solid var(--ink-strong);
+      }
+      .photo {
+        display: block;
+        width: 25mm;
+        height: 33mm;
+        object-fit: cover;
+        border-radius: 2px;
+      }
+      .header-body {
+        min-width: 0;
+      }
+      .header-body .contact-row {
+        justify-content: flex-start;
+      }
+      .highlights {
+        margin: 2px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .highlights li {
+        position: relative;
+        padding-left: 11px;
+        break-inside: avoid;
+      }
+      .highlights li + li {
+        margin-top: 2px;
+      }
+      .highlights li::before {
+        content: "";
+        position: absolute;
+        top: 0.62em;
+        left: 1px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .highlights b,
+      .case b {
+        color: var(--ink-strong);
+      }
+      .project-points {
+        margin: 3px 0 3px;
+        padding-left: 14px;
+        color: #344054;
+        font-size: 8.6pt;
+        line-height: 1.42;
+      }
+      .project-points li + li {
+        margin-top: 1px;
       }
       .header-main {
         display: flex;
@@ -422,6 +476,8 @@
   <body>
     <main class="resume">
       <header class="header">
+        <img class="photo" src="data:image/jpeg;base64,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" alt="권용재 증명사진" />
+        <div class="header-body">
         <div class="header-main">
           <h1>권용재 <span class="english-name">Yongjae Kwon</span></h1>
           <div class="role">Backend Developer</div>
@@ -451,12 +507,21 @@
             >
           </div>
         </div>
+        </div>
       </header>
 
       <h2>소개</h2>
       <p class="intro">
-        현장의 복잡한 업무를 사용자가 끊김 없이 처리할 수 있는 시스템으로 만드는 Java·Spring 백엔드 개발자입니다. 종이로 하던 학교 방문 점검을 일정 등록부터 재점검 이력까지 시스템으로 옮겼고, 오래 걸리던 대량 첨부파일 압축은 비동기로 바꿨습니다. 운영 담당자와 업무 순서를 맞춘 뒤 화면, 서버, DB를 함께 만들고 배포 후 운영도 맡고 있습니다.
+        운영 중인 공공 · B2B 업무 시스템을 맡고 있는 Java · Spring 백엔드 개발자입니다. 느린 조회는 실행계획부터 확인하고, 서버가 여러 대여도 규칙이 똑같이 지켜지게 만들고, 운영 데이터를 고칠 때는 되돌릴 방법부터 준비합니다. 운영 담당자와 업무 순서를 맞춘 뒤 화면, 서버, DB를 함께 만들고 배포 후 운영까지 봅니다.
       </p>
+
+      <h2>핵심 성과</h2>
+      <ul class="highlights">
+        <li><b>60초 안에 끝나지 않던 조회를 63~69ms로</b> — 통합 뷰를 기본 테이블 조인으로 다시 써서, 실행계획 추정 행을 약 2.1조에서 1,854행으로 줄였습니다(운영 DB 실측, 최소 약 870배).</li>
+        <li><b>서버 2대에서 똑같이 걸리는 인증번호 요청 제한</b> — Hazelcast 분산 맵과 원자적 획득으로 동시 요청 중 한 건만 발송되게 하고, 경계 조건을 단위 테스트 30건으로 고정했습니다.</li>
+        <li><b>25개 화면의 외부 API 키 브라우저 노출 제거</b> — 외부 호출을 서버 공통 경로로 옮겨, 연동 정보가 바뀌어도 서버 한 곳만 고치면 되게 했습니다.</li>
+        <li><b>운영 DB 점검 데이터 재정립</b> — 백업 · 롤백 · 사후 검증 SQL을 먼저 준비하고, 점검 결과를 보존한 채 중복 행을 정리했습니다.</li>
+      </ul>
 
 
 <h2>기술 스택</h2>
@@ -519,7 +584,7 @@
         <div class="subheading case-section-heading">PPS 주요 성과</div>
 
         <div class="case">
-          <strong>대량 첨부파일 다운로드 비동기 전환</strong>
+          <strong>대량 첨부파일 다운로드 비동기 전환 — 300~400건 압축을 요청에서 분리</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>CE 300~400건의 첨부파일을 한 요청에서 수집 · 압축해 화면이 장시간 대기했고, 진행 중인지 실패한 것인지 확인할 수 없었습니다.</span></li>
             <li><span class="case-label">판단</span><span>압축 속도보다 요청과 작업이 한 흐름에 묶인 구조가 문제라고 보고, 작업을 분리해 상태를 조회하는 방식을 선택했습니다.</span></li>
@@ -528,7 +593,7 @@
           </ul>
         </div>
         <div class="case">
-          <strong>분리돼 있던 본사 계정 발급 절차 통합</strong>
+          <strong>본사 계정 발급 절차 통합 — 3단계 입력을 한 화면으로</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>사내 계정 시스템과 포털에 계정을 각각 만들고 포털 ID는 DB에 직접 입력해야 해 누락과 정보 불일치 위험이 있었습니다.</span></li>
             <li><span class="case-label">판단</span><span>두 시스템에 따로 입력하는 절차로는 누락을 막기 어렵다고 보고, 포털을 단일 발급 창구로 정했습니다.</span></li>
@@ -537,10 +602,9 @@
           </ul>
         </div>
 
-        <div class="print-continuation">PPS 주요 성과 · 계속</div>
 
         <div class="case">
-          <strong>서버 2대 환경의 비밀번호 초기화 인증번호 요청 제한</strong>
+          <strong>비밀번호 초기화 인증번호 요청 제한 — 서버 2대에 같은 규칙, 테스트 30건</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>비밀번호 초기화가 인증번호를 알림톡으로 발송하는데 반복 클릭과 자동화된 요청을 막는 장치가 없었고, 서버가 2대라 서버별 메모리 제한만으로는 요청이 분산되면 제한이 무력화됩니다.</span></li>
             <li><span class="case-label">판단</span><span>제한 상태를 서버 간에 공유해야 하고, 계정 · 전화번호 같은 식별값을 제한 키로 원문 저장하지 않아야 한다고 판단했습니다.</span></li>
@@ -550,7 +614,7 @@
         </div>
 
         <div class="case">
-          <strong>알림톡 발송 정책 공통화</strong>
+          <strong>알림톡 발송 정책 공통화 — 발송 지점 5곳을 1곳으로</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>기능마다 수신자와 발송 조건이 소스에 따로 작성돼 정책 변경 시 여러 코드를 수정해야 했습니다.</span></li>
             <li><span class="case-label">판단</span><span>정책이 바뀔 때마다 코드를 배포하지 않도록, 자주 변하는 기준과 공통 발송 로직을 분리했습니다.</span></li>
@@ -579,7 +643,7 @@
         <div class="subheading case-section-heading">TSMS 주요 성과</div>
 
         <div class="case">
-          <strong>외부 API 키 노출 제거 및 호출 경로 공통화</strong>
+          <strong>외부 API 키 노출 제거 및 호출 경로 공통화 — 25개 화면</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>25개 화면에서 지도 · 주소 및 교육행정정보 API를 직접 호출해 키가 브라우저에 노출되고, 연동 정보가 바뀔 때마다 각 화면을 수정해야 했습니다.</span></li>
             <li><span class="case-label">판단</span><span>키만 바꿔서는 노출과 반복 수정이 되풀이된다고 보고, 외부 호출을 화면에서 서버로 옮겼습니다.</span></li>
@@ -589,7 +653,7 @@
         </div>
 
         <div class="case">
-          <strong>운영 중 점검 데이터의 시리얼 기준 재정립과 중복 정리</strong>
+          <strong>점검 데이터의 시리얼 기준 재정립과 중복 정리 — 백업 · 롤백 · 검증 SQL로 운영 반영</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>점검 대상이 입력용 14자리 시리얼로 저장돼 15자리 전체 시리얼과 혼재했고, 같은 시리얼 후보가 여러 건이면 잘못 매핑되거나 중복 저장될 수 있었습니다. 이미 운영 중이라 화면만 고쳐서는 쌓인 데이터가 정리되지 않았습니다.</span></li>
             <li><span class="case-label">판단</span><span>저장 기준을 15자리 전체 시리얼로 재정립하고, 기존 데이터는 점검 결과를 보존한 채 정리하되 운영 반영 전에 되돌릴 수 있는 절차를 함께 준비했습니다.</span></li>
@@ -598,19 +662,18 @@
           </ul>
         </div>
 
-        <div class="print-continuation">TSMS 주요 성과 · 계속</div>
         <div class="case">
-          <strong>대량 단말 등록 검증과 QR 발급</strong>
+          <strong>대량 단말 등록 검증과 QR 발급 — 108,237대에 적용</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>엑셀로 단말을 대량 등록할 때 생산입고 내역에 없거나 이미 등록된 일련번호가 함께 들어올 수 있었습니다.</span></li>
             <li><span class="case-label">판단</span><span>등록 뒤 오류를 정리하기보다 저장 전에 기준 데이터와 중복을 확인하도록 검증 순서를 앞당겼습니다.</span></li>
             <li><span class="case-label">구현</span><span>입력 일련번호를 생산입고 정보와 대조하고, 기등록 단말은 기존 학교 · 사용자 정보를 반환했습니다. QR에는 내부 식별자 대신 외부 노출용 ID를 넣었습니다.</span></li>
-            <li><span class="case-label">결과</span><span>총 111,593대 중 108,237대의 QR 발급 흐름에 적용해 잘못된 단말 등록과 내부 식별자 노출을 사전에 차단했습니다. (2026.07 기준)</span></li>
+            <li><span class="case-label">결과</span><span>총 111,593대 중 108,237대의 QR 발급에 적용했습니다. 기준 데이터에 없는 단말은 저장 전에 걸러지고, QR에는 내부 식별자가 드러나지 않습니다. (2026.07 기준)</span></li>
           </ul>
         </div>
 
         <div class="case">
-          <strong>60초에도 못 끝나던 통합 뷰 조회의 성능 개선</strong>
+          <strong>통합 뷰 조회의 성능 개선 — 60초 초과에서 63~69ms로</strong>
           <ul class="case-flow">
             <li><span class="case-label">문제</span><span>AS 이력 · 정산 세부현황 조회가 여러 테이블을 합쳐 둔 통합 뷰를 거치는데, 데이터가 쌓이면서 화면이 수십 초를 기다리는 수준까지 느려졌습니다.</span></li>
             <li><span class="case-label">판단</span><span>실행계획을 확인하니 고객 조건이 뷰 안까지 전달되지 못해 뷰 전체를 만들어 놓고 거르는 구조였고(운영 DB 추정 약 2.1조 행), 인덱스 추가가 아니라 조회 구조 자체를 바꿔야 한다고 판단했습니다.</span></li>
@@ -626,11 +689,16 @@
           <div class="system-title">
             <a href="https://github.com/YongjaeKwon/ticket-rush">ticket-rush · 선착순 티켓팅 예매 시스템</a>
           </div>
-          <div class="meta">2026.08 ~ 진행 중 · 개인</div>
+          <div class="meta">2026.08 ~ 진행 중 · 개인 · 공개</div>
         </div>
         <p class="system-desc">
-          동시 요청이 몰려도 같은 좌석이 두 번 확정되지 않도록 만든 공연 예매 시스템입니다. Redis로 좌석을 5분간 선점하고, 만료된 선점은 결제를 거절하며, 최종 확정은 MySQL의 (회차, 좌석) 기본키로 막습니다. 좌석 하나에 동시 요청 100건을 보내면 선점 성공은 1건이고, 홀드 키를 지워 중복 홀드 10건을 만든 뒤 동시에 확정해도 확정 좌석과 확정된 예매가 각각 1건만 남는 것을 통합 테스트로 확인했습니다. 2단계(2026.09)에서 Next.js 웹의 Canvas 좌석맵, SSE, 결제 화면을 붙였고, 지금은 Outbox 이벤트를 Kafka로 넘기는 3단계를 진행 중입니다. 백엔드 통합 · 동시성 테스트와 웹 단위 · Playwright E2E를 CI에서 실행합니다.
+          요청이 몰려도 같은 좌석이 두 번 확정되지 않는 공연 예매 시스템입니다. Redis로 좌석을 5분간 선점하고, 만료된 선점은 결제를 거절하며, 최종 확정은 MySQL의 (회차, 좌석) 기본키로 막습니다.
         </p>
+        <ul class="project-points">
+          <li>좌석 하나에 동시 요청 100건을 보내면 선점 성공은 <b>1건</b>입니다. 홀드 키를 지워 중복 홀드 10건을 만든 뒤 동시에 확정해도 확정 좌석과 확정 예매는 각각 <b>1건</b>만 남습니다(Testcontainers 통합 테스트).</li>
+          <li>결제 응답을 못 받으면 같은 시도 키로 다시 보내고, 거절 뒤 새 시도는 새 키를 씁니다(시도 단위 Idempotency-Key).</li>
+          <li>2단계(2026.09)에서 Next.js 웹의 Canvas 좌석맵 · SSE · 결제 화면과 Playwright E2E를 붙였고, 지금은 Outbox 이벤트를 Kafka로 넘기는 3단계를 진행 중입니다.</li>
+        </ul>
         <p class="system-tech">
           <span class="tech-label">사용 기술</span>
           <span>Java 21 · Spring Boot 4 · Spring Modulith · MySQL 8.4 · Redis 7 · Flyway · Next.js · TypeScript · Testcontainers · Playwright</span>
@@ -639,18 +707,36 @@
 
       <section class="system project-item">
         <div class="system-head">
-          <div class="system-title">
-            ReachRich · 개인 투자 연구·운영 플랫폼
-          </div>
-          <div class="meta">2026.03 ~ 현재 · 개인</div>
+          <div class="system-title">오늘사이 · 오프라인 소개팅 운영 서비스</div>
+          <div class="meta">2026.09 ~ 진행 중 · 개인 · 비공개</div>
         </div>
         <p class="system-desc">
-          토스증권 Open API로 계좌 추적, KRX 거래대금 상위 200종목 일봉 수집, 전략 검증, 모의 운용,
-          대시보드를 6개 모듈로 다시 짰습니다. 날짜 기준 멱등 저장과 부분 실패 격리를 두었고, FastAPI 조회 API와
-          React 화면을 연결했습니다. 매매일지 기록과 시장 국면 · 종목 등급 산출이 매일 자동으로 돌고, 실패하면 텔레그램 알림이 옵니다. 테스트는 파이썬 205개, 웹 96개입니다(2026.08 기준).
-          저장소는 비공개이고, 저장 · 검증 · 조회 흐름은 합성 데이터로 옮긴
-          <a href="https://github.com/YongjaeKwon/quant-lab">공개 데모 저장소(quant-lab)</a>에서 볼 수 있습니다.
+          카페에서 7명과 1:1로 대화하고 서로 선택한 경우에만 연결되는 오프라인 소개팅을 운영하기 위한 서비스입니다. API Gateway 뒤에 회원 · 일정 · 매칭 · 알림 · 결제 서비스를 나누고 서비스마다 DB를 따로 두었으며, 기능마다 설계서를 먼저 확정한 뒤 구현합니다.
         </p>
+        <ul class="project-points">
+          <li>참가 신청은 회차 행을 먼저 잠근 뒤 성별 인원을 세고 저장합니다. 남은 자리 하나에 20명이 동시에 신청하면 성공은 <b>1건</b>, 같은 회원이 8번 동시에 눌러도 신청은 <b>1건</b>입니다(실제 PostgreSQL 통합 테스트).</li>
+          <li>잠금 대기를 2초로 제한해, 오래 잠금을 쥔 요청이 있어도 연결 풀이 막혀 서비스 전체가 멈추지 않게 했습니다.</li>
+          <li>Gateway가 JWT를 검증해 내부 헤더 · 토큰으로 넘기고, 서비스끼리는 상대 DB 대신 REST로만 묻습니다.</li>
+        </ul>
+        <p class="system-tech">
+          <span class="tech-label">사용 기술</span>
+          <span>TypeScript · NestJS · PostgreSQL · Prisma · Next.js · Turborepo · Vitest · Playwright</span>
+        </p>
+      </section>
+
+      <section class="system project-item">
+        <div class="system-head">
+          <div class="system-title">ReachRich · 개인 투자 연구 · 운영 플랫폼</div>
+          <div class="meta">2026.03 ~ 진행 중 · 개인 · 비공개</div>
+        </div>
+        <p class="system-desc">
+          토스증권 계좌 추적, KRX 데이터 수집, 전략 검증, 모의운용, 대시보드를 여섯 모듈로 다시 짠 Python 백엔드입니다. 저장 · 검증 · 조회 흐름은 합성 데이터로 옮긴 <a href="https://github.com/YongjaeKwon/quant-lab">공개 데모 저장소(quant-lab)</a>에서 볼 수 있습니다.
+        </p>
+        <ul class="project-points">
+          <li>계좌는 날짜 단위로 교체하고 거래대금 상위 200종목의 KRX 일봉은 종목 · 날짜 기준 upsert로 매일 적재해, 다시 돌려도 중복이 없습니다.</li>
+          <li>종목 하나가 실패해도 나머지는 계속 수집하고, 실패율이 30%를 넘으면 작업 전체를 실패로 보고 텔레그램으로 알립니다.</li>
+          <li>파이썬 테스트 <b>205개</b>, 웹 테스트 <b>96개</b>를 GitHub Actions에서 실행합니다(2026.08 기준).</li>
+        </ul>
         <p class="system-tech">
           <span class="tech-label">사용 기술</span>
           <span>Python · FastAPI · SQLAlchemy · SQLite · Parquet · React · TypeScript · GitHub Actions</span>

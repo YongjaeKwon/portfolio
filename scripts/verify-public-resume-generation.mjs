@@ -72,6 +72,21 @@ for (const [label, source] of [
   );
 }
 
+// 한국어판은 사진과 핵심 성과를 싣고, 영문판(해외 지원용)은 사진을 싣지 않는다.
+for (const [label, source] of [
+  ["frontend", frontendResumeSource],
+  ["backend", backendResumeSource],
+]) {
+  assert.match(source, /<img class="photo" src="data:image\/jpeg;base64,/, `The ${label} resume must include the photo`);
+  assert.match(source, /<h2>핵심 성과<\/h2>/, `The ${label} resume must open with key achievements`);
+}
+for (const [label, source] of [
+  ["frontend-en", frontendEnResumeSource],
+  ["backend-en", backendEnResumeSource],
+]) {
+  assert.doesNotMatch(source, /<img class="photo"/, `The ${label} resume must not include a photo`);
+}
+
 // 프론트엔드 기준본 — 단일 타이틀과 프론트엔드 근거 문구를 잠근다.
 assert.match(
   frontendResumeSource,
@@ -127,7 +142,7 @@ assert.match(
 );
 assert.match(
   backendResumeSource,
-  /현장의 복잡한 업무를 사용자가 끊김 없이 처리할 수 있는 시스템으로 만드는/,
+  /운영 중인 공공 · B2B 업무 시스템을 맡고 있는 Java · Spring 백엔드 개발자입니다/,
   "The backend resume must include the approved introduction",
 );
 assert.match(
