@@ -25,7 +25,7 @@ export const focusTracks = [
     resume: profile.resume,
     resumeLabel: "이력서 다운로드",
     projectIntro: "실무와 개인·팀 프로젝트에서 직접 구현한 부분을 모았습니다.",
-    projectOrder: ["pps", "tsms", "ticketrush", "reachrich", "ssafast", "ddoing", "modac"],
+    projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"],
   },
   {
     id: "frontend" as const,
@@ -37,7 +37,7 @@ export const focusTracks = [
     resume: profile.resume,
     resumeLabel: "이력서 다운로드",
     projectIntro: "화면 구조, 입력 처리, 진행 상태와 오류 안내에서 제가 한 일을 모았습니다.",
-    projectOrder: ["reachrich", "ssafast", "ddoing", "modac", "pps", "tsms"],
+    projectOrder: ["reachrich", "oneulsai", "ssafast", "ddoing", "modac", "pps", "tsms"],
   },
   {
     id: "backend" as const,
@@ -49,7 +49,7 @@ export const focusTracks = [
     resume: backendResume,
     resumeLabel: "이력서 다운로드",
     projectIntro: "서버 처리, 데이터 검증, 운영 자동화에서 제가 한 일을 모았습니다.",
-    projectOrder: ["pps", "tsms", "ticketrush", "reachrich"],
+    projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich"],
   },
 ];
 
@@ -669,6 +669,49 @@ export const featuredProjects: FeaturedProject[] = [
           ],
         },
       },
+    },
+  },
+  {
+    id: "oneulsai",
+    title: "오프라인 소개팅 운영 서비스(오늘사이)",
+    shortTitle: "오늘사이",
+    period: "2026.09 ~ 진행 중",
+    category: "Personal Full Stack",
+    focuses: ["all", "frontend", "backend"],
+    stack: ["TypeScript", "NestJS", "Next.js", "PostgreSQL", "Prisma", "Turborepo", "Vitest", "Playwright"],
+    card: {
+      summary: "일요일 카페에서 7명과 1:1로 대화하고, 서로 선택한 경우에만 연결되는 오프라인 소개팅을 운영하기 위한 서비스입니다.",
+      description: [
+        "API Gateway 뒤에 회원, 일정, 매칭, 알림, 결제 서비스를 나누고 서비스마다 DB를 따로 둔 모노레포로 만들고 있습니다.",
+        "지금은 가입과 로그인, 모임 일정 관리, 참가 신청까지 동작합니다. 결제, 체크인, 매칭은 다음 단계입니다.",
+      ],
+      result: "신청이 한꺼번에 몰려도 성별 정원을 넘기지 않는지 실제 PostgreSQL 통합 테스트로 확인합니다. 남은 자리 하나에 20명이 동시에 신청하면 성공은 1건입니다.",
+      keywords: ["서비스별 DB 분리", "행 잠금으로 정원 지키기", "설계서 먼저"],
+      visibility: "비공개 개인 프로젝트",
+      workRange: "설계서 · 서비스 설계 · API · 참가자·운영자 웹 · 테스트",
+      environment: "NestJS · Next.js · PostgreSQL · Prisma · GitHub Actions",
+    },
+    detail: {
+      overview: "오프라인 로테이션 소개팅을 실제로 운영하기 위해 2026년 9월에 시작한 서비스입니다. 기능마다 설계서를 먼저 쓰고 확정한 뒤 구현합니다. 기반 정리, 회원과 인증, 모임 상품과 일정은 끝났고, 참가 신청은 구현을 마치고 검증하고 있습니다. 결제는 처음에는 계좌이체 입금 확인으로 운영할 예정입니다.",
+      scope: ["서비스 경계와 설계서 작성", "Gateway 인증과 서비스 사이 호출 규칙", "회원·일정·참가 신청 API", "참가자 웹과 운영자 웹", "통합 테스트와 브라우저 E2E"],
+      workPoints: [
+        "외부 요청은 Gateway만 받습니다. Gateway가 JWT를 검증한 뒤 사용자 정보를 내부 헤더로 바꾸고 내부 토큰을 붙여 서비스에 넘깁니다.",
+        "서비스마다 자기 DB만 씁니다. 다른 서비스의 데이터가 필요하면 REST로 묻고, 테이블이나 모델을 직접 참조하지 않습니다.",
+        "참가 신청은 회차 행을 먼저 잠근 뒤 성별 인원을 세고 저장합니다. 잠금 대기는 2초로 제한해, 오래 잠금을 쥔 요청이 있어도 서비스 전체가 멈추지 않게 했습니다.",
+      ],
+      results: [
+        "남은 남성 자리 하나에 20명이 동시에 신청하면 201은 1건이고, 나머지는 409나 503으로 끝납니다.",
+        "같은 회원이 8번 동시에 눌러도 신청은 1건만 남습니다.",
+        "참가자 웹에서 가입, 일정 보기, 참가 신청이, 운영자 웹에서 회원 조회, 회차 관리, 신청 취소가 동작합니다.",
+      ],
+      techUsage: [
+        "NestJS 서비스 다섯 개와 Gateway, Next.js 웹 두 개를 pnpm·Turborepo 모노레포로 관리합니다.",
+        "PostgreSQL 하나에 서비스별 논리 DB 다섯 개를 두고 Prisma로 스키마와 마이그레이션을 관리합니다.",
+        "서비스 사이에 주고받는 요청·응답 타입은 공유 계약 패키지 하나에만 둡니다.",
+        "Vitest 단위·통합 테스트와 Playwright 브라우저 E2E를 GitHub Actions에서 실행합니다.",
+      ],
+      disclosure: "비공개 개인 프로젝트라 저장소 링크는 없습니다. 설계서와 테스트에서 확인한 내용만 적었습니다. 설계서와 작업 규칙을 먼저 정하고, AI 코딩 에이전트와 함께 PR 단위로 구현과 검토를 진행합니다.",
+      resources: [],
     },
   },
 ];

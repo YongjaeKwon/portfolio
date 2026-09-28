@@ -25,7 +25,7 @@ export const focusTracks = [
     resume: profile.resume,
     resumeLabel: "Download resume",
     projectIntro: "Screens and feature flows I built hands-on in personal and team projects.",
-    projectOrder: ["pps", "tsms", "ticketrush", "reachrich", "ssafast", "ddoing", "modac"],
+    projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"],
   },
   {
     id: "frontend" as const,
@@ -37,7 +37,7 @@ export const focusTracks = [
     resume: profile.resume,
     resumeLabel: "Download resume",
     projectIntro: "My contributions, focused on screen structure, input handling, progress states, and error guidance.",
-    projectOrder: ["reachrich", "ssafast", "ddoing", "modac", "pps", "tsms"],
+    projectOrder: ["reachrich", "oneulsai", "ssafast", "ddoing", "modac", "pps", "tsms"],
   },
   {
     id: "backend" as const,
@@ -49,7 +49,7 @@ export const focusTracks = [
     resume: backendResume,
     resumeLabel: "Download resume",
     projectIntro: "Server-side processing, data validation, and operational automation from my personal projects.",
-    projectOrder: ["pps", "tsms", "ticketrush", "reachrich"],
+    projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich"],
   },
 ];
 
@@ -666,6 +666,49 @@ export const featuredProjects: FeaturedProject[] = [
           ],
         },
       },
+    },
+  },
+  {
+    id: "oneulsai",
+    title: "Offline Dating Event Service (ONULSAI)",
+    shortTitle: "ONULSAI",
+    period: "2026.09 ~ In progress",
+    category: "Personal Full Stack",
+    focuses: ["all", "frontend", "backend"],
+    stack: ["TypeScript", "NestJS", "Next.js", "PostgreSQL", "Prisma", "Turborepo", "Vitest", "Playwright"],
+    card: {
+      summary: "A service for running offline rotation dating events: seven one-on-one conversations in a café on Sunday, connected only when both people choose each other.",
+      description: [
+        "A monorepo with an API Gateway in front of member, event, matching, notification and payment services, each with its own database.",
+        "Sign-up and login, event scheduling and applications work today. Payment, check-in and matching are the next stages.",
+      ],
+      result: "Integration tests on a real PostgreSQL check that a rush of applications never exceeds the per-gender capacity: 20 simultaneous applications for the last seat produce exactly one success.",
+      keywords: ["Database per service", "Row locks for capacity", "Spec-first"],
+      visibility: "Private personal project",
+      workRange: "Specs · service design · APIs · participant and admin web · tests",
+      environment: "NestJS · Next.js · PostgreSQL · Prisma · GitHub Actions",
+    },
+    detail: {
+      overview: "A service started in September 2026 to actually run offline rotation dating events. Each feature starts with a written spec that is approved before implementation. Foundations, member auth, and event products and schedules are done; applications are implemented and being verified. Payment will start as manual bank-transfer confirmation.",
+      scope: ["Service boundaries and specs", "Gateway auth and service-to-service call rules", "Member, schedule and application APIs", "Participant and admin web apps", "Integration tests and browser E2E"],
+      workPoints: [
+        "Only the Gateway accepts external requests. It verifies the JWT, turns the user into internal headers, and attaches an internal token before proxying to services.",
+        "Each service uses only its own database. Data owned by another service is requested over REST, never read from its tables or models.",
+        "Applying locks the schedule row first, then counts applicants by gender and inserts. Lock waits are capped at 2 seconds so one long-held lock cannot stall the whole service.",
+      ],
+      results: [
+        "20 men applying at once for the last male seat get exactly one 201; the rest end in 409 or 503.",
+        "The same member pressing apply 8 times at once leaves a single application.",
+        "Participants can sign up, browse schedules and apply; operators can look up members, manage schedules and cancel applications.",
+      ],
+      techUsage: [
+        "Five NestJS services, the Gateway and two Next.js web apps live in a pnpm and Turborepo monorepo.",
+        "One PostgreSQL instance holds five logical databases, one per service, with schemas and migrations managed by Prisma.",
+        "Request and response types shared between services live only in one contracts package.",
+        "Vitest unit and integration tests and Playwright browser E2E run in GitHub Actions.",
+      ],
+      disclosure: "Private personal project, so there is no repository link. Only facts confirmed in the specs and tests are listed. Specs and working rules come first; implementation and review proceed PR by PR together with AI coding agents.",
+      resources: [],
     },
   },
 ];

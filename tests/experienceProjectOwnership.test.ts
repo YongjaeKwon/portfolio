@@ -21,7 +21,7 @@ describe("experience and project ownership", () => {
     const personalIds = idsFromSet(projectsView, "personalProjectIds");
 
     expect(workIds).toEqual(["pps", "tsms"]);
-    expect(personalIds).toEqual(["ticketrush", "reachrich", "ssafast", "ddoing", "modac"]);
+    expect(personalIds).toEqual(["ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"]);
     expect(workIds.filter((id) => personalIds.includes(id))).toEqual([]);
     expect(new Set([...workIds, ...personalIds])).toEqual(
       new Set(featuredProjects.map((project) => project.id)),
