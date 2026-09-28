@@ -61,7 +61,7 @@ export const featuredProjects: FeaturedProject[] = [
     period: "Feb 2025 – present",
     category: "B2B Partner Portal",
     focuses: ["all", "frontend", "backend"],
-    stack: ["Vue", "Java", "Spring Boot", "MyBatis", "MariaDB", "Jenkins"],
+    stack: ["Vue", "Java 21", "Spring Boot", "MyBatis", "MariaDB", "Oracle", "Hazelcast", "Jenkins"],
     card: {
       summary:
         "A B2B operations portal where headquarters and ~500 partner companies handle partner registration and contracts, plus training, certification, and evidence documents for 824 field-engineer accounts.",

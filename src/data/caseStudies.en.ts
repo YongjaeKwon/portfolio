@@ -201,7 +201,7 @@ Object.assign(vm.$data, createInitialState());`,
         "Ran the old and new queries with identical parameters and compared row-for-row to confirm the same results.",
       ],
       outcome:
-        "Re-measured on the production DB (Sep 2026, heaviest customer): the old query could not finish within a 60-second cap, while the rewrite returns the same rows in 63–69 ms. The plan estimate dropped from about 2.1 trillion rows to 1,854.",
+        "Re-measured on the production DB (Sep 2026, heaviest customer): the old query could not finish within a 60-second cap, while the rewrite returns the same rows in 63–69 ms (at least ~870x faster). The plan estimate dropped from about 2.1 trillion rows to 1,854.",
     },
     {
       id: "resale-monitoring",

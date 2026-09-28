@@ -59,7 +59,7 @@ const createInitialState = () => ({
 
 ## 사용 기술
 
-Vue, JavaScript, Spring Boot, Spring Security, MyBatis, MariaDB, Gradle, Jenkins, Linux, Tomcat
+Vue, JavaScript, Spring Boot, Spring Security, MyBatis, MariaDB, Oracle, Hazelcast, Gradle, Jenkins, Linux, Tomcat
 
 ## 공개 범위
 
