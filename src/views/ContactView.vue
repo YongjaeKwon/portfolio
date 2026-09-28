@@ -8,9 +8,9 @@
 
       <div class="reveal fresh-cta-panel mt-10 rounded-lg p-8">
 
-        <h3 class="text-primary text-2xl font-black">{{ t("더 궁금한 내용이 있으시면", "Want to know more?") }}</h3>
+        <h3 class="text-primary text-2xl font-black">{{ t("더 궁금한 점이 있으신가요?", "Want to know more?") }}</h3>
         <p class="text-secondary mt-4 max-w-2xl leading-7">
-          {{ t("이메일을 보내주시면 확인하는 대로 답변드리겠습니다.", "Send me an email and I'll get back to you as soon as I can.") }}
+          {{ t("이메일을 보내 주시면 확인하는 대로 답장드리겠습니다.", "Send me an email and I'll get back to you as soon as I can.") }}
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3">
@@ -37,7 +37,7 @@
             :download="resumeFileName"
           >
             <FileDown class="h-4 w-4" />
-            {{ t("이력서 다운로드", "Download resume") }}
+            {{ t("이력서 PDF", "Resume PDF") }}
           </a>
         </div>
 
@@ -47,7 +47,7 @@
         >
           <p class="text-primary text-sm font-black">{{ t("메일 앱이 열리지 않나요?", "Mail app didn't open?") }}</p>
           <p class="text-secondary mt-2 text-sm leading-6">
-            {{ t("Gmail로 바로 작성하거나 메일 주소를 복사해서 사용해 주세요.", "Compose directly in Gmail or copy the email address instead.") }}
+            {{ t("Gmail에서 바로 쓰거나 메일 주소를 복사해 주세요.", "Compose directly in Gmail or copy the email address instead.") }}
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
             <a

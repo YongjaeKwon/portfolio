@@ -5,7 +5,7 @@
         <h4 :id="headingId" class="text-primary text-xl font-black">{{ t("상세 개발 사례", "Detailed Case Studies") }}</h4>
       </div>
       <p class="text-muted max-w-lg text-sm leading-6">
-        {{ t("프로젝트에서 해결한 문제와 구현 과정을 사례별로 정리했습니다.", "Problems solved in this project and how they were implemented, case by case.") }}
+        {{ t("사례마다 문제, 제약, 판단, 구현, 결과 순서로 적었습니다.", "Problems solved in this project and how they were implemented, case by case.") }}
       </p>
     </div>
 

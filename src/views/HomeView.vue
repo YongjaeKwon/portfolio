@@ -45,7 +45,7 @@
             :href="resumeHref"
             :download="resumeFileName"
           >
-            {{ t("이력서", "Resume") }}
+            {{ t("이력서 PDF", "Resume PDF") }}
             <FileDown class="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
@@ -85,7 +85,7 @@ type Proof = { title: string; detail: string; project: string };
 const proof = {
   query: {
     title: t("60초 안에 끝나지 않던 조회를 63~69ms로", "A lookup that never finished in 60 s now returns in 63–69 ms"),
-    detail: t("통합 뷰를 기본 테이블 조인으로 다시 써서 운영 DB에서 다시 쟀습니다.", "Rewrote a union view as base-table joins and re-measured on the production DB."),
+    detail: t("통합 뷰를 기본 테이블 조인으로 바꾸고, 운영 DB에서 직접 측정했습니다.", "Rewrote a union view as base-table joins and re-measured on the production DB."),
     project: t("교육용 단말 운영 시스템(TSMS)", "Education device operations (TSMS)"),
   },
   download: {
@@ -99,7 +99,7 @@ const proof = {
     project: t("B2B 협력사 포털(PPS)", "B2B partner portal (PPS)"),
   },
   dataFix: {
-    title: t("운영 DB 점검 데이터를 되돌릴 수 있게 정리", "Cleaned live inspection data with a way back"),
+    title: t("되돌릴 수 있는 절차로 운영 DB 점검 데이터 정리", "Cleaned live inspection data with a way back"),
     detail: t("백업, 롤백, 사후 검증 SQL을 먼저 준비하고 점검 결과를 보존한 채 중복을 없앴습니다.", "Prepared backup, rollback and verification SQL first, then removed duplicates while keeping results."),
     project: t("교육용 단말 운영 시스템(TSMS)", "Education device operations (TSMS)"),
   },

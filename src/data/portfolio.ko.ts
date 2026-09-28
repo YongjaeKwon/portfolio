@@ -23,7 +23,6 @@ export const focusTracks = [
     headline: "필요한 기능을 만들고, 쓰이는 모습까지 확인합니다.",
     target: "요구사항 정리부터 배포 후 확인까지 한 기능을 끝까지 맡아 왔습니다.",
     resume: profile.resume,
-    resumeLabel: "이력서 다운로드",
     projectIntro: "실무와 개인·팀 프로젝트에서 직접 구현한 부분을 모았습니다.",
     projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"],
   },
@@ -35,7 +34,6 @@ export const focusTracks = [
     target:
       "Vue·WebSquare 실무 화면과 React 프로젝트를 만들었습니다. 입력과 상태가 많은 화면에서도 사용자가 다음에 할 일을 바로 알 수 있게 하는 데 집중합니다.",
     resume: profile.resume,
-    resumeLabel: "이력서 다운로드",
     projectIntro: "화면 구조, 입력 처리, 진행 상태와 오류 안내에서 제가 한 일을 모았습니다.",
     projectOrder: ["reachrich", "oneulsai", "ssafast", "ddoing", "modac", "pps", "tsms"],
   },
@@ -47,7 +45,6 @@ export const focusTracks = [
     target:
       "Spring 기반 업무 시스템에서 서버 로직과 SQL, 외부 연계를 개발하고 배포와 운영까지 맡아 왔습니다.",
     resume: backendResume,
-    resumeLabel: "이력서 다운로드",
     projectIntro: "서버 처리, 데이터 검증, 운영 자동화에서 제가 한 일을 모았습니다.",
     projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich"],
   },

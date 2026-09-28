@@ -23,7 +23,6 @@ export const focusTracks = [
     target:
       "After shaping requirements with business stakeholders, I take on whatever the work needs — UI, server logic, data handling, and deployment.",
     resume: profile.resume,
-    resumeLabel: "Download resume",
     projectIntro: "Screens and feature flows I built hands-on in personal and team projects.",
     projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"],
   },
@@ -35,7 +34,6 @@ export const focusTracks = [
     target:
       "Across production Vue/WebSquare screens and personal/team React projects, I design screens so users always understand their next step — even through complex inputs and changing state.",
     resume: profile.resume,
-    resumeLabel: "Download resume",
     projectIntro: "My contributions, focused on screen structure, input handling, progress states, and error guidance.",
     projectOrder: ["reachrich", "oneulsai", "ssafast", "ddoing", "modac", "pps", "tsms"],
   },
@@ -47,7 +45,6 @@ export const focusTracks = [
     target:
       "In Spring-based business systems I develop server logic, SQL, and external integrations, and own the deployment and operations that follow.",
     resume: backendResume,
-    resumeLabel: "Download resume",
     projectIntro: "Server-side processing, data validation, and operational automation from my personal projects.",
     projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich"],
   },

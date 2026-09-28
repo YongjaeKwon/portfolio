@@ -81,7 +81,7 @@
             <span><ClipboardCheck class="h-4 w-4" /></span>
             <div><small>{{ t("사례 2", "Case 2") }}</small><strong>{{ t("학교 방문 점검", "On-site school inspections") }}</strong></div>
           </div>
-          <p>{{ t("종이 점검을 일정과 대상, 미점검 사유와 재점검 회차까지 이어지는 흐름으로 바꿨습니다.", "Paper inspections became a connected flow: schedules, targets, missed reasons, and re-inspection rounds.") }}</p>
+          <p>{{ t("종이 점검을 일정, 대상, 미점검 사유, 재점검 회차까지 시스템에서 처리하게 바꿨습니다.", "Paper inspections became a connected flow: schedules, targets, missed reasons, and re-inspection rounds.") }}</p>
           <div class="operation-flow"><span>{{ t("일정·대상", "Schedule · targets") }}</span><i></i><span>{{ t("현장 점검", "Field inspection") }}</span><i></i><span>{{ t("재점검·결과", "Re-inspection · results") }}</span></div>
         </article>
       </div>
@@ -178,7 +178,7 @@ const projectName = computed(() => {
 });
 const storyNote = computed(() =>
   props.projectId === "reachrich"
-    ? t("개인 프로젝트 · 개발 중", "Personal project · in progress")
+    ? t("개인 프로젝트 · 진행 중", "Personal project · in progress")
     : t("실제 업무 기준 요약", "Summary of real production work")
 );
 </script>
