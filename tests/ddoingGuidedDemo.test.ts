@@ -156,16 +156,16 @@ describe("ddoing guided demo", () => {
     expect(source).toContain("학습할 단어 제시");
     expect(source).toContain("Canvas에 그림 입력");
     expect(source).toContain("그림 이미지를 제출 형태로 변환");
-    expect(source).toContain("공개용 판정 응답 확인");
+    expect(source).toContain("데모용 판정 응답 확인");
     expect(source).toContain("활동 점수·경험치와 다음 문제");
   });
 
   it("makes the browser-only simulation and non-semantic score explicit", () => {
     expect(source).toContain("샘플 데이터 데모");
     expect(source).toContain("AI 서버를 호출하지 않는 브라우저 재현");
-    expect(source).toContain("단어 일치나 정답 여부를 판정하지 않습니다");
+    expect(source).toContain("그림이 단어와 맞는지, 정답인지는 판정하지 않습니다");
     expect(source).toContain("semanticMatch: NOT_EVALUATED");
-    expect(source).toContain("활동 지표이며, 그림의 의미를 판정한 값이 아닙니다");
+    expect(source).toContain("활동 지표입니다. 그림이 무엇인지 판정한 값은 아닙니다");
     expect(source).not.toMatch(/DEMO CORRECT|TRY AGAIN|정답!|accepted|ACCEPTANCE_SCORE/);
     expect(source).not.toMatch(/\bfetch\s*\(|\baxios\b|new\s+WebSocket|https?:\/\//i);
   });
@@ -197,7 +197,7 @@ describe("ddoing guided demo", () => {
     expect(source).toContain("nextStep");
     expect(source).toContain(":disabled=\"index > highestVisitedStep\"");
     expect(source).toContain(":aria-current=\"currentStep === index ? 'step' : undefined\"");
-    expect(source).toContain("키보드 사용자는 단어별 샘플 그림 그리기 버튼");
+    expect(source).toContain("키보드를 쓴다면 '샘플 그림 그리기' 버튼");
     expect(source).toContain("role=\"timer\"");
     expect(source).toContain("onBeforeUnmount");
     expect(source).toMatch(/onBeforeUnmount\(\(\) => \{\s*clearTimer\(\);/);

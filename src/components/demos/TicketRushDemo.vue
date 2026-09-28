@@ -6,14 +6,14 @@
           <span class="sample-badge">{{ t("샘플 데이터 데모", "Sample-data demo") }}</span>
           <span class="round-badge">{{ t("4단계 예매 흐름", "4-step booking flow") }}</span>
         </div>
-        <h3 id="ticketrush-demo-title">{{ t("이중 예매 0건을 지키는 예매 흐름", "A booking flow that keeps double bookings at zero") }}</h3>
-        <p>{{ t("대기열 입장부터 좌석 홀드, 100명 동시 요청 경쟁과 결제 확정까지 실제 설계를 브라우저에서 재현합니다.", "From queue admission to seat holds, a 100-request race, and payment confirmation — the real design, re-created in the browser.") }}</p>
+        <h3 id="ticketrush-demo-title">{{ t("이중 예매를 0건으로 막는 예매 흐름", "A booking flow that keeps double bookings at zero") }}</h3>
+        <p>{{ t("대기열 입장부터 좌석 선점, 한 좌석에 몰린 동시 요청 100건, 결제 확정까지 실제 설계를 브라우저에서 재현합니다.", "From queue admission to seat holds, a 100-request race, and payment confirmation — the real design, re-created in the browser.") }}</p>
       </div>
       <div class="demo-notice" role="note">
         <span aria-hidden="true">i</span>
         <div>
           <strong>{{ t("서버·Redis·DB 없이 동작하는 브라우저 시뮬레이션", "A browser simulation with no server, Redis, or DB") }}</strong>
-          <small>{{ t("실제 저장소의 3겹 방어 설계와 통합 테스트 시나리오를 샘플 데이터로 재현합니다. 외부 요청은 발생하지 않습니다.", "The repository's three-layer defense and its integration-test scenarios are re-created with sample data. No external requests are made.") }}</small>
+          <small>{{ t("실제 저장소의 3겹 방어 설계와 통합 테스트 시나리오를 샘플 데이터로 재현합니다. 외부로 요청을 보내지 않습니다.", "The repository's three-layer defense and its integration-test scenarios are re-created with sample data. No external requests are made.") }}</small>
         </div>
       </div>
     </header>
@@ -49,7 +49,7 @@
             <div class="queue-bar" aria-hidden="true">
               <div class="queue-bar-fill" :style="{ width: `${queueProgress}%` }"></div>
             </div>
-            <small>{{ t("ZSET 순번 기준으로 N명씩 입장시킵니다.", "Admitted N at a time by ZSET rank.") }}</small>
+            <small>{{ t("ZSET 순번대로 N명씩 들여보냅니다.", "Admitted N at a time by ZSET rank.") }}</small>
           </template>
           <template v-else>
             <span class="queue-label">{{ t("입장 완료", "Admitted") }}</span>
@@ -64,7 +64,7 @@
         <button v-if="queuePosition === 0" type="button" class="primary-button" @click="advanceTo(1)">
           {{ t("좌석 선택으로 이동", "Go to seat selection") }}
         </button>
-        <p class="scope-note">{{ t("실제 구현: Redis ZSET 대기열, N명 배치 입장, JWT 입장권 · 데모: 대기 인원 감소 애니메이션", "Actually built: Redis ZSET queue, batch admission, JWT tokens · Demo: the countdown animation") }}</p>
+        <p class="scope-note">{{ t("실제 구현: Redis ZSET 대기열, N명씩 순차 입장, JWT 입장권 · 데모: 대기 인원이 줄어드는 애니메이션", "Actually built: Redis ZSET queue, batch admission, JWT tokens · Demo: the countdown animation") }}</p>
       </div>
 
       <!-- 2단계: 좌석 홀드 -->
@@ -85,18 +85,18 @@
         </div>
         <div class="seat-legend">
           <span><i class="dot free"></i>{{ t("선택 가능", "Available") }}</span>
-          <span><i class="dot mine"></i>{{ t("내 홀드", "My hold") }}</span>
-          <span><i class="dot held"></i>{{ t("다른 사람 홀드", "Held by others") }}</span>
+          <span><i class="dot mine"></i>{{ t("내가 선점", "My hold") }}</span>
+          <span><i class="dot held"></i>{{ t("다른 사람이 선점", "Held by others") }}</span>
           <span><i class="dot sold"></i>{{ t("확정", "Confirmed") }}</span>
         </div>
         <div v-if="mySeatId" class="hold-status" role="status">
-          <strong>{{ t(`좌석 ${mySeatId} 홀드 성공`, `Seat ${mySeatId} held`) }}</strong>
-          <span>{{ t("남은 시간", "Time left") }} <b>{{ holdClock }}</b> · {{ t("만료되면 결제가 거부됩니다.", "Payment is rejected after expiry.") }}</span>
+          <strong>{{ t(`좌석 ${mySeatId} 선점 완료`, `Seat ${mySeatId} held`) }}</strong>
+          <span>{{ t("남은 시간", "Time left") }} <b>{{ holdClock }}</b> · {{ t("시간이 지나면 결제할 수 없습니다.", "Payment is rejected after expiry.") }}</span>
           <button type="button" class="primary-button" @click="advanceTo(2)">
             {{ t("동시 요청 경쟁 보기", "Watch the contention race") }}
           </button>
         </div>
-        <p class="scope-note">{{ t("실제 구현: Redis SET NX EX 5분 홀드 · 데모: 홀드 타이머와 좌석 상태 표시", "Actually built: Redis SET NX EX 5-minute holds · Demo: the timer and seat-state display") }}</p>
+        <p class="scope-note">{{ t("실제 구현: Redis SET NX EX 5분 선점 · 데모: 선점 타이머와 좌석 상태 표시", "Actually built: Redis SET NX EX 5-minute holds · Demo: the timer and seat-state display") }}</p>
       </div>
 
       <!-- 3단계: 동시성 경쟁 -->
@@ -107,7 +107,7 @@
             <span>{{ t("Redis 장애 상황 재현", "Reproduce a Redis outage") }}</span>
           </label>
           <button type="button" class="primary-button" :disabled="raceRunning" @click="startRace">
-            {{ raceDone ? t("다시 실행", "Run again") : t(`같은 좌석에 ${RACE_SIZE}명 동시 요청`, `${RACE_SIZE} concurrent requests, one seat`) }}
+            {{ raceDone ? t("다시 실행", "Run again") : t(`같은 좌석에 동시 요청 ${RACE_SIZE}건`, `${RACE_SIZE} concurrent requests, one seat`) }}
           </button>
         </div>
 
@@ -132,20 +132,20 @@
 
         <div v-if="raceDone" class="race-result" role="status">
           <div class="result-chip success">{{ t("확정 성공", "Confirmed") }} <b>1</b></div>
-          <div class="result-chip rejected">{{ redisOutage ? t("DB 유니크 제약 거부", "Rejected by DB unique") : "SEAT_ALREADY_HELD" }} <b>{{ redisOutage ? 1 : RACE_SIZE - 1 }}</b></div>
-          <div v-if="redisOutage" class="result-chip rejected">{{ t("홀드 실패", "Hold failed") }} <b>{{ RACE_SIZE - 2 }}</b></div>
+          <div class="result-chip rejected">{{ redisOutage ? t("DB 기본키로 거절", "Rejected by DB primary key") : "SEAT_ALREADY_HELD" }} <b>{{ redisOutage ? 1 : RACE_SIZE - 1 }}</b></div>
+          <div v-if="redisOutage" class="result-chip rejected">{{ t("선점 실패", "Hold failed") }} <b>{{ RACE_SIZE - 2 }}</b></div>
           <p>
             {{
               redisOutage
-                ? t("Redis가 죽어 홀드가 2건 통과했지만, DB의 (회차·좌석) 유니크 제약이 두 번째 확정을 물리적으로 거부해 최종 확정은 1건만 남았습니다. 실제 통합 테스트로 재현하는 시나리오입니다.", "With Redis down, two holds slipped through — but the DB unique constraint on (show, seat) physically rejected the second confirmation, leaving exactly one. This mirrors the real integration test.")
-                : t("Redis SET NX가 첫 요청만 통과시키고 나머지는 SEAT_ALREADY_HELD로 거절됐습니다. 실제 경합 테스트에서 성공은 정확히 1건입니다.", "Redis SET NX let only the first request through; the rest were rejected with SEAT_ALREADY_HELD. In the real contention test, exactly one succeeds.")
+                ? t("Redis가 멈춰 선점 2건이 통과했습니다. 하지만 DB의 (회차, 좌석) 기본키가 두 번째 확정을 막아 최종 확정은 1건입니다. 실제 통합 테스트에서는 선점 키를 지워 같은 상황을 재현합니다.", "With Redis down, two holds slipped through, but the DB primary key on (show, seat) blocked the second confirmation, leaving exactly one. The real integration test re-creates this by deleting the hold key.")
+                : t("Redis SET NX가 첫 요청만 통과시키고, 나머지는 SEAT_ALREADY_HELD로 거절했습니다. 실제 경합 테스트에서도 성공은 1건입니다.", "Redis SET NX let only the first request through; the rest were rejected with SEAT_ALREADY_HELD. In the real contention test, exactly one succeeds.")
             }}
           </p>
           <button type="button" class="primary-button" @click="advanceTo(3)">
             {{ t("결제·확정으로 이동", "Go to payment") }}
           </button>
         </div>
-        <p class="scope-note">{{ t("실제 구현: 1석 100요청 경합 테스트, Redis 장애 통합 테스트 · 데모: 요청 처리 애니메이션", "Actually built: the 100-request contention test and Redis-outage integration test · Demo: the processing animation") }}</p>
+        <p class="scope-note">{{ t("실제 구현: 좌석 1개·동시 요청 100건 경합 테스트, Redis 장애 통합 테스트 · 데모: 요청 처리 애니메이션", "Actually built: the 100-request contention test and Redis-outage integration test · Demo: the processing animation") }}</p>
       </div>
 
       <!-- 4단계: 결제·확정 -->
@@ -153,7 +153,7 @@
         <div class="confirm-grid">
           <div class="confirm-panel">
             <h5>{{ t("모의 결제", "Mock payment") }}</h5>
-            <p>{{ t(`좌석 ${mySeatId ?? "B4"} · 홀드 검증 후 결제`, `Seat ${mySeatId ?? "B4"} · payment after hold check`) }}</p>
+            <p>{{ t(`좌석 ${mySeatId ?? "B4"} · 선점 확인 후 결제`, `Seat ${mySeatId ?? "B4"} · payment after hold check`) }}</p>
             <button type="button" class="primary-button" :disabled="paymentState !== 'idle'" @click="confirmPayment">
               {{ paymentState === "idle" ? t("결제 요청", "Pay now") : paymentState === "processing" ? t("처리 중…", "Processing…") : t("확정 완료", "Confirmed") }}
             </button>
@@ -166,7 +166,7 @@
                 <code>{{ event.name }}</code>
                 <span>{{ event.detail }}</span>
               </li>
-              <li v-if="outboxEvents.length === 0" class="log-empty">{{ t("결제를 실행하면 한 트랜잭션의 이벤트가 기록됩니다.", "Run the payment to see events from a single transaction.") }}</li>
+              <li v-if="outboxEvents.length === 0" class="log-empty">{{ t("결제하면 한 트랜잭션에서 기록한 이벤트가 여기에 쌓입니다.", "Run the payment to see events from a single transaction.") }}</li>
             </ul>
           </div>
         </div>
@@ -179,7 +179,7 @@
         {{ t("데모 전체 초기화", "Reset the demo") }}
         <span aria-hidden="true">↻</span>
       </button>
-      <span class="repo-link">{{ t("전체 코드와 테스트는 상세보기의 GitHub 링크에서 확인할 수 있습니다.", "Full code and tests are linked from the detail view's GitHub resource.") }}</span>
+      <span class="repo-link">{{ t("전체 코드와 테스트는 상세 보기의 GitHub 링크에서 확인할 수 있습니다.", "Full code and tests are linked from the detail view's GitHub resource.") }}</span>
     </footer>
   </section>
 </template>
@@ -197,8 +197,8 @@ type Seat = { id: string; state: SeatState };
 
 const steps = [
   { id: "queue", short: t("대기열", "Queue"), title: t("대기열 입장", "Queue admission"), caption: t("수요가 몰릴 때 서버를 지키는 첫 관문입니다.", "The first gate that protects the server under load.") },
-  { id: "hold", short: t("좌석 홀드", "Seat hold"), title: t("좌석 선점(홀드)", "Holding a seat"), caption: t("좌석을 5분 동안 선점하고 다른 요청을 거절합니다.", "A seat is held for five minutes; other requests are rejected.") },
-  { id: "race", short: t("동시 요청", "The race"), title: t("같은 좌석을 노리는 동시 요청", "Concurrent requests for one seat"), caption: t("이 프로젝트의 핵심 — 세 겹의 방어를 눈으로 확인합니다.", "The heart of the project — watch the three defense layers work.") },
+  { id: "hold", short: t("좌석 선점", "Seat hold"), title: t("좌석 선점", "Holding a seat"), caption: t("좌석을 5분 동안 선점하고 다른 요청을 거절합니다.", "A seat is held for five minutes; other requests are rejected.") },
+  { id: "race", short: t("동시 요청", "The race"), title: t("같은 좌석을 노리는 동시 요청", "Concurrent requests for one seat"), caption: t("3겹 방어가 요청을 어떻게 막는지 확인합니다.", "The heart of the project — watch the three defense layers work.") },
   { id: "confirm", short: t("결제 확정", "Confirm"), title: t("결제와 확정", "Payment and confirmation"), caption: t("멱등 처리와 아웃박스로 정확히 한 번만 확정합니다.", "Idempotency and the outbox confirm exactly once.") },
 ] as const;
 
@@ -274,8 +274,8 @@ const holdClock = computed(() => {
 const seatAriaLabel = (seat: Seat) => {
   const states = {
     free: t("선택 가능", "available"),
-    mine: t("내 홀드", "my hold"),
-    held: t("다른 사람 홀드", "held by others"),
+    mine: t("내가 선점", "my hold"),
+    held: t("다른 사람이 선점", "held by others"),
     sold: t("확정", "confirmed"),
   } as const;
   return `${t("좌석", "Seat")} ${seat.id} · ${states[seat.state]}`;
@@ -305,21 +305,21 @@ const defenseLayers = computed(() => [
   {
     id: "redis",
     name: t("1차 · Redis SET NX 선점", "Layer 1 · Redis SET NX hold"),
-    description: t("동시 요청 중 첫 한 건만 홀드를 얻습니다. 빠르지만 Redis가 죽으면 사라집니다.", "Only the first concurrent request wins the hold. Fast — but gone if Redis dies."),
+    description: t("동시 요청 중 첫 1건만 선점합니다. 빠르지만 Redis가 멈추면 선점 정보도 사라집니다.", "Only the first concurrent request wins the hold. Fast — but gone if Redis dies."),
     breached: redisOutage.value,
     blocked: RACE_SIZE - 1,
   },
   {
     id: "domain",
     name: t("2차 · 도메인 규칙", "Layer 2 · Domain rules"),
-    description: t("만료됐거나 존재하지 않는 홀드로는 결제를 진행할 수 없습니다.", "Payment cannot proceed on an expired or missing hold."),
+    description: t("선점이 만료됐거나 없으면 결제할 수 없습니다.", "Payment cannot proceed on an expired or missing hold."),
     breached: false,
     blocked: redisOutage.value ? RACE_SIZE - 2 : 0,
   },
   {
     id: "db",
-    name: t("최종 · DB (회차·좌석) 유니크 제약", "Final · DB unique on (show, seat)"),
-    description: t("Redis가 통째로 죽어도 같은 좌석의 두 번째 확정 INSERT는 DB가 물리적으로 거부합니다.", "Even with Redis fully down, the DB physically rejects a second confirmation for the same seat."),
+    name: t("최종 · DB (회차, 좌석) 기본키", "Final · DB primary key on (show, seat)"),
+    description: t("Redis가 완전히 멈춰도 같은 좌석을 두 번째로 확정하는 INSERT는 DB 기본키가 거절합니다.", "Even with Redis fully down, the DB primary key rejects a second confirmation for the same seat."),
     breached: false,
     blocked: redisOutage.value ? 1 : 0,
   },
@@ -355,7 +355,7 @@ const confirmPayment = () => {
     );
   pushEvent(200, "PaymentApproved", t(`멱등성 키 pay.${tokenSuffix.value} · 승인`, `idempotency key pay.${tokenSuffix.value} · approved`));
   pushEvent(700, "SeatConfirmed", t(`좌석 ${seatLabel} · HELD → CONFIRMED (같은 트랜잭션에서 기록)`, `seat ${seatLabel} · HELD → CONFIRMED (written in the same transaction)`));
-  pushEvent(1200, "SeatStatusPushed", t("SSE 스트림으로 좌석 상태 갱신 전파", "seat-status update pushed over the SSE stream"));
+  pushEvent(1200, "SeatStatusPushed", t("SSE로 좌석 상태 변경 전달", "seat-status update pushed over the SSE stream"));
   track(
     window.setTimeout(() => {
       paymentState.value = "done";

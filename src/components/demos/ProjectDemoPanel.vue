@@ -4,7 +4,7 @@
       <div>
         <h4 :id="titleId">{{ t("전체 흐름 직접 체험", "Try the full flow") }}</h4>
         <p>{{ copy }}</p>
-        <small v-if="expanded" class="project-demo-reset-hint">{{ t("데모를 종료하면 현재 진행 화면이 초기화됩니다.", "Closing the demo resets the current screen.") }}</small>
+        <small v-if="expanded" class="project-demo-reset-hint">{{ t("데모를 종료하면 진행하던 화면이 처음 상태로 돌아갑니다.", "Closing the demo resets the current screen.") }}</small>
       </div>
       <button
         type="button"
@@ -20,7 +20,7 @@
     </div>
 
     <div v-if="!embedded && !expanded" class="project-demo-notice">
-      {{ t("당시 서비스의 핵심 사용자 흐름을 샘플 데이터로 재구성했습니다. 외부 계정·서버·DB에는 연결되지 않으며, 실제 구현과 공개용 시뮬레이션의 범위를 각 단계에 표시합니다.", "The service's core user flow is rebuilt with sample data. Nothing connects to external accounts, servers, or databases, and each step marks what was actually built versus the public simulation.") }}
+      {{ t("당시 서비스의 핵심 사용자 흐름을 샘플 데이터로 다시 만들었습니다. 외부 계정, 서버, DB에는 연결하지 않습니다. 단계마다 실제로 구현한 부분과 데모로 재현한 부분을 나눠 적었습니다.", "The service's core user flow is rebuilt with sample data. Nothing connects to external accounts, servers, or databases, and each step marks what was actually built versus the public simulation.") }}
     </div>
 
     <div v-if="expanded" :id="contentId" class="project-demo-content">
@@ -49,19 +49,19 @@ const demos = {
 
 const copyByProject = {
   ssafast: t(
-    "API 명세 작성부터 요청 미리보기와 시뮬레이션 결과 확인까지, 협업 도구의 핵심 흐름을 단계별로 따라갑니다.",
+    "Figma 화면 선택부터 API 명세 작성, 요청 확인, 테스트 결과까지 차례로 따라갑니다.",
     "Follow the collaboration tool's core flow step by step — from writing an API spec to previewing requests and checking simulated results.",
   ),
   ddoing: t(
-    "단어 확인부터 Canvas 드로잉, 공개용 판정 응답과 다음 문제 이동까지 학습 흐름을 단계별로 따라갑니다.",
+    "단어를 보고 Canvas에 그림을 그린 뒤, 데모용 판정 응답을 받고 다음 문제로 넘어가는 흐름을 차례로 따라갑니다.",
     "Follow the learning flow step by step — from checking the word to Canvas drawing, the public judgement response, and the next question.",
   ),
   modac: t(
-    "스터디 탐색과 참여, 스터디룸 활동과 기록 확인까지 서비스 흐름을 단계별로 따라갑니다.",
+    "스터디를 찾아 참여하고, 스터디룸에서 활동한 뒤 기록을 확인하는 흐름을 차례로 따라갑니다.",
     "Follow the service flow step by step — from browsing and joining a study group to room activity and study logs.",
   ),
   ticketrush: t(
-    "대기열 입장부터 좌석 홀드, 100명 동시 요청 경쟁과 결제 확정까지 3겹 방어 설계를 단계별로 체험합니다.",
+    "대기열 입장부터 좌석 선점, 한 좌석에 몰린 동시 요청 100건, 결제 확정까지 3겹 방어 설계를 차례로 확인합니다.",
     "Experience the three-layer defense step by step — queue admission, seat holds, a 100-request race, and payment confirmation.",
   ),
 } as const;

@@ -87,7 +87,7 @@ describe("SSAFAST guided demo", () => {
   it("separates the team-owned Figma integration from the contributor's frontend work", () => {
     expect(source).toContain("사용자 행동");
     expect(source).toContain("화면 변화");
-    expect(source).toContain("원 프로젝트 구현");
+    expect(source).toContain("원 프로젝트 담당");
     expect(source).toContain("공개 데모 재현");
     expect(source).toContain("원 프로젝트 · 팀 연동 기능");
     expect(source).toContain("원 프로젝트 · Frontend 담당");
@@ -104,8 +104,8 @@ describe("SSAFAST guided demo", () => {
 
     expect(disclosureIndex).toBeGreaterThanOrEqual(0);
     expect(ctaIndex).toBeGreaterThan(disclosureIndex);
-    expect(source).toContain("외부 요청 없이 같은 선택 흐름만 재현합니다");
-    expect(source).toContain("외부 OAuth·API·서버 저장은 연결하지 않습니다");
+    expect(source).toContain("외부 요청 없이 화면을 고르는 흐름만 재현합니다");
+    expect(source).toContain("외부 OAuth, API, 서버 저장은 연결하지 않습니다");
     expect(source).toContain('const FIGMA_SAMPLE_PATH = "sample.figma.local/file/ssafast-team-ui"');
     expect(source).toContain("실제 측정값이 아닌 공개 데모용 시뮬레이션");
     expect(source).not.toMatch(/\bfetch\s*\(|\baxios\b|new\s+WebSocket|https?:\/\//i);
