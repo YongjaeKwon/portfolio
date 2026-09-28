@@ -248,10 +248,10 @@ return postId != null
       implementation: [
         "Matched input serials against the production-intake master, returning unknown devices as an error list.",
         "For already-registered devices, returned the existing school and user so conflicts are immediately explainable.",
-        "Used external-facing tokens in QR codes instead of raw DB identifiers.",
+        "Used an externally exposed opaque ID in QR codes instead of raw DB identifiers.",
       ],
       outcome:
-        "Invalid devices are now separated at the bulk-registration step, and QR codes no longer expose internal identifiers. This feature runs in operations covering about 110,000 devices.",
+        "Invalid devices are now separated at the bulk-registration step, and QR codes no longer expose internal identifiers. This feature runs in operations covering about 110,000 devices, with QR codes issued for 108,237 of the 111,593 devices.",
     },
     {
       id: "field-inspection",
@@ -322,14 +322,14 @@ return postId != null
       constraint:
         "Holds had to respond fast, and even when a layer fails — a Redis outage, an expired hold — the final confirmation had to be exactly one.",
       decision:
-        "Split responsibility by layer: Redis SET NX holds own speed, domain rules own flow validation, and the DB unique constraint owns final consistency.",
+        "Split responsibility by layer: Redis SET NX holds own speed, domain rules own flow validation, and the DB primary key owns final consistency.",
       implementation: [
         "A Redis SET NX EX five-minute hold lets only the first concurrent request claim the seat.",
         "Domain rules refuse payment on an expired or missing hold.",
-        "The unique constraint on (show, seat) in the confirmation table physically rejects a second INSERT for the same seat.",
+        "With the (show, seat) primary key on the confirmation table, the DB rejects a second INSERT for the same seat.",
       ],
       outcome:
-        "The one-seat, 100-concurrent-request contention test yields exactly one success and zero double bookings. Whichever layer fails, the next one reaches the same conclusion.",
+        "In the contention test, 100 threads competing for one seat produce exactly one successful hold; when hold data is lost, the DB primary key still leaves exactly one confirmation.",
       code: {
         language: "Java",
         title: "Separating the hold from the final guard",
@@ -339,7 +339,7 @@ if (!held) throw new SeatAlreadyHeldException();
 // at payment: domain rules reject expired holds
 hold.ensureActive(clock.now());
 
-// final confirmation: the (show, seat) unique constraint rejects a second INSERT
+// final confirmation: the (show, seat) primary key rejects a second INSERT
 confirmedSeatRepository.insert(showId, seatId, reservationId);`,
         note: "Exception handling and transaction boundaries are trimmed from the real flow in the public repository; this shows only where each of the three layers takes over.",
       },
@@ -347,21 +347,21 @@ confirmedSeatRepository.insert(showId, seatId, reservationId);`,
     {
       id: "redis-outage-proof",
       area: "Backend",
-      title: "Reproducing a Redis outage in tests",
-      summary: "Even with the first defense gone and two holds alive, integration tests prove one confirmation.",
+      title: "Reproducing lost hold data in tests",
+      summary: "With hold keys deleted to create 10 overlapping holds, integration tests check that only one confirmation survives.",
       problem:
         "Redis holds are fast, but if Redis dies the hold data disappears — two people can proceed as if each holds the same seat.",
       constraint:
-        "You cannot wait for the outage in production, so it had to be reproduced in tests — and against a real DB and Redis, not mocks, for the proof to mean anything.",
+        "You cannot wait for the outage in production, so it had to be reproduced in tests — and against a real DB and Redis, not mocks, for the result to mean anything.",
       decision:
-        "In Testcontainers-based integration tests running real MySQL and Redis, deliberately stop the Redis container and verify the flow reaches the DB constraint.",
+        "In Testcontainers-based integration tests running real MySQL and Redis, delete the hold keys to simulate lost hold data, and verify the flow reaches the DB primary key.",
       implementation: [
-        "Created the abnormal state of two live holds on the same seat and had both attempt confirmation.",
-        "Verified the first confirmation succeeds and the second fails on the (show, seat) unique constraint.",
-        "Included in the test what error the losing side surfaces to the user.",
+        "Deleted hold keys to create 10 overlapping holds on the same seat, then had all of them attempt confirmation concurrently.",
+        "Checked that exactly one confirmed-seat row and one CONFIRMED reservation remain.",
+        "Checked that the other 9 attempts all fail with SEAT_ALREADY_CONFIRMED, the error the losing side surfaces to the user.",
       ],
       outcome:
-        "Automated tests prove exactly one confirmation survives even with the first defense entirely gone — and the scenario keeps running in CI.",
+        "Tests check that exactly one confirmation survives even when hold data is lost — and the scenario runs in CI.",
     },
     {
       id: "outbox-idempotency",
@@ -371,16 +371,16 @@ confirmedSeatRepository.insert(showId, seatId, reservationId);`,
       problem:
         "Payment requests get retried on network errors, and if event publishing is separate from the save, the save can succeed while the event is lost.",
       constraint:
-        "Retries can't be controlled by users, so the server had to absorb them — and events had to share the confirmation's fate (both commit or both roll back).",
+        "Retries can't be controlled by users, so the server had to absorb them — and events had to commit or roll back together with the confirmation.",
       decision:
         "Give requests an idempotency key so retries with the same key never create new work, and record events in an outbox table within the same transaction as the confirmation.",
       implementation: [
         "Requests with a known idempotency key return the original result, decided at save time.",
-        "Reservation confirmation and the event row commit in one transaction; a relay reads the outbox and delivers events.",
-        "Consumers are idempotent by event ID, absorbing duplicate delivery.",
+        "Reservation confirmation and the event row commit in one transaction; a relay that reads the outbox and publishes to Kafka is being built in stage 3.",
+        "Consumer-side deduplication by event ID (a processed_event table) is part of stage 3, in progress.",
       ],
       outcome:
-        "Confirmation and its events apply exactly once even when retries, duplicate delivery, and publish failures overlap — with the paths verified by integration tests.",
+        "A repeated key replays the stored response instead of paying again, and confirmation and its event record commit together — covered by integration tests. Concurrent requests with the same key and compensation after payment approval remain open tasks.",
     },
   ],
   ssafast: [
@@ -572,7 +572,7 @@ confirmedSeatRepository.insert(showId, seatId, reservationId);`,
         "Isolated single-symbol failures and moved on — but failed the whole job if more than 30% of symbols failed, refusing to treat partial success as normal.",
       ],
       outcome:
-        "Loaded 50 rows of daily candles (5 symbols × 10) plus 1 FX row from the real API — and live verification caught a ranking-response field that differed from the documentation.",
+        "Collection now runs every day, loading the top-200 universe by trading value and its daily candles — and live verification against the real API caught a ranking-response field that differed from the documentation.",
       code: {
         language: "Python",
         title: "Date-keyed Parquet upsert",
@@ -603,7 +603,7 @@ merged.to_parquet(path, index=False)`,
         "Extracted a shared hook that skips polling while the tab is hidden and refreshes immediately when it becomes visible.",
       ],
       outcome:
-        "75 Vitest tests and the production build passed, the initial JavaScript bundle stayed at 119.18KB gzipped, and account state is now visible on one screen.",
+        "Per the README (Aug 11, 2026), 96 web tests and the production build pass, and account state is now visible on one screen.",
       code: {
         language: "TypeScript",
         title: "Polling that follows tab visibility",
