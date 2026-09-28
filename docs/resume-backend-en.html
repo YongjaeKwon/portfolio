@@ -494,7 +494,7 @@
             <div class="meta">Feb 2025 – Present</div>
           </div>
           <p class="system-desc">
-            A B2B portal where headquarters and about 500 partner companies handle partner registration and contracts, plus training, certification, documentation, and evaluation for 824 field engineers (CEs). I coordinate requirements with operations and business staff, analyze existing data flows, and own DB modeling, HTTP API and SQL design and development, external-system integrations, user acceptance, and Jenkins deployment and operations.
+            A B2B portal where headquarters and about 500 partner companies handle partner registration and contracts, plus training, certification, documentation, and evaluation for 824 field-engineer (CE) accounts. I coordinate requirements with operations and business staff, analyze existing data flows, and own DB modeling, HTTP API and SQL design and development, external-system integrations, user acceptance, and Jenkins deployment and operations.
           </p>
           <p class="system-tech">
             <span class="tech-label">Tech</span>
@@ -587,7 +587,7 @@
           <ul class="case-flow">
             <li><span class="case-label">Problem</span><span>Bulk spreadsheet uploads could include serial numbers missing from production records, or devices that were already registered.</span></li>
             <li><span class="case-label">Decision</span><span>Move validation ahead of the save — checking reference data and duplicates before registration instead of cleaning up afterward.</span></li>
-            <li><span class="case-label">Implementation</span><span>Serial numbers are checked against production records, and already-registered devices return their current school and user. QR codes carry an encrypted token instead of internal identifiers.</span></li>
+            <li><span class="case-label">Implementation</span><span>Serial numbers are checked against production records, and already-registered devices return their current school and user. QR codes carry an externally exposed ID instead of internal identifiers.</span></li>
             <li><span class="case-label">Result</span><span>Applied to the QR issuance flow for 108,237 of 111,593 devices, blocking wrong registrations and identifier exposure up front. (as of Jul 2026)</span></li>
           </ul>
         </div>
@@ -598,7 +598,7 @@
             <li><span class="case-label">Problem</span><span>Repair-history and settlement-detail lookups went through a consolidated multi-table view, and as data grew the screens degraded to waiting tens of seconds.</span></li>
             <li><span class="case-label">Decision</span><span>The execution plan showed the customer filter never reached inside the view — the whole view was materialized and then filtered (about 2.1 trillion estimated rows on production) — so the query structure had to change, not the indexes.</span></li>
             <li><span class="case-label">Implementation</span><span>Removed the view and rewrote the lookups as direct base-table joins over only the columns the screens actually use, so the customer condition applies through indexes from the start.</span></li>
-            <li><span class="case-label">Result</span><span>Re-measured on production data (Sep 2026, heaviest customer): the old query could not finish within a 60-second cap, while the rewrite returns the same rows in 63–69 ms — at least an 870x improvement; plan estimate down from ~2.1 trillion to 1,854 rows.</span></li>
+            <li><span class="case-label">Result</span><span>Re-measured on production data (Sep 2026, heaviest customer): the old query could not finish within a 60-second cap, while the rewrite returns the same rows in 63–69 ms; plan estimate down from ~2.1 trillion to 1,854 rows.</span></li>
           </ul>
         </div>
       </section>
@@ -612,23 +612,23 @@
           <div class="meta">Aug 2026 – Present · Personal</div>
         </div>
         <p class="system-desc">
-          A reservation system built for zero double-bookings under concurrent load. Each seat is guarded by three layers — Redis SET NX holds, domain rules rejecting expired holds at payment, and a DB unique constraint on (show, seat) — with a Redis-outage scenario reproduced in integration tests to prove exactly one confirmation survives. Implements idempotent processing, a transactional outbox, and SSE seat-status streams; a contention test with 100 concurrent requests for one seat yields exactly one success and zero double bookings. 65 automated tests.
+          A concert reservation system built so the same seat is never confirmed twice under concurrent load. Redis holds a seat for five minutes, expired holds are rejected at payment, and MySQL's (schedule, seat) primary key limits final confirmation. When 100 threads try to hold one seat, exactly one succeeds; after deleting hold keys to create 10 duplicate holds and confirming them concurrently, integration tests still find exactly one confirmed seat and one CONFIRMED reservation. Stage 2 (completed Sep 2026) added a Next.js web app with a Canvas seat map, SSE, and payment screens; stage 3, relaying outbox events to Kafka, is in progress. CI runs backend integration and concurrency tests plus web unit tests and Playwright E2E.
         </p>
         <p class="system-tech">
           <span class="tech-label">Tech</span>
-          <span>Java 21 · Spring Boot 4 · Spring Modulith · MySQL · Redis · Flyway · Testcontainers · GitHub Actions</span>
+          <span>Java 21 · Spring Boot 4 · Spring Modulith · MySQL 8.4 · Redis 7 · Flyway · Next.js · TypeScript · Testcontainers · Playwright</span>
         </p>
       </section>
 
       <section class="system project-item">
         <div class="system-head">
           <div class="system-title">
-            <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">ReachRich · personal investment research &amp; operations platform</a>
+            ReachRich · personal investment research &amp; operations platform
           </div>
           <div class="meta">Mar 2026 – Present · Personal</div>
         </div>
         <p class="system-desc">
-          Rebuilt a personal investment platform into six modules — account tracking on the Toss Securities Open API, KRX data collection, strategy validation, paper trading, and a dashboard. Implemented date-keyed idempotent persistence with partial-failure isolation, FastAPI query APIs, a React UI, and GitHub Actions health checks with Telegram alerts; 205 backend tests cover the data collection, validation, and operation logic.
+          Rebuilt a personal investment platform into six modules — account tracking on the Toss Securities Open API, daily KRX candles for the top 200 stocks by trading value, strategy validation, paper trading, and a dashboard. Implemented date-keyed idempotent persistence with partial-failure isolation, FastAPI query APIs, and a React UI; the trading journal and market-regime and stock-rating calculations run daily, with Telegram alerts on failure. 205 Python tests and 96 web tests (as of Aug 2026). The repository is private; the storage, validation, and query flow is reproduced with synthetic data in a <a href="https://github.com/YongjaeKwon/quant-lab">public demo repository (quant-lab)</a>.
         </p>
         <p class="system-tech">
           <span class="tech-label">Tech</span>

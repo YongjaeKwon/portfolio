@@ -31,15 +31,15 @@
 
 사이트에 소개한 프로젝트의 구현과 테스트는 각 저장소에서 볼 수 있습니다.
 
-- **[ticket-rush](https://github.com/YongjaeKwon/ticket-rush)** — 개인 예매 시스템. 좌석 선점과 예약 확정, 동시 요청·홀드 만료·중복 확정 테스트.
-- **[데이터 검증·조회 데모](https://github.com/YongjaeKwon/quant-lab)** — 개인 프로젝트. 합성 데이터 저장·검증·조회, 재실행 정합성과 오류 처리.
+- **[ticket-rush](https://github.com/YongjaeKwon/ticket-rush)** — 개인 공연 예매 시스템. 좌석 선점과 예약 확정, 동시 요청과 홀드 만료, 중복 확정 테스트. Next.js 웹을 붙인 2단계를 마쳤고, Outbox 이벤트를 Kafka로 넘기는 3단계를 진행 중입니다.
+- **[ReachRich 공개 데모(quant-lab)](https://github.com/YongjaeKwon/quant-lab)** — 비공개 개인 프로젝트 ReachRich의 저장, 검증, 조회 흐름을 합성 데이터로 옮긴 공개 데모입니다. 재실행 정합성과 오류 처리. ReachRich 본 저장소의 테스트는 파이썬 205개, 웹 96개입니다(2026.08 기준).
 - **[SSAFAST](https://github.com/SSAFAST/ssafast)** — 팀 프로젝트에서 동적 API 명세 입력 폼과 테스트 결과 화면 담당.
 - **[ddoing](https://github.com/GomGom-Team/ddoing)** — 팀 프로젝트에서 Canvas 그림 학습 화면, 타이머와 판정 서버 연동 담당.
 - **[MODAC](https://github.com/YongjaeKwon/MODAC)** — 팀 프로젝트에서 스터디룸 입장, 학습 기록과 채팅 UI 담당.
 
 ## 실행
 
-Node.js 20.9 이상과 npm이 필요합니다.
+Node.js 22 이상과 npm이 필요합니다.
 
 ```bash
 npm ci
