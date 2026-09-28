@@ -170,7 +170,7 @@ describe("optimized image assets", () => {
     {
       defect: "the hero section entering late",
       mutate: (home: string) =>
-        home.replace('class="fresh-mesh ', 'class="hero-enter fresh-mesh '),
+        home.replace('<section id="hero" class="', '<section id="hero" class="hero-enter '),
     },
   ])("rejects $defect", async ({ mutate }) => {
     const home = await readFile(file("src/views/HomeView.vue"), "utf8");

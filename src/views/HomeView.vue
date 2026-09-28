@@ -1,6 +1,5 @@
 <template>
-  <section id="hero" class="fresh-mesh relative overflow-hidden pb-16 pt-24 md:pt-28">
-    <div class="hero-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 h-36"></div>
+  <section id="hero" class="relative pb-16 pt-24 md:pt-28">
 
     <div class="section-shell relative z-10 grid min-h-[calc(100dvh-8rem)] items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
       <div class="max-w-3xl">
@@ -52,7 +51,7 @@
         </div>
       </div>
 
-      <aside class="hero-proof rounded-[1.5rem] p-6 md:p-8" :aria-label="t('대표 성과', 'Selected results')">
+      <aside class="hero-proof rounded-lg p-6 md:p-8" :aria-label="t('대표 성과', 'Selected results')">
         <h2 class="text-primary text-xl font-black">{{ t("대표 성과", "Selected results") }}</h2>
         <ul class="mt-5 divide-y divide-[var(--fresh-border)]">
           <li v-for="item in activeProof" :key="item.title" class="py-4 first:pt-0 last:pb-0">
@@ -126,12 +125,8 @@ const activeProof = computed(() => proofByTrack[activeTrack.value]);
 </script>
 
 <style scoped>
-.hero-bottom-fade {
-  background: linear-gradient(to bottom, transparent, var(--fresh-bg));
-}
 .hero-proof {
   border: 1px solid var(--fresh-border);
   background: var(--fresh-surface-solid);
-  box-shadow: var(--fresh-shadow-md);
 }
 </style>

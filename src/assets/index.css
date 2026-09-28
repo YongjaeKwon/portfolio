@@ -114,8 +114,7 @@ a {
 
   .section-title {
     color: var(--text-primary);
-    font-family: var(--font-display);
-    @apply mt-3 text-3xl font-bold leading-tight tracking-[-0.02em] md:text-4xl;
+    @apply mt-3 text-3xl font-black leading-tight tracking-[-0.02em] md:text-4xl;
   }
 
   .section-copy {
@@ -124,9 +123,8 @@ a {
   }
 
   .surface {
-    border: 1px solid rgba(255, 255, 255, 0.78);
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: var(--elev-1);
+    border: 1px solid var(--fresh-border);
+    background: var(--fresh-surface-solid);
   }
 
   .surface-strong {
@@ -135,19 +133,10 @@ a {
   }
 
   .interactive-surface {
-    transition:
-      transform 240ms ease,
-      border-color 240ms ease,
-      box-shadow 240ms ease;
+    transition: border-color 160ms ease;
   }
 
   .interactive-surface:hover {
-    transform: translateY(-0.16rem);
-    border-color: rgba(49, 130, 246, 0.18);
-    box-shadow: var(--elev-2);
-  }
-
-  :root[data-theme="light"] .interactive-surface:hover {
     border-color: rgba(15, 23, 42, 0.22);
   }
 
@@ -156,11 +145,10 @@ a {
   .text-muted     { color: var(--text-muted); }
   .accent-text    { color: var(--accent); }
 
-  /* CTA button — subtle gradient, the ONE place accent lives loud */
+  /* CTA button — the one solid accent */
   .accent-bg {
-    background: var(--accent-gradient);
+    background: var(--fresh-blue-strong);
     color: var(--accent-contrast);
-    box-shadow: 0 14px 30px rgba(49, 130, 246, 0.28);
   }
 
   .accent-soft {
@@ -188,18 +176,6 @@ a {
   .nav-active {
     color: var(--accent-strong) !important;
     background: rgb(var(--accent-rgb) / 0.08) !important;
-  }
-
-  /* ── Scroll progress bar ── */
-  .scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 2px;
-    z-index: 60;
-    background: var(--accent-gradient);
-    transform-origin: 0 50%;
-    will-change: transform;
   }
 
   /* ── Tech chip hover ── */
@@ -289,23 +265,15 @@ a {
   }
 
   @media (max-width: 767px) {
-    .portfolio-flow > section#techstack { contain-intrinsic-size: auto 940px; }
-    .portfolio-flow > section#experience { contain-intrinsic-size: auto 3490px; }
-    .portfolio-flow > section#projects { contain-intrinsic-size: auto 2665px; }
-    .portfolio-flow > section#education { contain-intrinsic-size: auto 980px; }
-    .portfolio-flow > section#contact { contain-intrinsic-size: auto 495px; }
+    .portfolio-flow > section#techstack { contain-intrinsic-size: auto 1047px; }
+    .portfolio-flow > section#experience { contain-intrinsic-size: auto 3646px; }
+    .portfolio-flow > section#projects { contain-intrinsic-size: auto 4210px; }
+    .portfolio-flow > section#education { contain-intrinsic-size: auto 699px; }
+    .portfolio-flow > section#contact { contain-intrinsic-size: auto 664px; }
   }
 }
 
-.portfolio-flow > #hero.fresh-mesh {
-  background: transparent;
-}
 
-.section-tone-blue,
-.section-tone-mist {
-  position: relative;
-  background: transparent;
-}
 
 @media print {
   .site-header,

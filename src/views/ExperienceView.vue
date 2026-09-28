@@ -1,5 +1,5 @@
 <template>
-  <section id="experience" class="section-tone-blue pb-8 pt-24 md:pb-10 md:pt-28">
+  <section id="experience" class="pb-8 pt-24 md:pb-10 md:pt-28">
     <div class="section-shell">
       <div class="reveal flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
@@ -8,7 +8,7 @@
         </div>
       </div>
 
-      <article class="career-context reveal mt-8 rounded-[2rem] p-6 md:p-7">
+      <article class="career-context reveal mt-8 rounded-lg p-6 md:p-7">
         <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
           <div>
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -35,26 +35,26 @@
             <h3 class="text-primary text-2xl font-black">{{ t("담당 시스템", "Systems I Own") }}</h3>
             <p class="text-muted mt-2 text-sm leading-6">{{ t("회사에서 실제 운영 중인 두 시스템과 대표 개선 경험입니다.", "Two systems running in production at my company, with a highlighted improvement for each.") }}</p>
           </div>
-          <span class="text-muted font-mono text-xs">PPS · TSMS</span>
         </div>
 
         <div class="grid gap-6">
           <article
             v-for="(item, index) in workProjects"
             :key="item.project.id"
-            class="case-study-card interactive-surface group overflow-hidden rounded-[2.25rem] p-5 md:p-7"
+            class="case-study-card interactive-surface group overflow-hidden rounded-lg p-5 md:p-7"
           >
             <div :class="['grid items-stretch gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:gap-8', index % 2 === 1 ? 'case-layout-reverse' : '']">
               <div class="case-visual relative flex min-h-64 items-center justify-center">
                 <ProjectCaseVisual
                   :project-id="item.project.id"
-                  class="relative transition duration-500 group-hover:scale-[1.01]"
+                  class="relative"
                 />
               </div>
 
               <div class="flex flex-col py-1">
                 <div class="flex flex-wrap items-center justify-between gap-3">
-                  <span class="text-secondary rounded-full border border-[var(--fresh-border)] px-3 py-1.5 text-[11px] font-black">
+                  <span class="text-secondary inline-flex items-center gap-1.5 rounded-full border border-[var(--fresh-border)] px-3 py-1.5 text-[11px] font-black">
+                    <span class="h-1.5 w-1.5 rounded-full bg-[var(--fresh-green)]" aria-hidden="true"></span>
                     {{ t("실무 · 운영 중", "Production · Live") }}
                   </span>
                   <p class="text-secondary font-mono tnum text-xs font-semibold">{{ item.project.period }}</p>
@@ -161,7 +161,6 @@ watch(activeTrack, closeDetail);
   border: 1px solid rgba(255, 255, 255, 0.92);
   background:
     rgba(255, 255, 255, 0.96);
-  box-shadow: 0 20px 60px rgba(38, 69, 111, 0.09);
 }
 
 .career-responsibilities li {
@@ -171,7 +170,7 @@ watch(activeTrack, closeDetail);
   min-height: 2.75rem;
   padding: 0.7rem 0.85rem;
   border: 1px solid rgba(49, 130, 246, 0.1);
-  border-radius: 0.9rem;
+  border-radius: 0.5rem;
   background: rgba(248, 251, 255, 0.84);
   color: var(--text-secondary);
   font-size: 0.78rem;
@@ -182,7 +181,6 @@ watch(activeTrack, closeDetail);
 .case-study-card {
   border: 1px solid rgba(255, 255, 255, 0.92);
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 24px 70px rgba(38, 69, 111, 0.11);
 }
 
 @media (min-width: 64rem) {

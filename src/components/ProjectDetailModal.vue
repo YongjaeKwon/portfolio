@@ -9,7 +9,7 @@
         :aria-labelledby="detailTitleId"
         @click.self="emit('close')"
       >
-        <div ref="modalRef" class="case-study-modal flex max-h-[88dvh] w-full max-w-4xl flex-col overflow-hidden rounded-xl">
+        <div ref="modalRef" class="case-study-modal flex max-h-[88dvh] w-full max-w-4xl flex-col overflow-hidden rounded-md">
           <div class="flex shrink-0 items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
             <div>
               <h3 :id="detailTitleId" class="text-primary text-2xl font-black">{{ project.project.title }}</h3>
@@ -50,7 +50,7 @@
                   <article
                     v-for="section in roleSections"
                     :key="section.id"
-                    class="role-contribution rounded-xl p-5 md:p-6"
+                    class="role-contribution rounded-md p-5 md:p-6"
                   >
                     <div class="mb-5 flex items-center gap-3">
                       <span class="rounded-full bg-[var(--fresh-blue-soft)] px-3 py-1.5 text-xs font-black text-[var(--fresh-blue-strong)]">
@@ -97,15 +97,15 @@
               <section v-if="!hasDetailedCaseStudies(project.project.id) && project.detail.caseStudy">
                 <h4 class="text-primary mb-3 font-black">{{ t("문제 해결 과정", "Problem-solving process") }}</h4>
                 <div class="case-process-grid grid gap-3 md:grid-cols-2">
-                  <article class="case-process-step rounded-xl p-5">
+                  <article class="case-process-step rounded-md p-5">
                     <h5 class="case-step-label">{{ t("01 · 문제", "01 · Problem") }}</h5>
                     <p class="text-secondary mt-3 text-sm leading-6">{{ project.detail.caseStudy.problem }}</p>
                   </article>
-                  <article class="case-process-step rounded-xl p-5">
+                  <article class="case-process-step rounded-md p-5">
                     <h5 class="case-step-label">{{ t("02 · 판단", "02 · Decision") }}</h5>
                     <p class="text-secondary mt-3 text-sm leading-6">{{ project.detail.caseStudy.decision }}</p>
                   </article>
-                  <article class="case-process-step rounded-xl p-5">
+                  <article class="case-process-step rounded-md p-5">
                     <h5 class="case-step-label">{{ t("03 · 구현", "03 · Implementation") }}</h5>
                     <ul class="mt-3 grid gap-2">
                       <li v-for="item in project.detail.caseStudy.implementation" :key="item" class="role-detail-item text-secondary text-sm leading-6">
@@ -113,7 +113,7 @@
                       </li>
                     </ul>
                   </article>
-                  <article class="case-process-step rounded-xl p-5">
+                  <article class="case-process-step rounded-md p-5">
                     <h5 class="case-step-label">{{ t("04 · 결과", "04 · Outcome") }}</h5>
                     <ul class="mt-3 grid gap-2">
                       <li v-for="item in project.detail.caseStudy.outcome" :key="item" class="role-detail-item text-secondary text-sm leading-6">

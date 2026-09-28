@@ -3,26 +3,25 @@
     <div class="section-shell">
       <h2 class="reveal section-title">{{ t("기술 스택", "Tech Stack") }}</h2>
 
-      <div class="mt-7 grid gap-3 md:grid-cols-2">
-        <article
+      <dl class="reveal mt-7 divide-y divide-[var(--fresh-border)] rounded-lg border border-[var(--fresh-border)] bg-[var(--fresh-surface-solid)]">
+        <div
           v-for="group in techGroups"
           :key="group.title"
-          class="reveal fresh-card interactive-surface rounded-[1.5rem] p-5"
+          class="grid gap-3 px-5 py-4 md:grid-cols-[10rem_minmax(0,1fr)] md:items-center"
         >
-          <h3 class="text-primary text-lg font-black">{{ group.title }}</h3>
-
-          <div class="mt-4 flex flex-wrap gap-2">
+          <dt class="text-primary font-black">{{ group.title }}</dt>
+          <dd class="m-0 flex flex-wrap gap-2">
             <span
               v-for="item in group.items"
               :key="item"
-              class="tech-chip fresh-list-item text-secondary inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold"
+              class="tech-chip text-secondary inline-flex items-center gap-2 rounded-full border border-[var(--fresh-border)] px-3 py-1.5 text-sm font-semibold"
             >
               <TechIcon :name="item" />
               {{ item }}
             </span>
-          </div>
-        </article>
-      </div>
+          </dd>
+        </div>
+      </dl>
     </div>
   </section>
 </template>
