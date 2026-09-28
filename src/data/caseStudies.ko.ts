@@ -661,6 +661,3 @@ return () => {
     },
   ],
 };
-
-export const hasProjectCaseStudies = (projectId: string): projectId is keyof typeof projectCaseStudies =>
-  Object.prototype.hasOwnProperty.call(projectCaseStudies, projectId);

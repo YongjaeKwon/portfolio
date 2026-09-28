@@ -12,7 +12,7 @@ export const profile = {
   resume: "/resume-en.pdf?v=20260901",
 };
 
-export const backendResume = "/resume-backend-en.pdf?v=20260901";
+const backendResume = "/resume-backend-en.pdf?v=20260901";
 
 export const focusTracks = [
   {
@@ -50,29 +50,6 @@ export const focusTracks = [
     resumeLabel: "Download resume",
     projectIntro: "Server-side processing, data validation, and operational automation from my personal projects.",
     projectOrder: ["pps", "tsms", "ticketrush", "reachrich"],
-  },
-];
-
-export const hero = focusTracks[0];
-
-export const coreStrengths = [
-  {
-    label: "Requirements",
-    title: "I turn requests into a concrete scope with stakeholders",
-    description:
-      "I break meeting requests down into screen conditions, processing order, and edge cases, then set the development scope and schedule.",
-  },
-  {
-    label: "Implementation",
-    title: "I look at every layer a feature touches",
-    description:
-      "I don't build the screen in isolation — I develop the server logic, SQL, and external integrations to match the real processing flow.",
-  },
-  {
-    label: "Operations",
-    title: "I keep checking after the deploy",
-    description:
-      "I review production data and user feedback, and when something breaks I trace logs and DB state to find the root cause.",
   },
 ];
 
@@ -724,12 +701,6 @@ export const education = [
     icon: "GraduationCap",
   },
   { title: "SQLD", period: "Sep 2024", description: "Korean national SQL developer certification", icon: "Database" },
-];
-
-export const heroStats = [
-  { label: "Production systems", value: "PPS · TSMS", unit: "" },
-  { label: "Scope", value: "UI · Server · DB", unit: "" },
-  { label: "Operations", value: "UAT · Deploy · Support", unit: "" },
 ];
 
 export const projects = featuredProjects;
