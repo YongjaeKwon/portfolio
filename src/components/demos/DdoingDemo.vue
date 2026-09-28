@@ -832,7 +832,7 @@ onBeforeUnmount(() => {
 .step-navigation b { display: grid; width: 1.55rem; height: 1.55rem; flex: 0 0 auto; place-items: center; border: 1px solid var(--border); border-radius: 50%; background: var(--surface-strong); font: 800 0.62rem var(--font-mono); }
 .step-navigation span { font-size: 0.7rem; font-weight: 800; }
 .step-navigation li.active button { color: var(--fresh-blue-strong); }
-.step-navigation li.active b { border-color: transparent; color: white; background: var(--fresh-blue); box-shadow: 0 0 0 4px var(--fresh-blue-soft); }
+.step-navigation li.active b { border-color: transparent; color: white; background: var(--fresh-blue-strong); box-shadow: 0 0 0 4px var(--fresh-blue-soft); }
 .step-navigation li.complete b { border-color: rgba(16, 185, 129, 0.24); color: #047857; background: rgba(16, 185, 129, 0.1); }
 .step-navigation button:focus-visible { border-radius: 0.5rem; outline: 3px solid rgba(49, 130, 246, 0.25); outline-offset: 1px; }
 

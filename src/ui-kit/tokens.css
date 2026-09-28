@@ -5,7 +5,7 @@
   --fresh-surface-solid: #ffffff;
   --fresh-ink: #121722;
   --fresh-ink-soft: #3d4758;
-  --fresh-muted: #7d8797;
+  --fresh-muted: #5f6b7c;
   --fresh-border: rgba(15, 23, 42, 0.08);
   --fresh-blue: #3182f6;
   --fresh-blue-strong: #1b64da;
@@ -22,7 +22,7 @@
   --fresh-shadow-sm: 0 8px 24px rgba(31, 45, 61, 0.06);
   --fresh-shadow-md: 0 18px 48px rgba(31, 45, 61, 0.11);
   --fresh-shadow-lg: 0 32px 90px rgba(31, 45, 61, 0.16);
-  --fresh-gradient-blue: linear-gradient(135deg, #2f7df6 0%, #4cc8f7 100%);
+  --fresh-gradient-blue: linear-gradient(135deg, #1b64da 0%, #0a78b8 100%);
   --fresh-gradient-mesh:
     radial-gradient(circle at 18% 22%, rgba(49, 130, 246, 0.32), transparent 28%),
     radial-gradient(circle at 72% 20%, rgba(83, 199, 245, 0.28), transparent 30%),
