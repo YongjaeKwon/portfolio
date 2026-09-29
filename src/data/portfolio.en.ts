@@ -669,7 +669,7 @@ export const featuredProjects: FeaturedProject[] = [
     id: "oneulsai",
     title: "Offline Dating Event Service (ONULSAI)",
     shortTitle: "ONULSAI",
-    period: "2026.09 ~ In progress",
+    period: "Sep 2026 – in progress",
     category: "Personal Full Stack",
     focuses: ["all", "frontend", "backend"],
     stack: ["TypeScript", "NestJS", "Next.js", "PostgreSQL", "Prisma", "Turborepo", "Vitest", "Playwright"],
