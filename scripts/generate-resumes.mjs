@@ -1,9 +1,9 @@
-import { execFileSync, spawnSync } from "node:child_process";
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { marked } from "marked";
+import { findBrowser, printPdf } from "./chrome-pdf.mjs";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const cacheDir = path.join(rootDir, ".cache", "resumes");
@@ -175,144 +175,6 @@ const css = `
   }
 `;
 
-function findOnPath(command) {
-  const lookup = os.platform() === "win32" ? "where.exe" : "which";
-
-  try {
-    const result = execFileSync(lookup, [command], {
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "ignore"],
-    });
-
-    return result
-      .split(/\r?\n/)
-      .map((line) => line.trim())
-      .find(Boolean);
-  } catch {
-    return undefined;
-  }
-}
-
-function findBrowser() {
-  const configured = [process.env.PDF_BROWSER_PATH, process.env.CHROME_PATH].filter(Boolean);
-  const platformCandidates =
-    os.platform() === "win32"
-      ? [
-          "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-          "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
-          "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
-          "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
-        ]
-      : os.platform() === "darwin"
-        ? [
-            "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-            "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-            "/Applications/Chromium.app/Contents/MacOS/Chromium",
-          ]
-        : [
-            "/usr/bin/google-chrome",
-            "/usr/bin/google-chrome-stable",
-            "/usr/bin/chromium",
-            "/usr/bin/chromium-browser",
-            "/usr/bin/microsoft-edge",
-          ];
-
-  const pathCandidates = ["chrome", "google-chrome", "chromium", "chromium-browser", "msedge", "microsoft-edge"]
-    .map(findOnPath)
-    .filter(Boolean);
-
-  for (const candidate of [...configured, ...platformCandidates, ...pathCandidates]) {
-    if (candidate && existsSync(candidate)) {
-      return candidate;
-    }
-  }
-
-  throw new Error("Chrome/Edge 실행 파일을 찾지 못했습니다. PDF_BROWSER_PATH 또는 CHROME_PATH를 지정해 주세요.");
-}
-
-function renderHtml(markdown, title) {
-  const content = marked.parse(markdown, {
-    gfm: true,
-    breaks: false,
-  });
-
-  return `<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
-  <style>${css}</style>
-</head>
-<body>
-  <main class="resume">
-    ${content}
-  </main>
-</body>
-</html>`;
-}
-
-function printPdf(browser, htmlPath, outputPath) {
-  const temporaryOutputPath = `${outputPath}.generating`;
-  const userDataDir = mkdtempSync(path.join(cacheDir, "chrome-pdf-"));
-  rmSync(temporaryOutputPath, { force: true });
-
-  let result;
-  try {
-    result = spawnSync(
-      browser,
-      [
-        "--headless=new",
-        "--disable-gpu",
-        "--disable-dev-shm-usage",
-        "--no-first-run",
-        "--no-default-browser-check",
-        "--no-pdf-header-footer",
-        "--allow-file-access-from-files",
-        "--run-all-compositor-stages-before-draw",
-        "--virtual-time-budget=8000",
-        `--user-data-dir=${userDataDir}`,
-        `--print-to-pdf=${temporaryOutputPath}`,
-        pathToFileURL(htmlPath).href,
-      ],
-      {
-        cwd: rootDir,
-        stdio: "inherit",
-        timeout: 60_000,
-      },
-    );
-  } finally {
-    try {
-      rmSync(userDataDir, { recursive: true, force: true });
-    } catch {
-      // Chrome가 종료 직후 잠시 파일을 잡고 있어도 PDF 검증은 계속 진행한다.
-    }
-  }
-
-  if (result.error || result.status !== 0) {
-    rmSync(temporaryOutputPath, { force: true });
-    throw new Error(`${path.basename(outputPath)} 생성 실패${result.error ? `: ${result.error.message}` : ""}`);
-  }
-
-  const size = statSync(temporaryOutputPath).size;
-  if (size < 10_000) {
-    rmSync(temporaryOutputPath, { force: true });
-    throw new Error(`${path.basename(outputPath)} 파일 크기가 비정상적으로 작습니다: ${size} bytes`);
-  }
-
-  const pdf = readFileSync(temporaryOutputPath);
-  const header = pdf.subarray(0, 8).toString("ascii");
-  const tail = pdf.subarray(Math.max(0, pdf.length - 2048)).toString("latin1");
-  if (!header.startsWith("%PDF-") || !tail.includes("%%EOF")) {
-    rmSync(temporaryOutputPath, { force: true });
-    throw new Error(`${path.basename(outputPath)} PDF 구조 검증 실패`);
-  }
-
-  // 생성 도중 중단되더라도 기존 정상 PDF를 보존하고, 완성된 파일만 교체한다.
-  copyFileSync(temporaryOutputPath, outputPath);
-  rmSync(temporaryOutputPath, { force: true });
-}
-
 function collectApplicationResumes() {
   if (!existsSync(applicationsDir)) {
     return [];
@@ -357,7 +219,7 @@ for (const resume of allResumes) {
   const html = resume.source.endsWith(".html") ? raw : renderHtml(raw, resume.title);
 
   writeFileSync(htmlPath, html, "utf8");
-  printPdf(browser, htmlPath, outputPath);
+  printPdf(browser, htmlPath, outputPath, { tempDir: cacheDir });
   console.log(`Generated ${resume.output}`);
 
   if (resume.finalCopy) {
