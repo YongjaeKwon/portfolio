@@ -51,22 +51,27 @@ icoImages.forEach((image, index) => {
 });
 await writeFile(resolvePath("public/favicon.ico"), Buffer.concat([icoHeader, ...icoImages]));
 
+// 공유 이미지: 사이트와 같은 숫자 포스터 문법(종이 바탕 · 먹색 · 주홍 하나)
 const markDataUri = `data:image/svg+xml;base64,${markSvg.toString("base64")}`;
-const ogBadge = Buffer.from(`
-  <svg xmlns="http://www.w3.org/2000/svg" width="132" height="132">
-    <defs>
-      <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
-        <feDropShadow dx="0" dy="9" stdDeviation="10" flood-color="#1B64DA" flood-opacity="0.14"/>
-      </filter>
-    </defs>
-    <rect x="12" y="8" width="108" height="108" rx="31" fill="#FFFFFF" stroke="#D7E9FF" filter="url(#shadow)"/>
-    <image href="${markDataUri}" x="31" y="27" width="70" height="70"/>
+const ogSvg = Buffer.from(`
+  <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+    <rect width="1200" height="630" fill="#F6F5F1"/>
+    <rect x="64" y="96" width="1072" height="4" fill="#111111"/>
+    <image href="${markDataUri}" x="64" y="30" width="52" height="52"/>
+    <text x="1136" y="66" text-anchor="end" font-family="Malgun Gothic, Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="24" font-weight="700" fill="#111111">yongjaekwon.com</text>
+    <text x="58" y="288" font-family="Malgun Gothic, Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="168" font-weight="900" letter-spacing="-8" fill="#111111">권용재<tspan fill="#E5482B">.</tspan></text>
+    <text x="66" y="356" font-family="Malgun Gothic, Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="34" font-weight="700" fill="#3D3D3D">필요한 기능을 만들고, 쓰이는 모습까지 확인하는 웹 개발자</text>
+    <rect x="64" y="420" width="1072" height="2" fill="#111111"/>
+    <text x="64" y="530" font-family="JetBrains Mono, Consolas, monospace" font-size="96" font-weight="800" letter-spacing="-5" fill="#111111">63~69<tspan font-size="40">ms</tspan></text>
+    <text x="66" y="580" font-family="Malgun Gothic, Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="24" font-weight="700" fill="#5F5E59">60초 안에 끝나지 않던 조회</text>
+    <rect x="560" y="444" width="1" height="150" fill="#CFCDC6"/>
+    <text x="600" y="530" font-family="JetBrains Mono, Consolas, monospace" font-size="96" font-weight="800" letter-spacing="-5" fill="#111111">300<tspan fill="#E5482B">~</tspan>400</text>
+    <text x="602" y="580" font-family="Malgun Gothic, Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="24" font-weight="700" fill="#5F5E59">건 압축을 추적 가능한 작업으로</text>
   </svg>
 `);
 
-await sharp(resolvePath("public/og-image-v2.png"))
-  .composite([{ input: ogBadge, left: 55, top: 57 }])
+await sharp(ogSvg, { density: 72 })
   .png({ compressionLevel: 9, adaptiveFiltering: true, effort: 10 })
-  .toFile(resolvePath("public/og-image-v3.png"));
+  .toFile(resolvePath("public/og-image-v4.png"));
 
-console.log("Generated YK Flow brand assets in", publicDir);
+console.log("Generated YK brand assets in", publicDir);

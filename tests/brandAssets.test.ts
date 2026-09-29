@@ -6,13 +6,13 @@ import { describe, expect, it } from "vitest";
 const root = new URL("../", import.meta.url);
 const file = (path: string) => fileURLToPath(new URL(path, root));
 
-describe("YK Flow brand assets", () => {
+describe("YK brand assets", () => {
   it.each([
     ["public/brand/yongjae-mark.svg", "svg", 64, 64],
     ["public/brand/yongjae-mark-512.png", "png", 512, 512],
     ["public/favicon-32x32.png", "png", 32, 32],
     ["public/apple-touch-icon.png", "png", 180, 180],
-    ["public/og-image-v3.png", "png", 1200, 630],
+    ["public/og-image-v4.png", "png", 1200, 630],
   ] as const)("renders %s with the expected metadata", async (path, format, width, height) => {
     const metadata = await sharp(file(path)).metadata();
     expect(metadata).toMatchObject({ format, width, height });
@@ -25,7 +25,7 @@ describe("YK Flow brand assets", () => {
   });
 
   it("keeps social media artwork within a practical transfer budget", async () => {
-    const og = await stat(file("public/og-image-v3.png"));
+    const og = await stat(file("public/og-image-v4.png"));
     expect(og.size).toBeLessThan(1_000_000);
   });
 
@@ -38,7 +38,7 @@ describe("YK Flow brand assets", () => {
 
     expect(html).toContain('/favicon-32x32.png');
     expect(html).toContain('/apple-touch-icon.png');
-    expect(html).toContain('/og-image-v3.png');
+    expect(html).toContain('/og-image-v4.png');
     expect(navbar).toContain('/brand/yongjae-mark.svg');
     expect(footer).toContain('/brand/yongjae-mark.svg');
   });
