@@ -30,10 +30,7 @@
               <span class="text-muted font-mono tnum text-xs">{{ item.project.period }}</span>
             </div>
 
-            <div v-if="item.project.id === 'reachrich'" class="project-thumb mt-5 aspect-video overflow-hidden rounded-lg p-2">
-              <ProjectCaseVisual :project-id="item.project.id" compact />
-            </div>
-            <div v-else-if="item.project.image" class="project-thumb mt-5 flex aspect-video items-center justify-center overflow-hidden rounded-lg">
+            <div v-if="item.project.image" class="project-thumb mt-5 flex aspect-video items-center justify-center overflow-hidden rounded-lg">
               <img
                 :src="item.project.image.previewSrc ?? item.project.image.src"
                 :alt="item.project.image.alt"
@@ -49,7 +46,7 @@
             <p class="text-secondary mt-3 text-sm font-semibold leading-6">{{ item.card.summary }}</p>
             <p class="text-muted mt-3 text-sm leading-6">{{ item.card.description[0] }}</p>
             <p
-              v-if="item.project.id !== 'reachrich' && !item.project.image && item.card.description[1]"
+              v-if="!item.project.image && item.card.description[1]"
               class="text-muted mt-2 text-sm leading-6"
             >
               {{ item.card.description[1] }}
@@ -135,7 +132,6 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import { X } from "@lucide/vue";
-import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import ProjectDetailModal from "@/components/ProjectDetailModal.vue";
 import { featuredProjects } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";

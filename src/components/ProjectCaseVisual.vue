@@ -1,6 +1,6 @@
 <template>
   <figure
-    :class="['case-figure', `case-figure--${projectId}`, { 'is-compact': compact }]"
+    :class="['case-figure', `case-figure--${projectId}`]"
     :aria-label="t(`${projectName} 대표 개선 사례 요약`, `${projectName} highlight case summary`)"
   >
     <template v-if="projectId === 'pps'">
@@ -29,7 +29,7 @@
       </dl>
     </template>
 
-    <template v-else-if="projectId === 'tsms'">
+    <template v-else>
       <p class="cf-title font-heading">{{ t("흩어진 운영 업무를 확인할 수 있는 이력으로", "Scattered operations became verifiable histories") }}</p>
       <ol class="cf-cases">
         <li>
@@ -46,16 +46,6 @@
       <p class="cf-note">{{ t("이 밖에 QR 발급, 안내 메시지, 공통 연계", "Also: QR issuance, notifications, shared integrations") }}</p>
     </template>
 
-    <template v-else>
-      <p v-if="!compact" class="cf-title font-heading">{{ t("계좌와 시장 데이터를 검증 · 운영 화면으로 연결", "Account and market data wired to validation and operations") }}</p>
-      <p class="cf-path">{{ t("토스 · KRX → SQLite · Parquet → 검증 · 모의운용 → React 콘솔", "Toss · KRX → SQLite · Parquet → validation · paper trading → React console") }}</p>
-      <dl class="cf-counts">
-        <div><dt>{{ t("백엔드 테스트", "backend tests") }}</dt><dd class="font-mono tnum">205</dd></div>
-        <div><dt>{{ t("프론트엔드 테스트", "frontend tests") }}</dt><dd class="font-mono tnum">96</dd></div>
-        <div><dt>{{ t("자동 워크플로", "workflows") }}</dt><dd class="font-mono tnum">3</dd></div>
-      </dl>
-      <p v-if="!compact" class="cf-note">{{ t("2026년 8월 새 저장소로 다시 설계", "Redesigned in a new repository, Aug 2026") }}</p>
-    </template>
   </figure>
 </template>
 
@@ -63,8 +53,8 @@
 import { computed } from "vue";
 import { t } from "@/i18n/locale";
 
-const props = withDefaults(defineProps<{ projectId: string; compact?: boolean }>(), { compact: false });
-const projectName = computed(() => ({ pps: "PPS", tsms: "TSMS" })[props.projectId] ?? "ReachRich");
+const props = defineProps<{ projectId: string }>();
+const projectName = computed(() => (props.projectId === "pps" ? "PPS" : "TSMS"));
 </script>
 
 <style scoped>
@@ -203,52 +193,6 @@ const projectName = computed(() => ({ pps: "PPS", tsms: "TSMS" })[props.projectI
   font-size: 0.8125rem;
 }
 
-.cf-counts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-top: 1px solid var(--fresh-border);
-}
-
-.cf-counts div {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-  gap: 0.25rem;
-  padding-top: 0.9rem;
-}
-
-.cf-counts dd {
-  margin: 0;
-  font-size: 2.5rem;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.05em;
-}
-
-.cf-counts dt {
-  color: var(--text-muted);
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-/* ReachRich: 어두운 판 */
-.case-figure--reachrich {
-  --text-primary: var(--fresh-stage-ink);
-  --text-secondary: #dcdad3;
-  --text-muted: var(--fresh-stage-muted);
-  --fresh-border: rgba(246, 245, 241, 0.16);
-  border-top-color: var(--fresh-accent);
-  background: var(--fresh-stage-raised);
-}
-
-/* 프로젝트 카드 썸네일 */
-.case-figure.is-compact {
-  height: 100%;
-  align-content: space-between;
-  border-top: 0;
-  border-radius: var(--fresh-radius-md);
-}
-
 @media (max-width: 480px) {
   .cf-steps {
     grid-template-columns: 1fr;
@@ -260,8 +204,5 @@ const projectName = computed(() => ({ pps: "PPS", tsms: "TSMS" })[props.projectI
     padding: 0.75rem 0 0;
   }
 
-  .cf-counts dd {
-    font-size: 2rem;
-  }
 }
 </style>

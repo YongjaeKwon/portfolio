@@ -68,6 +68,7 @@ const expectedAssets = [
   { output: "public/projects/modac-preview.webp", width: 600, height: 338, maxBytes: 120_000 },
   { output: "public/projects/ticketrush-preview.webp", width: 960, height: 540, maxBytes: 120_000 },
   { output: "public/projects/oneulsai-preview.webp", width: 960, height: 540, maxBytes: 120_000 },
+  { output: "public/projects/reachrich-preview.webp", width: 901, height: 640, maxBytes: 120_000 },
 ] as const;
 
 const expectedProjects = {
@@ -76,6 +77,7 @@ const expectedProjects = {
   modac: { src: "/projects/modac.png", width: 600, height: 338, previewSrc: "/projects/modac-preview.webp", previewWidth: 600, previewHeight: 338 },
   ticketrush: { src: "/projects/ticketrush.png", width: 1200, height: 675, previewSrc: "/projects/ticketrush-preview.webp", previewWidth: 960, previewHeight: 540 },
   oneulsai: { src: "/projects/oneulsai.png", width: 1200, height: 675, previewSrc: "/projects/oneulsai-preview.webp", previewWidth: 960, previewHeight: 540 },
+  reachrich: { src: "/projects/reachrich.png", width: 1180, height: 838, previewSrc: "/projects/reachrich-preview.webp", previewWidth: 901, previewHeight: 640 },
 } as const;
 
 describe("optimized image assets", () => {
@@ -128,14 +130,13 @@ describe("optimized image assets", () => {
     expect(modal).not.toContain("previewSrc");
   });
 
-  it("uses a code-native visual instead of the stale quant chart for ReachRich", async () => {
-    const projects = await readFile(file("src/views/ProjectsView.vue"), "utf8");
+  // ReachRich 캡처는 공개 데모 저장소(quant-lab)의 합성 데이터 대시보드다. 옛 quant-core 차트는 오래된 화면이라 쓰지 않는다.
+  it("shows ReachRich with the public synthetic-data demo capture, not the stale quant chart", () => {
     const reachRich = featuredProjects.find((project) => project.id === "reachrich");
 
-    expect(reachRich?.image).toBeUndefined();
+    expect(reachRich?.image?.src).toBe("/projects/reachrich.png");
+    expect(reachRich?.image?.alt).toMatch(/합성 데이터|synthetic data/);
     expect(JSON.stringify(reachRich)).not.toContain("/projects/quant-core");
-    expect(projects).toContain("item.project.id === 'reachrich'");
-    expect(projects).toContain('<ProjectCaseVisual :project-id="item.project.id" compact />');
   });
 
   it("prioritizes the hero image", async () => {

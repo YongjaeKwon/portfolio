@@ -562,6 +562,15 @@ export const featuredProjects: FeaturedProject[] = [
     period: "Mar 2026 – present",
     category: "Personal Full Stack",
     focuses: ["all", "frontend", "backend"],
+    image: {
+      src: "/projects/reachrich.png",
+      width: 1180,
+      height: 838,
+      previewSrc: "/projects/reachrich-preview.webp",
+      previewWidth: 901,
+      previewHeight: 640,
+      alt: "ReachRich public demo dashboard (synthetic data): account summary, asset history, holdings and data pipeline status",
+    },
     stack: ["Python", "FastAPI", "React", "TypeScript", "SQLAlchemy", "SQLite", "Parquet", "GitHub Actions", "pytest", "Vitest"],
     card: {
       summary:
