@@ -294,25 +294,26 @@
 <!-- 9. ReachRich -->
 <section class="slide">
   <div class="top"><b>ReachRich · 개인 투자 연구 · 운영 플랫폼</b><span class="mono">09 / 11</span></div>
-  <div class="grid2" style="margin-top:30px;grid-template-columns:0.95fr 1.05fr;gap:52px;">
+  <div class="grid2" style="margin-top:30px;grid-template-columns:1fr 1fr;gap:52px;">
     <div>
       <p class="meta"><b>개인 프로젝트</b><span class="mono">2026.03 ~ 현재</span><span>비공개 · <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">합성 데이터 데모 공개</a></span></p>
       <h2 style="margin-top:12px;">ReachRich</h2>
       <p class="lead" style="margin-top:14px;">제 증권 계좌와 시장 데이터를 모아 투자 전략을 검증하고 모의로 운용해 보는 개인 연구 · 운영 플랫폼입니다.</p>
-      <dl class="facts rows" style="margin-top:24px;">
+      <img class="shot tilt-r" src="../public/projects/reachrich-preview.webp" alt="ReachRich 공개 데모 대시보드(합성 데이터)" style="margin-top:20px;width:72%;box-shadow:0 24px 50px rgba(17,17,17,0.2);">
+      <p class="cap-sub" style="margin-top:14px;">공개 데모 저장소의 대시보드 화면 · 합성 데이터</p>
+    </div>
+    <div>
+      <dl class="facts rows">
         <div><dt>재설계</dt><dd>2026년 8월 새 저장소를 만들어 예전 연구 코드에서 검증된 부분만 골라 옮겼습니다.</dd></div>
         <div><dt>원칙</dt><dd>검증을 통과한 전략이 나오기 전까지 실전 주문은 하지 않습니다.</dd></div>
       </dl>
-    </div>
-    <div>
-      <p class="label">담당 기능</p>
+      <p class="label" style="margin-top:20px;">담당 기능</p>
       <div class="built rows">
         <div><b>계좌 · 시장 데이터 수집</b><p>토스증권 계좌를 조회하고 KRX 거래대금 상위 200종목 일봉을 매일 쌓습니다. 다시 돌려도 중복이 생기지 않습니다.</p></div>
         <div><b>대시보드</b><p>자산 요약, 기간별 자산 곡선, 보유 종목을 보여 주고 금액 가리기를 켤 수 있습니다.</p></div>
         <div><b>자동 점검</b><p>매일 상태 점검과 모의운용을 자동으로 돌리고 실패하면 텔레그램으로 알림이 옵니다.</p></div>
       </div>
-      <div style="margin-top:16px;"><p class="fig" style="font-size:52px;">200<small>종목</small></p><p class="cap">KRX 거래대금 상위 종목 일봉을 매일 적재</p></div>
-      <p class="cap-sub" style="margin-top:10px;">파이썬 테스트 205개 · 웹 테스트 96개 통과 (2026.08.11 기준)</p>
+      <p class="cap-sub" style="margin-top:12px;">파이썬 테스트 205개 · 웹 테스트 96개 통과 (2026.08.11 기준)</p>
     </div>
   </div>
   <p class="stack" style="margin-top:auto;">Python · FastAPI · React · TypeScript · SQLite · Parquet · GitHub Actions</p>
