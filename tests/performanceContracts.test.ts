@@ -5,7 +5,7 @@ const source = (path: string) => readFile(new URL(`../${path}`, import.meta.url)
 const scrollListener = /addEventListener\s*\(\s*["']scroll["']/;
 const fontStylesheetOnload = "this.onload=null;this.rel='stylesheet'";
 const fontStylesheetUrls = [
-  "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap",
+  "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap",
 ];
 const fontPreconnectOrigins = [
   "https://fonts.googleapis.com",
@@ -134,7 +134,7 @@ describe("scroll performance contracts", () => {
   it("accepts font link attributes in a different order and quote style", async () => {
     const html = await source("index.html");
     const reordered = html.replace(
-      /<link\s+rel="preload"\s+as="style"[\s\S]*?fonts\.googleapis\.com\/css2\?family=Space\+Grotesk[\s\S]*?\/>/,
+      /<link\s+rel="preload"\s+as="style"[\s\S]*?fonts\.googleapis\.com\/css2\?family=Noto\+Sans\+KR[\s\S]*?\/>/,
       `<link href='${fontStylesheetUrls[0]}' as='style' onload="${fontStylesheetOnload}" rel='preload' />`,
     );
     expect(reordered).not.toBe(html);

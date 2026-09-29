@@ -58,7 +58,7 @@
                   <p class="text-secondary font-mono tnum text-xs font-semibold">{{ item.project.period }}</p>
                 </div>
 
-                <h3 class="text-primary mt-4 text-3xl font-black leading-tight tracking-[-0.04em] md:text-[2.5rem]">{{ item.project.title }}</h3>
+                <h3 class="font-heading text-primary mt-4 text-3xl font-black leading-tight tracking-[-0.04em] md:text-[2.5rem]">{{ item.project.title }}</h3>
                 <p class="text-secondary mt-3 text-base font-semibold leading-7">{{ item.card.summary }}</p>
 
                 <div class="mt-4 grid gap-2">
