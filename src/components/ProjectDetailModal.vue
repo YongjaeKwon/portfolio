@@ -53,7 +53,7 @@
                     class="role-contribution rounded-md p-5 md:p-6"
                   >
                     <div class="mb-5 flex items-center gap-3">
-                      <span class="rounded-full bg-[var(--fresh-blue-soft)] px-3 py-1.5 text-xs font-black text-[var(--fresh-blue-strong)]">
+                      <span class="rounded-full bg-[var(--fresh-accent-soft)] px-3 py-1.5 text-xs font-black text-[var(--fresh-accent-strong)]">
                         {{ section.label }}
                       </span>
                     </div>
@@ -141,9 +141,8 @@
                     :href="resource.href"
                     :target="resource.type === 'github' ? '_blank' : undefined"
                     :rel="resource.type === 'github' ? 'noreferrer' : undefined"
-                    class="focus-ring fresh-list-item text-secondary inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-bold transition hover:text-[var(--fresh-blue-strong)]"
+                    class="focus-ring fresh-list-item text-secondary inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-bold transition hover:text-[var(--fresh-accent-strong)]"
                   >
-                    <ExternalLink class="h-4 w-4" />
                     {{ resource.label }}
                   </a>
                 </div>
@@ -158,7 +157,7 @@
 
 <script setup lang="ts">
 import { computed, defineAsyncComponent, defineComponent, h, nextTick, onBeforeUnmount, ref, watch } from "vue";
-import { ExternalLink, X } from "@lucide/vue";
+import { X } from "@lucide/vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import type { RoleFocusId } from "@/data/portfolio";
 import { t } from "@/i18n/locale";
@@ -291,17 +290,17 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .case-step-label {
-  color: var(--fresh-blue-strong);
+  color: var(--fresh-accent-strong);
   font-size: 0.6875rem;
   font-weight: 900;
   letter-spacing: 0;
 }
 .case-process-step {
-  border: 1px solid rgba(49, 130, 246, 0.12);
+  border: 1px solid rgba(17, 17, 17, 0.12);
   background: rgba(255, 255, 255, 0.72);
 }
 .role-contribution {
-  border: 1px solid rgba(49, 130, 246, 0.12);
+  border: 1px solid rgba(17, 17, 17, 0.12);
   background: rgba(255, 255, 255, 0.72);
   box-shadow: 0 12px 34px rgba(38, 69, 111, 0.07);
 }
@@ -317,7 +316,7 @@ onBeforeUnmount(() => {
   width: 0.32rem;
   height: 0.32rem;
   border-radius: 999px;
-  background: var(--fresh-blue);
+  background: var(--fresh-accent);
 }
 .modal-enter-active { transition: opacity 0.22s ease; }
 .modal-leave-active { transition: opacity 0.18s ease; }

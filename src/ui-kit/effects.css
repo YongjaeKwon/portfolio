@@ -1,8 +1,7 @@
 .fresh-nav {
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 12px 32px rgba(31, 45, 61, 0.08);
-  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--fresh-rule);
+  background: rgba(246, 245, 241, 0.92);
+  backdrop-filter: blur(10px);
 }
 
 .fresh-card {
@@ -10,22 +9,28 @@
   background: var(--fresh-surface-solid);
 }
 
+/* 주 CTA: 먹색 */
 .fresh-button {
   border: 0;
-  background: var(--fresh-blue-strong);
-  color: #ffffff;
+  background: var(--fresh-ink);
+  color: var(--fresh-bg);
 }
 
 .fresh-button:hover {
-  filter: brightness(0.92);
+  background: var(--fresh-accent-strong);
 }
 
+/* 보조 버튼: 먹색 2px 테두리 */
 .fresh-button-soft {
-  border: 1px solid rgba(49, 130, 246, 0.12);
-  background: var(--fresh-blue-soft);
-  color: var(--fresh-blue-strong);
+  border: 2px solid var(--fresh-ink);
+  background: transparent;
+  color: var(--fresh-ink);
 }
 
+.fresh-button-soft:hover {
+  background: var(--fresh-ink);
+  color: var(--fresh-bg);
+}
 
 .fresh-list-item {
   border: 1px solid var(--fresh-border);
@@ -39,4 +44,40 @@
   background: var(--fresh-surface-solid);
 }
 
+/* 어두운 무대: 안쪽 글자 · 선 변수를 뒤집는다 */
+.fresh-stage {
+  --text-primary: var(--fresh-stage-ink);
+  --text-secondary: #dcdad3;
+  --text-muted: var(--fresh-stage-muted);
+  --fresh-border: rgba(246, 245, 241, 0.16);
+  --border: rgba(246, 245, 241, 0.16);
+  --border-strong: rgba(246, 245, 241, 0.34);
+  --surface-soft: rgba(246, 245, 241, 0.06);
+  --fresh-accent-strong: #ff8f75;
+  background: var(--fresh-stage);
+  color: var(--fresh-stage-ink);
+}
 
+.fresh-stage .fresh-button {
+  background: var(--fresh-stage-ink);
+  color: var(--fresh-ink);
+}
+
+.fresh-stage .fresh-button:hover {
+  background: var(--fresh-accent);
+  color: #ffffff;
+}
+
+/* 무대 안에 다시 밝은 판(데모 등)을 둘 때 변수를 되돌린다 */
+.fresh-paper {
+  --text-primary: var(--fresh-ink);
+  --text-secondary: var(--fresh-ink-soft);
+  --text-muted: var(--fresh-muted);
+  --fresh-border: rgba(17, 17, 17, 0.12);
+  --border: rgba(17, 17, 17, 0.12);
+  --border-strong: rgba(17, 17, 17, 0.2);
+  --surface-soft: rgba(17, 17, 17, 0.04);
+  --fresh-accent-strong: #c2361c;
+  background: var(--fresh-surface-solid);
+  color: var(--fresh-ink);
+}

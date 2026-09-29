@@ -19,7 +19,6 @@
             class="focus-ring fresh-button inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-black transition hover:-translate-y-0.5 hover:brightness-105"
             @click="attemptEmailContact"
           >
-            <Mail class="h-4 w-4" />
             {{ t("이메일 보내기", "Send an email") }}
           </button>
           <a
@@ -28,7 +27,6 @@
             target="_blank"
             rel="noreferrer"
           >
-            <ExternalLink class="h-4 w-4" />
             GitHub
           </a>
           <a
@@ -36,7 +34,6 @@
             :href="resumeHref"
             :download="resumeFileName"
           >
-            <FileDown class="h-4 w-4" />
             {{ t("이력서 PDF", "Resume PDF") }}
           </a>
         </div>
@@ -56,7 +53,6 @@
               target="_blank"
               rel="noreferrer"
             >
-              <ExternalLink class="h-4 w-4" />
               {{ t("Gmail로 작성하기", "Compose in Gmail") }}
             </a>
             <button
@@ -64,7 +60,6 @@
               class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition hover:-translate-y-0.5"
               @click="copyEmailAddress"
             >
-              <Copy class="h-4 w-4" />
               {{ copyButtonLabel }}
             </button>
           </div>
@@ -76,7 +71,6 @@
 </template>
 
 <script setup lang="ts">
-import { Copy, ExternalLink, FileDown, Mail } from "@lucide/vue";
 import { computed, onBeforeUnmount, ref } from "vue";
 import { profile } from "@/data/portfolio";
 import { useActiveResume } from "@/composables/useActiveResume";

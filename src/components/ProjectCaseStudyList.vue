@@ -56,7 +56,6 @@
           </section>
 
           <div class="deep-case-outcome">
-            <CircleCheckBig class="h-5 w-5 shrink-0" aria-hidden="true" />
             <div>
               <span>{{ t("결과", "Outcome") }}</span>
               <p>{{ study.outcome }}</p>
@@ -66,7 +65,6 @@
           <figure v-if="study.code" class="deep-case-code">
             <figcaption class="deep-case-code-header">
               <span class="flex items-center gap-2">
-                <Code2 class="h-4 w-4" aria-hidden="true" />
                 <strong>{{ study.code.title }}</strong>
               </span>
               <span>{{ study.code.language }}</span>
@@ -82,7 +80,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { ChevronDown, CircleCheckBig, Code2 } from "@lucide/vue";
+import { ChevronDown } from "@lucide/vue";
 import { hasProjectCaseStudies, projectCaseStudies } from "@/data/caseStudies";
 import { t } from "@/i18n/locale";
 
@@ -114,13 +112,13 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 
 .deep-case {
   overflow: hidden;
-  border: 1px solid rgba(49, 130, 246, 0.13);
+  border: 1px solid rgba(17, 17, 17, 0.13);
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.76);
 }
 
 .deep-case[open] {
-  border-color: rgba(49, 130, 246, 0.24);
+  border-color: rgba(17, 17, 17, 0.24);
 }
 
 .deep-case-summary {
@@ -138,7 +136,7 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 }
 
 .deep-case-summary:hover {
-  background: rgba(49, 130, 246, 0.045);
+  background: rgba(17, 17, 17, 0.045);
 }
 
 .deep-case-index {
@@ -148,15 +146,15 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
   flex: 0 0 auto;
   place-items: center;
   border-radius: 0.375rem;
-  background: var(--fresh-blue-soft);
-  color: var(--fresh-blue-strong);
+  background: var(--fresh-accent-soft);
+  color: var(--fresh-accent-strong);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.72rem;
   font-weight: 900;
 }
 
 .deep-case-meta {
-  color: var(--fresh-blue-strong);
+  color: var(--fresh-accent-strong);
   font-size: 0.66rem;
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -174,7 +172,7 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 .deep-case-content {
   display: grid;
   gap: 1rem;
-  border-top: 1px solid rgba(49, 130, 246, 0.1);
+  border-top: 1px solid rgba(17, 17, 17, 0.1);
   padding: 1.1rem;
   background: linear-gradient(145deg, rgba(247, 250, 255, 0.86), rgba(255, 255, 255, 0.78));
 }
@@ -187,7 +185,7 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 
 .deep-case-phase {
   min-width: 0;
-  border: 1px solid rgba(49, 130, 246, 0.1);
+  border: 1px solid rgba(17, 17, 17, 0.1);
   border-radius: 0.375rem;
   padding: 0.85rem;
   background: rgba(255, 255, 255, 0.78);
@@ -212,7 +210,7 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 
 .deep-case-phase.is-problem > span { color: #c75b4e; }
 .deep-case-phase.is-constraint > span { color: #7a5bb8; }
-.deep-case-phase.is-decision > span { color: var(--fresh-blue-strong); }
+.deep-case-phase.is-decision > span { color: var(--fresh-accent-strong); }
 
 .deep-case-implementation {
   border-radius: 0.375rem;
@@ -232,7 +230,7 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
   width: 0.32rem;
   height: 0.32rem;
   border-radius: 999px;
-  background: var(--fresh-blue);
+  background: var(--fresh-accent);
   content: "";
 }
 
@@ -261,8 +259,8 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
   margin: 0;
   border: 1px solid rgba(31, 45, 71, 0.14);
   border-radius: 0.5rem;
-  color: #dce8ff;
-  background: #172033;
+  color: #f6f5f1;
+  background: #1b1b1b;
 }
 
 .deep-case-code-header {
@@ -272,12 +270,12 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
   gap: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.75rem 0.9rem;
-  color: #eff6ff;
+  color: #f6f5f1;
   font-size: 0.76rem;
 }
 
 .deep-case-code-header > span:last-child {
-  color: #86b7ff;
+  color: #ff8f75;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.68rem;
   font-weight: 800;
@@ -292,7 +290,7 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 }
 
 .deep-case-code pre:focus-visible {
-  outline: 2px solid #86b7ff;
+  outline: 2px solid #ff8f75;
 }
 
 .deep-case-code code {
