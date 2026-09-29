@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>권용재 포트폴리오</title>
+<!-- 사실 · 수치의 원천은 src/data/*.ko.ts 와 caseStudies.ko.ts. 바꿀 때는 거기부터 고친다. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400..900&family=JetBrains+Mono:wght@500;700;800&display=block" />
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  :root {
+    --bg: #f6f5f1; --bg-soft: #eeece6; --ink: #111111; --ink-soft: #3d3d3d; --muted: #5f5e59;
+    --line: rgba(17, 17, 17, 0.12); --accent: #e5482b; --green: #2f8a4f;
+    --stage: #111111; --stage-raised: #1e1e1e; --stage-ink: #f6f5f1; --stage-muted: #b5b3ab;
+    --sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --mono: "JetBrains Mono", Consolas, "Noto Sans KR", "Malgun Gothic", monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); word-break: keep-all; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  p, h1, h2, h3, ul, ol, dl, dd, figure { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+  .slide { position: relative; width: 1280px; height: 720px; overflow: hidden; padding: 56px 72px 48px; display: flex; flex-direction: column; break-after: page; background: var(--bg); }
+  .slide:last-child { break-after: auto; }
+  .dark { background: var(--stage); color: var(--stage-ink); --line: rgba(246, 245, 241, 0.16); --muted: var(--stage-muted); --ink-soft: #dcdad3; }
+
+  /* 머리 · 꼬리 */
+  .top { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 14px; border-bottom: 2px solid currentColor; font-size: 15px; }
+  .top b { font-weight: 900; }
+  .top span { color: var(--muted); }
+  .foot { margin-top: auto; display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; font-family: var(--mono); }
+
+  h1 { font-size: 76px; line-height: 1.08; font-weight: 900; letter-spacing: -0.055em; }
+  h2 { font-size: 48px; line-height: 1.12; font-weight: 900; letter-spacing: -0.045em; }
+  h3 { font-size: 20px; font-weight: 900; letter-spacing: -0.02em; }
+  .stop { color: var(--accent); }
+  .meta { display: flex; gap: 18px; align-items: center; color: var(--muted); font-size: 15px; font-weight: 600; }
+  .meta b { color: var(--ink); font-weight: 900; }
+  .dark .meta b { color: var(--stage-ink); }
+  .live::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--green); vertical-align: 1px; }
+  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .lead { font-size: 19px; line-height: 1.7; color: var(--ink-soft); }
+  .stack { color: var(--muted); font-size: 14px; }
+
+  /* 큰 숫자 */
+  .fig { font-family: var(--mono); font-weight: 800; line-height: 1; letter-spacing: -0.06em; font-size: 64px; }
+  .fig small { font-family: var(--sans); font-size: 0.4em; font-weight: 900; letter-spacing: 0; margin-left: 4px; }
+  .fig s { color: var(--muted); font-size: 0.5em; font-weight: 400; letter-spacing: 0; text-decoration-color: var(--accent); text-decoration-thickness: 3px; }
+  .fig .arrow { color: var(--accent); font-size: 0.4em; letter-spacing: 0; margin: 0 8px; }
+  .fig.xl { font-size: 104px; }
+  .cap { margin-top: 10px; font-size: 15px; font-weight: 700; line-height: 1.5; }
+  .cap-sub { margin-top: 4px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* 행 구분 */
+  .rows > * { border-top: 1px solid var(--line); padding: 12px 0; }
+  .rows > *:first-child { border-top: 2px solid currentColor; }
+  .step { display: grid; grid-template-columns: 64px 1fr; gap: 16px; font-size: 15px; line-height: 1.65; }
+  .step > b { font-weight: 900; }
+  .step > p { color: var(--ink-soft); }
+  .step.result > p { color: inherit; font-weight: 700; }
+  .dash li { position: relative; padding-left: 16px; }
+  .dash li::before { content: "–"; position: absolute; left: 0; color: var(--muted); }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .grid3 > div { padding: 22px 28px 0; border-left: 1px solid var(--line); }
+  .grid3 > div:first-child { padding-left: 0; border-left: 0; }
+  .grid3 > div:last-child { padding-right: 0; }
+  .shot { width: 100%; border-radius: 8px; box-shadow: 0 30px 60px rgba(0,0,0,0.35); }
+  .tilt-l { transform: rotate(-2deg); }
+  .tilt-r { transform: rotate(2deg); }
+  .panel { background: var(--bg-soft); border-top: 2px solid var(--ink); padding: 22px 24px; }
+</style>
+</head>
+<body>
+
+<!-- 1. 표지 -->
+<section class="slide">
+  <div class="top"><b>권용재 포트폴리오</b><span><a href="https://www.yongjaekwon.com">www.yongjaekwon.com</a> · <a href="https://github.com/YongjaeKwon">github.com/YongjaeKwon</a> · yongjae116@gmail.com</span></div>
+  <div style="display:grid;grid-template-columns:1fr 176px;gap:48px;align-items:end;margin-top:52px;">
+    <div>
+      <h1>필요한 기능을 만들고,<br>쓰이는 모습까지 확인합니다<span class="stop">.</span></h1>
+      <p class="lead" style="margin-top:22px;">요구사항 정리부터 배포 후 확인까지 한 기능을 끝까지 맡아 왔습니다.</p>
+    </div>
+    <div>
+      <img src="../public/my-photo-224.webp" alt="" style="width:176px;height:176px;border-radius:50%;object-fit:cover;display:block;">
+      <p style="margin-top:14px;font-size:15px;line-height:1.6;"><b style="font-weight:900;">웹 개발자</b><br><span style="color:var(--muted);">유한책임회사 티지나래<br><span class="mono">2024.06 ~</span> 재직 중</span></p>
+    </div>
+  </div>
+  <div class="grid3" style="margin-top:auto;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding-bottom:22px;">
+    <div><p class="fig"><s>60s</s><span class="arrow">→</span>63~69<small>ms</small></p><p class="cap">60초 안에 끝나지 않던 조회</p><p class="cap-sub">교육용 단말 운영 시스템(TSMS)</p></div>
+    <div><p class="fig">300~400<small>건</small></p><p class="cap">첨부파일 압축을 진행 상태가 보이는 작업으로</p><p class="cap-sub">B2B 협력사 포털(PPS)</p></div>
+    <div><p class="fig">30<small>건 테스트</small></p><p class="cap">서버 2대에서 똑같이 걸리는 요청 제한</p><p class="cap-sub">B2B 협력사 포털(PPS)</p></div>
+  </div>
+</section>
+
+<!-- 2. 경력 -->
+<section class="slide">
+  <div class="top"><b>경력</b><span class="mono">02 / 11</span></div>
+  <div class="grid2" style="margin-top:40px;grid-template-columns:0.9fr 1.1fr;">
+    <div>
+      <p class="meta"><span class="mono">2024.06 ~ 재직 중</span></p>
+      <h2 style="margin-top:12px;">웹 개발자</h2>
+      <p style="margin-top:6px;font-size:18px;font-weight:700;">유한책임회사 티지나래</p>
+      <p class="lead" style="margin-top:20px;font-size:17px;">B2B 협력사 포털 PPS와 교육용 단말 운영 시스템 TSMS에서 요구사항 협의, 화면·서버·DB 개발, 검수와 배포를 맡고 있습니다.</p>
+      <ul class="rows" style="margin-top:28px;font-size:16px;font-weight:700;">
+        <li>요구사항 협의</li><li>화면 · 서버 · DB 개발</li><li>검수 · 배포 · 운영 확인</li>
+      </ul>
+    </div>
+    <div class="rows">
+      <div style="padding:20px 0;">
+        <p class="meta"><b>B2B 협력사 포털(PPS)</b><span class="mono">2025.02 ~ 현재</span><span class="live">운영 중</span></p>
+        <div style="display:flex;gap:48px;margin-top:16px;">
+          <div><p class="fig">500<small>곳</small></p><p class="cap-sub">본사와 함께 쓰는 협력사(약)</p></div>
+          <div><p class="fig">824<small>개</small></p><p class="cap-sub">교육·자격·증빙을 처리하는 CE 계정</p></div>
+        </div>
+        <p class="stack" style="margin-top:14px;">Vue · Java 21 · Spring Boot · MyBatis · MariaDB · Oracle · Hazelcast · Jenkins</p>
+      </div>
+      <div style="padding:20px 0;">
+        <p class="meta"><b>교육용 단말 운영 시스템(TSMS)</b><span class="mono">2025.09 ~ 현재</span><span class="live">운영 중</span></p>
+        <div style="display:flex;gap:48px;margin-top:16px;">
+          <div><p class="fig">11<small>만 대</small></p><p class="cap-sub">서울시교육청 디벗 사업 교육용 단말(약)</p></div>
+          <div><p class="fig">25<small>개 화면</small></p><p class="cap-sub">외부 연계를 서버 공통 경로로 옮김</p></div>
+        </div>
+        <p class="stack" style="margin-top:14px;">WebSquare · Java · Spring MVC · MyBatis · MariaDB · JSP</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>실무 프로젝트는 비공개라 회사 · 고객사 정보와 실제 화면은 싣지 않았습니다.</span></div>
+</section>
+
+<!-- 3. PPS 대량 다운로드 -->
+<section class="slide">
+  <div class="top"><b>B2B 협력사 포털(PPS) · 대량 다운로드</b><span class="mono">03 / 11</span></div>
+  <div class="grid2" style="margin-top:36px;grid-template-columns:1fr 1fr;">
+    <div>
+      <h2>오래 걸리던 다운로드를,<br>추적할 수 있는 작업으로</h2>
+      <p class="fig xl" style="margin-top:34px;">300~400<small>건</small></p>
+      <p class="cap">현장 엔지니어(CE) 증빙 첨부파일을 한 요청에서 모아 압축하던 다운로드</p>
+      <p class="stack" style="margin-top:18px;">Full Stack · Vue · Spring Boot · MyBatis · Hazelcast</p>
+    </div>
+    <div class="rows">
+      <div class="step"><b>문제</b><p>첨부파일 300~400건을 한 번에 압축하면 요청이 오래 멈춰 있었고, 사용자는 진행 중인지 실패했는지 알 수 없었습니다.</p></div>
+      <div class="step"><b>판단</b><p>화면 요청과 압축 실행을 나누고, 작업 ID 하나로 서버 상태와 화면을 이어 주기로 했습니다.</p></div>
+      <div class="step"><b>구현</b><ul class="dash" style="color:var(--ink-soft);"><li>전용 실행기에서 압축하고 대기, 진행, 완료, 실패 상태를 저장했습니다.</li><li>Vue 화면이 2초마다 상태를 조회하고, 새로고침 뒤에도 기존 작업을 찾아 이어서 보여 줍니다.</li><li>완료 파일은 스트리밍으로 내려받고, 만료된 결과 파일은 자동으로 지웁니다.</li></ul></div>
+      <div class="step result" style="border-top:2px solid var(--ink);"><b>결과</b><p>300~400건 규모의 대량 다운로드를 비동기 작업으로 운영하고 있습니다. 사용자는 진행 상황과 실패 여부를 보고 완료 파일을 이어서 내려받습니다.</p></div>
+    </div>
+  </div>
+  <div class="foot" style="font-family:var(--sans);font-weight:700;color:var(--ink);gap:14px;justify-content:flex-start;">
+    <span class="mono" style="background:var(--ink);color:var(--bg);padding:8px 14px;">작업 ID 발급</span><span style="align-self:center;color:var(--accent);">→</span>
+    <span style="background:#dedcd4;padding:8px 14px;">대기</span><span style="align-self:center;color:var(--accent);">→</span>
+    <span style="background:var(--accent);color:#fff;padding:8px 14px;">진행</span><span style="align-self:center;color:var(--accent);">→</span>
+    <span style="background:var(--green);color:#fff;padding:8px 14px;">완료 · 내려받기</span><span style="align-self:center;color:var(--muted);font-weight:400;">또는</span>
+    <span style="border:2px solid var(--ink);padding:6px 12px;">실패 · 안내</span>
+  </div>
+</section>
+
+<!-- 4. PPS 요청 제한 -->
+<section class="slide">
+  <div class="top"><b>B2B 협력사 포털(PPS) · 인증번호 요청 제한</b><span class="mono">04 / 11</span></div>
+  <div class="grid2" style="margin-top:36px;grid-template-columns:1fr 1fr;">
+    <div>
+      <h2>서버 두 대에서<br>똑같이 걸리는 요청 제한</h2>
+      <div style="display:flex;gap:56px;margin-top:40px;">
+        <div><p class="fig xl">2<small>대</small></p><p class="cap">어느 서버로 요청해도 같은 제한</p></div>
+        <div><p class="fig xl">30<small>건</small></p><p class="cap">경계 조건을 고정한 단위 테스트</p></div>
+      </div>
+      <p class="stack" style="margin-top:22px;">Backend · Java 21 · Spring Boot · Hazelcast</p>
+    </div>
+    <div class="rows">
+      <div class="step"><b>문제</b><p>비밀번호 초기화 인증번호가 알림톡으로 나가는데, 반복 클릭이나 자동화된 요청을 막는 장치가 없었습니다. 서버별 메모리로 제한하면 요청이 나뉘어 들어올 때 제한이 먹히지 않을 수 있었습니다.</p></div>
+      <div class="step"><b>판단</b><p>이미 쓰고 있던 분산 맵에 TTL 쿨다운을 두고, 동시에 들어온 요청 중 한 건만 통과하도록 원자적 획득 연산을 쓰기로 했습니다.</p></div>
+      <div class="step"><b>구현</b><ul class="dash" style="color:var(--ink-soft);"><li>putIfAbsent로 쿨다운을 원자적으로 잡고, 만료 항목은 조건부 삭제로 지웠습니다.</li><li>제한 키는 계정과 전화번호를 SHA-256 해시로 만들어 원문이 남지 않게 했습니다.</li><li>화면에는 남은 대기 시간을 돌려줘 언제 다시 시도할지 알려 줍니다.</li></ul></div>
+      <div class="step result" style="border-top:2px solid var(--ink);"><b>결과</b><p>어느 서버로 요청해도 같은 제한이 걸리고, 사용자는 남은 대기 시간을 안내받습니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. TSMS 조회 -->
+<section class="slide">
+  <div class="top"><b>교육용 단말 운영 시스템(TSMS) · 조회 성능</b><span class="mono">05 / 11</span></div>
+  <div style="margin-top:36px;">
+    <h2>60초 안에 끝나지 않던 통합 뷰 조회 재작성</h2>
+  </div>
+  <div class="grid3" style="margin-top:34px;border-top:2px solid var(--ink);">
+    <div><p class="fig"><s>60s</s><span class="arrow">→</span>63~69<small>ms</small></p><p class="cap">운영 DB에서 같은 결과를 돌려준 시간</p><p class="cap-sub">2026.09, 이력이 가장 많은 고객 기준</p></div>
+    <div><p class="fig">870<small>배 이상</small></p><p class="cap">기존 쿼리 대비 최소 단축 폭</p></div>
+    <div><p class="fig" style="font-size:52px;"><s>2.1조</s><span class="arrow">→</span>1,854<small>행</small></p><p class="cap">실행계획의 추정 행 수</p></div>
+  </div>
+  <div class="rows" style="margin-top:30px;">
+    <div class="step"><b>문제</b><p>A/S 이력과 정산 세부현황 조회가 여러 테이블을 합친 통합 뷰를 거치면서, 데이터가 쌓일수록 화면이 수십 초씩 기다렸습니다.</p></div>
+    <div class="step"><b>제약</b><p>화면의 조회 조건과 표시 항목은 그대로 둬야 했고, 같은 뷰를 쓰는 다른 화면에 영향을 주면 안 됐습니다.</p></div>
+    <div class="step"><b>판단</b><p>고객 조건이 뷰 안까지 전달되지 않아 뷰 전체를 만든 뒤 거르고 있었습니다. 인덱스를 더하는 대신 화면이 쓰는 컬럼만 기본 테이블 조인으로 다시 썼습니다.</p></div>
+    <div class="step"><b>구현</b><p>통합 뷰 대신 기본 테이블을 직접 조인해 고객 조건이 처음부터 인덱스를 타게 하고, 화면이 쓰는 컬럼만 남긴 채 최신 처리 이력은 서브쿼리로 붙였습니다.</p></div>
+    <div class="step"><b>검증</b><p>바꾸기 전후 쿼리를 같은 파라미터로 실행해 결과 행이 일치하는지 비교했습니다.</p></div>
+  </div>
+</section>
+
+<!-- 6. TSMS 운영 -->
+<section class="slide">
+  <div class="top"><b>교육용 단말 운영 시스템(TSMS) · 운영 기능</b><span class="mono">06 / 11</span></div>
+  <h2 style="margin-top:36px;">흩어진 운영 업무를<br>확인할 수 있는 이력으로</h2>
+  <div class="grid3" style="margin-top:34px;border-top:2px solid var(--ink);">
+    <div><p class="fig">108,237<small>대</small></p><p class="cap">QR 발급 (전체 111,593대 중)</p><p class="cap-sub">대량 등록 전 생산입고 · 기등록 검사, QR에는 외부 노출용 ID</p></div>
+    <div><p class="fig">14,882<small>건</small></p><p class="cap">시스템에 저장된 점검표</p><p class="cap-sub">2026.09 기준 대상 119개 학교 중 71개 학교 진행</p></div>
+    <div><p class="fig">25<small>개 화면</small></p><p class="cap">브라우저에 드러난 외부 API 키 제거</p><p class="cap-sub">카카오 주소 검색 · NEIS 연동을 서버 공통 경로로</p></div>
+  </div>
+  <div class="grid2" style="margin-top:30px;gap:40px;">
+    <div class="rows"><div><h3>중고거래 게시글 모니터링</h3><p style="margin-top:6px;font-size:15px;line-height:1.65;color:var(--ink-soft);">외부 사이트에 접속하지 않고, 검수자가 붙여넣은 주소에서 사이트와 게시글 번호를 찾아 중복을 확인합니다. 주소 형식이 바뀌면 관리 화면에서 판별 규칙만 고칩니다.</p></div></div>
+    <div class="rows"><div><h3>학교 방문 점검 전산화</h3><p style="margin-top:6px;font-size:15px;line-height:1.65;color:var(--ink-soft);">종이 점검을 일정, 대상, 체크리스트, 서명, 재점검 이력, 결과 파일까지 한 화면 흐름으로 옮겼습니다. 분실 · 미지참 단말은 2차, 3차 회차로 이어집니다.</p></div></div>
+  </div>
+</section>
+
+<!-- 7. 티켓러시 -->
+<section class="slide dark">
+  <div class="top"><b>티켓러시 · 선착순 티켓팅 시스템</b><span class="mono">07 / 11</span></div>
+  <div class="grid2" style="margin-top:32px;grid-template-columns:1.05fr 0.95fr;gap:48px;align-items:start;">
+    <div>
+      <p class="meta"><b>개인 백엔드 프로젝트</b><span class="mono">2026.08 ~ 진행 중</span><a href="https://github.com/YongjaeKwon/ticket-rush">GitHub 공개</a></p>
+      <h2 style="margin-top:14px;">같은 좌석은<br>한 번만 팔린다</h2>
+      <div style="margin-top:28px;"><p class="fig xl">100<span class="arrow">→</span>1</p><p class="cap">좌석 하나에 동시 요청 100건, 성공은 1건 · 나머지 99건은 선점된 좌석으로 거절</p></div>
+      <ul class="rows dash" style="margin-top:22px;font-size:15px;line-height:1.6;">
+        <li style="padding-left:16px;">Redis SET NX EX로 좌석을 5분간 선점해 동시 요청 중 한 건만 통과</li>
+        <li style="padding-left:16px;">선점이 만료되면 도메인 규칙이 결제를 거절</li>
+        <li style="padding-left:16px;">마지막으로 MySQL (회차, 좌석) 기본키가 두 번째 확정을 막음 · Redis 정보가 사라진 상황도 통합 테스트로 재현</li>
+      </ul>
+    </div>
+    <div style="padding-top:40px;">
+      <img class="shot tilt-l" src="../public/projects/ticketrush-preview.webp" alt="티켓러시 좌석 선택 화면">
+      <p class="stack" style="margin-top:34px;">Java 21 · Spring Boot 4 · Spring Modulith · MySQL 8.4 · Redis 7 · Next.js · Testcontainers · Playwright · GitHub Actions</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. 오늘사이 -->
+<section class="slide">
+  <div class="top"><b>오늘사이 · 오프라인 소개팅 운영 서비스</b><span class="mono">08 / 11</span></div>
+  <div class="grid2" style="margin-top:32px;grid-template-columns:0.95fr 1.05fr;gap:48px;align-items:start;">
+    <div style="padding-top:12px;">
+      <img class="shot tilt-r" src="../public/projects/oneulsai-preview.webp" alt="오늘사이 브랜드 로고와 소개 카드뉴스" style="box-shadow:0 24px 50px rgba(17,17,17,0.2);">
+      <p class="stack" style="margin-top:30px;">TypeScript · NestJS · Next.js · PostgreSQL · Prisma · Turborepo · Vitest · Playwright</p>
+    </div>
+    <div>
+      <p class="meta"><b>개인 풀스택 프로젝트</b><span class="mono">2026.09 ~ 진행 중</span><span>비공개</span></p>
+      <h2 style="margin-top:14px;">남은 자리 하나에<br>20명이 동시에 신청하면</h2>
+      <div style="display:flex;gap:48px;margin-top:26px;">
+        <div><p class="fig xl">20<span class="arrow">→</span>1</p><p class="cap">성공(201)은 1건, 나머지는 409 · 503</p></div>
+        <div><p class="fig xl" style="font-size:72px;">8<span class="arrow">→</span>1</p><p class="cap">같은 회원 8번 동시 신청</p></div>
+      </div>
+      <ul class="rows dash" style="margin-top:22px;font-size:15px;line-height:1.6;">
+        <li style="padding-left:16px;">Gateway 뒤에 회원 · 일정 · 매칭 · 알림 · 결제 서비스, 서비스마다 자기 DB만 사용</li>
+        <li style="padding-left:16px;">참가 신청은 회차 행을 먼저 잠근 뒤 성별 인원을 세고 저장, 잠금 대기는 2초로 제한</li>
+        <li style="padding-left:16px;">가입 · 로그인, 모임 일정, 참가 신청까지 동작 · 결제, 체크인, 매칭은 다음 단계</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 9. ReachRich -->
+<section class="slide dark">
+  <div class="top"><b>ReachRich · 개인 투자 연구 · 운영 플랫폼</b><span class="mono">09 / 11</span></div>
+  <p class="meta" style="margin-top:32px;"><b>개인 풀스택 프로젝트</b><span class="mono">2026.03 ~ 현재</span><span>비공개 · <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">공개 데모 저장소(합성 데이터)</a></span></p>
+  <h2 style="margin-top:14px;">계좌와 시장 데이터를<br>검증 · 운영 화면으로 연결</h2>
+  <p style="margin-top:26px;font-size:20px;font-weight:700;">토스증권 · KRX <span style="color:var(--accent);">→</span> SQLite · Parquet <span style="color:var(--accent);">→</span> 검증 · 모의운용 <span style="color:var(--accent);">→</span> React 콘솔</p>
+  <div class="grid3" style="margin-top:28px;border-top:2px solid currentColor;">
+    <div><p class="fig">205</p><p class="cap">파이썬 테스트 통과</p><p class="cap-sub">2026.08.11 기준</p></div>
+    <div><p class="fig">96</p><p class="cap">웹 테스트 통과</p><p class="cap-sub">2026.08.11 기준</p></div>
+    <div><p class="fig">200<small>종목</small></p><p class="cap">KRX 거래대금 상위 종목 일봉 매일 적재</p><p class="cap-sub">같은 작업을 다시 돌려도 중복 없음</p></div>
+  </div>
+  <div class="foot" style="font-family:var(--sans);font-size:14px;">예전 연구 코드에서 검증된 부분만 골라 옮기고 데이터 · 종목 선정 · 전략 · 검증 · 운용 · 콘솔 여섯 영역으로 다시 설계했습니다. 실패하면 텔레그램으로 알림이 옵니다.</div>
+</section>
+
+<!-- 10. SSAFY 팀 프로젝트 -->
+<section class="slide">
+  <div class="top"><b>SSAFY 팀 프로젝트 · 프론트엔드</b><span class="mono">10 / 11</span></div>
+  <div class="grid3" style="margin-top:36px;">
+    <div>
+      <img class="shot" src="../public/projects/ssafast-preview.webp" alt="SSAFAST 화면" style="box-shadow:none;border:1px solid var(--line);aspect-ratio:16/9;object-fit:cover;object-position:top;">
+      <p class="meta" style="margin-top:18px;"><b style="font-size:22px;">SSAFAST</b><span class="mono">2023.04 ~ 05</span></p>
+      <p style="margin-top:8px;font-size:15px;line-height:1.65;">API 명세를 쓰고, 바로 요청과 성능 테스트까지 해 볼 수 있는 도구(6인)</p>
+      <p style="margin-top:8px;font-size:14px;line-height:1.6;color:var(--ink-soft);">명세 입력 폼, API 실행 화면, 응답 시간 분포 · 초당 처리량 결과 화면</p>
+      <p class="stack" style="margin-top:10px;">Next.js · React · React Hook Form · <a href="https://github.com/SSAFAST/ssafast">GitHub</a></p>
+    </div>
+    <div>
+      <img class="shot" src="../public/projects/ddoing-preview.webp" alt="ddoing 화면" style="box-shadow:none;border:1px solid var(--line);aspect-ratio:16/9;object-fit:cover;object-position:top;">
+      <p class="meta" style="margin-top:18px;"><b style="font-size:22px;">ddoing</b><span class="mono">2023.02 ~ 04</span></p>
+      <p style="margin-top:8px;font-size:15px;line-height:1.65;">영어 단어를 그림으로 그리면 AI 판정에 따라 학습이 이어지는 서비스</p>
+      <p style="margin-top:8px;font-size:14px;line-height:1.6;color:var(--ink-soft);">그림 입력과 판정 서버 연동, 타이머 중복 실행 · 이전 단어 목록 버그 수정</p>
+      <p class="stack" style="margin-top:10px;">React · TypeScript · Canvas API · <a href="https://github.com/GomGom-Team/ddoing">GitHub</a></p>
+    </div>
+    <div>
+      <img class="shot" src="../public/projects/modac-preview.webp" alt="MODAC 화면" style="box-shadow:none;border:1px solid var(--line);aspect-ratio:16/9;object-fit:cover;object-position:top;">
+      <p class="meta" style="margin-top:18px;"><b style="font-size:22px;">MODAC</b><span class="mono">2023.01 ~ 02</span></p>
+      <p style="margin-top:8px;font-size:15px;line-height:1.65;">개발자가 학습 기록을 남기고 스터디를 함께 운영하는 서비스(6인)</p>
+      <p style="margin-top:8px;font-size:14px;line-height:1.6;color:var(--ink-soft);">스터디룸 입장 · 초대 코드 검증, 학습 통계 · 알림, 채팅 화면 연결</p>
+      <p class="stack" style="margin-top:10px;">Vue 3 · Pinia · SockJS · STOMP · <a href="https://github.com/YongjaeKwon/MODAC">GitHub</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- 11. 기술 · 학력 · 연락처 -->
+<section class="slide">
+  <div class="top"><b>기술 · 학력 · 연락처</b><span class="mono">11 / 11</span></div>
+  <div class="grid2" style="margin-top:34px;gap:56px;">
+    <div class="rows" style="font-size:15px;line-height:1.6;">
+      <div style="display:grid;grid-template-columns:120px 1fr;"><b style="font-weight:900;">프론트엔드</b><span>JavaScript · TypeScript · Vue · React · Next.js · WebSquare · JSP</span></div>
+      <div style="display:grid;grid-template-columns:120px 1fr;"><b style="font-weight:900;">백엔드</b><span>Java · Spring MVC · Spring Boot · MyBatis · Python · FastAPI</span></div>
+      <div style="display:grid;grid-template-columns:120px 1fr;"><b style="font-weight:900;">데이터베이스</b><span>MariaDB · MySQL · Oracle · PostgreSQL · SQLite</span></div>
+      <div style="display:grid;grid-template-columns:120px 1fr;"><b style="font-weight:900;">도구 · 배포</b><span>Git · GitHub · GitHub Actions · SVN · Jenkins · Linux · Tomcat · Docker</span></div>
+    </div>
+    <div class="rows" style="font-size:15px;line-height:1.6;">
+      <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2018.03 ~ 2020.08</span><span><b style="font-weight:900;">아주대학교 e-비즈니스학과</b> 학사 졸업</span></div>
+      <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2022.07 ~ 2023.06</span><span><b style="font-weight:900;">삼성 청년 SW 아카데미(SSAFY) 8기</b> 웹 과정 수료</span></div>
+      <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2014.01 ~ 2015.05</span><span><b style="font-weight:900;">California State University, Chico</b> 경영학 전공 후 편입</span></div>
+      <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2024.09</span><span><b style="font-weight:900;">SQLD</b> SQL 개발자 자격</span></div>
+    </div>
+  </div>
+  <div style="margin-top:auto;border-top:2px solid var(--ink);padding-top:26px;display:flex;justify-content:space-between;align-items:end;gap:40px;">
+    <div>
+      <p style="font-size:56px;font-weight:900;letter-spacing:-0.05em;line-height:1;">연락 주세요<span class="stop">.</span></p>
+      <p style="margin-top:14px;font-size:15px;color:var(--ink-soft);">사이트에서 티켓러시 · SSAFAST · ddoing · MODAC 흐름을 샘플 데이터로 직접 눌러 볼 수 있습니다.</p>
+    </div>
+    <div style="text-align:right;font-size:17px;line-height:1.9;font-weight:700;">
+      <a href="https://www.yongjaekwon.com">www.yongjaekwon.com</a><br>
+      <a href="https://github.com/YongjaeKwon">github.com/YongjaeKwon</a><br>
+      <span class="mono">yongjae116@gmail.com</span>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
