@@ -9,7 +9,6 @@
 
     <div v-if="projectId === 'pps'" class="story-body">
       <section class="story-lead">
-        <span class="story-lead-icon"><Archive class="h-5 w-5" /></span>
         <div>
           <p>{{ t("대표 개선 사례", "Highlight case") }}</p>
           <h3 v-if="isEn">Long downloads became<br />trackable jobs</h3>
@@ -23,13 +22,13 @@
           <strong>{{ t("긴 동기 요청", "Long sync request") }}</strong>
           <p>{{ t("진행·실패 여부를 알기 어려움", "Progress and failures invisible") }}</p>
         </article>
-        <ArrowRight class="journey-arrow h-4 w-4" />
+        <span class="journey-arrow" aria-hidden="true">→</span>
         <article class="journey-step is-decision">
           <span>{{ t("판단", "Decision") }}</span>
           <strong>{{ t("작업 ID 분리", "Job-ID separation") }}</strong>
           <p>{{ t("요청과 압축 실행을 분리", "Request split from compression") }}</p>
         </article>
-        <ArrowRight class="journey-arrow h-4 w-4" />
+        <span class="journey-arrow" aria-hidden="true">→</span>
         <article class="journey-step is-result">
           <span>{{ t("결과", "Result") }}</span>
           <strong>{{ t("상태 추적", "Status tracking") }}</strong>
@@ -58,7 +57,6 @@
 
     <div v-else-if="projectId === 'tsms'" class="story-body">
       <section class="story-lead">
-        <span class="story-lead-icon"><Network class="h-5 w-5" /></span>
         <div>
           <p>{{ t("대표 업무 흐름", "Highlight workflows") }}</p>
           <h3 v-if="isEn">Scattered operations became<br />verifiable histories</h3>
@@ -69,7 +67,6 @@
       <div class="operation-cases">
         <article class="operation-case">
           <div class="operation-title">
-            <span><ScanSearch class="h-4 w-4" /></span>
             <div><small>{{ t("사례 1", "Case 1") }}</small><strong>{{ t("중고거래 모니터링", "Used-market monitoring") }}</strong></div>
           </div>
           <p>{{ t("외부 사이트에 직접 요청하지 않고 담당자가 확인한 URL 문자열만 분석합니다.", "Only staff-verified URL strings are analyzed — no direct requests to external sites.") }}</p>
@@ -78,7 +75,6 @@
 
         <article class="operation-case">
           <div class="operation-title">
-            <span><ClipboardCheck class="h-4 w-4" /></span>
             <div><small>{{ t("사례 2", "Case 2") }}</small><strong>{{ t("학교 방문 점검", "On-site school inspections") }}</strong></div>
           </div>
           <p>{{ t("종이 점검을 일정, 대상, 미점검 사유, 재점검 회차까지 시스템에서 처리하게 바꿨습니다.", "Paper inspections became a connected flow: schedules, targets, missed reasons, and re-inspection rounds.") }}</p>
@@ -87,15 +83,14 @@
       </div>
 
       <div class="story-scope">
-        <span><QrCode class="h-4 w-4" /> {{ t("QR 발급", "QR issuance") }}</span>
-        <span><MessageSquareText class="h-4 w-4" /> {{ t("안내 메시지", "Notifications") }}</span>
-        <span><ServerCog class="h-4 w-4" /> {{ t("공통 연계", "Shared integrations") }}</span>
+        <span>{{ t("QR 발급", "QR issuance") }}</span>
+        <span>{{ t("안내 메시지", "Notifications") }}</span>
+        <span>{{ t("공통 연계", "Shared integrations") }}</span>
       </div>
     </div>
 
     <div v-else class="story-body reachrich-story">
       <section class="story-lead">
-        <span class="story-lead-icon"><Workflow class="h-5 w-5" /></span>
         <div>
           <p>{{ t("2026.08 새 저장소 재설계", "Redesigned in a new repo, Aug 2026") }}</p>
           <h3 v-if="isEn">Account and market data<br />wired to validation & operations</h3>
@@ -105,25 +100,21 @@
 
       <div class="reachrich-pipeline" :aria-label="t('ReachRich 데이터와 운영 흐름', 'ReachRich data and operations flow')">
         <article>
-          <span><WalletCards class="h-4 w-4" /></span>
           <small>{{ t("수집", "Collect") }}</small>
           <strong>{{ t("토스·KRX", "Toss · KRX") }}</strong>
         </article>
-        <ArrowRight class="reachrich-arrow h-4 w-4" />
+        <span class="reachrich-arrow" aria-hidden="true">→</span>
         <article>
-          <span><Database class="h-4 w-4" /></span>
           <small>{{ t("저장", "Mirror") }}</small>
           <strong>SQLite·Parquet</strong>
         </article>
-        <ArrowRight class="reachrich-arrow h-4 w-4" />
+        <span class="reachrich-arrow" aria-hidden="true">→</span>
         <article>
-          <span><ShieldCheck class="h-4 w-4" /></span>
           <small>{{ t("검증", "Validate") }}</small>
           <strong>{{ t("검증·모의운용", "Validation · paper trading") }}</strong>
         </article>
-        <ArrowRight class="reachrich-arrow h-4 w-4" />
+        <span class="reachrich-arrow" aria-hidden="true">→</span>
         <article>
-          <span><Monitor class="h-4 w-4" /></span>
           <small>{{ t("모니터링", "Observe") }}</small>
           <strong>{{ t("React 콘솔", "React console") }}</strong>
         </article>
@@ -152,22 +143,6 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import {
-  Archive,
-  ArrowRight,
-  ClipboardCheck,
-  Database,
-  MessageSquareText,
-  Monitor,
-  Network,
-  QrCode,
-  ScanSearch,
-  ServerCog,
-  ShieldCheck,
-  WalletCards,
-  Workflow,
-} from "@lucide/vue";
-
 import { isEn, t } from "@/i18n/locale";
 
 const props = withDefaults(defineProps<{ projectId: string; compact?: boolean }>(), { compact: false });
@@ -198,7 +173,7 @@ const storyNote = computed(() =>
 
 .case-story--reachrich {
   border-color: rgba(109, 163, 255, 0.24);
-  background: linear-gradient(145deg, #111725, #0d111b 72%);
+  background: #151515;
   color: #f0ede6;
 }
 
@@ -209,7 +184,7 @@ const storyNote = computed(() =>
 
 .case-story--reachrich .story-kicker,
 .case-story--reachrich .story-lead p {
-  color: #7eb5ff;
+  color: #ff8f75;
 }
 
 .case-story--reachrich .story-note {
@@ -225,21 +200,18 @@ const storyNote = computed(() =>
   gap: 1rem;
   min-height: 3.4rem;
   padding: 0.78rem 1rem;
-  border-bottom: 1px solid rgba(49, 130, 246, 0.1);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.1);
   background: rgba(255, 255, 255, 0.62);
 }
 
 .story-header > div { display: flex; align-items: baseline; gap: 0.55rem; }
-.story-kicker { margin: 0; color: var(--fresh-blue-strong); font-size: 0.58rem; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; }
+.story-kicker { margin: 0; color: var(--fresh-accent-strong); font-size: 0.58rem; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; }
 .story-header strong { font-size: 0.8rem; font-weight: 950; letter-spacing: 0.02em; }
-.story-note { border: 1px solid rgba(49, 130, 246, 0.1); border-radius: 999px; background: rgba(255, 255, 255, 0.84); padding: 0.3rem 0.58rem; color: var(--text-muted); font-size: 0.56rem; font-weight: 800; white-space: nowrap; }
+.story-note { border: 1px solid rgba(17, 17, 17, 0.1); border-radius: 999px; background: rgba(255, 255, 255, 0.84); padding: 0.3rem 0.58rem; color: var(--text-muted); font-size: 0.56rem; font-weight: 800; white-space: nowrap; }
 
 .story-body { display: grid; gap: 0.9rem; padding: 1rem; }
 .story-lead { display: flex; align-items: center; gap: 0.75rem; }
-.story-lead-icon { display: grid; width: 2.65rem; height: 2.65rem; flex: 0 0 auto; place-items: center; border-radius: 0.5rem; background: var(--fresh-blue-strong); color: white; }
-.case-story--tsms .story-lead-icon { background: var(--fresh-blue-strong); }
-.case-story--reachrich .story-lead-icon { background: var(--fresh-blue-strong); }
-.story-lead p { margin: 0 0 0.18rem; color: var(--fresh-blue-strong); font-size: 0.58rem; font-weight: 900; letter-spacing: 0.08em; }
+.story-lead p { margin: 0 0 0.18rem; color: var(--fresh-accent-strong); font-size: 0.58rem; font-weight: 900; letter-spacing: 0.08em; }
 .story-lead h3 { margin: 0; font-size: clamp(0.86rem, 2.2vw, 1.03rem); font-weight: 950; line-height: 1.34; letter-spacing: -0.02em; }
 
 .story-journey {
@@ -248,37 +220,36 @@ const storyNote = computed(() =>
   align-items: stretch;
   gap: 0.35rem;
 }
-.journey-step { min-width: 0; border: 1px solid rgba(49, 130, 246, 0.1); border-radius: 0.5rem; background: rgba(255, 255, 255, 0.82); padding: 0.65rem; }
+.journey-step { min-width: 0; border: 1px solid rgba(17, 17, 17, 0.1); border-radius: 0.5rem; background: rgba(255, 255, 255, 0.82); padding: 0.65rem; }
 .journey-step > span { display: block; margin-bottom: 0.25rem; color: var(--text-muted); font-size: 0.48rem; font-weight: 800; }
 .journey-step strong { display: block; font-size: 0.66rem; font-weight: 950; line-height: 1.35; }
 .journey-step p { margin: 0.28rem 0 0; color: var(--text-muted); font-size: 0.52rem; font-weight: 700; line-height: 1.45; }
 .journey-step.is-problem { border-color: rgba(239, 112, 96, 0.14); background: rgba(255, 248, 247, 0.88); }
-.journey-step.is-decision { border-color: rgba(49, 130, 246, 0.16); background: rgba(246, 250, 255, 0.92); }
+.journey-step.is-decision { border-color: rgba(17, 17, 17, 0.16); background: #ffffff; }
 .journey-step.is-result { border-color: rgba(36, 192, 111, 0.16); background: rgba(246, 253, 249, 0.92); }
 .journey-step.is-problem > span { color: #d25d50; }
-.journey-step.is-decision > span { color: var(--fresh-blue-strong); }
+.journey-step.is-decision > span { color: var(--fresh-accent-strong); }
 .journey-step.is-result > span { color: #13895a; }
-.journey-arrow { align-self: center; color: rgba(49, 130, 246, 0.35); }
+.journey-arrow { align-self: center; color: rgba(17, 17, 17, 0.35); }
 
 .story-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
-.story-facts article { min-width: 0; border-top: 1px solid rgba(49, 130, 246, 0.1); padding: 0.65rem 0.25rem 0.1rem; }
+.story-facts article { min-width: 0; border-top: 1px solid rgba(17, 17, 17, 0.1); padding: 0.65rem 0.25rem 0.1rem; }
 .story-facts span { display: block; color: var(--text-muted); font-size: 0.5rem; font-weight: 850; }
-.story-facts strong { display: block; margin-top: 0.16rem; color: var(--fresh-blue-strong); font-size: 0.72rem; font-weight: 950; }
+.story-facts strong { display: block; margin-top: 0.16rem; color: var(--fresh-accent-strong); font-size: 0.72rem; font-weight: 950; }
 .story-facts p { margin: 0.13rem 0 0; color: var(--text-muted); font-size: 0.48rem; font-weight: 700; line-height: 1.35; }
 
 .operation-cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; }
-.operation-case { min-width: 0; border: 1px solid rgba(49, 130, 246, 0.1); border-radius: 0.5rem; background: rgba(255, 255, 255, 0.84); padding: 0.75rem; }
+.operation-case { min-width: 0; border: 1px solid rgba(17, 17, 17, 0.1); border-radius: 0.5rem; background: rgba(255, 255, 255, 0.84); padding: 0.75rem; }
 .operation-title { display: flex; align-items: center; gap: 0.55rem; }
-.operation-title > span { display: grid; width: 2rem; height: 2rem; flex: 0 0 auto; place-items: center; border-radius: 0.375rem; background: var(--fresh-blue-soft); color: var(--fresh-blue-strong); }
 .operation-title div { display: grid; gap: 0.08rem; min-width: 0; }
 .operation-title small { color: var(--text-muted); font-size: 0.46rem; font-weight: 800; }
 .operation-title strong { font-size: 0.63rem; font-weight: 950; white-space: nowrap; }
 .operation-case > p { min-height: 2.5rem; margin: 0.55rem 0 0; color: var(--text-muted); font-size: 0.52rem; font-weight: 700; line-height: 1.5; }
 .operation-flow { display: flex; align-items: center; gap: 0.25rem; margin-top: 0.6rem; }
-.operation-flow span { flex: 0 1 auto; border-radius: 999px; background: rgba(49, 130, 246, 0.07); padding: 0.26rem 0.38rem; color: var(--text-secondary); font-size: 0.44rem; font-weight: 900; white-space: nowrap; }
-.operation-flow i { height: 1px; min-width: 0.28rem; flex: 1 1 auto; background: rgba(49, 130, 246, 0.24); }
+.operation-flow span { flex: 0 1 auto; border-radius: 999px; background: rgba(17, 17, 17, 0.07); padding: 0.26rem 0.38rem; color: var(--text-secondary); font-size: 0.44rem; font-weight: 900; white-space: nowrap; }
+.operation-flow i { height: 1px; min-width: 0.28rem; flex: 1 1 auto; background: rgba(17, 17, 17, 0.24); }
 
-.story-scope { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.42rem; border-top: 1px solid rgba(49, 130, 246, 0.1); padding-top: 0.72rem; }
+.story-scope { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.42rem; border-top: 1px solid rgba(17, 17, 17, 0.1); padding-top: 0.72rem; }
 .story-scope span { display: inline-flex; align-items: center; gap: 0.28rem; border-radius: 999px; background: rgba(255, 255, 255, 0.85); padding: 0.34rem 0.55rem; color: var(--text-secondary); font-size: 0.5rem; font-weight: 850; }
 
 .reachrich-pipeline {
@@ -307,7 +278,7 @@ const storyNote = computed(() =>
   place-items: center;
   border-radius: 0.375rem;
   background: rgba(70, 147, 252, 0.13);
-  color: #7eb5ff;
+  color: #ff8f75;
 }
 
 .reachrich-pipeline small { color: #8a94a6; font-size: 0.46rem; font-weight: 800; }
@@ -328,7 +299,6 @@ const storyNote = computed(() =>
 .case-story.is-compact .story-lead { display: none; }
 .case-story.is-compact .reachrich-pipeline { gap: 0.2rem; }
 .case-story.is-compact .reachrich-pipeline article { justify-items: center; gap: 0.1rem; padding: 0.35rem 0.18rem; text-align: center; }
-.case-story.is-compact .reachrich-pipeline article > span { width: 1.4rem; height: 1.4rem; margin: 0; }
 .case-story.is-compact .reachrich-pipeline small { display: none; }
 .case-story.is-compact .reachrich-pipeline strong { font-size: 0.43rem; }
 .case-story.is-compact .reachrich-arrow { width: 0.58rem; }

@@ -14,9 +14,8 @@
             <span
               v-for="item in group.items"
               :key="item"
-              class="tech-chip text-secondary inline-flex items-center gap-2 rounded-full border border-[var(--fresh-border)] px-3 py-1.5 text-sm font-semibold"
+              class="tech-chip text-secondary rounded-full border border-[var(--fresh-border)] px-3 py-1.5 text-sm font-semibold"
             >
-              <TechIcon :name="item" />
               {{ item }}
             </span>
           </dd>
@@ -27,7 +26,6 @@
 </template>
 
 <script setup lang="ts">
-import TechIcon from "@/components/TechIcon.vue";
 import { techGroups } from "@/data/portfolio";
 import { t } from "@/i18n/locale";
 </script>

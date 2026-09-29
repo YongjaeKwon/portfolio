@@ -8,28 +8,28 @@
         @click="moveToSection('hero')"
       >
         <span
-          class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-[#d7e9ff] bg-white/80 shadow-[0_8px_24px_rgba(49,130,246,0.12)] transition-transform duration-200 group-hover:-translate-y-0.5"
+          class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[var(--fresh-border)] bg-white transition-transform duration-200 group-hover:-translate-y-0.5"
           aria-hidden="true"
         >
           <img src="/brand/yongjae-mark.svg" alt="" width="30" height="30" />
         </span>
         <span>
-          <span class="text-primary block text-sm font-bold leading-none">{{ profile.name }}</span>
+          <span class="text-primary block text-base font-black leading-none tracking-[-0.02em]">{{ profile.name }}</span>
           <span class="text-muted font-display mt-1 hidden text-xs sm:block">Web Developer</span>
         </span>
       </button>
 
       <div class="flex items-center gap-2">
-        <nav class="nav-panel fresh-card hidden items-center gap-1 rounded-full p-1 md:flex" :aria-label="t('주요 섹션', 'Main sections')">
+        <nav class="hidden items-center gap-1 md:flex" :aria-label="t('주요 섹션', 'Main sections')">
           <button
             v-for="item in navItems"
             :key="item.id"
             type="button"
             :class="[
-              'focus-ring font-display rounded-full px-3 py-2 text-sm font-medium transition',
+              'focus-ring font-display px-3 py-2 text-sm font-semibold transition',
               activeSection === item.id
                 ? 'nav-active'
-                : 'text-muted hover:bg-black/5 hover:text-[var(--accent-strong)]',
+                : 'text-muted hover:text-[var(--text-primary)]',
             ]"
             @click="moveToSection(item.id)"
           >
@@ -64,7 +64,7 @@
       <nav
         v-if="isMenuOpen"
         id="mobile-navigation"
-        class="surface fresh-card mx-auto mt-3 grid max-w-6xl gap-1 rounded-3xl p-2 md:hidden"
+        class="surface fresh-card mx-auto mt-3 grid max-w-6xl gap-1 rounded-lg p-2 md:hidden"
         :aria-label="t('모바일 주요 섹션', 'Main sections (mobile)')"
       >
         <button

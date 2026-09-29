@@ -3,7 +3,7 @@
     <div class="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div class="flex items-center gap-2.5">
         <span
-          class="grid h-8 w-8 shrink-0 place-items-center rounded-xl border border-[#d7e9ff] bg-white/80"
+          class="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[var(--fresh-border)] bg-white"
           aria-hidden="true"
         >
           <img src="/brand/yongjae-mark.svg" alt="" width="22" height="22" />

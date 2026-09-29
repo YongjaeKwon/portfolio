@@ -1,23 +1,23 @@
 <template>
-  <section id="projects" class="pb-24 pt-8 md:pb-28 md:pt-10">
+  <section id="projects" class="fresh-stage pb-24 pt-8 md:pb-28 md:pt-10">
     <div class="section-shell">
       <div class="reveal mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <h2 class="section-title">{{ t("개인 · 팀 프로젝트", "Personal & Team Projects") }}</h2>
+          <h2 class="section-title">{{ t("개인 · 팀 프로젝트", "Personal & Team Projects") }}<span class="text-[var(--fresh-accent)]">.</span></h2>
           <p class="section-copy">{{ activeTrackData.projectIntro }}</p>
         </div>
       </div>
 
       <div v-if="projectItems.length" class="reveal">
-        <div :class="['grid gap-5', projectItems.length === 1 ? 'max-w-2xl' : 'md:grid-cols-2']">
+        <div :class="['grid gap-x-12 gap-y-16', projectItems.length === 1 ? 'max-w-2xl' : 'md:grid-cols-2']">
           <article
             v-for="item in projectItems"
             :key="item.project.id"
-            class="project-compact-card interactive-surface group flex h-full flex-col overflow-hidden rounded-lg p-5"
+            class="project-compact-card group flex h-full flex-col"
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex flex-wrap items-center gap-2">
-                <span class="text-secondary rounded-full border border-[var(--fresh-border)] bg-white/70 px-3 py-1.5 text-xs font-bold">
+                <span class="text-secondary rounded-full border border-[var(--fresh-border)] px-3 py-1.5 text-xs font-bold">
                   {{ item.project.category }}
                 </span>
                 <span
@@ -30,10 +30,10 @@
               <span class="text-muted font-mono tnum text-xs">{{ item.project.period }}</span>
             </div>
 
-            <div v-if="item.project.id === 'reachrich'" class="project-thumb mt-5 h-40 overflow-hidden rounded-lg p-2">
+            <div v-if="item.project.id === 'reachrich'" class="project-thumb mt-5 aspect-video overflow-hidden rounded-lg p-2">
               <ProjectCaseVisual :project-id="item.project.id" compact />
             </div>
-            <div v-else-if="item.project.image" class="project-thumb mt-5 flex h-40 items-center justify-center overflow-hidden rounded-lg p-3">
+            <div v-else-if="item.project.image" class="project-thumb mt-5 flex aspect-video items-center justify-center overflow-hidden rounded-lg">
               <img
                 :src="item.project.image.previewSrc ?? item.project.image.src"
                 :alt="item.project.image.alt"
@@ -41,11 +41,11 @@
                 :height="item.project.image.previewHeight ?? item.project.image.height"
                 loading="lazy"
                 decoding="async"
-                class="h-full w-full object-contain"
+                class="h-full w-full object-cover object-top"
               />
             </div>
 
-            <h3 class="text-primary mt-5 text-xl font-black leading-7">{{ item.project.shortTitle }}</h3>
+            <h3 class="text-primary mt-7 text-2xl font-black leading-8 tracking-[-0.03em] md:text-[1.75rem]">{{ item.project.shortTitle }}</h3>
             <p class="text-secondary mt-3 text-sm font-semibold leading-6">{{ item.card.summary }}</p>
             <p class="text-muted mt-3 text-sm leading-6">{{ item.card.description[0] }}</p>
             <p
@@ -59,7 +59,7 @@
               <span
                 v-for="stack in item.project.stack.slice(0, 4)"
                 :key="stack"
-                class="tech-chip rounded-full border border-[var(--fresh-border)] bg-white/70 px-2.5 py-1 text-xs font-bold text-secondary"
+                class="tech-chip rounded-full border border-[var(--fresh-border)] px-2.5 py-1 text-xs font-bold text-secondary"
               >
                 {{ stack }}
               </span>
@@ -73,17 +73,16 @@
                 :aria-label="t(`${item.project.title} 전체 흐름 직접 체험`, `Try the full ${item.project.title} flow`)"
                 @click="openInlineDemo(item)"
               >
-                <Play class="h-4 w-4" />
                 {{ t("직접 체험하기", "Try it yourself") }}
               </button>
               <button
                 type="button"
-                class="focus-ring inline-flex items-center gap-1.5 rounded-full px-2 py-2 text-sm font-black text-[var(--fresh-blue-strong)] transition hover:gap-2.5"
+                class="focus-ring inline-flex items-center gap-1.5 rounded-full px-2 py-2 text-sm font-black text-[var(--fresh-accent-strong)] transition hover:gap-2.5"
                 :aria-label="t(`${item.project.title} 개발 과정 상세 보기`, `View the ${item.project.title} development story`)"
                 @click="openDetail(item)"
               >
                 {{ t("개발 과정 보기", "Development story") }}
-                <ArrowRight class="h-4 w-4" />
+                <span aria-hidden="true">→</span>
               </button>
             </div>
           </article>
@@ -92,7 +91,7 @@
         <section
           v-if="inlineDemoProject"
           ref="inlineDemoRef"
-          class="guided-demo-shell mt-10 scroll-mt-28 rounded-lg p-5 md:p-7"
+          class="guided-demo-shell fresh-paper mt-14 scroll-mt-28 rounded-lg p-5 md:p-7"
           aria-labelledby="guided-demo-title"
         >
           <div class="relative mb-5 pr-14">
@@ -135,7 +134,7 @@
 
 <script setup lang="ts">
 import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, ref, watch } from "vue";
-import { ArrowRight, Play, X } from "@lucide/vue";
+import { X } from "@lucide/vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import ProjectDetailModal from "@/components/ProjectDetailModal.vue";
 import { featuredProjects, focusTracks } from "@/data/portfolio";
@@ -246,19 +245,22 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.project-compact-card {
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.96);
+.project-thumb {
+  background: var(--fresh-stage-raised);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  transform: rotate(-1.5deg);
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.project-thumb {
-  border: 1px solid rgba(49, 130, 246, 0.08);
-  background: linear-gradient(145deg, rgba(49, 130, 246, 0.065), rgba(255, 255, 255, 0.72));
+.project-compact-card:nth-child(even) .project-thumb {
+  transform: rotate(1.5deg);
+}
+
+.project-compact-card:hover .project-thumb {
+  transform: rotate(0deg);
 }
 
 .guided-demo-shell {
-  border: 1px solid rgba(49, 130, 246, 0.16);
-  background:
-    rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--fresh-border);
 }
 </style>

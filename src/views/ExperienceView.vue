@@ -12,7 +12,6 @@
         <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
           <div>
             <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-              <BriefcaseBusiness class="text-muted h-5 w-5" aria-hidden="true" />
               <span class="font-mono tnum text-muted text-sm font-semibold">{{ experience.period }}</span>
             </div>
             <h3 class="text-primary mt-3 text-2xl font-black">{{ experience.title }}</h3>
@@ -22,7 +21,6 @@
 
           <ul class="career-responsibilities grid gap-2 sm:grid-cols-3 lg:max-w-md lg:grid-cols-1" :aria-label="t('담당 업무 요약', 'Responsibilities summary')">
             <li v-for="item in experience.responsibilities" :key="item">
-              <CheckCircle2 class="text-muted h-4 w-4 shrink-0" aria-hidden="true" />
               <span>{{ item }}</span>
             </li>
           </ul>
@@ -41,7 +39,7 @@
           <article
             v-for="(item, index) in workProjects"
             :key="item.project.id"
-            class="case-study-card interactive-surface group overflow-hidden rounded-lg p-5 md:p-7"
+            class="case-study-card group overflow-hidden p-5 md:p-7"
           >
             <div :class="['grid items-stretch gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:gap-8', index % 2 === 1 ? 'case-layout-reverse' : '']">
               <div class="case-visual relative flex min-h-64 items-center justify-center">
@@ -60,7 +58,7 @@
                   <p class="text-secondary font-mono tnum text-xs font-semibold">{{ item.project.period }}</p>
                 </div>
 
-                <h3 class="text-primary mt-4 text-2xl font-black leading-9 md:text-3xl">{{ item.project.title }}</h3>
+                <h3 class="text-primary mt-4 text-3xl font-black leading-tight tracking-[-0.04em] md:text-[2.5rem]">{{ item.project.title }}</h3>
                 <p class="text-secondary mt-3 text-base font-semibold leading-7">{{ item.card.summary }}</p>
 
                 <div class="mt-4 grid gap-2">
@@ -106,7 +104,7 @@
                     @click="openDetail(item)"
                   >
                     {{ t("개발 과정 보기", "Development story") }}
-                    <ArrowRight class="h-4 w-4" />
+                    <span aria-hidden="true">→</span>
                   </button>
                 </div>
               </div>
@@ -122,7 +120,6 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { ArrowRight, BriefcaseBusiness, CheckCircle2 } from "@lucide/vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import ProjectDetailModal from "@/components/ProjectDetailModal.vue";
 import { useFocusTrack } from "@/composables/useFocusTrack";
@@ -158,9 +155,9 @@ watch(activeTrack, closeDetail);
 
 <style scoped>
 .career-context {
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  background:
-    rgba(255, 255, 255, 0.96);
+  border-top: 2px solid var(--fresh-rule);
+  border-radius: 0;
+  padding-inline: 0;
 }
 
 .career-responsibilities li {
@@ -169,9 +166,9 @@ watch(activeTrack, closeDetail);
   gap: 0.65rem;
   min-height: 2.75rem;
   padding: 0.7rem 0.85rem;
-  border: 1px solid rgba(49, 130, 246, 0.1);
+  border: 1px solid rgba(17, 17, 17, 0.1);
   border-radius: 0.5rem;
-  background: rgba(248, 251, 255, 0.84);
+  background: #ffffff;
   color: var(--text-secondary);
   font-size: 0.78rem;
   font-weight: 750;
@@ -179,8 +176,9 @@ watch(activeTrack, closeDetail);
 }
 
 .case-study-card {
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  background: rgba(255, 255, 255, 0.96);
+  border-top: 2px solid var(--fresh-rule);
+  border-radius: 0;
+  padding-inline: 0;
 }
 
 @media (min-width: 64rem) {
@@ -194,7 +192,7 @@ watch(activeTrack, closeDetail);
 }
 
 .case-step-label {
-  color: var(--text-primary);
+  color: var(--fresh-accent-strong);
   font-size: 0.6875rem;
   font-weight: 900;
 }

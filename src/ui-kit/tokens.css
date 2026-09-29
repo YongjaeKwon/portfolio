@@ -1,27 +1,37 @@
 :root {
-  --fresh-bg: #f7f9fc;
-  --fresh-bg-soft: #eef5ff;
+  /* 포스터 방향(2026-09): 종이 바탕 + 먹색 + 주홍 강조 하나 */
+  --fresh-bg: #f6f5f1;
+  --fresh-bg-soft: #eeece6;
   --fresh-surface: rgba(255, 255, 255, 0.86);
   --fresh-surface-solid: #ffffff;
-  --fresh-ink: #121722;
-  --fresh-ink-soft: #3d4758;
-  --fresh-muted: #5f6b7c;
-  --fresh-border: rgba(15, 23, 42, 0.08);
+  --fresh-ink: #111111;
+  --fresh-ink-soft: #3d3d3d;
+  --fresh-muted: #5f5e59;
+  --fresh-border: rgba(17, 17, 17, 0.12);
+  --fresh-rule: #111111;
+  --fresh-accent: #e5482b;
+  --fresh-accent-strong: #c2361c;
+  --fresh-accent-soft: #fbe6e0;
+  --fresh-green: #2f8a4f;
+  /* 어두운 무대(프로젝트 섹션) */
+  --fresh-stage: #111111;
+  --fresh-stage-raised: #1e1e1e;
+  --fresh-stage-ink: #f6f5f1;
+  --fresh-stage-muted: #b5b3ab;
+  /* 가져온 서비스 데모 화면(components/demos) 전용 — 사이트 화면에는 쓰지 않는다 */
   --fresh-blue: #3182f6;
   --fresh-blue-strong: #1b64da;
   --fresh-blue-soft: #e8f3ff;
   --fresh-cyan: #53c7f5;
   --fresh-purple: #7c5cff;
   --fresh-pink: #ff5da8;
-  --fresh-green: #24c06f;
   --fresh-orange: #ff9f2f;
+  --fresh-gradient-blue: linear-gradient(135deg, #1b64da 0%, #0a78b8 100%);
   --fresh-radius-sm: 6px;
   --fresh-radius-md: 8px;
   --fresh-radius-lg: 8px;
   --fresh-radius-xl: 8px;
-  --fresh-shadow-sm: 0 8px 24px rgba(31, 45, 61, 0.06);
-  --fresh-shadow-md: 0 18px 48px rgba(31, 45, 61, 0.11);
-  --fresh-shadow-lg: 0 32px 90px rgba(31, 45, 61, 0.16);
-  --fresh-gradient-blue: linear-gradient(135deg, #1b64da 0%, #0a78b8 100%);
+  --fresh-shadow-sm: 0 8px 24px rgba(17, 17, 17, 0.06);
+  --fresh-shadow-md: 0 18px 48px rgba(17, 17, 17, 0.12);
+  --fresh-shadow-lg: 0 32px 70px rgba(17, 17, 17, 0.22);
 }
-
