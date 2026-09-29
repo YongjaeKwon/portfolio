@@ -3,7 +3,7 @@
     <button
       v-if="visible"
       type="button"
-      class="focus-ring nav-panel text-primary fixed bottom-6 right-6 z-40 inline-flex h-11 w-11 items-center justify-center rounded-full transition hover:-translate-y-0.5 hover:text-[var(--accent-strong)]"
+      class="focus-ring nav-panel text-primary fixed bottom-6 right-6 z-40 inline-flex h-11 w-11 items-center justify-center rounded-full transition-[transform,color] duration-150 ease-out hover:-translate-y-0.5 hover:text-[var(--accent-strong)] active:scale-95"
       :aria-label="t('맨 위로 이동', 'Back to top')"
       @click="scrollToTop"
     >
@@ -20,7 +20,8 @@ import { t } from "@/i18n/locale";
 const { isPastThreshold: visible } = useScrollMetrics();
 
 const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
   history.replaceState(null, "", location.pathname);
 };
 </script>

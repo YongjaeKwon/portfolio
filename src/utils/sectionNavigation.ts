@@ -47,7 +47,8 @@ export const createSectionNavigator = (
 
     layoutFrameId = requestFrame(() => {
       layoutFrameId = null;
-      target.scrollIntoView({ behavior: behavior as ScrollBehavior });
+      const reduceMotion = globalThis.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: (reduceMotion ? "auto" : behavior) as ScrollBehavior });
       cleanupFrameId = requestFrame(() => {
         cleanupFrameId = null;
         clearPreparedSections();

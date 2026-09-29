@@ -16,8 +16,10 @@
   color: var(--fresh-bg);
 }
 
-.fresh-button:hover {
-  background: var(--fresh-accent-strong);
+@media (hover: hover) and (pointer: fine) {
+  .fresh-button:hover {
+    background: var(--fresh-accent-strong);
+  }
 }
 
 /* 보조 버튼: 먹색 2px 테두리 */
@@ -27,9 +29,11 @@
   color: var(--fresh-ink);
 }
 
-.fresh-button-soft:hover {
-  background: var(--fresh-ink);
-  color: var(--fresh-bg);
+@media (hover: hover) and (pointer: fine) {
+  .fresh-button-soft:hover {
+    background: var(--fresh-ink);
+    color: var(--fresh-bg);
+  }
 }
 
 .fresh-list-item {
@@ -63,9 +67,13 @@
   color: var(--fresh-ink);
 }
 
-.fresh-stage .fresh-button:hover {
-  background: var(--fresh-accent);
-  color: #ffffff;
+/* 무대 위 호버: 흰 글씨 on 주홍은 대비가 모자라서, 먹색 글씨는 두고 주홍 테두리만 두른다 */
+@media (hover: hover) and (pointer: fine) {
+  .fresh-stage .fresh-button:hover {
+    background: var(--fresh-stage-ink);
+    color: var(--fresh-ink);
+    box-shadow: inset 0 0 0 2px var(--fresh-accent);
+  }
 }
 
 /* 무대 안에 다시 밝은 판(데모 등)을 둘 때 변수를 되돌린다 */

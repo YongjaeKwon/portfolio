@@ -9,7 +9,7 @@
         :aria-labelledby="detailTitleId"
         @click.self="emit('close')"
       >
-        <div ref="modalRef" class="case-study-modal flex max-h-[88dvh] w-full max-w-4xl flex-col overflow-hidden rounded-md">
+        <div ref="modalRef" class="case-study-modal flex max-h-[88dvh] w-full max-w-4xl flex-col overflow-hidden rounded-lg">
           <div class="flex shrink-0 items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
             <div>
               <h3 :id="detailTitleId" class="font-heading text-primary text-3xl font-black tracking-[-0.04em]">{{ project.project.title }}</h3>
@@ -17,7 +17,7 @@
             </div>
             <button
               type="button"
-              class="focus-ring surface-strong text-primary inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition hover:text-[var(--accent-strong)]"
+              class="focus-ring text-primary inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--fresh-border)] bg-[var(--fresh-surface-solid)] transition hover:text-[var(--accent-strong)]"
               :aria-label="t('상세 닫기', 'Close details')"
               @click="emit('close')"
             >
@@ -25,7 +25,7 @@
             </button>
           </div>
 
-          <div class="min-h-0 flex-1 overflow-y-auto p-5 md:p-8" tabindex="0" :aria-label="t('프로젝트 상세 내용', 'Project details')">
+          <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 md:p-8" tabindex="0" :aria-label="t('프로젝트 상세 내용', 'Project details')">
             <ProjectCaseVisual
               v-if="project.project.id === 'pps' || project.project.id === 'tsms' || project.project.id === 'reachrich'"
               :project-id="project.project.id"
@@ -45,14 +45,14 @@
               <DetailBlock :title="t('프로젝트 개요', 'Overview')" :items="[project.detail.overview]" />
 
               <section v-if="roleSections.length">
-                <h4 class="text-primary mb-3 font-black">{{ t("영역별 담당 내용", "Contributions by area") }}</h4>
+                <h4 class="text-primary mb-3 text-lg font-black">{{ t("영역별 담당 내용", "Contributions by area") }}</h4>
                 <div class="grid gap-4">
                   <article
                     v-for="section in roleSections"
                     :key="section.id"
                     class="role-contribution pt-5"
                   >
-                    <h5 class="text-primary mb-4 text-lg font-black">{{ section.label }}</h5>
+                    <h5 class="text-primary mb-4 text-base font-black">{{ section.label }}</h5>
 
                     <div class="grid gap-5 md:grid-cols-2">
                       <div>
@@ -91,7 +91,7 @@
               />
 
               <section v-if="!hasDetailedCaseStudies(project.project.id) && project.detail.caseStudy">
-                <h4 class="text-primary mb-3 font-black">{{ t("문제 해결 과정", "Problem-solving process") }}</h4>
+                <h4 class="text-primary mb-3 text-lg font-black">{{ t("문제 해결 과정", "Problem-solving process") }}</h4>
                 <div class="case-process-grid grid gap-x-8 md:grid-cols-2">
                   <article class="case-process-step py-4">
                     <h5 class="case-step-label">{{ t("문제", "Problem") }}</h5>
@@ -129,7 +129,7 @@
               <DetailBlock :title="t('공개 범위', 'Disclosure')" :items="[project.detail.disclosure]" />
 
               <div v-if="project.detail.resources.length">
-                <h4 class="text-primary mb-3 font-black">{{ t("관련 자료", "Resources") }}</h4>
+                <h4 class="text-primary mb-3 text-lg font-black">{{ t("관련 자료", "Resources") }}</h4>
                 <div class="flex flex-wrap gap-2">
                   <a
                     v-for="resource in project.detail.resources"
@@ -175,8 +175,8 @@ const DetailBlock = defineComponent({
   props: { title: { type: String, required: true }, items: { type: Array as () => string[], required: true } },
   setup(blockProps) {
     return () => h("section", [
-      h("h4", { class: "text-primary mb-3 font-black" }, blockProps.title),
-      h("ul", { class: "grid gap-3" }, blockProps.items.map((item) => h("li", { class: "surface-strong text-secondary rounded-lg p-4 text-sm leading-6" }, item))),
+      h("h4", { class: "text-primary mb-3 text-lg font-black" }, blockProps.title),
+      h("ul", { class: "border-t-2 border-[var(--fresh-rule)]" }, blockProps.items.map((item) => h("li", { class: "text-secondary border-b border-[var(--fresh-border)] py-3 text-sm leading-6" }, item))),
     ]);
   },
 });
@@ -205,6 +205,7 @@ const isolatedAppRoot = ref<HTMLElement | null>(null);
 let previousAppAriaHidden: string | null = null;
 let previousAppInert = false;
 let previousBodyOverflow = "";
+let previousHtmlOverflow = "";
 const FOCUSABLE = 'a[href], button:not([disabled]), summary, [tabindex]:not([tabindex="-1"])';
 
 const isolateBackground = () => {
@@ -219,6 +220,9 @@ const isolateBackground = () => {
   appRoot.inert = true;
   appRoot.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "hidden";
+  // iOS에서 모달 끝을 넘겨 스크롤해도 뒤 페이지가 움직이지 않게 html도 잠근다
+  previousHtmlOverflow = document.documentElement.style.overflow;
+  document.documentElement.style.overflow = "hidden";
 };
 
 const restoreBackground = () => {
@@ -228,6 +232,8 @@ const restoreBackground = () => {
   if (previousAppAriaHidden === null) appRoot.removeAttribute("aria-hidden");
   else appRoot.setAttribute("aria-hidden", previousAppAriaHidden);
   document.body.style.overflow = previousBodyOverflow;
+  document.documentElement.style.overflow = previousHtmlOverflow;
+  previousHtmlOverflow = "";
   isolatedAppRoot.value = null;
   previousAppAriaHidden = null;
   previousAppInert = false;
@@ -311,16 +317,16 @@ onBeforeUnmount(() => {
 .modal-enter-from,
 .modal-leave-to { opacity: 0; }
 .modal-enter-active .case-study-modal { animation: modal-panel-in 0.26s cubic-bezier(0.16, 1, 0.3, 1); }
-.modal-leave-active .case-study-modal { animation: modal-panel-out 0.18s ease forwards; }
+.modal-leave-active .case-study-modal { animation: modal-panel-out 0.15s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
 @keyframes modal-panel-in {
   from { opacity: 0; transform: scale(0.95) translateY(10px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
 @keyframes modal-panel-out {
   from { opacity: 1; transform: scale(1) translateY(0); }
-  to { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 0; transform: scale(0.98); }
 }
-.case-study-backdrop { background: rgb(var(--page-bg-rgb) / 0.46); }
+.case-study-backdrop { background: rgb(var(--page-bg-rgb) / 0.82); }
 .case-study-modal {
   border: 2px solid var(--fresh-rule);
   background: var(--fresh-bg);

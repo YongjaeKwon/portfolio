@@ -40,7 +40,7 @@
 
         <div
           v-if="showMailFallback || copyStatus !== 'idle'"
-          class="mt-6 rounded-lg border border-[var(--fresh-border)] bg-white/70 p-5 shadow-sm"
+          class="mt-6 border-t border-[var(--fresh-border)] pt-6"
         >
           <p class="text-primary text-sm font-black">{{ t("메일 앱이 열리지 않나요?", "Mail app didn't open?") }}</p>
           <p class="text-secondary mt-2 text-sm leading-6">
