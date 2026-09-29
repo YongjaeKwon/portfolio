@@ -27,7 +27,7 @@
 
           <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 md:p-8" tabindex="0" :aria-label="t('프로젝트 상세 내용', 'Project details')">
             <ProjectCaseVisual
-              v-if="project.project.id === 'pps' || project.project.id === 'tsms' || project.project.id === 'reachrich'"
+              v-if="!project.project.image"
               :project-id="project.project.id"
               class="mb-8"
             />

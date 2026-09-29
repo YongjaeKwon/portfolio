@@ -137,7 +137,7 @@ import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, ref, watch }
 import { X } from "@lucide/vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import ProjectDetailModal from "@/components/ProjectDetailModal.vue";
-import { featuredProjects, focusTracks } from "@/data/portfolio";
+import { featuredProjects } from "@/data/portfolio";
 import { useFocusTrack } from "@/composables/useFocusTrack";
 import { t } from "@/i18n/locale";
 import { presentProject, type PresentedProject } from "@/utils/projectPresentation";
@@ -147,10 +147,7 @@ const interactiveDemoProjectIds = new Set(["ticketrush", "ssafast", "ddoing", "m
 const personalProjectIds = new Set(["ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"]);
 const hasInteractiveDemo = (projectId: string) => interactiveDemoProjectIds.has(projectId);
 
-const { activeTrack } = useFocusTrack();
-const activeTrackData = computed(
-  () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0],
-);
+const { activeTrack, activeTrackData } = useFocusTrack();
 const projectItems = computed(() => {
   const order = activeTrackData.value.projectOrder;
   return featuredProjects

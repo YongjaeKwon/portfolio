@@ -77,9 +77,7 @@ import { useActiveResume } from "@/composables/useActiveResume";
 import { t } from "@/i18n/locale";
 import {
   createGmailComposeUrl,
-  createMailtoUrl,
   MAIL_FALLBACK_DELAY_MS,
-  shouldShowMailFallback,
 } from "@/utils/contactEmail";
 
 const { resumeHref, resumeFileName } = useActiveResume();
@@ -145,11 +143,11 @@ function attemptEmailContact() {
   window.addEventListener("pagehide", markMailOpened, { once: true });
   document.addEventListener("visibilitychange", handleVisibilityChange);
 
-  window.location.href = createMailtoUrl(profile.email);
+  window.location.href = `mailto:${profile.email}`;
 
   fallbackTimer = window.setTimeout(() => {
     removeMailWatchers();
-    if (shouldShowMailFallback(mailOpenedExternally.value)) {
+    if (!mailOpenedExternally.value) {
       showMailFallback.value = true;
     }
   }, MAIL_FALLBACK_DELAY_MS);

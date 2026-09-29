@@ -123,15 +123,12 @@ import { computed, ref, watch } from "vue";
 import ProjectCaseVisual from "@/components/ProjectCaseVisual.vue";
 import ProjectDetailModal from "@/components/ProjectDetailModal.vue";
 import { useFocusTrack } from "@/composables/useFocusTrack";
-import { experience, featuredProjects, focusTracks } from "@/data/portfolio";
+import { experience, featuredProjects } from "@/data/portfolio";
 import { t } from "@/i18n/locale";
 import { presentProject, type PresentedProject } from "@/utils/projectPresentation";
 
 const workProjectIds = new Set(["pps", "tsms"]);
-const { activeTrack } = useFocusTrack();
-const activeTrackData = computed(
-  () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0],
-);
+const { activeTrack, activeTrackData } = useFocusTrack();
 const workProjects = computed(() => {
   const order = activeTrackData.value.projectOrder;
   return featuredProjects

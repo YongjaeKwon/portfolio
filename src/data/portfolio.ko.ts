@@ -749,4 +749,3 @@ export const education = [
   { title: "SQLD", period: "2024.09", description: "SQL 개발자 자격 취득", icon: "Database" },
 ];
 
-export const projects = featuredProjects;
