@@ -41,21 +41,22 @@
   .live::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--green); vertical-align: 1px; }
   .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
   .lead { font-size: 19px; line-height: 1.7; color: var(--ink-soft); }
-  .stack { color: var(--muted); font-size: 14px; }
+  .stack { color: var(--muted); font-size: 15px; }
 
   /* 큰 숫자 */
   .fig { font-family: var(--mono); font-weight: 800; line-height: 1; letter-spacing: -0.06em; font-size: 64px; }
   .fig small { font-family: var(--sans); font-size: 0.4em; font-weight: 900; letter-spacing: 0; margin-left: 4px; }
-  .fig s { color: var(--muted); font-size: 0.5em; font-weight: 400; letter-spacing: 0; text-decoration-color: var(--accent); text-decoration-thickness: 3px; }
-  .fig .arrow { color: var(--accent); font-size: 0.4em; letter-spacing: 0; margin: 0 8px; }
+  .fig s { color: var(--muted); font-size: 0.5em; font-weight: 400; letter-spacing: 0; text-decoration-color: var(--accent); text-decoration-thickness: 3px; vertical-align: 0.28em; }
+  .fig .arrow { display: inline-block; color: var(--accent); font-family: var(--sans); font-size: 0.45em; font-weight: 700; letter-spacing: 0; margin: 0 10px; vertical-align: 0.42em; line-height: 1; }
   .fig.xl { font-size: 104px; }
   .cap { margin-top: 10px; font-size: 15px; font-weight: 700; line-height: 1.5; }
-  .cap-sub { margin-top: 4px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .cap-sub { margin-top: 4px; font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+  .fig .c { letter-spacing: -0.28em; }
 
   /* 행 구분 */
   .rows > * { border-top: 1px solid var(--line); padding: 12px 0; }
   .rows > *:first-child { border-top: 2px solid currentColor; }
-  .step { display: grid; grid-template-columns: 64px 1fr; gap: 16px; font-size: 15px; line-height: 1.65; }
+  .step { display: grid; grid-template-columns: 64px 1fr; gap: 16px; font-size: 16px; line-height: 1.65; }
   .step > b { font-weight: 900; }
   .step > p { color: var(--ink-soft); }
   .step.result > p { color: inherit; font-weight: 700; }
@@ -77,6 +78,11 @@
   .built > div { padding: 10px 0; }
   .built b { display: block; font-size: 16px; font-weight: 900; }
   .built p { margin-top: 3px; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+  .flow { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 700; }
+  .flow span { border: 2px solid var(--ink); padding: 6px 12px; }
+  .flow i { font-style: normal; color: var(--accent); }
+  .flow em { font-style: normal; font-weight: 400; color: var(--muted); }
+  .team img { height: 230px; aspect-ratio: auto !important; }
   .panel { background: var(--bg-soft); border-top: 2px solid var(--ink); padding: 22px 24px; }
 </style>
 </head>
@@ -91,14 +97,14 @@
       <p class="lead" style="margin-top:22px;">요구사항 정리부터 배포 후 확인까지 한 기능을 끝까지 맡아 왔습니다.</p>
     </div>
     <div>
-      <img src="../public/my-photo-224.webp" alt="" style="width:176px;height:176px;border-radius:50%;object-fit:cover;display:block;">
+      <img src="../public/my-photo-224.webp" alt="" style="width:176px;height:176px;border-radius:8px;object-fit:cover;display:block;background:var(--bg-soft);">
       <p style="margin-top:14px;font-size:15px;line-height:1.6;"><b style="font-weight:900;">웹 개발자</b><br><span style="color:var(--muted);">유한책임회사 티지나래<br><span class="mono">2024.06 ~</span> 재직 중</span></p>
     </div>
   </div>
   <div class="grid3" style="margin-top:auto;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding-bottom:22px;">
-    <div><p class="fig"><s>60s</s><span class="arrow">→</span>63~69<small>ms</small></p><p class="cap">60초 안에 끝나지 않던 조회</p><p class="cap-sub">교육용 단말 운영 시스템(TSMS)</p></div>
+    <div><p class="fig"><s>60s+</s><span class="arrow">→</span>63~69<small>ms</small></p><p class="cap">60초 안에 끝나지 않던 조회</p><p class="cap-sub">교육용 단말 운영 시스템(TSMS)</p></div>
     <div><p class="fig">300~400<small>건</small></p><p class="cap">첨부파일 압축을 진행 상태가 보이는 작업으로</p><p class="cap-sub">B2B 협력사 포털(PPS)</p></div>
-    <div><p class="fig">30<small>건 테스트</small></p><p class="cap">서버 2대에서 똑같이 걸리는 요청 제한</p><p class="cap-sub">B2B 협력사 포털(PPS)</p></div>
+    <div><p class="fig">108<span class="c">,</span>237<small>대</small></p><p class="cap">QR 발급까지 마친 교육용 단말 (전체 111,593대 중)</p><p class="cap-sub">교육용 단말 운영 시스템(TSMS)</p></div>
   </div>
 </section>
 
@@ -107,34 +113,30 @@
   <div class="top"><b>경력</b><span class="mono">02 / 11</span></div>
   <div class="grid2" style="margin-top:40px;grid-template-columns:0.9fr 1.1fr;">
     <div>
-      <p class="meta"><span class="mono">2024.06 ~ 재직 중</span></p>
+      <p class="meta"><span class="mono">2024.06 ~</span> 재직 중</p>
       <h2 style="margin-top:12px;">웹 개발자</h2>
       <p style="margin-top:6px;font-size:18px;font-weight:700;">유한책임회사 티지나래</p>
-      <p class="lead" style="margin-top:20px;font-size:17px;">B2B 협력사 포털 PPS와 교육용 단말 운영 시스템 TSMS에서 요구사항 협의, 화면·서버·DB 개발, 검수와 배포를 맡고 있습니다.</p>
+      <p class="lead" style="margin-top:20px;font-size:17px;">운영 중인 두 업무 시스템에서 요구사항 협의, 화면 · 서버 · DB 개발, 검수와 배포를 맡고 있습니다.</p>
       <ul class="rows" style="margin-top:28px;font-size:16px;font-weight:700;">
         <li>요구사항 협의</li><li>화면 · 서버 · DB 개발</li><li>검수 · 배포 · 운영 확인</li>
       </ul>
     </div>
     <div class="rows">
-      <div style="padding:20px 0;">
-        <p class="meta"><b>B2B 협력사 포털(PPS)</b><span class="mono">2025.02 ~ 현재</span><span class="live">운영 중</span></p>
-        <div style="display:flex;gap:48px;margin-top:16px;">
-          <div><p class="fig">500<small>곳</small></p><p class="cap-sub">본사와 함께 쓰는 협력사(약)</p></div>
-          <div><p class="fig">824<small>개</small></p><p class="cap-sub">교육·자격·증빙을 처리하는 CE 계정</p></div>
-        </div>
-        <p class="stack" style="margin-top:14px;">Vue · Java 21 · Spring Boot · MyBatis · MariaDB · Oracle · Hazelcast · Jenkins</p>
+      <div style="padding:22px 0;">
+        <p class="meta"><b style="font-size:20px;">B2B 협력사 포털(PPS)</b><span class="live">운영 중</span></p>
+        <p class="mono" style="margin-top:6px;font-size:15px;color:var(--ink-soft);">2025.02 ~</p>
+        <p style="margin-top:10px;font-size:16px;line-height:1.65;">본사와 협력사가 파트너 등록 · 계약과 현장 엔지니어의 교육 · 자격 · 증빙을 처리하는 포털. 초기 구축부터 운영까지 맡고 있습니다.</p>
+        <p class="stack" style="margin-top:10px;">Vue · Java 21 · Spring Boot · MyBatis · MariaDB · Oracle · Hazelcast · Jenkins</p>
       </div>
-      <div style="padding:20px 0;">
-        <p class="meta"><b>교육용 단말 운영 시스템(TSMS)</b><span class="mono">2025.09 ~ 현재</span><span class="live">운영 중</span></p>
-        <div style="display:flex;gap:48px;margin-top:16px;">
-          <div><p class="fig">11<small>만 대</small></p><p class="cap-sub">서울시교육청 디벗 사업 교육용 단말(약)</p></div>
-          <div><p class="fig">25<small>개 화면</small></p><p class="cap-sub">외부 연계를 서버 공통 경로로 옮김</p></div>
-        </div>
-        <p class="stack" style="margin-top:14px;">WebSquare · Java · Spring MVC · MyBatis · MariaDB · JSP</p>
+      <div style="padding:22px 0;">
+        <p class="meta"><b style="font-size:20px;">교육용 단말 운영 시스템(TSMS)</b><span class="live">운영 중</span></p>
+        <p class="mono" style="margin-top:6px;font-size:15px;color:var(--ink-soft);">2025.09 ~</p>
+        <p style="margin-top:10px;font-size:16px;line-height:1.65;">서울시교육청 디벗 사업의 교육용 단말 등록과 배송 · 설치 · A/S · 점검 이력을 관리하는 시스템. 유지보수와 사업별 신규 개발을 맡고 있습니다.</p>
+        <p class="stack" style="margin-top:10px;">WebSquare · Java · Spring MVC · MyBatis · MariaDB · JSP</p>
       </div>
     </div>
   </div>
-  <div class="foot"><span>실무 프로젝트는 비공개라 회사 · 고객사 정보와 실제 화면은 싣지 않았습니다.</span></div>
+  <div class="foot" style="font-family:var(--sans);font-size:14px;"><span>실무 프로젝트는 비공개라 회사 · 고객사 정보와 실제 화면은 싣지 않았습니다.</span></div>
 </section>
 
 <!-- 3. PPS 소개 -->
@@ -146,48 +148,47 @@
       <h2 style="margin-top:12px;">B2B 협력사 포털</h2>
       <p class="lead" style="margin-top:18px;">본사와 협력사가 파트너 등록과 계약, 현장 엔지니어(CE)의 교육 · 자격 · 증빙 · 평가를 처리하는 포털입니다.</p>
       <dl class="facts rows" style="margin-top:26px;">
-        <div><dt>쓰는 사람</dt><dd>본사 담당자와 협력사 약 500곳, CE 계정 824개</dd></div>
-        <div><dt>맡은 범위</dt><dd>초기 구축 참여부터 기능 개발, 검수, 배포, 운영까지</dd></div>
-        <div><dt>일하는 방식</dt><dd>운영 담당자와 요구사항을 정리하고, 사용자 검수를 거쳐 배포합니다</dd></div>
+        <div><dt>사용자</dt><dd>본사 담당자와 협력사 약 500곳, CE 계정 824개</dd></div>
+        <div><dt>역할</dt><dd>초기 구축 참여부터 기능 개발, 검수, 배포, 운영까지</dd></div>
+        <div><dt>협업 방식</dt><dd>운영 담당자와 요구사항을 정리하고 사용자 검수를 거쳐 배포합니다</dd></div>
       </dl>
     </div>
     <div>
-      <p class="label">제가 만든 것</p>
+      <p class="label">담당 기능</p>
       <div class="built rows">
         <div><b>교육 · 증빙 · 계정 관리 화면</b><p>교육 등록, 대상자 업로드, 제출 현황이 같은 기준으로 조회되도록 화면과 서버의 조회 조건을 맞췄습니다.</p></div>
-        <div><b>대량 첨부파일 다운로드</b><p>300~400건을 한 번에 받을 때 진행 상황이 보이고, 새로고침해도 이어서 받게 바꿨습니다.</p></div>
+        <div><b>대량 첨부파일 다운로드</b><p>300~400건을 한 번에 받을 때 진행 상황이 보이고 새로고침해도 이어서 받게 바꿨습니다.</p></div>
         <div><b>본사 계정 발급</b><p>부서 · 직급 확인, 아이디 중복 검사, 초기 비밀번호 발급을 서버에서 처리하고 사내 업무 시스템으로 보냅니다.</p></div>
         <div><b>배포 절차</b><p>손으로 반복하던 빌드, 서버 전송, 백업, 두 서버 순차 배포를 Jenkins 작업으로 묶었습니다.</p></div>
       </div>
     </div>
   </div>
-  <p class="stack" style="margin-top:auto;">Vue · Java 21 · Spring Boot · MyBatis · MariaDB · Oracle · Hazelcast · Jenkins</p>
+  <div class="grid3" style="margin-top:auto;border-top:2px solid var(--ink);">
+    <div><p class="fig" style="font-size:44px;">500<small>곳</small></p><p class="cap-sub">함께 쓰는 협력사(약)</p></div>
+    <div><p class="fig" style="font-size:44px;">824<small>개</small></p><p class="cap-sub">교육 · 자격 · 증빙을 처리하는 CE 계정</p></div>
+  </div>
 </section>
 
 <!-- 4. PPS 대표 사례 -->
 <section class="slide">
   <div class="top"><b>B2B 협력사 포털(PPS) · 대표 사례</b><span class="mono">04 / 11</span></div>
-  <h2 style="margin-top:32px;">오래 걸리던 다운로드를, 진행 상황이 보이는 작업으로</h2>
+  <h2 style="margin-top:32px;">오래 걸리던 다운로드를 진행 상황이 보이는 작업으로</h2>
   <div class="grid2" style="margin-top:28px;grid-template-columns:0.7fr 1.3fr;gap:48px;">
     <div>
       <p class="fig xl">300~400<small>건</small></p>
       <p class="cap">CE 증빙 첨부파일을 한 번에 내려받는 기능</p>
     </div>
     <div class="rows">
-      <div class="step"><b>불편</b><p>한 번에 압축하는 동안 화면이 오래 멈춰 있었고, 사용자는 진행 중인지 실패했는지 알 수 없었습니다.</p></div>
-      <div class="step"><b>바꾼 것</b><p>요청을 받으면 작업 번호부터 돌려주고, 압축은 따로 실행합니다. 화면은 2초마다 진행 상태를 확인하고, 새로고침해도 같은 작업을 다시 찾아 보여 줍니다.</p></div>
-      <div class="step result" style="border-top:2px solid var(--ink);"><b>지금</b><p>대량 다운로드를 이 방식으로 운영합니다. 사용자는 진행 상황과 실패 여부를 보고, 끝난 파일을 이어서 내려받습니다.</p></div>
+      <div class="step"><b>문제</b><p>한 번에 압축하는 동안 화면이 오래 멈춰 있었고 사용자는 진행 중인지 실패했는지 알 수 없었습니다.</p></div>
+      <div class="step"><b>해결</b><p>요청을 받으면 작업 번호부터 돌려주고 압축은 따로 실행합니다. 화면은 2초마다 진행 상태를 확인하고, 새로고침해도 같은 작업을 다시 찾아 보여 줍니다.</p></div>
+      <div class="step result" style="border-top:2px solid var(--ink);"><b>결과</b><p>대량 다운로드를 이 방식으로 운영합니다. 사용자는 진행 상황과 실패 여부를 보고 끝난 파일을 이어서 내려받습니다.</p></div>
     </div>
   </div>
-  <div style="margin-top:22px;display:flex;gap:12px;align-items:center;font-weight:700;font-size:14px;">
-    <span style="background:var(--ink);color:var(--bg);padding:7px 13px;">작업 번호 발급</span><span style="color:var(--accent);">→</span>
-    <span style="background:#dedcd4;padding:7px 13px;">대기</span><span style="color:var(--accent);">→</span>
-    <span style="background:var(--accent);color:#fff;padding:7px 13px;">진행</span><span style="color:var(--accent);">→</span>
-    <span style="background:var(--green);color:#fff;padding:7px 13px;">완료 · 내려받기</span><span style="color:var(--muted);font-weight:400;">또는</span>
-    <span style="border:2px solid var(--ink);padding:5px 11px;">실패 · 안내</span>
+  <div class="flow" style="margin-top:30px;">
+    <span>작업 번호 발급</span><i>→</i><span>대기</span><i>→</i><span>진행</span><i>→</i><span>완료 · 내려받기</span><em>또는</em><span>실패 · 안내</span>
   </div>
   <div class="rows" style="margin-top:auto;">
-    <div class="step" style="grid-template-columns:auto 1fr;"><b>같은 서비스에서</b><p>비밀번호 초기화 인증번호 요청에 제한을 걸었습니다. 서버 2대 어디로 요청해도 같은 대기 시간이 걸리고, 경계 조건은 단위 테스트 30건으로 고정했습니다.</p></div>
+    <div class="step" style="grid-template-columns:auto 1fr;"><b>추가 사례</b><p>비밀번호 초기화 인증번호 요청에 제한을 걸었습니다. 서버 2대 어디로 요청해도 같은 대기 시간이 걸리고, 사용자에게는 남은 시간을 알려 줍니다.</p></div>
   </div>
 </section>
 
@@ -198,25 +199,25 @@
     <div>
       <p class="meta"><b>실무 프로젝트</b><span class="mono">2025.09 ~ 현재</span><span class="live">운영 중</span></p>
       <h2 style="margin-top:12px;">교육용 단말<br>운영 시스템</h2>
-      <p class="lead" style="margin-top:18px;">서울시교육청 디벗 사업의 교육용 단말 약 11만 대를 등록하고, 배송 · 설치 · A/S · 점검 이력을 관리하는 시스템입니다.</p>
+      <p class="lead" style="margin-top:18px;">서울시교육청 디벗 사업의 교육용 단말 약 11만 대를 등록하고 배송 · 설치 · A/S · 점검 이력을 관리하는 시스템입니다.</p>
       <dl class="facts rows" style="margin-top:26px;">
-        <div><dt>쓰는 사람</dt><dd>사업을 운영하는 여러 운영팀</dd></div>
-        <div><dt>맡은 범위</dt><dd>기존 기능 유지보수와 사업별 신규 개발, 검수, 배포</dd></div>
+        <div><dt>사용자</dt><dd>사업을 운영하는 여러 운영팀, 공개 접수 화면을 쓰는 4개 교육청 학부모</dd></div>
+        <div><dt>역할</dt><dd>기존 기능 유지보수와 사업별 신규 개발, 검수, 배포</dd></div>
       </dl>
     </div>
     <div>
-      <p class="label">제가 만든 것</p>
+      <p class="label">담당 기능</p>
       <div class="built rows">
-        <div><b>중고거래 게시글 모니터링</b><p>플랫폼별 검색 링크를 만들어 주고, 검수자가 붙여넣은 게시글 주소로 중복을 확인합니다. 외부 사이트에는 접속하지 않습니다.</p></div>
+        <div><b>중고거래 게시글 모니터링</b><p>플랫폼별 검색 링크를 만들어 주고 검수자가 붙여넣은 게시글 주소로 중복을 확인합니다. 외부 사이트에는 접속하지 않습니다.</p></div>
         <div><b>학교 방문 점검</b><p>종이로 하던 점검을 일정, 대상, 체크리스트, 서명, 재점검 이력까지 시스템으로 옮겼습니다.</p></div>
         <div><b>단말 QR 발급과 안내 메시지</b><p>QR 발급과 전용 프린터 출력, 학생 명단 등록 · 설치 희망일 같은 안내 메시지 발송을 붙였습니다.</p></div>
-        <div><b>외부 연계 정리</b><p>화면마다 따로 있던 주소 검색 · NEIS 연동을 서버 공통 기능으로 옮겨, API 키가 브라우저에 드러나지 않게 했습니다.</p></div>
+        <div><b>외부 연계 정리</b><p>화면마다 따로 있던 주소 검색 · NEIS 연동을 서버 공통 기능으로 옮겨 API 키가 브라우저에 드러나지 않게 했습니다.</p></div>
       </div>
     </div>
   </div>
   <div class="grid3" style="margin-top:auto;border-top:2px solid var(--ink);">
-    <div><p class="fig" style="font-size:44px;">108,237<small>대</small></p><p class="cap-sub">QR 발급 (전체 111,593대 중)</p></div>
-    <div><p class="fig" style="font-size:44px;">14,882<small>건</small></p><p class="cap-sub">시스템에 저장된 점검표 · 119개 학교 중 71곳 진행(2026.09)</p></div>
+    <div><p class="fig" style="font-size:44px;">108<span class="c">,</span>237<small>대</small></p><p class="cap-sub">QR 발급 (전체 111,593대 중)</p></div>
+    <div><p class="fig" style="font-size:44px;">14<span class="c">,</span>882<small>건</small></p><p class="cap-sub">시스템에 저장된 점검표 · 119개 학교 중 71곳 진행(2026.09)</p></div>
     <div><p class="fig" style="font-size:44px;">25<small>개 화면</small></p><p class="cap-sub">서버 공통 연계로 옮긴 화면</p></div>
   </div>
 </section>
@@ -225,15 +226,14 @@
 <section class="slide">
   <div class="top"><b>교육용 단말 운영 시스템(TSMS) · 대표 사례</b><span class="mono">06 / 11</span></div>
   <h2 style="margin-top:32px;">60초 안에 끝나지 않던 조회를 63~69ms로</h2>
-  <div class="grid3" style="margin-top:28px;border-top:2px solid var(--ink);">
-    <div><p class="fig"><s>60s</s><span class="arrow">→</span>63~69<small>ms</small></p><p class="cap">운영 DB에서 같은 결과를 돌려준 시간</p><p class="cap-sub">2026.09, 이력이 가장 많은 고객 기준</p></div>
-    <div><p class="fig">870<small>배 이상</small></p><p class="cap">기존 쿼리 대비 최소 단축 폭</p></div>
-    <div><p class="fig" style="font-size:52px;"><s>2.1조</s><span class="arrow">→</span>1,854<small>행</small></p><p class="cap">실행계획의 추정 행 수</p></div>
+  <div class="grid3" style="margin-top:28px;border-top:2px solid var(--ink);grid-template-columns:1.3fr 1fr;">
+    <div><p class="fig"><s>60s+</s><span class="arrow">→</span>63~69<small>ms</small></p><p class="cap">운영 DB에서 같은 결과를 돌려준 시간</p><p class="cap-sub">2026.09, 이력이 가장 많은 고객 기준</p></div>
+    <div><p class="fig">870<small>배 이상</small></p><p class="cap">기존 쿼리 대비 빨라진 정도(최소)</p></div>
   </div>
   <div class="rows" style="margin-top:28px;">
-    <div class="step"><b>불편</b><p>A/S 이력과 정산 세부현황 화면이 데이터가 쌓이면서 수십 초씩 기다려야 할 만큼 느려졌습니다.</p></div>
+    <div class="step"><b>문제</b><p>A/S 이력과 정산 세부현황 화면이 데이터가 쌓이면서 수십 초씩 기다려야 할 만큼 느려졌습니다.</p></div>
     <div class="step"><b>원인</b><p>여러 테이블을 합친 통합 뷰를 거치는데, 고객 조건이 뷰 안까지 전달되지 않아 전체를 다 만든 뒤에 거르고 있었습니다.</p></div>
-    <div class="step"><b>바꾼 것</b><p>화면의 조회 조건과 표시 항목은 그대로 두고, 화면이 쓰는 컬럼만 기본 테이블 조인으로 다시 썼습니다. 바꾸기 전후 결과가 같은지 같은 조건으로 비교했습니다.</p></div>
+    <div class="step"><b>해결</b><p>화면의 조회 조건과 표시 항목은 그대로 두고 화면이 쓰는 컬럼만 기본 테이블 조인으로 다시 썼습니다. 바꾸기 전후 결과가 같은지 같은 조건으로 비교했습니다.</p></div>
   </div>
 </section>
 
@@ -250,11 +250,11 @@
     <div>
       <p class="label">예매 흐름</p>
       <p style="font-size:17px;font-weight:700;">대기열 입장 <span class="stop">→</span> 좌석 선택 <span class="stop">→</span> 결제 <span class="stop">→</span> 예매 완료</p>
-      <p class="label" style="margin-top:22px;">제가 만든 것</p>
+      <p class="label" style="margin-top:22px;">담당 기능</p>
       <div class="built rows">
-        <div><b>대기열과 좌석 선택 화면</b><p>대기 순번과 좌석 상태를 실시간으로 받아, 좌석맵에 그립니다.</p></div>
+        <div><b>대기열과 좌석 선택 화면</b><p>대기 순번과 좌석 상태를 실시간으로 받아 좌석맵에 그립니다.</p></div>
         <div><b>같은 좌석 중복 판매 방지</b><p>좌석을 5분간 먼저 잡아 두고, 시간이 지나면 결제를 거절하며, 마지막으로 DB가 두 번째 확정을 막습니다.</p></div>
-        <div><b>결제 중복 방지와 테스트</b><p>같은 결제 요청이 두 번 처리되지 않게 했고, 예매 흐름 전체를 CI에서 자동 테스트합니다.</p></div>
+        <div><b>결제 재시도와 테스트</b><p>같은 키로 다시 온 결제 요청에는 처음 응답을 그대로 돌려주고, 예매 흐름은 Playwright E2E로 CI에서 테스트합니다.</p></div>
       </div>
       <div style="margin-top:18px;"><p class="fig" style="font-size:56px;">100<span class="arrow">→</span>1</p><p class="cap">좌석 하나에 동시 요청 100건, 예매 성공은 1건</p></div>
     </div>
@@ -274,10 +274,10 @@
     </div>
     <div>
       <dl class="facts rows">
-        <div><dt>지금</dt><dd>가입 · 로그인, 모임 일정, 참가 신청까지 동작합니다. 결제, 체크인, 매칭은 다음 단계입니다.</dd></div>
-        <div><dt>만드는 방식</dt><dd>기능마다 설계서를 먼저 쓰고 확정한 뒤 구현합니다.</dd></div>
+        <div><dt>진행 상황</dt><dd>가입 · 로그인, 모임 일정, 참가 신청까지 동작합니다. 결제, 체크인, 매칭은 다음 단계입니다.</dd></div>
+        <div><dt>개발 방식</dt><dd>기능마다 설계서를 먼저 쓰고 확정한 뒤 구현합니다.</dd></div>
       </dl>
-      <p class="label" style="margin-top:20px;">제가 만든 것</p>
+      <p class="label" style="margin-top:20px;">담당 기능</p>
       <div class="built rows">
         <div><b>참가자 웹 · 운영자 웹</b><p>참가자는 가입하고 일정을 보고 참가를 신청합니다. 운영자는 회원을 조회하고 회차를 관리하며 신청을 취소합니다.</p></div>
         <div><b>정원 지키기</b><p>신청이 한꺼번에 몰려도 성별 정원을 넘기지 않도록 회차를 먼저 잠근 뒤 인원을 셉니다.</p></div>
@@ -292,30 +292,27 @@
 </section>
 
 <!-- 9. ReachRich -->
-<section class="slide dark">
+<section class="slide">
   <div class="top"><b>ReachRich · 개인 투자 연구 · 운영 플랫폼</b><span class="mono">09 / 11</span></div>
   <div class="grid2" style="margin-top:30px;grid-template-columns:0.95fr 1.05fr;gap:52px;">
     <div>
       <p class="meta"><b>개인 프로젝트</b><span class="mono">2026.03 ~ 현재</span><span>비공개 · <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">합성 데이터 데모 공개</a></span></p>
       <h2 style="margin-top:12px;">ReachRich</h2>
-      <p class="lead" style="margin-top:14px;">제 증권 계좌와 시장 데이터를 모아, 투자 전략을 검증하고 모의로 운용해 보는 개인 연구 · 운영 플랫폼입니다.</p>
+      <p class="lead" style="margin-top:14px;">제 증권 계좌와 시장 데이터를 모아 투자 전략을 검증하고 모의로 운용해 보는 개인 연구 · 운영 플랫폼입니다.</p>
       <dl class="facts rows" style="margin-top:24px;">
-        <div><dt>다시 설계</dt><dd>2026년 8월 새 저장소를 만들어, 예전 연구 코드에서 검증된 부분만 골라 옮겼습니다.</dd></div>
+        <div><dt>재설계</dt><dd>2026년 8월 새 저장소를 만들어 예전 연구 코드에서 검증된 부분만 골라 옮겼습니다.</dd></div>
         <div><dt>원칙</dt><dd>검증을 통과한 전략이 나오기 전까지 실전 주문은 하지 않습니다.</dd></div>
       </dl>
     </div>
     <div>
-      <p class="label">제가 만든 것</p>
+      <p class="label">담당 기능</p>
       <div class="built rows">
-        <div><b>계좌 · 시장 데이터 수집</b><p>토스증권 계좌를 조회하고, KRX 거래대금 상위 200종목 일봉을 매일 쌓습니다. 다시 돌려도 중복이 생기지 않습니다.</p></div>
-        <div><b>대시보드</b><p>자산 요약, 기간별 자산 곡선, 보유 종목을 보여 주고, 금액 가리기를 켤 수 있습니다.</p></div>
-        <div><b>자동 점검</b><p>매일 상태 점검과 모의운용을 자동으로 돌리고, 실패하면 텔레그램으로 알림이 옵니다.</p></div>
+        <div><b>계좌 · 시장 데이터 수집</b><p>토스증권 계좌를 조회하고 KRX 거래대금 상위 200종목 일봉을 매일 쌓습니다. 다시 돌려도 중복이 생기지 않습니다.</p></div>
+        <div><b>대시보드</b><p>자산 요약, 기간별 자산 곡선, 보유 종목을 보여 주고 금액 가리기를 켤 수 있습니다.</p></div>
+        <div><b>자동 점검</b><p>매일 상태 점검과 모의운용을 자동으로 돌리고 실패하면 텔레그램으로 알림이 옵니다.</p></div>
       </div>
-      <div style="display:flex;gap:44px;margin-top:16px;">
-        <div><p class="fig" style="font-size:52px;">205</p><p class="cap">파이썬 테스트 통과</p></div>
-        <div><p class="fig" style="font-size:52px;">96</p><p class="cap">웹 테스트 통과</p></div>
-      </div>
-      <p class="cap-sub" style="margin-top:4px;">2026.08.11 기준</p>
+      <div style="margin-top:16px;"><p class="fig" style="font-size:52px;">200<small>종목</small></p><p class="cap">KRX 거래대금 상위 종목 일봉을 매일 적재</p></div>
+      <p class="cap-sub" style="margin-top:10px;">파이썬 테스트 205개 · 웹 테스트 96개 통과 (2026.08.11 기준)</p>
     </div>
   </div>
   <p class="stack" style="margin-top:auto;">Python · FastAPI · React · TypeScript · SQLite · Parquet · GitHub Actions</p>
@@ -324,11 +321,11 @@
 <!-- 10. SSAFY 팀 프로젝트 -->
 <section class="slide">
   <div class="top"><b>SSAFY 팀 프로젝트 · 프론트엔드</b><span class="mono">10 / 11</span></div>
-  <div class="grid3" style="margin-top:36px;">
+  <div class="grid3 team" style="margin-top:36px;">
     <div>
       <img class="shot" src="../public/projects/ssafast-preview.webp" alt="SSAFAST 화면" style="box-shadow:none;border:1px solid var(--line);aspect-ratio:16/9;object-fit:cover;object-position:top;">
       <p class="meta" style="margin-top:18px;"><b style="font-size:22px;">SSAFAST</b><span class="mono">2023.04 ~ 05</span></p>
-      <p style="margin-top:8px;font-size:15px;line-height:1.65;">API 명세를 쓰고, 바로 요청과 성능 테스트까지 해 볼 수 있는 도구(6인)</p>
+      <p style="margin-top:8px;font-size:15px;line-height:1.65;">API 명세를 쓰고 바로 요청과 성능 테스트까지 해 볼 수 있는 도구(6인)</p>
       <p style="margin-top:8px;font-size:14px;line-height:1.6;color:var(--ink-soft);">명세 입력 폼, API 실행 화면, 응답 시간 분포 · 초당 처리량 결과 화면</p>
       <p class="stack" style="margin-top:10px;">Next.js · React · React Hook Form · <a href="https://github.com/SSAFAST/ssafast">GitHub</a></p>
     </div>
@@ -360,10 +357,10 @@
       <div style="display:grid;grid-template-columns:120px 1fr;"><b style="font-weight:900;">도구 · 배포</b><span>Git · GitHub · GitHub Actions · SVN · Jenkins · Linux · Tomcat · Docker</span></div>
     </div>
     <div class="rows" style="font-size:15px;line-height:1.6;">
-      <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2018.03 ~ 2020.08</span><span><b style="font-weight:900;">아주대학교 e-비즈니스학과</b> 학사 졸업</span></div>
-      <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2022.07 ~ 2023.06</span><span><b style="font-weight:900;">삼성 청년 SW 아카데미(SSAFY) 8기</b> 웹 과정 수료</span></div>
-      <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2014.01 ~ 2015.05</span><span><b style="font-weight:900;">California State University, Chico</b> 경영학 전공 후 편입</span></div>
       <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2024.09</span><span><b style="font-weight:900;">SQLD</b> SQL 개발자 자격</span></div>
+      <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2022.07 ~ 2023.06</span><span><b style="font-weight:900;">삼성 청년 SW 아카데미(SSAFY) 8기</b> 웹 과정 수료</span></div>
+      <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2018.03 ~ 2020.08</span><span><b style="font-weight:900;">아주대학교 e-비즈니스학과</b> 학사 졸업</span></div>
+      <div style="display:grid;grid-template-columns:190px 1fr;"><span class="mono" style="color:var(--muted);">2014.01 ~ 2015.05</span><span><b style="font-weight:900;">California State University, Chico</b> 경영학 전공 후 편입</span></div>
     </div>
   </div>
   <div style="margin-top:auto;border-top:2px solid var(--ink);padding-top:26px;display:flex;justify-content:space-between;align-items:end;gap:40px;">
@@ -374,7 +371,7 @@
     <div style="text-align:right;font-size:17px;line-height:1.9;font-weight:700;">
       <a href="https://www.yongjaekwon.com">www.yongjaekwon.com</a><br>
       <a href="https://github.com/YongjaeKwon">github.com/YongjaeKwon</a><br>
-      <span class="mono">yongjae116@gmail.com</span>
+      <span>yongjae116@gmail.com</span>
     </div>
   </div>
 </section>
