@@ -586,6 +586,15 @@ export const featuredProjects: FeaturedProject[] = [
     period: "2026.03 ~ 현재",
     category: "Personal Full Stack",
     focuses: ["all", "frontend", "backend"],
+    image: {
+      src: "/projects/reachrich.png",
+      width: 1180,
+      height: 838,
+      previewSrc: "/projects/reachrich-preview.webp",
+      previewWidth: 901,
+      previewHeight: 640,
+      alt: "ReachRich 공개 데모 대시보드(합성 데이터) — 계좌 요약, 자산 기록, 보유 항목, 데이터 준비 상태",
+    },
     stack: ["Python", "FastAPI", "React", "TypeScript", "SQLAlchemy", "SQLite", "Parquet", "GitHub Actions", "pytest", "Vitest"],
     card: {
       summary: "제 증권 계좌와 시장 데이터를 모아 투자 전략을 검증하고 모의로 운용해 보는 개인 연구·운영 플랫폼입니다.",
