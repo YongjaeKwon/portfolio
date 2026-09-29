@@ -12,8 +12,8 @@
         <div ref="modalRef" class="case-study-modal flex max-h-[88dvh] w-full max-w-4xl flex-col overflow-hidden rounded-md">
           <div class="flex shrink-0 items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
             <div>
-              <h3 :id="detailTitleId" class="text-primary text-2xl font-black">{{ project.project.title }}</h3>
-              <p class="text-muted mt-2 text-sm">{{ project.project.period }} · {{ project.project.category }}</p>
+              <h3 :id="detailTitleId" class="font-heading text-primary text-3xl font-black tracking-[-0.04em]">{{ project.project.title }}</h3>
+              <p class="text-muted mt-2 text-sm"><span class="font-mono tnum">{{ project.project.period }}</span> · {{ project.project.category }}</p>
             </div>
             <button
               type="button"
@@ -50,13 +50,9 @@
                   <article
                     v-for="section in roleSections"
                     :key="section.id"
-                    class="role-contribution rounded-md p-5 md:p-6"
+                    class="role-contribution pt-5"
                   >
-                    <div class="mb-5 flex items-center gap-3">
-                      <span class="rounded-full bg-[var(--fresh-accent-soft)] px-3 py-1.5 text-xs font-black text-[var(--fresh-accent-strong)]">
-                        {{ section.label }}
-                      </span>
-                    </div>
+                    <h5 class="text-primary mb-4 text-lg font-black">{{ section.label }}</h5>
 
                     <div class="grid gap-5 md:grid-cols-2">
                       <div>
@@ -96,25 +92,25 @@
 
               <section v-if="!hasDetailedCaseStudies(project.project.id) && project.detail.caseStudy">
                 <h4 class="text-primary mb-3 font-black">{{ t("문제 해결 과정", "Problem-solving process") }}</h4>
-                <div class="case-process-grid grid gap-3 md:grid-cols-2">
-                  <article class="case-process-step rounded-md p-5">
-                    <h5 class="case-step-label">{{ t("01 · 문제", "01 · Problem") }}</h5>
+                <div class="case-process-grid grid gap-x-8 md:grid-cols-2">
+                  <article class="case-process-step py-4">
+                    <h5 class="case-step-label">{{ t("문제", "Problem") }}</h5>
                     <p class="text-secondary mt-3 text-sm leading-6">{{ project.detail.caseStudy.problem }}</p>
                   </article>
-                  <article class="case-process-step rounded-md p-5">
-                    <h5 class="case-step-label">{{ t("02 · 판단", "02 · Decision") }}</h5>
+                  <article class="case-process-step py-4">
+                    <h5 class="case-step-label">{{ t("판단", "Decision") }}</h5>
                     <p class="text-secondary mt-3 text-sm leading-6">{{ project.detail.caseStudy.decision }}</p>
                   </article>
-                  <article class="case-process-step rounded-md p-5">
-                    <h5 class="case-step-label">{{ t("03 · 구현", "03 · Implementation") }}</h5>
+                  <article class="case-process-step py-4">
+                    <h5 class="case-step-label">{{ t("구현", "Implementation") }}</h5>
                     <ul class="mt-3 grid gap-2">
                       <li v-for="item in project.detail.caseStudy.implementation" :key="item" class="role-detail-item text-secondary text-sm leading-6">
                         {{ item }}
                       </li>
                     </ul>
                   </article>
-                  <article class="case-process-step rounded-md p-5">
-                    <h5 class="case-step-label">{{ t("04 · 결과", "04 · Outcome") }}</h5>
+                  <article class="case-process-step py-4">
+                    <h5 class="case-step-label">{{ t("결과", "Outcome") }}</h5>
                     <ul class="mt-3 grid gap-2">
                       <li v-for="item in project.detail.caseStudy.outcome" :key="item" class="role-detail-item text-secondary text-sm leading-6">
                         {{ item }}
@@ -290,33 +286,25 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .case-step-label {
-  color: var(--fresh-accent-strong);
-  font-size: 0.6875rem;
+  color: var(--text-primary);
+  font-size: 0.85rem;
   font-weight: 900;
-  letter-spacing: 0;
 }
 .case-process-step {
-  border: 1px solid rgba(17, 17, 17, 0.12);
-  background: rgba(255, 255, 255, 0.72);
+  border-top: 1px solid var(--fresh-border);
 }
 .role-contribution {
-  border: 1px solid rgba(17, 17, 17, 0.12);
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 12px 34px rgba(38, 69, 111, 0.07);
+  border-top: 2px solid var(--fresh-rule);
 }
 .role-detail-item {
   position: relative;
-  padding-left: 1rem;
+  padding-left: 1.1rem;
 }
 .role-detail-item::before {
-  content: "";
+  content: "–";
   position: absolute;
   left: 0;
-  top: 0.65rem;
-  width: 0.32rem;
-  height: 0.32rem;
-  border-radius: 999px;
-  background: var(--fresh-accent);
+  color: var(--text-muted);
 }
 .modal-enter-active { transition: opacity 0.22s ease; }
 .modal-leave-active { transition: opacity 0.18s ease; }
@@ -334,8 +322,8 @@ onBeforeUnmount(() => {
 }
 .case-study-backdrop { background: rgb(var(--page-bg-rgb) / 0.46); }
 .case-study-modal {
-  border: 1px solid var(--border-strong);
-  background: #ffffff;
+  border: 2px solid var(--fresh-rule);
+  background: var(--fresh-bg);
   box-shadow: var(--shadow);
   color: var(--text-primary);
 }
