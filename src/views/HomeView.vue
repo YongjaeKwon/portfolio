@@ -114,13 +114,13 @@ const headline = computed(() => {
   return text.endsWith(".") ? { body: text.slice(0, -1), stop: "." } : { body: text, stop: "" };
 });
 
-// 이력서 핵심 성과와 같은 실측 사례만 쓴다(규모 숫자 제외).
+// 이력서 핵심 성과와 같은 실측 사례만 쓴다. 테스트 개수는 성과 숫자로 앞세우지 않는다.
 const proof = {
   query: {
     title: t("60초 안에 끝나지 않던 조회를 63~69ms로", "A lookup that never finished in 60 s now returns in 63–69 ms"),
     detail: t("통합 뷰를 기본 테이블 조인으로 바꾸고, 운영 DB에서 직접 측정했습니다.", "Rewrote a union view as base-table joins and re-measured on the production DB."),
     project: t("교육용 단말 운영 시스템(TSMS)", "Education device operations (TSMS)"),
-    figure: { before: "60s", value: "63~69", unit: "ms" },
+    figure: { before: "60s+", value: "63~69", unit: "ms" },
   },
   download: {
     title: t("300~400건 첨부파일 압축을 진행 상태가 보이는 작업으로", "Zipping 300–400 attachments became a job with visible progress"),
@@ -132,7 +132,12 @@ const proof = {
     title: t("서버 2대에서 똑같이 걸리는 인증번호 요청 제한", "One reset-code rate limit across two servers"),
     detail: t("분산 맵의 원자적 획득으로 동시 요청 중 한 건만 보내고, 경계 조건은 단위 테스트 30건으로 고정했습니다.", "Atomic acquisition on a distributed map sends only one of concurrent requests; 30 unit tests pin the edge cases."),
     project: t("B2B 협력사 포털(PPS)", "B2B partner portal (PPS)"),
-    figure: { value: "30", unit: t("건 테스트", " tests") },
+  },
+  qr: {
+    title: t("교육용 단말 108,237대에 QR 발급", "QR codes issued for 108,237 education devices"),
+    detail: t("대량 등록 전에 생산입고 정보와 기등록 여부를 검사하고, QR에는 내부 식별자 대신 외부 노출용 ID를 넣었습니다.", "Bulk registration checks production-intake records and prior registrations first, and QR codes carry a public ID instead of internal identifiers."),
+    project: t("교육용 단말 운영 시스템(TSMS)", "Education device operations (TSMS)"),
+    figure: { value: "108,237", unit: t("대", " devices") },
   },
   dataFix: {
     title: t("되돌릴 수 있는 절차로 운영 DB 점검 데이터 정리", "Cleaned live inspection data with a way back"),
@@ -153,7 +158,7 @@ const proof = {
 } satisfies Record<string, Proof>;
 
 const proofByTrack: Record<FocusTrackId, Proof[]> = {
-  all: [proof.query, proof.download, proof.rateLimit],
+  all: [proof.query, proof.download, proof.qr],
   backend: [proof.query, proof.rateLimit, proof.dataFix],
   frontend: [proof.stateLeak, proof.download, proof.enrollment],
 };
@@ -244,11 +249,11 @@ const activeProof = computed(() => proofByTrack[activeTrack.value]);
 
 .proof-figure {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: baseline;
   gap: 0 0.6rem;
   color: var(--fresh-ink);
-  font-size: clamp(2.75rem, 1.6rem + 3vw, 4.25rem);
+  font-size: clamp(2.5rem, 1.4rem + 2.6vw, 3.75rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.06em;

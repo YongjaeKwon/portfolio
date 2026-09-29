@@ -246,6 +246,7 @@ export const featuredProjects: FeaturedProject[] = [
         ],
       },
       results: [
+        "Cut the A/S history and settlement detail lookups from a query that never finished within 60 s to 63–69 ms (production DB, measured Sep 2026).",
         "Removed browser-side key exposure across the 25 screens that called external APIs directly, consolidating calls on the server.",
         "Bulk registration now validates production-intake records and prior registrations before saving, and QR codes no longer expose internal identifiers.",
         "Inspections and re-inspections per school and device are now tracked in the system.",
@@ -568,13 +569,13 @@ export const featuredProjects: FeaturedProject[] = [
     stack: ["Python", "FastAPI", "React", "TypeScript", "SQLAlchemy", "SQLite", "Parquet", "GitHub Actions", "pytest", "Vitest"],
     card: {
       summary:
-        "I'm selectively porting validated logic from my earlier investment research core, and redesigning account tracking, market data collection, paper trading, and the dashboard on a new architecture.",
+        "A personal research and operations platform that gathers my brokerage account and market data to validate investment strategies and run them as paper trades.",
       description: [
         "In August 2026 I created a new repository and split responsibilities into six areas: data, universe selection, strategy, validation, operations, and console.",
         "Connected brokerage account queries, KRX collection, a FastAPI read API, a React dashboard, daily health checks, and failure alerts.",
       ],
       result:
-        "Per the README (Aug 11, 2026), 205 Python and 96 web automated tests pass along with the production build; real account queries, daily KRX loading, and automated failure alerts are verified.",
+        "Queries my real brokerage account and loads daily candles for the top 200 KRX stocks by trading value every day; automated failure alerts are verified end to end. Per the README (Aug 11, 2026), 205 Python and 96 web tests pass.",
       keywords: ["Selective porting of validated logic", "Idempotent data collection", "React operations UI"],
       visibility: "Private personal project",
       workRange: "Redesign · data collection · API · dashboard · automation",
@@ -596,8 +597,8 @@ export const featuredProjects: FeaturedProject[] = [
         "Ran daily health checks and paper-trading accrual on GitHub Actions, with separate Telegram alerts for local job and Actions failures.",
       ],
       results: [
-        "As of the August 11, 2026 README, 205 Python and 96 web automated tests pass, with the production build verified.",
         "Verified real brokerage account queries; KRX collection now loads the top-200 universe by trading value and its daily candles every day.",
+        "As of the August 11, 2026 README, 205 Python and 96 web automated tests pass, with the production build verified.",
         "Verified CI, daily health check, and paper-trading workflow runs, including Telegram alerts on forced failures.",
       ],
       techUsage: [

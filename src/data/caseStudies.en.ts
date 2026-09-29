@@ -78,7 +78,7 @@ showRetryGuide();`,
       title: "Isolating shared state that leaked between Vue screens",
       summary: "Nested objects shared through shallow copies are now created fresh per screen.",
       problem:
-        "Query filters and title info used on one admin screen lingered on others, so stale state showed up after navigating between screens.",
+        "Query filters and title info used on one admin screen lingered on others. When registering a new CE, the previous CE's attachment group stayed on screen, so that person's attachments could be linked to the new record.",
       constraint:
         "Multiple screens shared the same common script, so the shared API had to stay while each Vue instance's state was isolated.",
       decision:
@@ -86,10 +86,11 @@ showRetryGuide();`,
       implementation: [
         "Replaced the copy-a-shared-constant initializer with a per-instance state factory.",
         "Made nested state like search filters and page titles get a new reference every time.",
-        "Explicitly reset the necessary state when reopening a screen or switching tabs.",
+        "Explicitly reset attachment state on registration, detail lookup and failed lookups.",
+        "Added a server check that rejects saving an attachment group already used by another CE.",
       ],
       outcome:
-        "Admin screens no longer share nested state, eliminating leftover query filters and display values from previous screens.",
+        "Admin screens no longer share nested state, and if the screen ever slips, the server still blocks a wrong attachment link.",
       code: {
         language: "JavaScript",
         title: "Returning fresh state per instance",
@@ -201,7 +202,7 @@ Object.assign(vm.$data, createInitialState());`,
         "Ran the old and new queries with identical parameters and compared row-for-row to confirm the same results.",
       ],
       outcome:
-        "Re-measured on the production DB (Sep 2026, heaviest customer): the old query could not finish within a 60-second cap, while the rewrite returns the same rows in 63–69 ms (at least ~870x faster). The plan estimate dropped from about 2.1 trillion rows to 1,854.",
+        "Re-measured on the production DB (Sep 2026, heaviest customer): the old query could not finish within a 60-second cap, while the rewrite returns the same rows in 63–69 ms (at least ~870x faster).",
     },
     {
       id: "resale-monitoring",
