@@ -672,6 +672,15 @@ export const featuredProjects: FeaturedProject[] = [
     period: "Sep 2026 – in progress",
     category: "Personal Full Stack",
     focuses: ["all", "frontend", "backend"],
+    image: {
+      src: "/projects/oneulsai.png",
+      width: 1200,
+      height: 675,
+      previewSrc: "/projects/oneulsai-preview.webp",
+      previewWidth: 960,
+      previewHeight: 540,
+      alt: "ONULSAI brand logo and two service introduction cards",
+    },
     stack: ["TypeScript", "NestJS", "Next.js", "PostgreSQL", "Prisma", "Turborepo", "Vitest", "Playwright"],
     card: {
       summary: "A service for running offline rotation dating events: seven one-on-one conversations in a café on Sunday, connected only when both people choose each other.",

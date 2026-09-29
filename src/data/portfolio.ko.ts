@@ -675,6 +675,15 @@ export const featuredProjects: FeaturedProject[] = [
     period: "2026.09 ~ 진행 중",
     category: "Personal Full Stack",
     focuses: ["all", "frontend", "backend"],
+    image: {
+      src: "/projects/oneulsai.png",
+      width: 1200,
+      height: 675,
+      previewSrc: "/projects/oneulsai-preview.webp",
+      previewWidth: 960,
+      previewHeight: 540,
+      alt: "오늘사이 브랜드 로고와 서비스 소개 카드뉴스 두 장",
+    },
     stack: ["TypeScript", "NestJS", "Next.js", "PostgreSQL", "Prisma", "Turborepo", "Vitest", "Playwright"],
     card: {
       summary: "일요일 카페에서 7명과 1:1로 대화하고, 서로 선택한 경우에만 연결되는 오프라인 소개팅을 운영하기 위한 서비스입니다.",

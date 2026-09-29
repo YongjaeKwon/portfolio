@@ -33,18 +33,6 @@
             <div v-if="item.project.id === 'reachrich'" class="project-thumb mt-5 aspect-video overflow-hidden rounded-lg p-2">
               <ProjectCaseVisual :project-id="item.project.id" compact />
             </div>
-            <div
-              v-else-if="item.project.id === 'oneulsai'"
-              class="project-thumb oneulsai-thumb mt-5 flex aspect-video flex-col justify-between rounded-lg p-6"
-              role="img"
-              :aria-label="t('남은 자리 하나에 20명이 동시에 신청하면 성공은 1건. Gateway 뒤에 회원, 일정, 매칭, 알림, 결제 서비스', 'Twenty people apply at once for the last seat and one succeeds. Member, schedule, matching, notification and payment services behind a gateway')"
-            >
-              <p class="font-mono text-xs text-[var(--fresh-stage-muted)]">Gateway → {{ t("회원 · 일정 · 매칭 · 알림 · 결제", "member · schedule · match · notify · pay") }}</p>
-              <div>
-                <p class="oneulsai-figure font-mono tnum">20<span aria-hidden="true">→</span>1</p>
-                <p class="mt-2 text-sm font-semibold text-[var(--fresh-stage-muted)]">{{ t("남은 자리 하나에 동시 신청 20건, 성공은 1건", "20 concurrent applications for the last seat, 1 succeeds") }}</p>
-              </div>
-            </div>
             <div v-else-if="item.project.image" class="project-thumb mt-5 flex aspect-video items-center justify-center overflow-hidden rounded-lg">
               <img
                 :src="item.project.image.previewSrc ?? item.project.image.src"
@@ -89,7 +77,7 @@
               </button>
               <button
                 type="button"
-                class="focus-ring inline-flex items-center gap-1.5 rounded-full px-2 py-2 text-sm font-black text-[var(--fresh-accent-strong)] transition hover:gap-2.5"
+                class="focus-ring inline-flex items-center gap-1.5 rounded-full px-2 py-2 text-primary text-sm font-black underline decoration-1 underline-offset-4 transition hover:gap-2.5"
                 :aria-label="t(`${item.project.title} 개발 과정 상세 보기`, `View the ${item.project.title} development story`)"
                 @click="openDetail(item)"
               >
@@ -270,26 +258,6 @@ onBeforeUnmount(() => {
 
 .project-compact-card:hover .project-thumb {
   transform: rotate(0deg);
-}
-
-.oneulsai-thumb {
-  border: 1px solid var(--fresh-border);
-}
-
-.oneulsai-figure {
-  color: var(--fresh-stage-ink);
-  font-size: clamp(3.5rem, 2rem + 4vw, 5.5rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.06em;
-}
-
-.oneulsai-figure span {
-  margin: 0 0.15em;
-  color: var(--fresh-accent);
-  font-size: 0.5em;
-  letter-spacing: 0;
-  vertical-align: 0.3em;
 }
 
 .guided-demo-shell {
