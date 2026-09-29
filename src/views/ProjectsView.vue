@@ -69,7 +69,7 @@
               <button
                 v-if="hasInteractiveDemo(item.project.id)"
                 type="button"
-                class="focus-ring fresh-button inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-black transition hover:gap-2.5"
+                class="focus-ring fresh-button inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-black transition hover:gap-2.5"
                 :aria-label="t(`${item.project.title} 전체 흐름 직접 체험`, `Try the full ${item.project.title} flow`)"
                 @click="openInlineDemo(item)"
               >
@@ -77,7 +77,7 @@
               </button>
               <button
                 type="button"
-                class="focus-ring inline-flex items-center gap-1.5 rounded-full px-2 py-2 text-primary text-sm font-black underline decoration-1 underline-offset-4 transition hover:gap-2.5"
+                class="focus-ring inline-flex min-h-11 items-center gap-1.5 rounded-full px-2 py-2 text-primary text-sm font-black underline decoration-1 underline-offset-4 transition hover:gap-2.5"
                 :aria-label="t(`${item.project.title} 개발 과정 상세 보기`, `View the ${item.project.title} development story`)"
                 @click="openDetail(item)"
               >
@@ -110,7 +110,7 @@
             </div>
             <button
               type="button"
-              class="focus-ring surface-strong text-primary absolute right-0 top-0 inline-flex h-10 w-10 items-center justify-center rounded-full transition hover:text-[var(--accent-strong)]"
+              class="focus-ring surface-strong text-primary absolute right-0 top-0 inline-flex h-11 w-11 items-center justify-center rounded-full transition hover:text-[var(--accent-strong)]"
               :aria-label="t('프로젝트 데모 닫기', 'Close project demo')"
               @click="closeInlineDemo"
             >
@@ -256,8 +256,10 @@ onBeforeUnmount(() => {
   transform: rotate(1.5deg);
 }
 
-.project-compact-card:hover .project-thumb {
-  transform: rotate(0deg);
+@media (hover: hover) and (pointer: fine) {
+  .project-compact-card:hover .project-thumb {
+    transform: rotate(0deg);
+  }
 }
 
 .guided-demo-shell {

@@ -1,5 +1,5 @@
 <template>
-  <header class="site-header fresh-nav fixed top-0 z-50 w-full px-4 py-3">
+  <header ref="headerRef" class="site-header fresh-nav fixed top-0 z-50 w-full px-4 py-3">
     <div class="mx-auto flex max-w-6xl items-center justify-between">
       <button
         type="button"
@@ -8,7 +8,7 @@
         @click="moveToSection('hero')"
       >
         <span
-          class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[var(--fresh-border)] bg-white transition-transform duration-200 group-hover:-translate-y-0.5"
+          class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-[var(--fresh-border)] bg-white transition-transform duration-200 group-hover:-translate-y-0.5"
           aria-hidden="true"
         >
           <img src="/brand/yongjae-mark.svg" alt="" width="30" height="30" />
@@ -55,7 +55,8 @@
           :aria-label="isMenuOpen ? t('메뉴 닫기', 'Close menu') : t('메뉴 열기', 'Open menu')"
           @click="toggleMenu"
         >
-          <Menu class="h-4 w-4" />
+          <X v-if="isMenuOpen" class="h-4 w-4" />
+          <Menu v-else class="h-4 w-4" />
         </button>
       </div>
     </div>
@@ -87,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { Menu } from "@lucide/vue";
+import { Menu, X } from "@lucide/vue";
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { useScrollMetrics } from "@/composables/useScrollMetrics";
 import { profile } from "@/data/portfolio";
@@ -100,6 +101,26 @@ const emit = defineEmits<{
 
 const isMenuOpen = ref(false);
 const mobileMenuToggle = ref<HTMLButtonElement | null>(null);
+const headerRef = ref<HTMLElement | null>(null);
+
+// 열린 메뉴는 Esc나 바깥 탭으로 닫는다.
+const closeMenuOnEscape = (event: KeyboardEvent) => {
+  if (event.key !== "Escape") return;
+  isMenuOpen.value = false;
+  mobileMenuToggle.value?.focus({ preventScroll: true });
+};
+const closeMenuOnOutsidePointer = (event: PointerEvent) => {
+  if (!headerRef.value?.contains(event.target as Node)) isMenuOpen.value = false;
+};
+watch(isMenuOpen, (open) => {
+  if (open) {
+    document.addEventListener("keydown", closeMenuOnEscape);
+    document.addEventListener("pointerdown", closeMenuOnOutsidePointer);
+  } else {
+    document.removeEventListener("keydown", closeMenuOnEscape);
+    document.removeEventListener("pointerdown", closeMenuOnOutsidePointer);
+  }
+});
 const activeSection = ref("hero");
 const navItems = [
   { id: "hero", label: "About" },
@@ -148,7 +169,11 @@ watch(isAtBottom, (atBottom) => {
     : observerActiveSection.value;
 });
 
-onBeforeUnmount(() => sectionObserver?.disconnect());
+onBeforeUnmount(() => {
+  sectionObserver?.disconnect();
+  document.removeEventListener("keydown", closeMenuOnEscape);
+  document.removeEventListener("pointerdown", closeMenuOnOutsidePointer);
+});
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;

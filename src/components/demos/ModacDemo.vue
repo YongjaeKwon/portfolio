@@ -1370,8 +1370,8 @@ button:disabled {
   top: 12px;
   right: 12px;
   display: grid;
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   place-items: center;
   border: 0;
   border-radius: 50%;

@@ -50,6 +50,16 @@
           </div>
         </div>
 
+        <img
+          src="/projects/ticketrush-preview.webp"
+          alt=""
+          width="960"
+          height="540"
+          loading="lazy"
+          decoding="async"
+          class="hero-shot-mobile lg:hidden"
+        />
+
         <div class="hero-stage hidden lg:block" aria-hidden="true">
           <img
             src="/projects/ssafast-preview.webp"
@@ -172,7 +182,7 @@ const activeProof = computed(() => proofByTrack[activeTrack.value]);
   font-size: clamp(2.5rem, 1.4rem + 4.4vw, 5.25rem);
   font-weight: 900;
   line-height: 1.08;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.045em;
 }
 
 .hero-stage {
@@ -188,6 +198,15 @@ const activeProof = computed(() => proofByTrack[activeTrack.value]);
   border-radius: var(--fresh-radius-md);
   background: var(--fresh-surface-solid);
   box-shadow: var(--fresh-shadow-lg);
+}
+
+.hero-shot-mobile {
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--fresh-ink);
+  border-radius: var(--fresh-radius-md);
+  box-shadow: var(--fresh-shadow-md);
+  transform: rotate(-1.5deg);
 }
 
 .hero-shot-back {
@@ -207,9 +226,9 @@ const activeProof = computed(() => proofByTrack[activeTrack.value]);
   right: 0.5rem;
   bottom: 0;
   border-radius: 999px;
-  background: var(--fresh-accent);
+  background: var(--fresh-ink);
   padding: 0.6rem 1rem;
-  color: #ffffff;
+  color: var(--fresh-bg);
   font-size: 0.85rem;
   font-weight: 700;
   transform: rotate(-5deg);
@@ -256,7 +275,7 @@ const activeProof = computed(() => proofByTrack[activeTrack.value]);
   font-size: clamp(2.5rem, 1.4rem + 2.6vw, 3.75rem);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.035em;
 }
 
 .proof-figure small {
