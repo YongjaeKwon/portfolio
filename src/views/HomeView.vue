@@ -163,6 +163,7 @@ const activeProof = computed(() => proofByTrack[activeTrack.value]);
 
 <style scoped>
 .hero-title {
+  font-family: var(--font-heading);
   font-size: clamp(2.5rem, 1.4rem + 4.4vw, 5.25rem);
   font-weight: 900;
   line-height: 1.08;
