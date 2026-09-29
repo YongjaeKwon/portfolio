@@ -753,4 +753,3 @@ export const education = [
   { title: "SQLD", period: "Sep 2024", description: "Korean national SQL developer certification", icon: "Database" },
 ];
 
-export const projects = featuredProjects;

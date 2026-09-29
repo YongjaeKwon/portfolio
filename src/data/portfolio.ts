@@ -10,8 +10,6 @@ import * as ko from "./portfolio.ko";
 export type {
   FocusTrackId,
   RoleFocusId,
-  ProjectVisibility,
-  CaseStudyNarrative,
   ProjectPerspective,
   FeaturedProject,
 } from "./portfolio.ko";
@@ -24,4 +22,3 @@ export const featuredProjects = data.featuredProjects;
 export const techGroups = data.techGroups;
 export const experience = data.experience;
 export const education = data.education;
-export const projects = data.projects;

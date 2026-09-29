@@ -105,15 +105,14 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import FocusTabs from "@/components/FocusTabs.vue";
-import { focusTracks, profile, type FocusTrackId } from "@/data/portfolio";
+import { profile, type FocusTrackId } from "@/data/portfolio";
 import { useActiveResume } from "@/composables/useActiveResume";
 import { useFocusTrack } from "@/composables/useFocusTrack";
 import { t } from "@/i18n/locale";
 
 const emit = defineEmits<{ "scroll-to-section": [id: string] }>();
-const { activeTrack } = useFocusTrack();
+const { activeTrack, activeTrackData } = useFocusTrack();
 const { resumeHref, resumeFileName } = useActiveResume();
-const activeTrackData = computed(() => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0]);
 
 type Figure = { value: string; unit: string; before?: string };
 type Proof = { title: string; detail: string; project: string; figure?: Figure };

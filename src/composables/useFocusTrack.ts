@@ -1,5 +1,5 @@
-import { ref } from "vue";
-import type { FocusTrackId } from "@/data/portfolio";
+import { computed, ref } from "vue";
+import { focusTracks, type FocusTrackId } from "@/data/portfolio";
 
 const trackIds = new Set<FocusTrackId>(["all", "frontend", "backend"]);
 const DEFAULT_TRACK: FocusTrackId = "all";
@@ -41,5 +41,9 @@ export function useFocusTrack() {
     replaceTrackInUrl(track);
   };
 
-  return { activeTrack, setActiveTrack };
+  const activeTrackData = computed(
+    () => focusTracks.find((track) => track.id === activeTrack.value) ?? focusTracks[0],
+  );
+
+  return { activeTrack, activeTrackData, setActiveTrack };
 }

@@ -26,7 +26,6 @@
 
   --page-bg: var(--fresh-bg);
   --page-bg-rgb: 246 245 241;
-  --page-grid: rgba(17, 17, 17, 0.05);
   --text-primary: var(--fresh-ink);
   --text-secondary: var(--fresh-ink-soft);
   --text-muted: var(--fresh-muted);
@@ -37,8 +36,6 @@
   --border-strong: rgba(17, 17, 17, 0.2);
 
   /* ── Elevation system ── */
-  --elev-1: var(--fresh-shadow-sm);
-  --elev-2: var(--fresh-shadow-md);
   --elev-3: var(--fresh-shadow-lg);
   --shadow: var(--elev-3);
 
@@ -50,8 +47,6 @@
   --accent-soft: var(--fresh-accent-soft);
   --accent-gradient: var(--fresh-gradient-blue);
 
-  --emerald-soft: rgba(5, 150, 105, 0.09);
-  --amber-soft: rgba(180, 83, 9, 0.09);
   --violet-soft: rgba(124, 58, 237, 0.09);
 }
 
@@ -153,30 +148,9 @@ a {
     background: var(--surface-strong);
   }
 
-  .interactive-surface {
-    transition: border-color 160ms ease;
-  }
-
-  .interactive-surface:hover {
-    border-color: rgba(15, 23, 42, 0.22);
-  }
-
   .text-primary   { color: var(--text-primary); }
   .text-secondary { color: var(--text-secondary); }
   .text-muted     { color: var(--text-muted); }
-  .accent-text    { color: var(--accent); }
-
-  /* CTA button — the one solid accent */
-  .accent-bg {
-    background: var(--fresh-blue-strong);
-    color: var(--accent-contrast);
-  }
-
-  .accent-soft {
-    border-color: var(--border);
-    background: var(--surface-soft);
-    color: var(--text-muted);
-  }
 
   .focus-ring {
     @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4;
@@ -208,41 +182,9 @@ a {
       border-color: var(--border-strong);
     }
   }
-
-  /* Tech 아이콘: 모노크롬 기조 유지 — 평소 grayscale, hover/active 시 브랜드 컬러 */
-  .tech-chip svg {
-    filter: grayscale(1) opacity(0.6);
-    transition: filter 180ms ease;
-  }
-  .tech-chip:hover svg {
-    filter: none;
-  }
 }
 
 
-
-/* ── Light mode: remap white/* Tailwind utilities to dark equivalents ── */
-:root[data-theme="light"] {
-  .bg-white\/3  { background-color: rgba(15, 23, 42, 0.03) !important; }
-  .bg-white\/4  { background-color: rgba(15, 23, 42, 0.04) !important; }
-  .bg-white\/5  { background-color: rgba(15, 23, 42, 0.05) !important; }
-  .bg-white\/8  { background-color: rgba(15, 23, 42, 0.08) !important; }
-  .bg-white\/10 { background-color: rgba(15, 23, 42, 0.10) !important; }
-  .border-white\/6  { border-color: rgba(15, 23, 42, 0.10) !important; }
-  .border-white\/8  { border-color: rgba(15, 23, 42, 0.12) !important; }
-  .border-white\/10 { border-color: rgba(15, 23, 42, 0.14) !important; }
-  .border-white\/15 { border-color: rgba(15, 23, 42, 0.18) !important; }
-  .text-white\/25 { color: rgba(15, 23, 42, 0.35) !important; }
-  .text-white\/30 { color: rgba(15, 23, 42, 0.40) !important; }
-  .text-white\/40 { color: rgba(15, 23, 42, 0.50) !important; }
-  .text-white\/45 { color: rgba(15, 23, 42, 0.55) !important; }
-  .text-white\/50 { color: rgba(15, 23, 42, 0.60) !important; }
-  .text-white\/55 { color: rgba(15, 23, 42, 0.65) !important; }
-  .text-white\/70 { color: rgba(15, 23, 42, 0.75) !important; }
-  .text-white\/80 { color: rgba(15, 23, 42, 0.85) !important; }
-  .text-white     { color: #0f172a !important; }
-  .text-amber-400\/60 { color: rgba(146, 64, 14, 0.70) !important; }
-}
 
 /* ── prefers-reduced-motion ── */
 @media (prefers-reduced-motion: reduce) {

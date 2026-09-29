@@ -95,11 +95,10 @@ describe("scroll performance contracts", () => {
   it("loads web fonts without blocking rendering and avoids the Pretendard CDN", async () => {
     const html = await source("index.html");
     const css = await source("src/assets/index.css");
-    const defaultRoot = css.slice(0, css.indexOf(':root[data-theme="light"]'));
     expectNonBlockingFontStylesheets(html);
     expect(html).not.toContain("pretendardvariable-dynamic-subset.css");
     expect(html).not.toContain("cdn.jsdelivr.net");
-    expect(defaultRoot).not.toMatch(/--font-body\s*:[^;]*Pretendard/s);
+    expect(css).not.toMatch(/--font-body\s*:[^;]*Pretendard/s);
   });
 
   it.each([
