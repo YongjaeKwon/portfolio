@@ -5,7 +5,7 @@ const source = (path: string) => readFile(new URL(`../${path}`, import.meta.url)
 const scrollListener = /addEventListener\s*\(\s*["']scroll["']/;
 const fontStylesheetOnload = "this.onload=null;this.rel='stylesheet'";
 const fontStylesheetUrls = [
-  "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap",
+  "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400..900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap",
 ];
 const fontPreconnectOrigins = [
   "https://fonts.googleapis.com",
@@ -92,7 +92,7 @@ const expectImportedAndCalled = (code: string, symbol: string) => {
 };
 
 describe("scroll performance contracts", () => {
-  it("uses system Korean fonts and loads only display fonts without blocking rendering", async () => {
+  it("loads web fonts without blocking rendering and avoids the Pretendard CDN", async () => {
     const html = await source("index.html");
     const css = await source("src/assets/index.css");
     const defaultRoot = css.slice(0, css.indexOf(':root[data-theme="light"]'));
