@@ -1,7 +1,7 @@
 <template>
   <section id="education" class="py-24 md:py-28">
     <div class="section-shell">
-      <h2 class="reveal section-title">{{ t("학력 · 교육 · 자격", "Education & Certificates") }}</h2>
+      <h2 class="reveal section-title">{{ t("학력 · 교육 · 자격 · 어학", "Education, Certificates & Languages") }}</h2>
 
       <ol class="reveal mt-7 divide-y divide-[var(--fresh-border)] rounded-lg border border-[var(--fresh-border)] bg-[var(--fresh-surface-solid)]">
         <li

@@ -16,36 +16,20 @@ const finalPdfDir = path.join(rootDir, "output", "pdf");
 
 const resumes = [
   {
-    // 프론트엔드 기준본 — 사이트 기본 다운로드(전체·Frontend 트랙, public/resume.pdf)
-    source: "docs/resume-frontend.html",
-    html: "resume-frontend.html",
+    // 한국어 통합본 — 사이트 기본 다운로드(public/resume.pdf). 프론트엔드 · 백엔드판을 하나로 합쳤다.
+    source: "docs/resume.html",
+    html: "resume.html",
     output: "public/resume.pdf",
-    title: "권용재 - 프론트엔드 개발자 이력서",
-    finalCopy: "yongjae-kwon-frontend-developer-resume.pdf",
+    title: "권용재 - 웹 개발자 이력서",
+    finalCopy: "yongjae-kwon-web-developer-resume.pdf",
   },
   {
-    // 백엔드 기준본 — Backend 트랙 다운로드(public/resume-backend.pdf)
-    source: "docs/resume-backend.html",
-    html: "resume-backend.html",
-    output: "public/resume-backend.pdf",
-    title: "권용재 - Java·Spring 백엔드 개발자 이력서",
-    finalCopy: "yongjae-kwon-backend-developer-resume.pdf",
-  },
-  {
-    // 프론트엔드 영문판 — 영어 모드(?lang=en) 기본 다운로드
-    source: "docs/resume-frontend-en.html",
-    html: "resume-frontend-en.html",
+    // 영문 통합본 — 영어 모드(?lang=en) 다운로드
+    source: "docs/resume-en.html",
+    html: "resume-en.html",
     output: "public/resume-en.pdf",
-    title: "Yongjae Kwon - Frontend Developer Resume",
-    finalCopy: "yongjae-kwon-frontend-developer-resume-en.pdf",
-  },
-  {
-    // 백엔드 영문판 — 영어 모드 Backend 트랙 다운로드
-    source: "docs/resume-backend-en.html",
-    html: "resume-backend-en.html",
-    output: "public/resume-backend-en.pdf",
-    title: "Yongjae Kwon - Backend Developer Resume",
-    finalCopy: "yongjae-kwon-backend-developer-resume-en.pdf",
+    title: "Yongjae Kwon - Web Developer Resume",
+    finalCopy: "yongjae-kwon-web-developer-resume-en.pdf",
   },
 ];
 
@@ -219,7 +203,8 @@ for (const resume of allResumes) {
   const html = resume.source.endsWith(".html") ? raw : renderHtml(raw, resume.title);
 
   writeFileSync(htmlPath, html, "utf8");
-  printPdf(browser, htmlPath, outputPath, { tempDir: cacheDir });
+  // 웹폰트(Noto Sans KR 조각)를 다 받을 시간을 준다.
+  printPdf(browser, htmlPath, outputPath, { tempDir: cacheDir, budget: 15000 });
   console.log(`Generated ${resume.output}`);
 
   if (resume.finalCopy) {

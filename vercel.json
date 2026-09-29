@@ -9,6 +9,16 @@
       "source": "/resume-api-data.pdf",
       "destination": "/resume.pdf",
       "permanent": false
+    },
+    {
+      "source": "/resume-backend.pdf",
+      "destination": "/resume.pdf",
+      "permanent": false
+    },
+    {
+      "source": "/resume-backend-en.pdf",
+      "destination": "/resume-en.pdf",
+      "permanent": false
     }
   ],
   "headers": [
@@ -30,45 +40,11 @@
       ]
     },
     {
-      "source": "/resume-backend.pdf",
-      "headers": [
-        {
-          "key": "Content-Disposition",
-          "value": "attachment; filename=\"Yongjae-Kwon-Backend-Resume.pdf\""
-        },
-        {
-          "key": "Content-Type",
-          "value": "application/pdf"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
       "source": "/resume-en.pdf",
       "headers": [
         {
           "key": "Content-Disposition",
           "value": "attachment; filename=\"Yongjae-Kwon-Resume.pdf\""
-        },
-        {
-          "key": "Content-Type",
-          "value": "application/pdf"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/resume-backend-en.pdf",
-      "headers": [
-        {
-          "key": "Content-Disposition",
-          "value": "attachment; filename=\"Yongjae-Kwon-Backend-Resume.pdf\""
         },
         {
           "key": "Content-Type",

@@ -2,7 +2,7 @@
 
 운영 중인 공공 · B2B 업무 시스템을 만드는 웹 개발자 권용재의 포트폴리오 사이트입니다. Vue 3와 TypeScript로 만들었습니다.
 
-**[사이트 열기 ↗](https://www.yongjaekwon.com/)** · [포트폴리오 PDF](https://www.yongjaekwon.com/portfolio.pdf) · [프론트엔드 이력서](https://www.yongjaekwon.com/resume.pdf) · [백엔드 이력서](https://www.yongjaekwon.com/resume-backend.pdf)
+**[사이트 열기 ↗](https://www.yongjaekwon.com/)** · [포트폴리오 PDF](https://www.yongjaekwon.com/portfolio.pdf) · [이력서](https://www.yongjaekwon.com/resume.pdf) · [Resume (EN)](https://www.yongjaekwon.com/resume-en.pdf)
 
 [![권용재 포트폴리오 첫 화면 — 한 줄 소개, 기울인 프로젝트 화면과 대표 성과 숫자](docs/images/portfolio.png)](https://www.yongjaekwon.com/)
 
@@ -65,4 +65,4 @@ npm run dev
 | `npm test` | 이 포트폴리오의 로직 · 접근성 · 콘텐츠 계약 검사 (다른 프로젝트나 전체 브라우저 흐름은 검증하지 않음) |
 | `npm run build` | 타입 검사와 정적 빌드. `npm run preview`로 결과 확인 |
 | `npm run portfolio:pdf` | `docs/portfolio-deck.html`을 `public/portfolio.pdf`로 인쇄 (Chrome 또는 Edge 필요) |
-| `npm run resumes:pdf` | 이력서 HTML을 `public/resume*.pdf`로 인쇄 |
+| `npm run resumes:pdf` | `docs/resume.html` · `docs/resume-en.html`을 `public/resume.pdf` · `public/resume-en.pdf`로 인쇄 |

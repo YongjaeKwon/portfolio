@@ -31,8 +31,8 @@
           </a>
           <a
             class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
-            :href="resumeHref"
-            :download="resumeFileName"
+            :href="profile.resume"
+            download="Yongjae-Kwon-Resume.pdf"
           >
             {{ t("이력서 PDF", "Resume PDF") }}
           </a>
@@ -73,14 +73,12 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref } from "vue";
 import { profile } from "@/data/portfolio";
-import { useActiveResume } from "@/composables/useActiveResume";
 import { t } from "@/i18n/locale";
 import {
   createGmailComposeUrl,
   MAIL_FALLBACK_DELAY_MS,
 } from "@/utils/contactEmail";
 
-const { resumeHref, resumeFileName } = useActiveResume();
 const showMailFallback = ref(false);
 const mailOpenedExternally = ref(false);
 const copyStatus = ref<"idle" | "copied" | "failed">("idle");

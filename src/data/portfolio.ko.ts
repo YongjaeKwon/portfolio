@@ -10,10 +10,9 @@ export const profile = {
   phone: "010-9470-1704",
   github: "https://github.com/YongjaeKwon",
   location: "경기도 용인시 수지구",
-  resume: "/resume.pdf?v=20260928",
+  resume: "/resume.pdf?v=20260929",
 };
 
-const backendResume = "/resume-backend.pdf?v=20260928";
 
 export const focusTracks = [
   {
@@ -22,7 +21,6 @@ export const focusTracks = [
     role: "Web Developer",
     headline: "필요한 기능을 만들고, 쓰이는 모습까지 확인합니다.",
     target: "요구사항 정리부터 배포 후 확인까지 한 기능을 끝까지 맡아 왔습니다.",
-    resume: profile.resume,
     projectIntro: "실무와 개인·팀 프로젝트에서 직접 구현한 부분을 모았습니다.",
     projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"],
   },
@@ -33,7 +31,6 @@ export const focusTracks = [
     headline: "입력과 상태가 많은 업무 화면을 만듭니다.",
     target:
       "Vue·WebSquare 실무 화면과 React 프로젝트를 만들었습니다. 입력과 상태가 많은 화면에서도 사용자가 다음에 할 일을 바로 알 수 있게 하는 데 집중합니다.",
-    resume: profile.resume,
     projectIntro: "화면 구조, 입력 처리, 진행 상태와 오류 안내를 중심으로 골랐습니다.",
     projectOrder: ["reachrich", "oneulsai", "ssafast", "ddoing", "modac", "pps", "tsms"],
   },
@@ -44,7 +41,6 @@ export const focusTracks = [
     headline: "업무에 맞는 서버 기능을 만들고 운영합니다.",
     target:
       "Spring 기반 업무 시스템에서 서버 로직과 SQL, 외부 연계를 개발하고 배포와 운영까지 맡아 왔습니다.",
-    resume: backendResume,
     projectIntro: "서버 처리, 데이터 검증, 운영 자동화를 중심으로 골랐습니다.",
     projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich"],
   },
@@ -742,10 +738,13 @@ export const experience = {
   ],
 };
 
+// 최신순. 어학은 유효한 성적만(OPIc IM2 2024.03은 기간 만료로 제외).
 export const education = [
-  { title: "아주대학교 e-비즈니스학과", period: "2018.03 ~ 2020.08", description: "학사 졸업", icon: "GraduationCap" },
-  { title: "삼성 청년 SW 아카데미(SSAFY) 8기", period: "2022.07 ~ 2023.06", description: "웹 개발 과정 수료. 팀 프로젝트 세 개에서 프론트엔드를 맡았습니다.", icon: "Award" },
-  { title: "California State University, Chico", period: "2014.01 ~ 2015.05", description: "Business Administration 전공 후 아주대학교 편입", icon: "GraduationCap" },
+  { title: "TOEIC 885점", period: "2026.06", description: "LC 480 · RC 405", icon: "Languages" },
+  { title: "TOEIC Speaking Advanced Low", period: "2026.06", description: "170점", icon: "Languages" },
   { title: "SQLD", period: "2024.09", description: "SQL 개발자 자격 취득", icon: "Database" },
+  { title: "삼성 청년 SW 아카데미(SSAFY) 8기", period: "2022.07 ~ 2023.06", description: "웹 개발 과정 수료. 팀 프로젝트 세 개에서 프론트엔드를 맡았습니다.", icon: "Award" },
+  { title: "아주대학교 e-비즈니스학과", period: "2018.03 ~ 2020.08", description: "학사 졸업", icon: "GraduationCap" },
+  { title: "California State University, Chico", period: "2014.01 ~ 2015.05", description: "Business Administration 전공 후 아주대학교 편입", icon: "GraduationCap" },
 ];
 
