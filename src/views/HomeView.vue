@@ -90,7 +90,7 @@
             <p v-if="item.figure" class="proof-figure font-mono tnum">
               <s v-if="item.figure.before" class="proof-before">{{ item.figure.before }}</s>
               <span v-if="item.figure.before" class="proof-arrow" aria-hidden="true">→</span>
-              <span>{{ item.figure.value }}<small>{{ item.figure.unit }}</small></span>
+              <span><template v-for="(part, index) in item.figure.value.split(',')" :key="index"><span v-if="index" class="proof-comma">,</span>{{ part }}</template><small>{{ item.figure.unit }}</small></span>
             </p>
             <p :class="['text-primary font-black leading-snug', item.figure ? 'mt-4 text-lg' : 'text-2xl md:text-[1.7rem]']">{{ item.title }}</p>
             <p class="text-secondary mt-2 text-sm leading-6">{{ item.detail }}</p>
@@ -294,9 +294,18 @@ const activeProof = computed(() => proofByTrack[activeTrack.value]);
   text-decoration-thickness: 3px;
 }
 
+/* 줄 전체가 기준선 정렬이라, 작은 화살표만 큰 숫자 높이의 가운데로 올린다 */
 .proof-arrow {
+  align-self: center;
   color: var(--fresh-accent);
+  font-family: var(--font-body);
   font-size: 0.4em;
+  font-weight: 700;
   letter-spacing: 0;
+}
+
+/* 모노 글꼴의 쉼표는 한 칸을 다 차지해 숫자가 끊겨 보인다 */
+.proof-comma {
+  margin-inline: -0.18em;
 }
 </style>
