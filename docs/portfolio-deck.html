@@ -70,6 +70,13 @@
   .shot { width: 100%; border-radius: 8px; box-shadow: 0 30px 60px rgba(0,0,0,0.35); }
   .tilt-l { transform: rotate(-2deg); }
   .tilt-r { transform: rotate(2deg); }
+  .label { font-size: 14px; font-weight: 900; margin-bottom: 8px; }
+  .facts > div { display: grid; grid-template-columns: 96px 1fr; gap: 12px; font-size: 15px; line-height: 1.6; }
+  .facts dt { font-weight: 900; }
+  .facts dd { color: var(--ink-soft); }
+  .built > div { padding: 10px 0; }
+  .built b { display: block; font-size: 16px; font-weight: 900; }
+  .built p { margin-top: 3px; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
   .panel { background: var(--bg-soft); border-top: 2px solid var(--ink); padding: 22px 24px; }
 </style>
 </head>
@@ -130,145 +137,188 @@
   <div class="foot"><span>실무 프로젝트는 비공개라 회사 · 고객사 정보와 실제 화면은 싣지 않았습니다.</span></div>
 </section>
 
-<!-- 3. PPS 대량 다운로드 -->
+<!-- 3. PPS 소개 -->
 <section class="slide">
-  <div class="top"><b>B2B 협력사 포털(PPS) · 대량 다운로드</b><span class="mono">03 / 11</span></div>
-  <div class="grid2" style="margin-top:36px;grid-template-columns:1fr 1fr;">
+  <div class="top"><b>B2B 협력사 포털(PPS) · 프로젝트 소개</b><span class="mono">03 / 11</span></div>
+  <div class="grid2" style="margin-top:34px;grid-template-columns:0.95fr 1.05fr;">
     <div>
-      <h2>오래 걸리던 다운로드를,<br>추적할 수 있는 작업으로</h2>
-      <p class="fig xl" style="margin-top:34px;">300~400<small>건</small></p>
-      <p class="cap">현장 엔지니어(CE) 증빙 첨부파일을 한 요청에서 모아 압축하던 다운로드</p>
-      <p class="stack" style="margin-top:18px;">Full Stack · Vue · Spring Boot · MyBatis · Hazelcast</p>
+      <p class="meta"><b>실무 프로젝트</b><span class="mono">2025.02 ~ 현재</span><span class="live">운영 중</span></p>
+      <h2 style="margin-top:12px;">B2B 협력사 포털</h2>
+      <p class="lead" style="margin-top:18px;">본사와 협력사가 파트너 등록과 계약, 현장 엔지니어(CE)의 교육 · 자격 · 증빙 · 평가를 처리하는 포털입니다.</p>
+      <dl class="facts rows" style="margin-top:26px;">
+        <div><dt>쓰는 사람</dt><dd>본사 담당자와 협력사 약 500곳, CE 계정 824개</dd></div>
+        <div><dt>맡은 범위</dt><dd>초기 구축 참여부터 기능 개발, 검수, 배포, 운영까지</dd></div>
+        <div><dt>일하는 방식</dt><dd>운영 담당자와 요구사항을 정리하고, 사용자 검수를 거쳐 배포합니다</dd></div>
+      </dl>
     </div>
-    <div class="rows">
-      <div class="step"><b>문제</b><p>첨부파일 300~400건을 한 번에 압축하면 요청이 오래 멈춰 있었고, 사용자는 진행 중인지 실패했는지 알 수 없었습니다.</p></div>
-      <div class="step"><b>판단</b><p>화면 요청과 압축 실행을 나누고, 작업 ID 하나로 서버 상태와 화면을 이어 주기로 했습니다.</p></div>
-      <div class="step"><b>구현</b><ul class="dash" style="color:var(--ink-soft);"><li>전용 실행기에서 압축하고 대기, 진행, 완료, 실패 상태를 저장했습니다.</li><li>Vue 화면이 2초마다 상태를 조회하고, 새로고침 뒤에도 기존 작업을 찾아 이어서 보여 줍니다.</li><li>완료 파일은 스트리밍으로 내려받고, 만료된 결과 파일은 자동으로 지웁니다.</li></ul></div>
-      <div class="step result" style="border-top:2px solid var(--ink);"><b>결과</b><p>300~400건 규모의 대량 다운로드를 비동기 작업으로 운영하고 있습니다. 사용자는 진행 상황과 실패 여부를 보고 완료 파일을 이어서 내려받습니다.</p></div>
-    </div>
-  </div>
-  <div class="foot" style="font-family:var(--sans);font-weight:700;color:var(--ink);gap:14px;justify-content:flex-start;">
-    <span class="mono" style="background:var(--ink);color:var(--bg);padding:8px 14px;">작업 ID 발급</span><span style="align-self:center;color:var(--accent);">→</span>
-    <span style="background:#dedcd4;padding:8px 14px;">대기</span><span style="align-self:center;color:var(--accent);">→</span>
-    <span style="background:var(--accent);color:#fff;padding:8px 14px;">진행</span><span style="align-self:center;color:var(--accent);">→</span>
-    <span style="background:var(--green);color:#fff;padding:8px 14px;">완료 · 내려받기</span><span style="align-self:center;color:var(--muted);font-weight:400;">또는</span>
-    <span style="border:2px solid var(--ink);padding:6px 12px;">실패 · 안내</span>
-  </div>
-</section>
-
-<!-- 4. PPS 요청 제한 -->
-<section class="slide">
-  <div class="top"><b>B2B 협력사 포털(PPS) · 인증번호 요청 제한</b><span class="mono">04 / 11</span></div>
-  <div class="grid2" style="margin-top:36px;grid-template-columns:1fr 1fr;">
     <div>
-      <h2>서버 두 대에서<br>똑같이 걸리는 요청 제한</h2>
-      <div style="display:flex;gap:56px;margin-top:40px;">
-        <div><p class="fig xl">2<small>대</small></p><p class="cap">어느 서버로 요청해도 같은 제한</p></div>
-        <div><p class="fig xl">30<small>건</small></p><p class="cap">경계 조건을 고정한 단위 테스트</p></div>
+      <p class="label">제가 만든 것</p>
+      <div class="built rows">
+        <div><b>교육 · 증빙 · 계정 관리 화면</b><p>교육 등록, 대상자 업로드, 제출 현황이 같은 기준으로 조회되도록 화면과 서버의 조회 조건을 맞췄습니다.</p></div>
+        <div><b>대량 첨부파일 다운로드</b><p>300~400건을 한 번에 받을 때 진행 상황이 보이고, 새로고침해도 이어서 받게 바꿨습니다.</p></div>
+        <div><b>본사 계정 발급</b><p>부서 · 직급 확인, 아이디 중복 검사, 초기 비밀번호 발급을 서버에서 처리하고 사내 업무 시스템으로 보냅니다.</p></div>
+        <div><b>배포 절차</b><p>손으로 반복하던 빌드, 서버 전송, 백업, 두 서버 순차 배포를 Jenkins 작업으로 묶었습니다.</p></div>
       </div>
-      <p class="stack" style="margin-top:22px;">Backend · Java 21 · Spring Boot · Hazelcast</p>
+    </div>
+  </div>
+  <p class="stack" style="margin-top:auto;">Vue · Java 21 · Spring Boot · MyBatis · MariaDB · Oracle · Hazelcast · Jenkins</p>
+</section>
+
+<!-- 4. PPS 대표 사례 -->
+<section class="slide">
+  <div class="top"><b>B2B 협력사 포털(PPS) · 대표 사례</b><span class="mono">04 / 11</span></div>
+  <h2 style="margin-top:32px;">오래 걸리던 다운로드를, 진행 상황이 보이는 작업으로</h2>
+  <div class="grid2" style="margin-top:28px;grid-template-columns:0.7fr 1.3fr;gap:48px;">
+    <div>
+      <p class="fig xl">300~400<small>건</small></p>
+      <p class="cap">CE 증빙 첨부파일을 한 번에 내려받는 기능</p>
     </div>
     <div class="rows">
-      <div class="step"><b>문제</b><p>비밀번호 초기화 인증번호가 알림톡으로 나가는데, 반복 클릭이나 자동화된 요청을 막는 장치가 없었습니다. 서버별 메모리로 제한하면 요청이 나뉘어 들어올 때 제한이 먹히지 않을 수 있었습니다.</p></div>
-      <div class="step"><b>판단</b><p>이미 쓰고 있던 분산 맵에 TTL 쿨다운을 두고, 동시에 들어온 요청 중 한 건만 통과하도록 원자적 획득 연산을 쓰기로 했습니다.</p></div>
-      <div class="step"><b>구현</b><ul class="dash" style="color:var(--ink-soft);"><li>putIfAbsent로 쿨다운을 원자적으로 잡고, 만료 항목은 조건부 삭제로 지웠습니다.</li><li>제한 키는 계정과 전화번호를 SHA-256 해시로 만들어 원문이 남지 않게 했습니다.</li><li>화면에는 남은 대기 시간을 돌려줘 언제 다시 시도할지 알려 줍니다.</li></ul></div>
-      <div class="step result" style="border-top:2px solid var(--ink);"><b>결과</b><p>어느 서버로 요청해도 같은 제한이 걸리고, 사용자는 남은 대기 시간을 안내받습니다.</p></div>
+      <div class="step"><b>불편</b><p>한 번에 압축하는 동안 화면이 오래 멈춰 있었고, 사용자는 진행 중인지 실패했는지 알 수 없었습니다.</p></div>
+      <div class="step"><b>바꾼 것</b><p>요청을 받으면 작업 번호부터 돌려주고, 압축은 따로 실행합니다. 화면은 2초마다 진행 상태를 확인하고, 새로고침해도 같은 작업을 다시 찾아 보여 줍니다.</p></div>
+      <div class="step result" style="border-top:2px solid var(--ink);"><b>지금</b><p>대량 다운로드를 이 방식으로 운영합니다. 사용자는 진행 상황과 실패 여부를 보고, 끝난 파일을 이어서 내려받습니다.</p></div>
     </div>
+  </div>
+  <div style="margin-top:22px;display:flex;gap:12px;align-items:center;font-weight:700;font-size:14px;">
+    <span style="background:var(--ink);color:var(--bg);padding:7px 13px;">작업 번호 발급</span><span style="color:var(--accent);">→</span>
+    <span style="background:#dedcd4;padding:7px 13px;">대기</span><span style="color:var(--accent);">→</span>
+    <span style="background:var(--accent);color:#fff;padding:7px 13px;">진행</span><span style="color:var(--accent);">→</span>
+    <span style="background:var(--green);color:#fff;padding:7px 13px;">완료 · 내려받기</span><span style="color:var(--muted);font-weight:400;">또는</span>
+    <span style="border:2px solid var(--ink);padding:5px 11px;">실패 · 안내</span>
+  </div>
+  <div class="rows" style="margin-top:auto;">
+    <div class="step" style="grid-template-columns:auto 1fr;"><b>같은 서비스에서</b><p>비밀번호 초기화 인증번호 요청에 제한을 걸었습니다. 서버 2대 어디로 요청해도 같은 대기 시간이 걸리고, 경계 조건은 단위 테스트 30건으로 고정했습니다.</p></div>
   </div>
 </section>
 
-<!-- 5. TSMS 조회 -->
+<!-- 5. TSMS 소개 -->
 <section class="slide">
-  <div class="top"><b>교육용 단말 운영 시스템(TSMS) · 조회 성능</b><span class="mono">05 / 11</span></div>
-  <div style="margin-top:36px;">
-    <h2>60초 안에 끝나지 않던 통합 뷰 조회 재작성</h2>
+  <div class="top"><b>교육용 단말 운영 시스템(TSMS) · 프로젝트 소개</b><span class="mono">05 / 11</span></div>
+  <div class="grid2" style="margin-top:34px;grid-template-columns:0.95fr 1.05fr;">
+    <div>
+      <p class="meta"><b>실무 프로젝트</b><span class="mono">2025.09 ~ 현재</span><span class="live">운영 중</span></p>
+      <h2 style="margin-top:12px;">교육용 단말<br>운영 시스템</h2>
+      <p class="lead" style="margin-top:18px;">서울시교육청 디벗 사업의 교육용 단말 약 11만 대를 등록하고, 배송 · 설치 · A/S · 점검 이력을 관리하는 시스템입니다.</p>
+      <dl class="facts rows" style="margin-top:26px;">
+        <div><dt>쓰는 사람</dt><dd>사업을 운영하는 여러 운영팀</dd></div>
+        <div><dt>맡은 범위</dt><dd>기존 기능 유지보수와 사업별 신규 개발, 검수, 배포</dd></div>
+      </dl>
+    </div>
+    <div>
+      <p class="label">제가 만든 것</p>
+      <div class="built rows">
+        <div><b>중고거래 게시글 모니터링</b><p>플랫폼별 검색 링크를 만들어 주고, 검수자가 붙여넣은 게시글 주소로 중복을 확인합니다. 외부 사이트에는 접속하지 않습니다.</p></div>
+        <div><b>학교 방문 점검</b><p>종이로 하던 점검을 일정, 대상, 체크리스트, 서명, 재점검 이력까지 시스템으로 옮겼습니다.</p></div>
+        <div><b>단말 QR 발급과 안내 메시지</b><p>QR 발급과 전용 프린터 출력, 학생 명단 등록 · 설치 희망일 같은 안내 메시지 발송을 붙였습니다.</p></div>
+        <div><b>외부 연계 정리</b><p>화면마다 따로 있던 주소 검색 · NEIS 연동을 서버 공통 기능으로 옮겨, API 키가 브라우저에 드러나지 않게 했습니다.</p></div>
+      </div>
+    </div>
   </div>
-  <div class="grid3" style="margin-top:34px;border-top:2px solid var(--ink);">
+  <div class="grid3" style="margin-top:auto;border-top:2px solid var(--ink);">
+    <div><p class="fig" style="font-size:44px;">108,237<small>대</small></p><p class="cap-sub">QR 발급 (전체 111,593대 중)</p></div>
+    <div><p class="fig" style="font-size:44px;">14,882<small>건</small></p><p class="cap-sub">시스템에 저장된 점검표 · 119개 학교 중 71곳 진행(2026.09)</p></div>
+    <div><p class="fig" style="font-size:44px;">25<small>개 화면</small></p><p class="cap-sub">서버 공통 연계로 옮긴 화면</p></div>
+  </div>
+</section>
+
+<!-- 6. TSMS 대표 사례 -->
+<section class="slide">
+  <div class="top"><b>교육용 단말 운영 시스템(TSMS) · 대표 사례</b><span class="mono">06 / 11</span></div>
+  <h2 style="margin-top:32px;">60초 안에 끝나지 않던 조회를 63~69ms로</h2>
+  <div class="grid3" style="margin-top:28px;border-top:2px solid var(--ink);">
     <div><p class="fig"><s>60s</s><span class="arrow">→</span>63~69<small>ms</small></p><p class="cap">운영 DB에서 같은 결과를 돌려준 시간</p><p class="cap-sub">2026.09, 이력이 가장 많은 고객 기준</p></div>
     <div><p class="fig">870<small>배 이상</small></p><p class="cap">기존 쿼리 대비 최소 단축 폭</p></div>
     <div><p class="fig" style="font-size:52px;"><s>2.1조</s><span class="arrow">→</span>1,854<small>행</small></p><p class="cap">실행계획의 추정 행 수</p></div>
   </div>
-  <div class="rows" style="margin-top:30px;">
-    <div class="step"><b>문제</b><p>A/S 이력과 정산 세부현황 조회가 여러 테이블을 합친 통합 뷰를 거치면서, 데이터가 쌓일수록 화면이 수십 초씩 기다렸습니다.</p></div>
-    <div class="step"><b>제약</b><p>화면의 조회 조건과 표시 항목은 그대로 둬야 했고, 같은 뷰를 쓰는 다른 화면에 영향을 주면 안 됐습니다.</p></div>
-    <div class="step"><b>판단</b><p>고객 조건이 뷰 안까지 전달되지 않아 뷰 전체를 만든 뒤 거르고 있었습니다. 인덱스를 더하는 대신 화면이 쓰는 컬럼만 기본 테이블 조인으로 다시 썼습니다.</p></div>
-    <div class="step"><b>구현</b><p>통합 뷰 대신 기본 테이블을 직접 조인해 고객 조건이 처음부터 인덱스를 타게 하고, 화면이 쓰는 컬럼만 남긴 채 최신 처리 이력은 서브쿼리로 붙였습니다.</p></div>
-    <div class="step"><b>검증</b><p>바꾸기 전후 쿼리를 같은 파라미터로 실행해 결과 행이 일치하는지 비교했습니다.</p></div>
-  </div>
-</section>
-
-<!-- 6. TSMS 운영 -->
-<section class="slide">
-  <div class="top"><b>교육용 단말 운영 시스템(TSMS) · 운영 기능</b><span class="mono">06 / 11</span></div>
-  <h2 style="margin-top:36px;">흩어진 운영 업무를<br>확인할 수 있는 이력으로</h2>
-  <div class="grid3" style="margin-top:34px;border-top:2px solid var(--ink);">
-    <div><p class="fig">108,237<small>대</small></p><p class="cap">QR 발급 (전체 111,593대 중)</p><p class="cap-sub">대량 등록 전 생산입고 · 기등록 검사, QR에는 외부 노출용 ID</p></div>
-    <div><p class="fig">14,882<small>건</small></p><p class="cap">시스템에 저장된 점검표</p><p class="cap-sub">2026.09 기준 대상 119개 학교 중 71개 학교 진행</p></div>
-    <div><p class="fig">25<small>개 화면</small></p><p class="cap">브라우저에 드러난 외부 API 키 제거</p><p class="cap-sub">카카오 주소 검색 · NEIS 연동을 서버 공통 경로로</p></div>
-  </div>
-  <div class="grid2" style="margin-top:30px;gap:40px;">
-    <div class="rows"><div><h3>중고거래 게시글 모니터링</h3><p style="margin-top:6px;font-size:15px;line-height:1.65;color:var(--ink-soft);">외부 사이트에 접속하지 않고, 검수자가 붙여넣은 주소에서 사이트와 게시글 번호를 찾아 중복을 확인합니다. 주소 형식이 바뀌면 관리 화면에서 판별 규칙만 고칩니다.</p></div></div>
-    <div class="rows"><div><h3>학교 방문 점검 전산화</h3><p style="margin-top:6px;font-size:15px;line-height:1.65;color:var(--ink-soft);">종이 점검을 일정, 대상, 체크리스트, 서명, 재점검 이력, 결과 파일까지 한 화면 흐름으로 옮겼습니다. 분실 · 미지참 단말은 2차, 3차 회차로 이어집니다.</p></div></div>
+  <div class="rows" style="margin-top:28px;">
+    <div class="step"><b>불편</b><p>A/S 이력과 정산 세부현황 화면이 데이터가 쌓이면서 수십 초씩 기다려야 할 만큼 느려졌습니다.</p></div>
+    <div class="step"><b>원인</b><p>여러 테이블을 합친 통합 뷰를 거치는데, 고객 조건이 뷰 안까지 전달되지 않아 전체를 다 만든 뒤에 거르고 있었습니다.</p></div>
+    <div class="step"><b>바꾼 것</b><p>화면의 조회 조건과 표시 항목은 그대로 두고, 화면이 쓰는 컬럼만 기본 테이블 조인으로 다시 썼습니다. 바꾸기 전후 결과가 같은지 같은 조건으로 비교했습니다.</p></div>
   </div>
 </section>
 
 <!-- 7. 티켓러시 -->
 <section class="slide dark">
   <div class="top"><b>티켓러시 · 선착순 티켓팅 시스템</b><span class="mono">07 / 11</span></div>
-  <div class="grid2" style="margin-top:32px;grid-template-columns:1.05fr 0.95fr;gap:48px;align-items:start;">
+  <div class="grid2" style="margin-top:30px;grid-template-columns:1fr 1fr;gap:52px;">
     <div>
-      <p class="meta"><b>개인 백엔드 프로젝트</b><span class="mono">2026.08 ~ 진행 중</span><a href="https://github.com/YongjaeKwon/ticket-rush">GitHub 공개</a></p>
-      <h2 style="margin-top:14px;">같은 좌석은<br>한 번만 팔린다</h2>
-      <div style="margin-top:28px;"><p class="fig xl">100<span class="arrow">→</span>1</p><p class="cap">좌석 하나에 동시 요청 100건, 성공은 1건 · 나머지 99건은 선점된 좌석으로 거절</p></div>
-      <ul class="rows dash" style="margin-top:22px;font-size:15px;line-height:1.6;">
-        <li style="padding-left:16px;">Redis SET NX EX로 좌석을 5분간 선점해 동시 요청 중 한 건만 통과</li>
-        <li style="padding-left:16px;">선점이 만료되면 도메인 규칙이 결제를 거절</li>
-        <li style="padding-left:16px;">마지막으로 MySQL (회차, 좌석) 기본키가 두 번째 확정을 막음 · Redis 정보가 사라진 상황도 통합 테스트로 재현</li>
-      </ul>
+      <p class="meta"><b>개인 프로젝트</b><span class="mono">2026.08 ~ 진행 중</span><a href="https://github.com/YongjaeKwon/ticket-rush">코드 공개(GitHub)</a></p>
+      <h2 style="margin-top:12px;">티켓러시</h2>
+      <p class="lead" style="margin-top:14px;">선착순 예매에서 같은 좌석이 두 번 팔리지 않는지를 테스트로 확인하며 만드는 예매 시스템입니다.</p>
+      <img class="shot tilt-l" src="../public/projects/ticketrush-preview.webp" alt="티켓러시 좌석 선택 화면" style="margin-top:26px;width:88%;">
     </div>
-    <div style="padding-top:40px;">
-      <img class="shot tilt-l" src="../public/projects/ticketrush-preview.webp" alt="티켓러시 좌석 선택 화면">
-      <p class="stack" style="margin-top:34px;">Java 21 · Spring Boot 4 · Spring Modulith · MySQL 8.4 · Redis 7 · Next.js · Testcontainers · Playwright · GitHub Actions</p>
+    <div>
+      <p class="label">예매 흐름</p>
+      <p style="font-size:17px;font-weight:700;">대기열 입장 <span class="stop">→</span> 좌석 선택 <span class="stop">→</span> 결제 <span class="stop">→</span> 예매 완료</p>
+      <p class="label" style="margin-top:22px;">제가 만든 것</p>
+      <div class="built rows">
+        <div><b>대기열과 좌석 선택 화면</b><p>대기 순번과 좌석 상태를 실시간으로 받아, 좌석맵에 그립니다.</p></div>
+        <div><b>같은 좌석 중복 판매 방지</b><p>좌석을 5분간 먼저 잡아 두고, 시간이 지나면 결제를 거절하며, 마지막으로 DB가 두 번째 확정을 막습니다.</p></div>
+        <div><b>결제 중복 방지와 테스트</b><p>같은 결제 요청이 두 번 처리되지 않게 했고, 예매 흐름 전체를 CI에서 자동 테스트합니다.</p></div>
+      </div>
+      <div style="margin-top:18px;"><p class="fig" style="font-size:56px;">100<span class="arrow">→</span>1</p><p class="cap">좌석 하나에 동시 요청 100건, 예매 성공은 1건</p></div>
     </div>
   </div>
+  <p class="stack" style="margin-top:auto;">Java 21 · Spring Boot 4 · MySQL · Redis · Next.js · Testcontainers · Playwright · GitHub Actions</p>
 </section>
 
 <!-- 8. 오늘사이 -->
 <section class="slide">
   <div class="top"><b>오늘사이 · 오프라인 소개팅 운영 서비스</b><span class="mono">08 / 11</span></div>
-  <div class="grid2" style="margin-top:32px;grid-template-columns:0.95fr 1.05fr;gap:48px;align-items:start;">
-    <div style="padding-top:12px;">
-      <img class="shot tilt-r" src="../public/projects/oneulsai-preview.webp" alt="오늘사이 브랜드 로고와 소개 카드뉴스" style="box-shadow:0 24px 50px rgba(17,17,17,0.2);">
-      <p class="stack" style="margin-top:30px;">TypeScript · NestJS · Next.js · PostgreSQL · Prisma · Turborepo · Vitest · Playwright</p>
+  <div class="grid2" style="margin-top:30px;grid-template-columns:1fr 1fr;gap:52px;">
+    <div>
+      <p class="meta"><b>개인 프로젝트</b><span class="mono">2026.09 ~ 진행 중</span><span>비공개</span></p>
+      <h2 style="margin-top:12px;">오늘사이</h2>
+      <p class="lead" style="margin-top:14px;">일요일 카페에서 7명과 한 사람씩 1:1로 대화하고, 서로 선택한 경우에만 연결되는 오프라인 소개팅을 실제로 운영하려고 만들고 있는 서비스입니다.</p>
+      <img class="shot tilt-r" src="../public/projects/oneulsai-preview.webp" alt="오늘사이 브랜드 로고와 소개 카드뉴스" style="margin-top:24px;width:88%;box-shadow:0 24px 50px rgba(17,17,17,0.2);">
     </div>
     <div>
-      <p class="meta"><b>개인 풀스택 프로젝트</b><span class="mono">2026.09 ~ 진행 중</span><span>비공개</span></p>
-      <h2 style="margin-top:14px;">남은 자리 하나에<br>20명이 동시에 신청하면</h2>
-      <div style="display:flex;gap:48px;margin-top:26px;">
-        <div><p class="fig xl">20<span class="arrow">→</span>1</p><p class="cap">성공(201)은 1건, 나머지는 409 · 503</p></div>
-        <div><p class="fig xl" style="font-size:72px;">8<span class="arrow">→</span>1</p><p class="cap">같은 회원 8번 동시 신청</p></div>
+      <dl class="facts rows">
+        <div><dt>지금</dt><dd>가입 · 로그인, 모임 일정, 참가 신청까지 동작합니다. 결제, 체크인, 매칭은 다음 단계입니다.</dd></div>
+        <div><dt>만드는 방식</dt><dd>기능마다 설계서를 먼저 쓰고 확정한 뒤 구현합니다.</dd></div>
+      </dl>
+      <p class="label" style="margin-top:20px;">제가 만든 것</p>
+      <div class="built rows">
+        <div><b>참가자 웹 · 운영자 웹</b><p>참가자는 가입하고 일정을 보고 참가를 신청합니다. 운영자는 회원을 조회하고 회차를 관리하며 신청을 취소합니다.</p></div>
+        <div><b>정원 지키기</b><p>신청이 한꺼번에 몰려도 성별 정원을 넘기지 않도록 회차를 먼저 잠근 뒤 인원을 셉니다.</p></div>
       </div>
-      <ul class="rows dash" style="margin-top:22px;font-size:15px;line-height:1.6;">
-        <li style="padding-left:16px;">Gateway 뒤에 회원 · 일정 · 매칭 · 알림 · 결제 서비스, 서비스마다 자기 DB만 사용</li>
-        <li style="padding-left:16px;">참가 신청은 회차 행을 먼저 잠근 뒤 성별 인원을 세고 저장, 잠금 대기는 2초로 제한</li>
-        <li style="padding-left:16px;">가입 · 로그인, 모임 일정, 참가 신청까지 동작 · 결제, 체크인, 매칭은 다음 단계</li>
-      </ul>
+      <div style="display:flex;gap:44px;margin-top:16px;">
+        <div><p class="fig" style="font-size:52px;">20<span class="arrow">→</span>1</p><p class="cap">남은 자리 하나에 20명 동시 신청, 성공 1건</p></div>
+        <div><p class="fig" style="font-size:52px;">8<span class="arrow">→</span>1</p><p class="cap">같은 회원이 8번 눌러도 1건</p></div>
+      </div>
     </div>
   </div>
+  <p class="stack" style="margin-top:auto;">TypeScript · NestJS · Next.js · PostgreSQL · Prisma · Turborepo · Vitest · Playwright</p>
 </section>
 
 <!-- 9. ReachRich -->
 <section class="slide dark">
   <div class="top"><b>ReachRich · 개인 투자 연구 · 운영 플랫폼</b><span class="mono">09 / 11</span></div>
-  <p class="meta" style="margin-top:32px;"><b>개인 풀스택 프로젝트</b><span class="mono">2026.03 ~ 현재</span><span>비공개 · <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">공개 데모 저장소(합성 데이터)</a></span></p>
-  <h2 style="margin-top:14px;">계좌와 시장 데이터를<br>검증 · 운영 화면으로 연결</h2>
-  <p style="margin-top:26px;font-size:20px;font-weight:700;">토스증권 · KRX <span style="color:var(--accent);">→</span> SQLite · Parquet <span style="color:var(--accent);">→</span> 검증 · 모의운용 <span style="color:var(--accent);">→</span> React 콘솔</p>
-  <div class="grid3" style="margin-top:28px;border-top:2px solid currentColor;">
-    <div><p class="fig">205</p><p class="cap">파이썬 테스트 통과</p><p class="cap-sub">2026.08.11 기준</p></div>
-    <div><p class="fig">96</p><p class="cap">웹 테스트 통과</p><p class="cap-sub">2026.08.11 기준</p></div>
-    <div><p class="fig">200<small>종목</small></p><p class="cap">KRX 거래대금 상위 종목 일봉 매일 적재</p><p class="cap-sub">같은 작업을 다시 돌려도 중복 없음</p></div>
+  <div class="grid2" style="margin-top:30px;grid-template-columns:0.95fr 1.05fr;gap:52px;">
+    <div>
+      <p class="meta"><b>개인 프로젝트</b><span class="mono">2026.03 ~ 현재</span><span>비공개 · <a href="https://github.com/YongjaeKwon/quant-lab/blob/main/README.md">합성 데이터 데모 공개</a></span></p>
+      <h2 style="margin-top:12px;">ReachRich</h2>
+      <p class="lead" style="margin-top:14px;">제 증권 계좌와 시장 데이터를 모아, 투자 전략을 검증하고 모의로 운용해 보는 개인 연구 · 운영 플랫폼입니다.</p>
+      <dl class="facts rows" style="margin-top:24px;">
+        <div><dt>다시 설계</dt><dd>2026년 8월 새 저장소를 만들어, 예전 연구 코드에서 검증된 부분만 골라 옮겼습니다.</dd></div>
+        <div><dt>원칙</dt><dd>검증을 통과한 전략이 나오기 전까지 실전 주문은 하지 않습니다.</dd></div>
+      </dl>
+    </div>
+    <div>
+      <p class="label">제가 만든 것</p>
+      <div class="built rows">
+        <div><b>계좌 · 시장 데이터 수집</b><p>토스증권 계좌를 조회하고, KRX 거래대금 상위 200종목 일봉을 매일 쌓습니다. 다시 돌려도 중복이 생기지 않습니다.</p></div>
+        <div><b>대시보드</b><p>자산 요약, 기간별 자산 곡선, 보유 종목을 보여 주고, 금액 가리기를 켤 수 있습니다.</p></div>
+        <div><b>자동 점검</b><p>매일 상태 점검과 모의운용을 자동으로 돌리고, 실패하면 텔레그램으로 알림이 옵니다.</p></div>
+      </div>
+      <div style="display:flex;gap:44px;margin-top:16px;">
+        <div><p class="fig" style="font-size:52px;">205</p><p class="cap">파이썬 테스트 통과</p></div>
+        <div><p class="fig" style="font-size:52px;">96</p><p class="cap">웹 테스트 통과</p></div>
+      </div>
+      <p class="cap-sub" style="margin-top:4px;">2026.08.11 기준</p>
+    </div>
   </div>
-  <div class="foot" style="font-family:var(--sans);font-size:14px;">예전 연구 코드에서 검증된 부분만 골라 옮기고 데이터 · 종목 선정 · 전략 · 검증 · 운용 · 콘솔 여섯 영역으로 다시 설계했습니다. 실패하면 텔레그램으로 알림이 옵니다.</div>
+  <p class="stack" style="margin-top:auto;">Python · FastAPI · React · TypeScript · SQLite · Parquet · GitHub Actions</p>
 </section>
 
 <!-- 10. SSAFY 팀 프로젝트 -->
