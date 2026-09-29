@@ -2,7 +2,7 @@
   <section v-if="caseStudies.length" class="deep-cases" :aria-labelledby="headingId">
     <div class="deep-cases-heading">
       <div>
-        <h4 :id="headingId" class="text-primary text-xl font-black">{{ t("상세 개발 사례", "Detailed Case Studies") }}</h4>
+        <h4 :id="headingId" class="font-heading text-primary text-2xl font-black tracking-[-0.03em]">{{ t("상세 개발 사례", "Detailed Case Studies") }}</h4>
       </div>
       <p class="text-muted max-w-lg text-sm leading-6">
         {{ t("사례마다 문제, 제약, 판단, 구현, 결과 순서로 적었습니다.", "Problems solved in this project and how they were implemented, case by case.") }}
@@ -17,8 +17,7 @@
         class="deep-case"
       >
         <summary class="focus-ring deep-case-summary">
-          <span class="deep-case-index">{{ String(index + 1).padStart(2, "0") }}</span>
-          <span class="min-w-0 flex-1">
+                    <span class="min-w-0 flex-1">
             <span class="deep-case-meta">{{ study.area }}</span>
             <strong class="text-primary mt-1 block text-base font-black leading-6">{{ study.title }}</strong>
             <span class="text-muted mt-1 block text-sm leading-5">{{ study.summary }}</span>
@@ -28,15 +27,15 @@
 
         <div class="deep-case-content">
           <div class="deep-case-context">
-            <div class="deep-case-phase is-problem">
+            <div class="deep-case-phase">
               <span>{{ t("문제", "Problem") }}</span>
               <p>{{ study.problem }}</p>
             </div>
-            <div class="deep-case-phase is-constraint">
+            <div class="deep-case-phase">
               <span>{{ t("제약", "Constraint") }}</span>
               <p>{{ study.constraint }}</p>
             </div>
-            <div class="deep-case-phase is-decision">
+            <div class="deep-case-phase">
               <span>{{ t("판단", "Decision") }}</span>
               <p>{{ study.decision }}</p>
             </div>
@@ -55,18 +54,14 @@
             </ul>
           </section>
 
-          <div class="deep-case-outcome">
-            <div>
-              <span>{{ t("결과", "Outcome") }}</span>
-              <p>{{ study.outcome }}</p>
-            </div>
+          <div class="deep-case-phase deep-case-outcome">
+            <span>{{ t("결과", "Outcome") }}</span>
+            <p>{{ study.outcome }}</p>
           </div>
 
           <figure v-if="study.code" class="deep-case-code">
             <figcaption class="deep-case-code-header">
-              <span class="flex items-center gap-2">
-                <strong>{{ study.code.title }}</strong>
-              </span>
+              <strong>{{ study.code.title }}</strong>
               <span>{{ study.code.language }}</span>
             </figcaption>
             <pre tabindex="0" :aria-label="t(`${study.title} 코드 예시`, `Code example: ${study.title}`)"><code>{{ study.code.content }}</code></pre>
@@ -93,9 +88,10 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 </script>
 
 <style scoped>
+/* 사례 목록: 선과 글자만. 번호 상자 · 색 라벨 · 색 상자 없음 */
 .deep-cases {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .deep-cases-heading {
@@ -106,62 +102,39 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 }
 
 .deep-case-list {
-  display: grid;
-  gap: 0.8rem;
+  border-top: 2px solid var(--fresh-rule);
 }
 
 .deep-case {
-  overflow: hidden;
-  border: 1px solid rgba(17, 17, 17, 0.13);
-  border-radius: 0.5rem;
-  background: rgba(255, 255, 255, 0.76);
-}
-
-.deep-case[open] {
-  border-color: rgba(17, 17, 17, 0.24);
+  border-bottom: 1px solid var(--fresh-border);
 }
 
 .deep-case-summary {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  padding: 1rem 1.1rem;
+  gap: 1rem;
+  padding: 1.1rem 0;
   cursor: pointer;
   list-style: none;
-  transition: background 0.2s ease;
 }
 
 .deep-case-summary::-webkit-details-marker {
   display: none;
 }
 
-.deep-case-summary:hover {
-  background: rgba(17, 17, 17, 0.045);
-}
-
-.deep-case-index {
-  display: grid;
-  width: 2.25rem;
-  height: 2.25rem;
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: 0.375rem;
-  background: var(--fresh-accent-soft);
-  color: var(--fresh-accent-strong);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.72rem;
-  font-weight: 900;
+.deep-case-summary:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .deep-case-meta {
-  color: var(--fresh-accent-strong);
-  font-size: 0.66rem;
-  font-weight: 900;
-  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 .deep-case-chevron {
-  color: var(--text-muted);
+  color: var(--text-primary);
   transition: transform 0.22s ease;
 }
 
@@ -171,96 +144,62 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 
 .deep-case-content {
   display: grid;
-  gap: 1rem;
-  border-top: 1px solid rgba(17, 17, 17, 0.1);
-  padding: 1.1rem;
-  background: linear-gradient(145deg, rgba(247, 250, 255, 0.86), rgba(255, 255, 255, 0.78));
+  gap: 1.25rem;
+  padding: 0 0 1.5rem;
 }
 
 .deep-case-context {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.7rem;
 }
 
 .deep-case-phase {
-  min-width: 0;
-  border: 1px solid rgba(17, 17, 17, 0.1);
-  border-radius: 0.375rem;
-  padding: 0.85rem;
-  background: rgba(255, 255, 255, 0.78);
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 1rem;
+  border-top: 1px solid var(--fresh-border);
+  padding: 0.85rem 0;
 }
 
-.deep-case-phase > span,
-.deep-case-outcome span {
-  display: inline-block;
-  margin-bottom: 0.45rem;
-  font-size: 0.68rem;
+.deep-case-phase > span {
+  color: var(--text-primary);
+  font-size: 0.85rem;
   font-weight: 900;
-  letter-spacing: 0.08em;
 }
 
-.deep-case-phase p,
-.deep-case-outcome p {
+.deep-case-phase p {
   margin: 0;
   color: var(--text-secondary);
-  font-size: 0.82rem;
-  line-height: 1.65;
+  font-size: 0.9rem;
+  line-height: 1.7;
 }
 
-.deep-case-phase.is-problem > span { color: #c75b4e; }
-.deep-case-phase.is-constraint > span { color: #7a5bb8; }
-.deep-case-phase.is-decision > span { color: var(--fresh-accent-strong); }
+.deep-case-outcome {
+  border-top: 2px solid var(--fresh-rule);
+}
 
-.deep-case-implementation {
-  border-radius: 0.375rem;
-  padding: 0.95rem;
-  background: rgba(255, 255, 255, 0.68);
+.deep-case-outcome p {
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
 .deep-case-implementation-item {
   position: relative;
-  padding-left: 1rem;
+  padding-left: 1.1rem;
 }
 
 .deep-case-implementation-item::before {
   position: absolute;
-  top: 0.67rem;
   left: 0;
-  width: 0.32rem;
-  height: 0.32rem;
-  border-radius: 999px;
-  background: var(--fresh-accent);
-  content: "";
-}
-
-.deep-case-outcome {
-  display: flex;
-  gap: 0.75rem;
-  border: 1px solid rgba(25, 158, 104, 0.16);
-  border-radius: 0.375rem;
-  padding: 0.9rem;
-  color: #128154;
-  background: rgba(241, 252, 247, 0.82);
-}
-
-.deep-case-outcome span {
-  display: block;
-  margin-bottom: 0.25rem;
-}
-
-.deep-case-outcome p {
-  font-size: 0.84rem;
-  font-weight: 650;
+  color: var(--text-muted);
+  content: "–";
 }
 
 .deep-case-code {
   overflow: hidden;
   margin: 0;
-  border: 1px solid rgba(31, 45, 71, 0.14);
-  border-radius: 0.5rem;
-  color: #f6f5f1;
-  background: #1b1b1b;
+  border-radius: var(--fresh-radius-md);
+  color: var(--fresh-stage-ink);
+  background: var(--fresh-stage);
 }
 
 .deep-case-code-header {
@@ -268,17 +207,15 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.75rem 0.9rem;
-  color: #f6f5f1;
-  font-size: 0.76rem;
+  border-bottom: 1px solid rgba(246, 245, 241, 0.12);
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
 }
 
 .deep-case-code-header > span:last-child {
-  color: #ff8f75;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.68rem;
-  font-weight: 800;
+  color: var(--fresh-stage-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
 }
 
 .deep-case-code pre {
@@ -290,22 +227,22 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
 }
 
 .deep-case-code pre:focus-visible {
-  outline: 2px solid #ff8f75;
+  outline: 2px solid var(--fresh-accent);
 }
 
 .deep-case-code code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   line-height: 1.75;
   white-space: pre;
 }
 
 .deep-case-code > p {
   margin: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.75rem 0.9rem;
-  color: #9eacc5;
-  font-size: 0.7rem;
+  border-top: 1px solid rgba(246, 245, 241, 0.1);
+  padding: 0.75rem 1rem;
+  color: var(--fresh-stage-muted);
+  font-size: 0.75rem;
   line-height: 1.55;
 }
 
@@ -316,23 +253,14 @@ const headingId = computed(() => `${props.projectId}-case-studies-title`);
     gap: 0.5rem;
   }
 
-  .deep-case-context {
+  .deep-case-phase {
     grid-template-columns: 1fr;
-  }
-
-  .deep-case-summary {
-    align-items: flex-start;
-    padding: 0.9rem;
-  }
-
-  .deep-case-content {
-    padding: 0.9rem;
+    gap: 0.35rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .deep-case-chevron,
-  .deep-case-summary {
+  .deep-case-chevron {
     transition: none;
   }
 }

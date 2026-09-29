@@ -15,7 +15,7 @@
               <span class="font-mono tnum text-muted text-sm font-semibold">{{ experience.period }}</span>
             </div>
             <h3 class="text-primary mt-3 text-2xl font-black">{{ experience.title }}</h3>
-            <p class="accent-text mt-1 font-bold">{{ experience.company }}</p>
+            <p class="text-secondary mt-1 font-bold">{{ experience.company }}</p>
             <p class="text-secondary mt-5 max-w-3xl leading-7">{{ experience.description }}</p>
           </div>
 
@@ -51,8 +51,8 @@
 
               <div class="flex flex-col py-1">
                 <div class="flex flex-wrap items-center justify-between gap-3">
-                  <span class="text-secondary inline-flex items-center gap-1.5 rounded-full border border-[var(--fresh-border)] px-3 py-1.5 text-[11px] font-black">
-                    <span class="h-1.5 w-1.5 rounded-full bg-[var(--fresh-green)]" aria-hidden="true"></span>
+                  <span class="text-primary inline-flex items-center gap-2 text-sm font-bold">
+                    <span class="h-2 w-2 rounded-full bg-[var(--fresh-green)]" aria-hidden="true"></span>
                     {{ t("운영 중", "Live in production") }}
                   </span>
                   <p class="text-secondary font-mono tnum text-xs font-semibold">{{ item.project.period }}</p>
@@ -86,7 +86,7 @@
                   <span
                     v-for="keyword in item.card.keywords"
                     :key="keyword"
-                    class="rounded-full border border-[var(--fresh-border)] bg-white/70 px-3 py-1.5 text-xs font-bold text-secondary"
+                    class="rounded-full border border-[var(--fresh-border)] px-3 py-1.5 text-xs font-bold text-secondary"
                   >
                     {{ keyword }}
                   </span>
@@ -161,17 +161,11 @@ watch(activeTrack, closeDetail);
 }
 
 .career-responsibilities li {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  min-height: 2.75rem;
-  padding: 0.7rem 0.85rem;
-  border: 1px solid rgba(17, 17, 17, 0.1);
-  border-radius: 0.5rem;
-  background: #ffffff;
-  color: var(--text-secondary);
-  font-size: 0.78rem;
-  font-weight: 750;
+  border-top: 1px solid var(--fresh-border);
+  padding: 0.7rem 0;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
   line-height: 1.45;
 }
 
@@ -192,8 +186,8 @@ watch(activeTrack, closeDetail);
 }
 
 .case-step-label {
-  color: var(--fresh-accent-strong);
-  font-size: 0.6875rem;
+  color: var(--text-primary);
+  font-size: 0.85rem;
   font-weight: 900;
 }
 
