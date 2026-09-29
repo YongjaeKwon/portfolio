@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Yongjae Kwon - Web Developer Resume</title>
+<!-- Facts and figures come from src/data/*.en.ts and docs/case-studies/. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400..900&family=JetBrains+Mono:wght@500;700;800&display=block" />
+<style>
+  @page { size: A4; margin: 13mm 14mm; }
+  :root {
+    --ink: #111111; --ink-soft: #3d3d3d; --muted: #5f5e59; --line: rgba(17, 17, 17, 0.14);
+    --accent: #e5482b; --accent-strong: #c2361c;
+    --sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --mono: "JetBrains Mono", Consolas, "Noto Sans KR", "Malgun Gothic", monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #ffffff; color: var(--ink); font-family: var(--sans); font-size: 10.4px; line-height: 1.6; word-break: keep-all; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  a { color: inherit; text-decoration: none; }
+  p, h1, h2, h3, ul, dl, dd { margin: 0; }
+  ul { padding: 0; list-style: none; }
+  .resume { max-width: 182mm; margin: 0 auto; }
+  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .stop { color: var(--accent); }
+
+  /* 머리: 사진 + 이름 + 연락처(라벨 열을 맞춘 정의 목록) */
+  .head { display: grid; grid-template-columns: 30mm 1fr; gap: 7mm; align-items: end; padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
+  .photo { display: block; width: 30mm; height: 40mm; object-fit: cover; border-radius: 2px; }
+  .name { display: flex; align-items: baseline; gap: 10px; }
+  h1 { font-size: 28px; line-height: 1.1; font-weight: 900; letter-spacing: -0.03em; }
+  .name span { color: var(--muted); font-size: 12px; font-weight: 700; }
+  .role { margin-top: 4px; font-size: 13px; font-weight: 800; }
+  .contact { display: grid; grid-template-columns: 52px minmax(0, 1fr) 58px minmax(0, 1fr); gap: 4px 10px; margin-top: 12px; font-size: 10.2px; }
+  .contact dt { color: var(--muted); font-weight: 700; }
+  .contact dd { font-weight: 500; }
+
+  .headline { margin-top: 14px; font-size: 19px; line-height: 1.3; font-weight: 900; letter-spacing: -0.03em; }
+  .intro { margin-top: 6px; color: var(--ink-soft); font-size: 10.8px; line-height: 1.7; }
+
+  /* 대표 성과 */
+  .results { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 12px; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+  .results > div { padding: 9px 12px 10px; border-left: 1px solid var(--line); }
+  .results > div:first-child { padding-left: 0; border-left: 0; }
+  .results .fig { font-family: var(--mono); font-size: 25px; font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
+  .fig small { margin-left: 2px; font-family: var(--sans); font-size: 11px; font-weight: 900; letter-spacing: 0; }
+  .fig s { color: var(--muted); font-size: 12px; font-weight: 500; letter-spacing: 0; text-decoration-color: var(--accent); text-decoration-thickness: 2px; vertical-align: 5px; }
+  .fig .arrow { color: var(--accent); font-family: var(--sans); font-size: 11px; font-weight: 700; margin: 0 4px; vertical-align: 6px; }
+  .fig .c { margin-inline: -0.18em; }
+  .results p { margin-top: 5px; font-size: 10px; font-weight: 700; line-height: 1.45; }
+  .results .src { margin-top: 2px; color: var(--muted); font-weight: 500; }
+
+  /* 구획 */
+  h2 { margin-top: 18px; padding-top: 7px; border-top: 2px solid var(--ink); font-size: 14px; font-weight: 900; letter-spacing: -0.02em; break-after: avoid; }
+
+  .job { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; margin-top: 8px; }
+  .job b { font-size: 12.5px; font-weight: 900; }
+  .job .when { color: var(--ink-soft); }
+  .job p { grid-column: 1 / -1; color: var(--ink-soft); }
+
+  /* 프로젝트 블록 */
+  .proj { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+  h2 + .proj { border-top: 0; padding-top: 2px; }
+  .proj-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; break-after: avoid; }
+  h3 { font-size: 13px; font-weight: 900; letter-spacing: -0.02em; }
+  .proj-head .when { color: var(--ink-soft); white-space: nowrap; }
+  .kind { margin-top: 1px; color: var(--muted); font-size: 9.8px; font-weight: 700; }
+  .about { margin-top: 4px; color: var(--ink-soft); }
+  .wins { margin-top: 6px; }
+  .wins li { position: relative; padding-left: 11px; margin-top: 4px; line-height: 1.6; break-inside: avoid; }
+  .wins li::before { content: "–"; position: absolute; left: 0; color: var(--muted); }
+  .wins b { font-weight: 800; }
+  .wins .n { font-family: var(--mono); font-weight: 800; }
+  .stack { margin-top: 6px; color: var(--muted); font-size: 9.6px; }
+  .stack b { color: var(--ink-soft); font-weight: 700; margin-right: 4px; }
+
+  .team li { display: grid; grid-template-columns: 70px 1fr auto; gap: 10px; padding: 5px 0; border-top: 1px solid var(--line); }
+  .team li:first-child { border-top: 0; }
+  .team b { font-weight: 900; }
+  .team .when { color: var(--muted); white-space: nowrap; }
+
+  .skills > div, .edu > div { display: grid; gap: 10px; padding: 4px 0; border-top: 1px solid var(--line); }
+  .skills > div { grid-template-columns: 76px 1fr; }
+  .edu > div { grid-template-columns: 112px 1fr; }
+  .skills > div:first-child, .edu > div:first-child { border-top: 0; }
+  .skills dt, .edu b { font-weight: 800; }
+  .edu .when { color: var(--ink-soft); }
+  .edu span.sub { color: var(--muted); }
+  .head-en { grid-template-columns: 1fr; }
+</style>
+</head>
+<body>
+<main class="resume">
+
+  <header class="head head-en">
+    <div>
+      <div class="name"><h1>Yongjae Kwon</h1><span>권용재</span></div>
+      <p class="role">Web Developer · from screens to server and DB</p>
+      <dl class="contact">
+        <dt>Email</dt><dd>yongjae116@gmail.com</dd>
+        <dt>Phone</dt><dd class="mono">+82 10-9470-1704</dd>
+        <dt>GitHub</dt><dd><a href="https://github.com/YongjaeKwon">github.com/YongjaeKwon</a></dd>
+        <dt>Portfolio</dt><dd><a href="https://www.yongjaekwon.com/?lang=en">www.yongjaekwon.com</a></dd>
+        <dt>Location</dt><dd>Yongin, South Korea</dd>
+        <dt>PDF deck</dt><dd><a href="https://www.yongjaekwon.com/portfolio.pdf">yongjaekwon.com/portfolio.pdf</a></dd>
+      </dl>
+    </div>
+  </header>
+
+  <p class="headline">I build the features that are needed, and follow them into real use<span class="stop">.</span></p>
+  <p class="intro">I work on live public-sector and B2B business systems: I agree requirements with operations staff and own the work from Vue and WebSquare screens through Spring APIs and SQL to deployment and operations. I start slow queries from the execution plan, make rules hold the same way however many servers run, and prepare a way back before changing production data.</p>
+
+  <section class="results" aria-label="Headline results">
+    <div><p class="fig"><s>60s+</s><span class="arrow">→</span>63–69<small>ms</small></p><p>A lookup that never finished within 60 s</p><p class="src">Education device system · measured on production</p></div>
+    <div><p class="fig">300–400<small>files</small></p><p>Attachment zips turned into jobs with visible progress</p><p class="src">B2B partner portal</p></div>
+    <div><p class="fig">108<span class="c">,</span>237<small>devices</small></p><p>Education devices issued QR codes</p><p class="src">Education device system · of 111,593</p></div>
+  </section>
+
+  <h2>Experience</h2>
+  <div class="job">
+    <b>TG Narae LLC <span style="font-weight:700;color:var(--ink-soft);">· Web Developer · Solutions Team · Full-time</span></b>
+    <span class="when mono">Jun 2024 – Present</span>
+    <p>On a B2B partner portal and the Seoul Metropolitan Office of Education's device management system, I own requirements, DB modeling, HTTP API and SQL design and development, screens, external integrations, user acceptance, deployment and operations.</p>
+  </div>
+
+  <h2>Work projects</h2>
+
+  <article class="proj">
+    <div class="proj-head"><h3>B2B Partner Portal (PPS)</h3><span class="when mono">Feb 2025 – Present</span></div>
+    <p class="kind">Live · from initial build through features, acceptance, deployment and operations</p>
+    <p class="about">A portal where headquarters and about 500 partner companies handle partner registration and contracts, plus training, certification, documentation and evaluation for 824 field-engineer (CE) accounts.</p>
+    <ul class="wins">
+      <li><b>Zipping <span class="n">300–400</span> attachments became a job with visible progress</b> — Split the zip out of the request into a job-ID based async job. The screen shows waiting / running / done / failed; state lives in a Hazelcast distributed map, so both servers report the same progress and the download resumes after a refresh.</li>
+      <li><b>Removed the cause of mislinked attachments, blocked on screen and server</b> — A new CE could inherit the previous CE's attachment group through shared Vue state; each screen now creates fresh state, and the server rejects an attachment group already used by another CE.</li>
+      <li><b>One password-reset rate limit across two servers</b> — Atomic acquisition on a Hazelcast distributed map lets only one of any concurrent requests send a code. Limiter keys are SHA-256 hashes, so no raw account or phone number is stored; edge cases are pinned by unit tests.</li>
+      <li><b>Headquarters account provisioning: <span class="n">3</span> steps into one screen</b> — Internal account, portal account and manual DB entry became one procedure; if the internal-system call fails, the portal save rolls back.</li>
+      <li><b>Notification sends: <span class="n">5</span> send points into one shared service</b> — Recipients and send conditions are managed in the DB, so a policy change is a configuration update, not a code change.</li>
+      <li><b>Automated deployment</b> — Checkout, build, transfer, backup and sequential deployment to two servers run as Jenkins jobs.</li>
+    </ul>
+    <p class="stack"><b>Tech</b>Vue · JavaScript · Java 21 · Spring Boot · MyBatis · MariaDB · Oracle · Hazelcast · Jenkins</p>
+  </article>
+
+  <article class="proj">
+    <div class="proj-head"><h3>Education Device Management System (TSMS)</h3><span class="when mono">Sep 2025 – Present</span></div>
+    <p class="kind">Live · maintenance and new program features, acceptance, deployment</p>
+    <p class="about">Manages about 110,000 education devices for the Seoul Metropolitan Office of Education, from registration through delivery, installation, repairs and inspections. Used by several operations teams and by parents in four education offices.</p>
+    <ul class="wins">
+      <li><b>A lookup that never finished within 60 s now returns in <span class="n">63–69 ms</span> (at least ~<span class="n">870</span>x)</b> — The execution plan showed the customer filter never reached inside a consolidated view. Rewrote it as base-table joins over only the columns the screen uses, and compared result rows before and after (measured on production, Sep 2026).</li>
+      <li><b>Bulk registration checks behind QR codes for <span class="n">108,237</span> devices</b> — Serials are checked against production-intake records and prior registrations before saving, and QR codes carry a public ID instead of internal identifiers (of 111,593 devices).</li>
+      <li><b>School inspections moved on screen — <span class="n">14,882</span> checklists at <span class="n">71</span> schools</b> — One flow from schedule approval to checklist, e-signature and confirmation; a version check on save keeps one inspector from overwriting another's results (Sep 2026, of 119 target schools).</li>
+      <li><b>External API keys removed from the browser on <span class="n">25</span> screens</b> — Map, address and education-administration calls moved to a shared server path, so an integration change is a single server-side edit.</li>
+      <li><b>Public enrollment screens for parents in <span class="n">4</span> education offices</b> — Consent, delivery booking and QR pickup on a phone without logging in, including deadline locks, error screens and a dark-mode QR fix.</li>
+      <li><b>Live inspection data cleaned up with a way back</b> — Prepared backup, rollback and verification SQL first, then removed duplicate rows while keeping results and re-keyed storage to the full serial (applied Jul 2026).</li>
+    </ul>
+    <p class="stack"><b>Tech</b>WebSquare5 · JavaScript · JSP · Java 11 · Spring MVC · MyBatis · MariaDB</p>
+  </article>
+
+  <h2>Personal &amp; team projects</h2>
+
+  <article class="proj">
+    <div class="proj-head"><h3>ticket-rush · First-come ticketing system</h3><span class="when mono">Aug 2026 – in progress</span></div>
+    <p class="kind">Personal · public code <a href="https://github.com/YongjaeKwon/ticket-rush">github.com/YongjaeKwon/ticket-rush</a></p>
+    <p class="about">A reservation system built test-first around one rule: the same seat is never sold twice.</p>
+    <ul class="wins">
+      <li><b><span class="n">100</span> concurrent requests for one seat, <span class="n">1</span> success</b> — A Redis hold reserves the seat for 5 minutes, expired holds are refused at payment, and a MySQL (show, seat) primary key blocks a second confirmation.</li>
+      <li><b>Still one confirmation when Redis holds disappear</b> — With hold keys deleted to create 10 duplicate holds confirmed at once, exactly one seat and one booking remain (Testcontainers integration test).</li>
+      <li><b>Payment retries</b> — A retry with the same key gets the first response back; a new attempt after a decline uses a new key.</li>
+      <li><b>Web and E2E</b> — Next.js seat map (Canvas), queue position (SSE) and payment screens with Playwright E2E in CI. Now building phase 3: relaying outbox events to Kafka.</li>
+    </ul>
+    <p class="stack"><b>Tech</b>Java 21 · Spring Boot 4 · Spring Modulith · MySQL 8.4 · Redis 7 · Flyway · Next.js · TypeScript · Testcontainers · Playwright</p>
+  </article>
+
+  <article class="proj">
+    <div class="proj-head"><h3>ONULSAI · Offline dating event service</h3><span class="when mono">Sep 2026 – in progress</span></div>
+    <p class="kind">Personal · private</p>
+    <p class="about">A service for actually running a Sunday café event where each participant talks one-on-one with seven people and is matched only on mutual choice.</p>
+    <ul class="wins">
+      <li><b><span class="n">20</span> people apply at once for the last seat, <span class="n">1</span> succeeds</b> — The round row is locked before counting seats by gender; eight concurrent clicks by one member still leave one application, and a 2-second lock timeout keeps the service responsive (PostgreSQL integration tests).</li>
+      <li><b>Service boundaries</b> — Member, schedule, matching, notification and payment services sit behind an API gateway, each with its own database; the gateway verifies JWTs and forwards internal headers.</li>
+      <li><b>Participant and operator web apps</b> — Sign-up, schedules and applications, plus member lookup, round management and cancellations work today; payment, check-in and matching come next. Each feature starts from an agreed design doc.</li>
+    </ul>
+    <p class="stack"><b>Tech</b>TypeScript · NestJS · Next.js · PostgreSQL · Prisma · Turborepo · Vitest · Playwright</p>
+  </article>
+
+  <article class="proj">
+    <div class="proj-head"><h3>ReachRich · Personal investment research platform</h3><span class="when mono">Mar 2026 – in progress</span></div>
+    <p class="kind">Personal · private · public synthetic-data demo <a href="https://github.com/YongjaeKwon/quant-lab">github.com/YongjaeKwon/quant-lab</a></p>
+    <p class="about">Gathers my brokerage account and market data to validate investment strategies and run them as paper trades. Redesigned in a new repository in Aug 2026, carrying over only validated code, in six areas.</p>
+    <ul class="wins">
+      <li><b>Live account lookup and daily candles for the top <span class="n">200</span> KRX stocks</b> — Accounts are replaced per date and candles upserted by stock and date, so reruns never duplicate data.</li>
+      <li><b>Collection that isolates failures</b> — One failing stock doesn't stop the rest; above a 30% failure rate the job fails as a whole and alerts on Telegram.</li>
+      <li><b>React dashboard</b> — Asset summary, equity curve, holdings and trading journal on separate routes; polling pauses in hidden tabs. 205 Python and 96 web tests run in CI (Aug 2026).</li>
+    </ul>
+    <p class="stack"><b>Tech</b>Python · FastAPI · SQLAlchemy · SQLite · Parquet · React · TypeScript · GitHub Actions</p>
+  </article>
+
+  <article class="proj">
+    <div class="proj-head"><h3>SSAFY team projects · Frontend</h3><span class="when mono">Jan 2023 – May 2023</span></div>
+    <ul class="team" style="margin-top:6px;">
+      <li><b>SSAFAST</b><span>A tool to write API specs and run requests and load tests (team of 6). Built repeatable, nested input forms with React Hook Form and the request and result screens.</span><span class="when mono">Apr – May 2023</span></li>
+      <li><b>ddoing</b><span>An English-vocabulary service where a drawing, judged by AI, moves learning on. Canvas drawing input, judge-server integration, and a double-running timer fix.</span><span class="when mono">Feb – Apr 2023</span></li>
+      <li><b>MODAC</b><span>A study-log and study-group service (team of 6). Study-room entry, invite-code checks and the chat screen with Vue 3 and Pinia.</span><span class="when mono">Jan – Feb 2023</span></li>
+    </ul>
+  </article>
+
+  <h2>Skills</h2>
+  <dl class="skills" style="margin-top:6px;">
+    <div><dt>Frontend</dt><dd>JavaScript · TypeScript · Vue · React · Next.js · WebSquare5 · JSP · React Hook Form · TanStack Query · Pinia</dd></div>
+    <div><dt>Backend</dt><dd>Java · Spring Boot · Spring MVC · MyBatis · Python · FastAPI · NestJS</dd></div>
+    <div><dt>Data</dt><dd>Oracle · MariaDB · MySQL · PostgreSQL · SQLite · Redis · Hazelcast</dd></div>
+    <div><dt>Test · Delivery</dt><dd>Vitest · Testing Library · Playwright · JUnit · Testcontainers · pytest · Git · GitHub Actions · Jenkins · SVN · Linux · Tomcat</dd></div>
+  </dl>
+
+  <h2>Education &amp; certification</h2>
+  <div class="edu" style="margin-top:6px;">
+    <div><span class="when mono">Sep 2024</span><span><b>SQLD (SQL Developer)</b> <span class="sub">· Korea Data Agency</span></span></div>
+    <div><span class="when mono">Jul 2022 – Jun 2023</span><span><b>Samsung Software Academy for Youth (SSAFY), 8th cohort</b> <span class="sub">· Web development track</span></span></div>
+    <div><span class="when mono">Mar 2018 – Aug 2020</span><span><b>Ajou University</b> <span class="sub">· B.A. in e-Business (transfer)</span></span></div>
+    <div><span class="when mono">Jan 2014 – May 2015</span><span><b>California State University, Chico</b> <span class="sub">· Business Administration (E-Business), before transfer</span></span></div>
+  </div>
+
+</main>
+</body>
+</html>

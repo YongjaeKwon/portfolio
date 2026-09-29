@@ -29,8 +29,8 @@
         <span class="text-muted/50 text-xs select-none" aria-hidden="true">·</span>
         <a
           class="focus-ring text-muted inline-flex min-h-11 items-center text-sm font-semibold transition hover:text-[var(--accent-strong)]"
-          :href="resumeHref"
-          :download="resumeFileName"
+          :href="profile.resume"
+          download="Yongjae-Kwon-Resume.pdf"
         >
           {{ t("이력서 PDF", "Resume PDF") }}
         </a>
@@ -41,8 +41,6 @@
 
 <script setup lang="ts">
 import { profile } from "@/data/portfolio";
-import { useActiveResume } from "@/composables/useActiveResume";
 import { t } from "@/i18n/locale";
 
-const { resumeHref, resumeFileName } = useActiveResume();
 </script>

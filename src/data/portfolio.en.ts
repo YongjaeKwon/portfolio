@@ -9,10 +9,9 @@ export const profile = {
   phone: "010-9470-1704",
   github: "https://github.com/YongjaeKwon",
   location: "Yongin, South Korea",
-  resume: "/resume-en.pdf?v=20260928",
+  resume: "/resume-en.pdf?v=20260929",
 };
 
-const backendResume = "/resume-backend-en.pdf?v=20260928";
 
 export const focusTracks = [
   {
@@ -22,7 +21,6 @@ export const focusTracks = [
     headline: "I build the features that are needed, and follow them into real use.",
     target:
       "After shaping requirements with business stakeholders, I take on whatever the work needs — UI, server logic, data handling, and deployment.",
-    resume: profile.resume,
     projectIntro: "Screens and feature flows I built hands-on in personal and team projects.",
     projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"],
   },
@@ -33,7 +31,6 @@ export const focusTracks = [
     headline: "I build screens that keep users on track through complex workflows.",
     target:
       "Across production Vue/WebSquare screens and personal/team React projects, I design screens so users always understand their next step — even through complex inputs and changing state.",
-    resume: profile.resume,
     projectIntro: "My contributions, focused on screen structure, input handling, progress states, and error guidance.",
     projectOrder: ["reachrich", "oneulsai", "ssafast", "ddoing", "modac", "pps", "tsms"],
   },
@@ -44,7 +41,6 @@ export const focusTracks = [
     headline: "I build and operate server features that fit real business workflows.",
     target:
       "In Spring-based business systems I develop server logic, SQL, and external integrations, and own the deployment and operations that follow.",
-    resume: backendResume,
     projectIntro: "Server-side processing, data validation, and operational automation from my personal projects.",
     projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich"],
   },
@@ -736,20 +732,23 @@ export const experience = {
   responsibilities: ["Requirements discussion", "Screen, server & DB development", "UAT, deployment & operations"],
 };
 
+// Newest first. Only valid language scores (OPIc IM2, Mar 2024, has expired).
 export const education = [
-  { title: "B.A. in e-Business, Ajou University", period: "Mar 2018 – Aug 2020", description: "Graduated", icon: "GraduationCap" },
+  { title: "TOEIC 885", period: "Jun 2026", description: "Listening 480 · Reading 405", icon: "Languages" },
+  { title: "TOEIC Speaking, Advanced Low", period: "Jun 2026", description: "Score 170", icon: "Languages" },
+  { title: "SQLD", period: "Sep 2024", description: "Korean national SQL developer certification", icon: "Database" },
   {
     title: "SSAFY (Samsung SW Academy For Youth), 8th cohort",
     period: "Jul 2022 – Jun 2023",
     description: "Completed the web development track; owned the frontend across three team projects.",
     icon: "Award",
   },
+  { title: "B.A. in e-Business, Ajou University", period: "Mar 2018 – Aug 2020", description: "Graduated", icon: "GraduationCap" },
   {
     title: "California State University, Chico",
     period: "Jan 2014 – May 2015",
     description: "Studied Business Administration before transferring to Ajou University",
     icon: "GraduationCap",
   },
-  { title: "SQLD", period: "Sep 2024", description: "Korean national SQL developer certification", icon: "Database" },
 ];
 

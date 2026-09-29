@@ -42,8 +42,8 @@
             </button>
             <a
               class="focus-ring fresh-button-soft inline-flex min-h-12 items-center gap-2 rounded-full px-5 py-3 text-sm font-black transition active:scale-[0.98]"
-              :href="resumeHref"
-              :download="resumeFileName"
+              :href="profile.resume"
+              download="Yongjae-Kwon-Resume.pdf"
             >
               {{ t("이력서 PDF", "Resume PDF") }}
             </a>
@@ -106,13 +106,11 @@
 import { computed } from "vue";
 import FocusTabs from "@/components/FocusTabs.vue";
 import { profile, type FocusTrackId } from "@/data/portfolio";
-import { useActiveResume } from "@/composables/useActiveResume";
 import { useFocusTrack } from "@/composables/useFocusTrack";
 import { t } from "@/i18n/locale";
 
 const emit = defineEmits<{ "scroll-to-section": [id: string] }>();
 const { activeTrack, activeTrackData } = useFocusTrack();
-const { resumeHref, resumeFileName } = useActiveResume();
 
 type Figure = { value: string; unit: string; before?: string };
 type Proof = { title: string; detail: string; project: string; figure?: Figure };
