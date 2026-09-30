@@ -30,7 +30,7 @@
               <span class="text-muted font-mono tnum text-xs">{{ item.project.period }}</span>
             </div>
 
-            <div v-if="item.project.image" class="project-thumb mt-5 flex aspect-video items-center justify-center overflow-hidden rounded-lg">
+            <div v-if="item.project.image" class="project-thumb mt-5 flex cursor-pointer aspect-video items-center justify-center overflow-hidden rounded-lg" @click="openDetail(item)">
               <img
                 :src="item.project.image.previewSrc ?? item.project.image.src"
                 :alt="item.project.image.alt"
@@ -74,12 +74,11 @@
               </button>
               <button
                 type="button"
-                class="focus-ring inline-flex min-h-11 items-center gap-1.5 rounded-full px-2 py-2 text-primary text-sm font-black underline decoration-1 underline-offset-4 transition hover:gap-2.5"
+                class="detail-link focus-ring inline-flex min-h-11 items-center rounded-full px-2 py-2 text-primary text-sm font-black"
                 :aria-label="t(`${item.project.title} 개발 과정 상세 보기`, `View the ${item.project.title} development story`)"
                 @click="openDetail(item)"
               >
-                {{ t("개발 과정 보기", "Development story") }}
-                <span aria-hidden="true">→</span>
+                <span class="detail-link-label">{{ t("개발 과정 보기 →", "Development story →") }}</span>
               </button>
             </div>
           </article>
@@ -252,6 +251,27 @@ onBeforeUnmount(() => {
 @media (hover: hover) and (pointer: fine) {
   .project-compact-card:hover .project-thumb {
     transform: rotate(0deg);
+  }
+}
+
+/* 글자와 화살표가 한 덩어리로 밑줄을 받고 함께 움직인다 */
+.detail-link-label {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .detail-link:hover .detail-link-label {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-thumb,
+  .detail-link-label {
+    transition: none;
   }
 }
 
