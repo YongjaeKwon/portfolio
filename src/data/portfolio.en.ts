@@ -13,7 +13,8 @@ export const profile = {
     "I start by understanding how people do their work and where they get stuck. When digitizing paper inspection records, I kept device-level reasons for incomplete checks and previous results so staff could continue on their next visit. I trace UI errors through server logic and data, and check that SQL changes preserve results as well as improve speed.",
     "I'm currently building Oneul Sai around the rules of an offline dating service, including both participant and operator features. I want to use my experience with business workflows and troubleshooting to finish useful features and improve the way they work in practice."
   ],
-  "career": "/career.pdf?v=20261014"
+  "career": "/career.pdf?v=20261014",
+  "portfolio": "/portfolio.pdf?v=20261015"
 };
 
 export const focusTracks = [

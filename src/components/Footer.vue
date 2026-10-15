@@ -42,6 +42,14 @@
         >
           {{ t("경력기술서 PDF", "Career Details PDF (Korean)") }}
         </a>
+        <span class="text-muted/50 text-xs select-none" aria-hidden="true">·</span>
+        <a
+          class="focus-ring text-muted inline-flex min-h-11 items-center text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+          :href="profile.portfolio"
+          download="Yongjae-Kwon-Portfolio.pdf"
+        >
+          {{ t("포트폴리오 PDF", "Portfolio PDF (Korean)") }}
+        </a>
       </div>
     </div>
   </footer>
