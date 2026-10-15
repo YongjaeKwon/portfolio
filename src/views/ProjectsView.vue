@@ -140,7 +140,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, ref, watch } from "vue";
+import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { ArrowRight, Play, X } from "@lucide/vue";
 import ProjectTechStack from "@/components/ProjectTechStack.vue";
 import ProjectDetailModal from "@/components/ProjectDetailModal.vue";
@@ -255,8 +255,20 @@ const clearInlineDemo = () => {
 
 const closeInlineDemo = () => {
   clearInlineDemo();
+  const url = new URL(window.location.href);
+  if (url.searchParams.has("demo")) {
+    url.searchParams.delete("demo");
+    history.replaceState(null, "", `${url.pathname}${url.search}#projects`);
+  }
   nextTick(() => inlineDemoTriggerEl.value?.focus());
 };
+
+onMounted(() => {
+  const requestedId = new URLSearchParams(window.location.search).get("demo");
+  if (!requestedId || !hasInteractiveDemo(requestedId)) return;
+  const project = projectItems.value.find((item) => item.project.id === requestedId);
+  if (project) openInlineDemo(project);
+});
 
 watch(activeTrack, () => {
   activeProject.value = null;

@@ -111,7 +111,11 @@
   .document-flow p, .document-flow li { orphans: 3; widows: 3; }
   .document-flow .body, .document-flow .result, .document-flow .edu > div { break-inside: avoid; }
   .document-flow .project-overview { break-inside: avoid; }
-  .career-flow h3 { margin-top: 13px; padding-top: 8px; }
+  .career-flow .project-overview { margin-top: 24px; padding: 14px 16px; background: #f6f5f1; border-top: 2px solid var(--ink); break-after: avoid; }
+  .career-flow .project-overview h2 { margin: 0; padding: 0; border: 0; font-size: 21px; line-height: 1.35; font-weight: 900; }
+  .career-flow .project-overview .meta { font-size: 10.5px; }
+  .career-flow .project-overview .body { margin-top: 7px; font-size: 12px; line-height: 1.7; }
+  .career-flow h3 { margin-top: 17px; padding: 0 0 0 9px; border-top: 0; border-left: 2px solid #8b8982; font-size: 14px; line-height: 1.5; font-weight: 750; }
   @page {
     @bottom-right { content: counter(page); font-family: "Noto Sans KR", "Malgun Gothic", sans-serif; font-size: 9px; color: #5f5e59; }
   }
