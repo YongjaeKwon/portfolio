@@ -1,763 +1,950 @@
 import type { FeaturedProject } from "./portfolio.ko";
 
 export const profile = {
-  name: "Yongjae Kwon",
-  role: "Web Developer",
-  summary:
-    "I work with business stakeholders to shape requirements, then build whatever the feature needs — from the UI to the server logic and data handling. After shipping, I deploy the work myself and follow how it is actually used.",
-  email: "yongjae116@gmail.com",
-  phone: "010-9470-1704",
-  github: "https://github.com/YongjaeKwon",
-  location: "Yongin, South Korea",
-  resume: "/resume-en.pdf?v=20260929",
+  "name": "Yongjae Kwon",
+  "role": "Web Developer",
+  "summary": "I'm a Java and Spring web developer. I helped build a partner portal from its early stages and develop and maintain an education device management system. My work spans requirements discussions with operations staff, UI, API and SQL development, acceptance checks, deployment, and post-deployment verification.",
+  "email": "yongjae116@gmail.com",
+  "phone": "010-9470-1704",
+  "github": "https://github.com/YongjaeKwon",
+  "location": "Yongin, South Korea",
+  "resume": "/resume.pdf?v=20261014",
+  "introduction": [
+    "I start by understanding how people do their work and where they get stuck. When digitizing paper inspection records, I kept device-level reasons for incomplete checks and previous results so staff could continue on their next visit. I trace UI errors through server logic and data, and check that SQL changes preserve results as well as improve speed.",
+    "I'm currently building Oneul Sai around the rules of an offline dating service, including both participant and operator features. I want to use my experience with business workflows and troubleshooting to finish useful features and improve the way they work in practice."
+  ],
+  "career": "/career.pdf?v=20261014"
 };
-
 
 export const focusTracks = [
   {
-    id: "all" as const,
-    label: "All",
-    role: "Web Developer",
-    headline: "I build the features that are needed, and follow them into real use.",
-    target:
-      "After shaping requirements with business stakeholders, I take on whatever the work needs — UI, server logic, data handling, and deployment.",
-    projectIntro: "Screens and feature flows I built hands-on in personal and team projects.",
-    projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"],
+    "id": "all",
+    "label": "All",
+    "role": "Web Developer",
+    "headline": "Building and maintaining services, and finding better ways as I go.",
+    "target": "I'm a Java and Spring web developer. I helped build a partner portal from its early stages and develop and maintain an education device management system. My work spans requirements discussions with operations staff, UI, API and SQL development, acceptance checks, deployment, and post-deployment verification.",
+    "projectIntro": "Features I built and problems I solved in personal projects and team collaborations.",
+    "projectOrder": [
+      "tsms",
+      "pps",
+      "sr30",
+      "oneulsai",
+      "ticketrush",
+      "reachrich",
+      "ssafast",
+      "ddoing",
+      "modac"
+    ]
   },
   {
-    id: "frontend" as const,
-    label: "Frontend",
-    role: "Frontend Developer",
-    headline: "I build screens that keep users on track through complex workflows.",
-    target:
-      "Across production Vue/WebSquare screens and personal/team React projects, I design screens so users always understand their next step — even through complex inputs and changing state.",
-    projectIntro: "My contributions, focused on screen structure, input handling, progress states, and error guidance.",
-    projectOrder: ["reachrich", "oneulsai", "ssafast", "ddoing", "modac", "pps", "tsms"],
+    "id": "frontend",
+    "label": "Frontend",
+    "role": "Frontend Developer",
+    "headline": "I build screens that keep users on track through complex workflows.",
+    "target": "I build business interfaces with Vue 2, WebSquare5 and Nexacro, and personal projects with React. I work on input validation, state management, and error feedback that fit the workflow.",
+    "projectIntro": "My contributions, focused on screen structure, input handling, progress states, and error guidance.",
+    "projectOrder": [
+      "tsms",
+      "pps",
+      "sr30",
+      "oneulsai",
+      "ticketrush",
+      "reachrich",
+      "ssafast",
+      "ddoing",
+      "modac"
+    ]
   },
   {
-    id: "backend" as const,
-    label: "Backend",
-    role: "Backend Developer",
-    headline: "I build and operate server features that fit real business workflows.",
-    target:
-      "In Spring-based business systems I develop server logic, SQL, and external integrations, and own the deployment and operations that follow.",
-    projectIntro: "Server-side processing, data validation, and operational automation from my personal projects.",
-    projectOrder: ["pps", "tsms", "ticketrush", "oneulsai", "reachrich"],
-  },
-];
+    "id": "backend",
+    "label": "Backend",
+    "role": "Backend Developer",
+    "headline": "I build and operate server features that fit real business workflows.",
+    "target": "In Spring-based business systems I develop server logic, SQL, and external integrations, and own the deployment and operations that follow.",
+    "projectIntro": "Server-side processing, data validation, and operational automation from my personal projects.",
+    "projectOrder": [
+      "tsms",
+      "pps",
+      "sr30",
+      "oneulsai",
+      "ticketrush",
+      "reachrich",
+      "ssafast",
+      "ddoing",
+      "modac"
+    ]
+  }
+] as const;
 
 export const featuredProjects: FeaturedProject[] = [
   {
-    id: "pps",
-    title: "B2B Partner Portal (PPS)",
-    shortTitle: "Partner Portal",
-    period: "Feb 2025 – present",
-    category: "B2B Partner Portal",
-    focuses: ["all", "frontend", "backend"],
-    stack: ["Vue", "Java 21", "Spring Boot", "MyBatis", "MariaDB", "Oracle", "Hazelcast", "Jenkins"],
-    card: {
-      summary:
-        "A B2B operations portal where headquarters and ~500 partner companies handle partner registration and contracts, plus training, certification, and evidence documents for 824 field-engineer accounts.",
-      description: [
-        "I build the screens, APIs, and SQL for partner and field-engineer management, training, and evidence workflows, and own their deployment and operations.",
-        "I improved recurring work and operational pain points: bulk file downloads, HQ account provisioning, notification policies, and the deployment process.",
+    "id": "tsms",
+    "title": "Education device management (TSMS)",
+    "shortTitle": "Education device management",
+    "period": "2025.09 – Present",
+    "category": "Work · Development & operations",
+    "focuses": [
+      "all",
+      "frontend",
+      "backend"
+    ],
+    "stack": [
+      "Java 11",
+      "Spring MVC",
+      "MyBatis",
+      "MariaDB",
+      "JavaScript",
+      "WebSquare5",
+      "JSP"
+    ],
+    "card": {
+      "summary": "A system for registering approximately 110,000 education devices for the Seoul education office and managing delivery, installation, service, and inspection histories.",
+      "description": [
+        "Monthly service-result lookup: about 53 s → 1.2 s",
+        "Digitizing paper inspections and follow-up visits"
       ],
-      result:
-        "Long-running archive requests were split into tracked jobs, so users can watch progress and resume downloads even after a page refresh.",
-      keywords: ["Async bulk file processing", "HQ account & internal system integration", "Deployment pipeline"],
-      visibility: "Private work project",
-      workRange: "Initial build · feature development · UAT · deployment · operations",
-      environment: "Vue · Spring Boot · MyBatis · Jenkins",
+      "result": "Rewrote SQL to look up the latest history for each service request directly and changed the date filters. Compared the old and new results on the production DB, checking for duplicates and missing rows across search conditions.",
+      "keywords": [
+        "SQL performance",
+        "Inspection workflows",
+        "Preserving production data"
+      ],
+      "visibility": "Private work project",
+      "workRange": "UI, API and SQL development · Production data cleanup and verification",
+      "environment": "Java 11 · Spring MVC · MyBatis · MariaDB",
+      "highlights": [
+        {
+          "title": "Preserving inspection results during data cleanup",
+          "detail": "Standardized serial-number storage and prepared backup, rollback, and validation before cleaning duplicate production records while preserving existing inspection results."
+        },
+        {
+          "title": "Digitizing inspections and follow-up visits",
+          "detail": "Kept device-level reasons for incomplete checks and previous results so staff could resume on a return visit. Connected signatures and certificates, with concurrent-edit checks to prevent overwriting another staff member’s work."
+        }
+      ]
     },
-    detail: {
-      overview:
-        "A B2B operations portal where headquarters and partner companies handle partner registration and contracts, plus training, certification, evidence, and evaluation for field engineers (CEs). I develop the business screens, APIs, and SQL, integrate external systems, run user acceptance, and own deployment and operations.",
-      scope: [
-        "Training targets, evidence, and account management features",
-        "Improved archive downloads for 300–400 attachments per request",
-        "HQ account provisioning integrated with the internal HR system",
-        "Build, transfer, and deployment process setup and operation",
+    "detail": {
+      "overview": "A system for registering approximately 110,000 education devices for the Seoul education office and managing delivery, installation, service, and inspection histories.",
+      "scope": [
+        "UI, API and SQL development",
+        "Production data cleanup and verification",
+        "Acceptance checks and deployment"
       ],
-      workPoints: [
-        "Synchronous archive downloads took a long time for 300–400 files, and users couldn't tell whether the job was running or had failed. I changed it to issue a job ID first, run compression in a separate worker, and poll status every 2 seconds. After a page refresh the job is found again; completed files are downloadable and expired files are cleaned up.",
-        "I built the HQ account registration screen and wired department/title validation, ID duplicate checks, and initial-password/OTP generation into the server flow. User and employee records are saved together and forwarded to the internal HR system.",
-        "I organized source checkout, build, server transfer, backup of existing files, and sequential deployment across two servers into Jenkins jobs and scripts.",
+      "workPoints": [
+        "Monthly service-result lookup: about 53 s → 1.2 s — Replaced a combined view with base-table joins and direct lookup of the latest history per service request. Changed date filters from functions on the column to a start-inclusive, next-day-exclusive range. Compared old and new SQL in read-only transactions on the production DB, checking values, NULLs, duplicate rows, and column metadata. Reproduced missing cancellation details in the development DB under different optimizer settings and compared them with the source history.",
+        "School-specific history lookup: about 9 s → 0.02 s — Filtered service requests first, then aggregated only their histories instead of aggregating the full dataset. Preserved search, school-shared history, authorization, and pagination conditions. Compared values, NULLs, order, and counts on the production DB. For old name-search queries that timed out, compared results separately with a restricted range or join order. This change has not yet been deployed.",
+        "Digitizing paper inspections and follow-up visits — Paper records made progress hard to track, especially when missing devices needed another visit. Stored the inspection round, result, and reason for each incomplete device so staff could continue using previous records. Connected schedule approval, inspection forms, touch signatures, and certificates. Input fields follow role and progress state. Version checks on save prevent overwriting another staff member’s update.",
+        "Cleaning duplicate records without losing inspection results — Mixed 14- and 15-digit serial numbers could link records to the wrong device or create duplicates. Standardized storage to 15 digits and resolved 14-digit input against school assignments. Identified duplicates using class, student number, and inspection history. Prepared backup, rollback, and post-change validation SQL before applying the cleanup.",
+        "Preventing duplicate scroll requests and stale search results — Allowed only one request at a time. A search change discards the old response and runs the latest search. Subsequent pages retain customer, search, and authorization filters, with retry after errors.",
+        "Validating device imports before registration — Compared spreadsheet imports with production-intake records, checked duplicate serial numbers, and showed existing school and user details for invalid entries. Validated devices can be registered in bulk. QR codes carry a public identifier rather than an internal DB identifier.",
+        "Maintaining shared external integrations — Moved address and education-information API calls from 25 screens to shared server paths. Kept keys and external URLs in server configuration so integration changes can be made centrally."
       ],
-      caseStudy: {
-        problem:
-          "Compressing 300–400 attachments in one request kept the HTTP call waiting for a long time, and users couldn't tell whether it was still running or had failed.",
-        decision:
-          "Separate the screen request from the compression work, and connect server state to the user's screen through a job ID.",
-        implementation: [
-          "A dedicated worker runs the compression and records waiting / running / done / failed states.",
-          "The Vue screen polls status every 2 seconds and finds the same job again after a page refresh.",
-          "Completed files are streamed for download and expired result files are cleaned up automatically.",
-        ],
-        outcome: [
-          "Bulk downloads of 300–400 attachments now run as asynchronous jobs in production.",
-          "Users can see progress and failures, and resume downloading completed files.",
-        ],
-      },
-      results: [
-        "Users can now see progress and failure states during bulk downloads.",
-        "Account provisioning and HR-system forwarding are used in day-to-day operations.",
-        "The repeated build–transfer–deploy sequence now runs as Jenkins jobs.",
+      "techUsage": [
+        "Backend & DB: Java 11 · Spring MVC · MyBatis · MariaDB",
+        "Frontend: JavaScript · WebSquare5 · JSP"
       ],
-      techUsage: [
-        "Vue and Tabulator for the admin screens and job-progress UI.",
-        "Spring Boot and MyBatis for async job state, account provisioning, validation, and external forwarding.",
-        "Jenkins, Gradle, and Linux scripts for the dev/production deployment sequence.",
-      ],
-      disclosure:
-        "This is an internal project; company and client details, real screens, and stored data are not disclosed.",
-      resources: [],
+      "results": [],
+      "disclosure": "Internal source code, business screens, and production data are not published.",
+      "resources": []
     },
-    perspectives: {
-      frontend: {
-        card: {
-          summary: "I built the partner-facing screens and the status UI for long-running work like bulk downloads.",
-          description: [
-            "Built training, target, survey, and account management screens in Vue, with inputs and buttons split by permission and processing state.",
-            "Showed waiting / running / done / failed states for archive jobs, resumable even after a page refresh.",
+    "perspectives": {
+      "frontend": {
+        "card": {
+          "description": [
+            "Digitizing paper inspections and follow-up visits"
           ],
-          keywords: ["Vue admin screens", "Input & state handling", "Bulk job progress UI"],
-          workRange: "Business screens · state handling · API integration",
-        },
-        detail: {
-          scope: [
-            "Training, target, and account management screens",
-            "Inputs and buttons driven by permission and progress state",
-            "Progress and error guidance for bulk downloads",
-          ],
-          workPoints: [
-            "Aligned screen and server query conditions so training registration, target uploads, and submission status all read from the same criteria.",
-            "On archive requests, the screen polls progress periodically and finds the existing job again after a refresh to continue showing its status.",
-            "Organized the account registration flow so department, title, and ID duplicate results are visible immediately and it's always clear whether saving is allowed.",
-          ],
-          caseStudy: {
-            problem:
-              "During bulk compression the screen just waited, so users couldn't distinguish running, done, or failed.",
-            decision: "Manage long-running requests as explicit waiting / running / done / failed screen states.",
-            implementation: [
-              "Wired the Vue screen to the job request plus 2-second status polling.",
-              "Used the job ID to find the existing job after a refresh and continue showing progress.",
-              "Separated download and error guidance for done, failed, and expired states.",
-            ],
-            outcome: [
-              "Users can see progress and failures for jobs covering 300–400 attachments.",
-              "Completed files remain downloadable after a page refresh.",
-            ],
-          },
-        },
+          "result": "Kept device-level reasons for incomplete checks and previous results so staff could resume on a return visit. Connected signatures and certificates, with concurrent-edit checks to prevent overwriting another staff member’s work. Recorded approximately 15,000 inspections across 71 schools in the verified operational records.",
+          "highlights": []
+        }
       },
-      backend: {
-        card: {
-          summary: "I built the bulk archive jobs, account provisioning with internal-system forwarding, and the Jenkins deployment flow.",
-          description: [
-            "Split bulk file requests into separate jobs with status tracking, expired-file cleanup, and downloads handled server-side.",
-            "Connected account validation, saving, and internal-system forwarding, and set up build-to-sequential-deploy as Jenkins jobs.",
+      "backend": {
+        "card": {
+          "description": [
+            "Monthly service-result lookup: about 53 s → 1.2 s"
           ],
-          keywords: ["Job separation", "Batch persistence", "Jenkins"],
-          workRange: "Server · DB · external integration · deployment",
-        },
-        detail: {
-          scope: [
-            "Bulk archive job separation and state management",
-            "Account validation/persistence and internal-system forwarding",
-            "Jenkins deployment jobs",
-          ],
-          workPoints: [
-            "Replaced the request-blocks-until-done approach with separate jobs: progress is recorded, completed files are downloadable, and old result files are cleaned up automatically.",
-            "After validating department, title, and ID, the flow generates initial and one-time password data, saves user and employee records together, and forwards the result to the internal HR system.",
-            "Set up Jenkins to run source checkout, Gradle build, server transfer, backups, and sequential deployment across two servers on demand.",
-          ],
-          caseStudy: {
-            problem:
-              "The HTTP request stayed open until compression finished, and job state, result-file lifetime, and failures were hard to manage.",
-            decision: "Separate request handling from compression, and manage state around a job ID.",
-            implementation: [
-              "A dedicated worker runs compression and persists job state.",
-              "Completed files are streamed for download; old result files are cleaned up automatically.",
-              "Implemented job status queries and the download flow with Spring Boot and MyBatis.",
-            ],
-            outcome: [
-              "Bulk downloads of 300–400 attachments run as asynchronous jobs in production.",
-              "Built the server flow that surfaces running, done, and failed states to the screen.",
-            ],
-          },
-        },
-      },
-    },
+          "result": "Monthly lookup: about 53 s → 1.2 s. Full lookup (about 480,000 rows): about 125 s → 44 s.",
+          "highlights": [
+            {
+              "title": "Preserving inspection results during data cleanup",
+              "detail": "Standardized serial-number storage and prepared backup, rollback, and validation before cleaning duplicate production records while preserving existing inspection results."
+            }
+          ]
+        }
+      }
+    }
   },
   {
-    id: "tsms",
-    title: "Education Device Operations System (TSMS)",
-    shortTitle: "TSMS",
-    period: "Sep 2025 – present",
-    category: "Device Lifecycle System",
-    focuses: ["all", "frontend", "backend"],
-    stack: ["WebSquare", "Java", "Spring MVC", "MyBatis", "MariaDB", "JSP"],
-    card: {
-      summary:
-        "An operations system for the Seoul Metropolitan Office of Education's device program, connecting registration, delivery and installation, repairs, and inspections for about 110,000 educational devices.",
-      description: [
-        "I coordinate requirements with the operations team and own screen and server development, user acceptance, and deployment.",
-        "On top of the existing device, shipping, installation, and repair data, I extended the system with external integrations, used-market monitoring, QR issuance, and on-site inspections.",
+    "id": "pps",
+    "title": "B2B partner portal (PPS)",
+    "shortTitle": "Partner portal",
+    "period": "2025.02 – Present",
+    "category": "Work · Initial build & operations",
+    "focuses": [
+      "all",
+      "frontend",
+      "backend"
+    ],
+    "stack": [
+      "Java 21",
+      "Spring Boot",
+      "MyBatis",
+      "MariaDB",
+      "Oracle",
+      "JavaScript",
+      "Vue 2",
+      "Hazelcast",
+      "Jenkins"
+    ],
+    "card": {
+      "summary": "A portal for headquarters and about 500 partners to manage registration, contracts, and field-engineer training, qualifications, and evidence. I joined during the initial build.",
+      "description": [
+        "Bulk downloads with progress that survives a refresh",
+        "Fixing attachments linked to the wrong engineer"
       ],
-      result:
-        "Recurring manual checks and paper-based inspection procedures were moved into the system's screen–server–DB flow and applied to the live program.",
-      keywords: ["Workflow digitization", "Inspection history", "External integration cleanup"],
-      visibility: "Private work project",
-      workRange: "Maintenance · new program features · UAT · deployment",
-      environment: "WebSquare · Spring MVC · MyBatis",
+      "result": "Compressing 300–400 attachments kept the request open and hid progress. Changed the endpoint to return a job ID first and run compression through Spring’s asynchronous executor.",
+      "keywords": [
+        "Asynchronous downloads",
+        "Attachment state fixes",
+        "Authentication & accounts"
+      ],
+      "visibility": "Private work project",
+      "workRange": "Participation in the initial build · Vue UI, Spring Boot API and MyBatis SQL",
+      "environment": "Java 21 · Spring Boot · MyBatis · MariaDB",
+      "highlights": [
+        {
+          "title": "Fixing attachments linked to the wrong engineer",
+          "detail": "Isolated state per Vue instance and blocked links to another active engineer’s files on the server."
+        },
+        {
+          "title": "Preventing repeat messages and verification-code reuse",
+          "detail": "Limited repeated verification messages and prevented a code from being used again after verification."
+        }
+      ]
     },
-    detail: {
-      overview:
-        "An operations system supporting device registration, delivery and installation, repairs, inspections, and after-care for the Seoul Metropolitan Office of Education's device program. I maintain existing features while building the new screens and server features each program phase needs.",
-      scope: [
-        "Used-market listing monitoring",
-        "Digitizing the premium-care inspection program",
-        "Device QR issuance/printing and school-contact notification messages",
-        "Unifying Kakao address search and NEIS (national education information system) integrations",
+    "detail": {
+      "overview": "A portal for headquarters and about 500 partners to manage registration, contracts, and field-engineer training, qualifications, and evidence. I joined during the initial build.",
+      "scope": [
+        "Participation in the initial build",
+        "Vue UI, Spring Boot API and MyBatis SQL",
+        "Acceptance checks, deployment and operations"
       ],
-      workPoints: [
-        "Built per-platform keyword/region search links, and duplicate detection that parses the listing URL an inspector pastes to identify the site and listing ID — without accessing external sites — with admin-editable matching rules that survive URL format changes.",
-        "Moved the paper-based inspection process into one flow: schedules, targets, checklists, signatures, re-inspection history, and result-file downloads.",
-        "Connected device QR issuance and dedicated-printer output into the operations flow, and enabled message notifications for student roster registration, preferred installation dates, account setup, and installation confirmation.",
-        "Consolidated Kakao address search and NEIS integrations — previously implemented separately per screen — into common server features, with connection details and settings managed server-side.",
+      "workPoints": [
+        "Bulk downloads with progress that survives a refresh — Compressing 300–400 attachments kept the request open and hid progress. Changed the endpoint to return a job ID first and run compression through Spring’s asynchronous executor. Stored job progress, completion, and failure in Hazelcast, shared by WAS instances on the same host. The browser saves the job ID and polls for progress, recovering the existing job after a refresh. Downloads use a separate request; temporary files are removed after download or expiry.",
+        "Fixing attachments linked to the wrong engineer — A shallow copy of a common object left Vue instances sharing attachment information from the previous engineer. Created fresh state per instance and cleared attachment information when registration or lookup failed. The server also rejects file groups belonging to another active engineer. Preserved the existing exception that allows files from an inactive account to be reused when an engineer moves centers.",
+        "Preventing repeated verification messages and code reuse — Shared per-user resend limits through Hazelcast so concurrent requests face the same limit whichever WAS instance receives them. putIfAbsent admits one request; TTL sets expiry and conditional removal avoids deleting a newer request’s limit. Verified and consumed codes together in the DB to prevent reuse. Removed codes and message bodies from API responses and return failure when saving a message request or changing a password fails. Wrote unit tests for concurrent requests, expiry, reuse, and failure responses.",
+        "Repeatable Jenkins deployment jobs — Connected source updates, Gradle builds, transfer, backup, and sequential deployment to two WAS instances in manually triggered Jenkins jobs. Separated development and production jobs and kept stage-level execution logs.",
+        "Account management with checks before department changes — Built the UI and API for headquarters account creation and updates, checking department, grade, and duplicate accounts, and showing synchronization results. Before disabling an account or changing its department, check remaining inventory and service work; block saving if work remains or the API check fails. Verify the linked user and department exist, require exactly one updated user record, and apply the same department code to related requests.",
+        "Notification policies and additional recipients — Built policy UI and APIs for sending rules, templates, additional recipients, preferences, and change history. Deduplicated recipients by engineer ID and kept the default recipient’s template. Unit tests cover duplicate recipients and skipping recipient lookup when extra sends are disabled.",
+        "Completed-contract emails and delivery history — Check that a contract is complete before emailing its document to the center manager. Record the request, success or failure, and error details so operators can review delivery results.",
+        "Training rosters and attendance reporting — Connected roster submissions with attendance views and Excel exports. Flagged engineers from another center or already registered as entries to exclude. Reports count submitted rosters separately from centers that have not submitted."
       ],
-      caseStudy: {
-        problem:
-          "Third-party API keys were embedded in browser code, and every screen had to be edited separately whenever connection details changed.",
-        decision:
-          "Move external-call responsibility from the screens to the server, and manage keys and connection settings in server configuration.",
-        implementation: [
-          "Added a common Controller and Service that proxy external API requests.",
-          "Moved keys and integration URLs into server configuration; screens receive only the responses they need.",
-          "Aligned the request paths and error handling of 25 existing screens to the common format.",
-        ],
-        outcome: [
-          "API keys that were visible in the browser were pulled back to the server.",
-          "External integration changes now happen in one common server path instead of per-screen code.",
-        ],
-      },
-      results: [
-        "Cut the A/S history and settlement detail lookups from a query that never finished within 60 s to 63–69 ms (production DB, measured Sep 2026).",
-        "Removed browser-side key exposure across the 25 screens that called external APIs directly, consolidating calls on the server.",
-        "Bulk registration now validates production-intake records and prior registrations before saving, and QR codes no longer expose internal identifiers.",
-        "Inspections and re-inspections per school and device are now tracked in the system.",
+      "techUsage": [
+        "Backend & DB: Java 21 · Spring Boot · MyBatis · MariaDB · Oracle",
+        "Frontend: JavaScript · Vue 2",
+        "Shared state & delivery: Hazelcast · Jenkins"
       ],
-      techUsage: [
-        "WebSquare and JSP for the registration, lookup, inspection, and monitoring screens.",
-        "Spring MVC and MyBatis for listing-URL analysis, duplicate checks, history persistence, and external integrations.",
-        "MariaDB queries and production data to verify deployments and real usage.",
-      ],
-      disclosure:
-        "This is an internal project; company and client details, real screens, and stored data are not disclosed.",
-      resources: [],
+      "results": [],
+      "disclosure": "Internal source code, business screens, and production data are not published.",
+      "resources": []
     },
-    perspectives: {
-      frontend: {
-        card: {
-          summary: "I built the registration, inspection, and monitoring screens used by multiple operations teams in WebSquare.",
-          description: [
-            "Broke complex workflows into schedules, targets, progress states, and re-inspection history so staff always know their next step.",
-            "Reduced repeated input when saving used-market listings, and surfaced QR issuance and notification results in the operations screens.",
+    "perspectives": {
+      "frontend": {
+        "card": {
+          "description": [
+            "Fixing attachments linked to the wrong engineer"
           ],
-          keywords: ["WebSquare", "Business screens", "State-driven UI"],
-          workRange: "Screen design · input validation · API integration",
-        },
-        detail: {
-          scope: [
-            "Inspection schedule, target, and re-inspection screens",
-            "Used-market listing review and save screens",
-            "QR issuance and notification operations screens",
-          ],
-          workPoints: [
-            "Reflected field reality — inspections can't finish in one visit — by letting lost or absent devices carry over into 2nd and 3rd inspection rounds.",
-            "When an inspector pastes a URL, extractable fields are pre-filled so only the remaining details need typing, cutting repeated input.",
-            "Aligned status displays and query conditions so QR issuance and notification results are visible in both list and detail screens.",
-          ],
-          caseStudy: {
-            problem:
-              "With paper-based inspections, schedules, unfinished targets, and re-inspection history lived apart, so staff struggled to see the next action.",
-            decision:
-              "Restructure the field procedure into schedules, targets, rounds, and result states, in a screen flow where the next action is visible.",
-            implementation: [
-              "Implemented the schedule, target, and result screens in WebSquare.",
-              "Linked round-by-round states so lost/absent devices flow into 2nd and 3rd re-inspections.",
-              "Aligned status displays so confirmed schedules, unfinished targets, re-inspection results, and result files share one flow.",
-            ],
-            outcome: [
-              "As of September 2026, inspections have been saved for 71 of the 119 schools in the program.",
-              "14,882 inspection sheets have been saved in the system.",
-            ],
-          },
-        },
+          "result": "A shallow copy of a common object left Vue instances sharing attachment information from the previous engineer. Created fresh state per instance and cleared attachment information when registration or lookup failed. Isolated state per Vue instance and blocked links to another active engineer’s files on the server.",
+          "highlights": [
+            {
+              "title": "Asynchronous compression with progress after a refresh",
+              "detail": "Moved compression of 300–400 files to an asynchronous job, retaining its ID to recover progress, completion, or failure after a refresh."
+            }
+          ]
+        }
       },
-      backend: {
-        card: {
-          summary: "I built listing-URL analysis, inspection history persistence, QR/notification features, and external system integrations.",
-          description: [
-            "Built a structure that identifies the site and listing ID from a pasted URL and checks duplicates — without ever contacting external sites.",
-            "Connected inspection data, result files, QR issuance, and notifications into the existing asset and installation data flow.",
+      "backend": {
+        "card": {
+          "description": [
+            "Preventing repeated verification messages and code reuse"
           ],
-          keywords: ["Listing-URL analysis", "Inspection history", "Shared integrations"],
-          workRange: "Server · SQL · data validation · external integration",
-        },
-        detail: {
-          scope: [
-            "Listing-URL analysis and duplicate detection",
-            "Inspection and re-inspection history persistence",
-            "QR, notifications, and external system integration",
-          ],
-          workPoints: [
-            "Stripped trailing junk from listing URLs and extracted listing IDs with per-site rules; when no ID is found, duplicates are checked against the normalized full URL.",
-            "Persisted inspection targets and round-by-round results against existing asset/installation records, linking signatures and PDF/Excel/archive files to the same inspection history.",
-            "Moved per-screen Kakao address search and NEIS integrations to a common server path now used by 25 screens.",
-          ],
-          caseStudy: {
-            problem:
-              "Kakao address search and NEIS integrations were implemented separately per screen, so connection and setting changes had to be applied over and over.",
-            decision: "Consolidate the repeated integrations and settings into a common server path shared by all screens.",
-            implementation: [
-              "Moved Kakao address search and the NEIS integration into common server features.",
-              "Centralized external connection details and settings on the server.",
-              "Aligned existing screens' query and save flows to the common response format.",
-            ],
-            outcome: ["The shared integration path is used by 25 screens."],
-          },
-        },
-      },
-    },
+          "result": "Limited repeated verification messages and prevented a code from being used again after verification.",
+          "highlights": [
+            {
+              "title": "Asynchronous compression with progress after a refresh",
+              "detail": "Moved compression of 300–400 files to an asynchronous job, retaining its ID to recover progress, completion, or failure after a refresh."
+            }
+          ]
+        }
+      }
+    }
   },
   {
-    id: "ssafast",
-    title: "API Spec & Testing Collaboration Tool (SSAFAST)",
-    shortTitle: "SSAFAST",
-    period: "Apr 2023 – May 2023",
-    category: "Frontend Team Project",
-    focuses: ["all", "frontend"],
-    stack: ["Next.js", "React", "TypeScript", "React Hook Form", "TanStack Query", "Redux Toolkit"],
-    image: {
-      src: "/projects/ssafast.png",
-      width: 1200,
-      height: 675,
-      previewSrc: "/projects/ssafast-preview.webp",
-      previewWidth: 960,
-      previewHeight: 540,
-      alt: "SSAFAST API spec input and test result screens",
+    "id": "sr30",
+    "title": "Service and inventory management (SR30)",
+    "shortTitle": "Service & inventory management",
+    "period": "Main work: 2024.07 – 2025.01",
+    "category": "Work · Features & maintenance",
+    "focuses": [
+      "all",
+      "frontend",
+      "backend"
+    ],
+    "stack": [
+      "Java 8",
+      "Spring MVC",
+      "eGovFrame 3.9",
+      "MyBatis",
+      "Oracle",
+      "JavaScript",
+      "Nexacro 17"
+    ],
+    "card": {
+      "summary": "An internal system for service requests, inventory, and business reporting. Early in my employment, I added features and fixed errors in Nexacro screens, Java services, and SQL.",
+      "description": [
+        "Service reports by period and product group",
+        "Fixing service-history search by phone number"
+      ],
+      "result": "Built monthly service reports with Java-generated month lists, MyBatis aggregation, and matching Nexacro columns. Displayed delivery, return, cancellation, and subtotal counts for the selected period and product group.",
+      "keywords": [
+        "Service reporting",
+        "Search fixes",
+        "Inventory & access history"
+      ],
+      "visibility": "Private work project",
+      "workRange": "Nexacro business interfaces · Java services and MyBatis SQL",
+      "environment": "Java 8 · Spring MVC · eGovFrame 3.9 · MyBatis"
     },
-    card: {
-      summary:
-        "A team project that turns API spec writing, request testing, and performance results into a single screen flow.",
-      description: [
-        "On a 6-person team I owned the frontend and UI/UX: the dynamic spec form, API execution, and performance test result screens.",
-        "Headers, path/query parameters, and nested body fields can be freely added or removed and assembled into a real request shape.",
+    "detail": {
+      "overview": "An internal system for service requests, inventory, and business reporting. Early in my employment, I added features and fixed errors in Nexacro screens, Java services, and SQL.",
+      "scope": [
+        "Nexacro business interfaces",
+        "Java services and MyBatis SQL",
+        "Search fixes and inventory query conditions"
       ],
-      result:
-        "Users can compare request success, response bodies, latency distribution, and throughput on screen.",
-      keywords: ["Repeating & nested inputs", "API request testing", "Performance results UI"],
-      visibility: "Public GitHub project",
-      workRange: "Frontend · UI/UX",
-      environment: "Next.js · React · TypeScript",
+      "workPoints": [
+        "Service reports by period and product group — Built monthly service reports with Java-generated month lists, MyBatis aggregation, and matching Nexacro columns. Displayed delivery, return, cancellation, and subtotal counts for the selected period and product group.",
+        "Fixing service-history search by phone number — Fixed the input-to-dataset binding and Java request parameters. SQL converts the search value using the existing encryption scheme and compares it against landline, mobile, and additional contact numbers.",
+        "Correcting inventory date filters and search branches — Separated aggregation ranges for current stock and stock as of a selected date. Removed TO_DATE from the stored date column, corrected MyBatis branches for the screen checkbox, and improved date-range validation and display.",
+        "Access and personal-data download history — Built screens and SQL aggregating existing login, screen-access, and personal-data download logs by department, user, and period. Joined menu names to make the accessed screens identifiable.",
+        "Equipment installation and removal forms — Added Nexacro screens and MyBatis SQL to find equipment by management number and save installation or removal records. Connected the appropriate inputs, equipment lookup, and registration request for each work type."
+      ],
+      "techUsage": [
+        "Backend & DB: Java 8 · Spring MVC (eGovFrame 3.9) · MyBatis · Oracle",
+        "Frontend: JavaScript · Nexacro 17"
+      ],
+      "results": [],
+      "disclosure": "Internal source code, business screens, and production data are not published.",
+      "resources": []
     },
-    detail: {
-      overview:
-        "A 6-person SSAFY team project for writing API specs and checking real requests and performance test results.",
-      scope: ["Frontend and UI/UX", "Dynamic API spec form", "Request execution and performance result screens"],
-      workPoints: [
-        "Used React Hook Form so request fields and nested data structures can be freely added and removed.",
-        "Assembled the entered URL, method, parameters, and body into a real request shape, with inline validation at the exact field that's wrong.",
-        "Showed request success and response bodies, and split performance results into latency distribution and throughput.",
-      ],
-      results: ["Complex API specs can be authored on one screen with test results following in the same flow."],
-      techUsage: [
-        "Next.js and React for the spec authoring and results screens.",
-        "React Hook Form for repeating/nested inputs and validation state.",
-        "TanStack Query for server data and Redux Toolkit for global UI state.",
-      ],
-      disclosure: "A team project from the SSAFY program; the code is public on GitHub.",
-      resources: [
-        { label: "GitHub repository", href: "https://github.com/SSAFAST/ssafast", type: "github" },
-        { label: "Screenshot", href: "/projects/ssafast.png", type: "image" },
-      ],
-    },
+    "perspectives": {
+      "frontend": {
+        "card": {
+          "description": [
+            "Service reports by period and product group"
+          ],
+          "result": "Built monthly service reports with Java-generated month lists, MyBatis aggregation, and matching Nexacro columns. Displayed delivery, return, cancellation, and subtotal counts for the selected period and product group."
+        }
+      },
+      "backend": {
+        "card": {
+          "description": [
+            "Correcting inventory date filters and search branches"
+          ],
+          "result": "Separated aggregation ranges for current stock and stock as of a selected date. Removed TO_DATE from the stored date column, corrected MyBatis branches for the screen checkbox, and improved date-range validation and display."
+        }
+      }
+    }
   },
   {
-    id: "ddoing",
-    title: "Drawing-based English Vocabulary Service (ddoing)",
-    shortTitle: "ddoing",
-    period: "Feb 2023 – Apr 2023",
-    category: "Frontend Team Project",
-    focuses: ["all", "frontend"],
-    stack: ["React", "TypeScript", "Redux Toolkit", "Vite", "Canvas API"],
-    image: {
-      src: "/projects/ddoing.png",
-      width: 800,
-      height: 459,
-      previewSrc: "/projects/ddoing-preview.webp",
-      previewWidth: 800,
-      previewHeight: 459,
-      alt: "ddoing English vocabulary drawing screen",
+    "id": "oneulsai",
+    "title": "Offline dating operations (Oneul Sai)",
+    "shortTitle": "Oneul Sai",
+    "subtitle": "In-person speed dating service",
+    "period": "2026.09 – In development",
+    "category": "Personal project",
+    "focuses": [
+      "all",
+      "frontend",
+      "backend"
+    ],
+    "image": {
+      "src": "/projects/oneulsai.png",
+      "width": 1200,
+      "height": 675,
+      "previewSrc": "/projects/oneulsai-preview.webp",
+      "previewWidth": 960,
+      "previewHeight": 540,
+      "alt": "ONULSAI brand logo and two service introduction cards"
     },
-    card: {
-      summary:
-        "A team project where learners draw the given English word and continue studying based on an AI's judgement.",
-      description: [
+    "stack": [
+      "TypeScript",
+      "NestJS",
+      "Prisma",
+      "PostgreSQL",
+      "React",
+      "Next.js",
+      "Vitest",
+      "Playwright",
+      "GitHub Actions"
+    ],
+    "card": {
+      "summary": "An in-person speed dating service where participants meet through one-to-one conversations and connect when they choose each other. I am building participant and operator web apps based on the service’s actual operating rules. Account and authentication features, event browsing and management, and applications and cancellations are implemented.",
+      "description": [
+        "Capacity checks under concurrent applications",
+        "Participant and operator flows with cancellation rules"
+      ],
+      "result": "Used a DB row lock for each session and kept capacity checks and application inserts in one transaction. In a local test with a stubbed member lookup, only one of 20 concurrent requests for the last seat succeeded. Also tested duplicate applications and applications during deadline or capacity changes.",
+      "keywords": [
+        "Capacity & concurrent applications",
+        "Participant & operator UI",
+        "Cancellation rules"
+      ],
+      "visibility": "Public GitHub project",
+      "workRange": "Session capacity, applications and cancellations · Participant and operator interfaces",
+      "environment": "TypeScript · NestJS · Prisma · PostgreSQL"
+    },
+    "detail": {
+      "overview": "An in-person speed dating service where participants meet through one-to-one conversations and connect when they choose each other. I am building participant and operator web apps based on the service’s actual operating rules. Account and authentication features, event browsing and management, and applications and cancellations are implemented. On-site event operations and matching are planned for later development.",
+      "scope": [
+        "Session capacity, applications and cancellations",
+        "Participant and operator interfaces",
+        "Concurrency and end-to-end flow tests"
+      ],
+      "workPoints": [
+        "Capacity checks under concurrent applications — Used a DB row lock for each session and kept capacity checks and application inserts in one transaction. In a local test with a stubbed member lookup, only one of 20 concurrent requests for the last seat succeeded. Also tested duplicate applications and applications during deadline or capacity changes.",
+        "Participant and operator flows with cancellation rules — Participants can view and cancel applications; operators manage applicants per session. Canceling a session also cancels its applications, and capacity cannot be reduced below the accepted count.",
+        "Testing the application flow across UI and server — Run participant and operator interfaces with the server in Playwright tests on GitHub Actions. Checked error feedback and retained login during a member-service outage, followed by successful reapplication after recovery."
+      ],
+      "techUsage": [
+        "Backend & DB: TypeScript · NestJS · Prisma · PostgreSQL",
+        "Frontend: TypeScript · React · Next.js",
+        "Testing & automation: Vitest · Playwright · GitHub Actions"
+      ],
+      "results": [],
+      "disclosure": "A personal project in development. Concurrency figures come from local tests.",
+      "resources": [
+        {
+          "label": "GitHub repository",
+          "href": "https://github.com/YongjaeKwon/oneul-sai",
+          "type": "github"
+        }
+      ]
+    },
+    "perspectives": {
+      "frontend": {
+        "card": {
+          "description": [
+            "Participant and operator flows with cancellation rules"
+          ],
+          "result": "Participants can view and cancel applications; operators manage applicants per session. Canceling a session also cancels its applications, and capacity cannot be reduced below the accepted count."
+        }
+      },
+      "backend": {
+        "card": {
+          "description": [
+            "Capacity checks under concurrent applications"
+          ],
+          "result": "Used a DB row lock for each session and kept capacity checks and application inserts in one transaction. In a local test with a stubbed member lookup, only one of 20 concurrent requests for the last seat succeeded. Also tested duplicate applications and applications during deadline or capacity changes."
+        }
+      }
+    }
+  },
+  {
+    "id": "ticketrush",
+    "title": "First-come ticket booking (Ticket Rush)",
+    "shortTitle": "Ticket Rush",
+    "subtitle": "First-come ticket reservations",
+    "period": "2026.08 – In development",
+    "category": "Personal project",
+    "focuses": [
+      "all",
+      "frontend",
+      "backend"
+    ],
+    "stack": [
+      "Java 21",
+      "Spring Boot",
+      "MySQL",
+      "Redis",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Playwright",
+      "GitHub Actions"
+    ],
+    "image": {
+      "src": "/projects/ticketrush.png",
+      "width": 1200,
+      "height": 675,
+      "previewSrc": "/projects/ticketrush-preview.webp",
+      "previewWidth": 960,
+      "previewHeight": 540,
+      "alt": "ticket-rush seat-selection mockup — section tabs, seat map, and remaining-seat count"
+    },
+    "card": {
+      "summary": "A personal project covering event browsing, queue entry, seat selection, mock payment, and booking confirmation. It focuses on competing requests for the same seat and repeated payment requests.",
+      "description": [
+        "Preventing duplicate seat holds and final reservations",
+        "Separating payment acceptance from result processing"
+      ],
+      "result": "Hold seats for five minutes in Redis and enforce unique final reservations with a MySQL session-and-seat composite primary key. In local integration tests using MySQL and Redis, only one of 100 concurrent hold requests for the same seat succeeded.",
+      "keywords": [
+        "Seat holds",
+        "Mock payment",
+        "Duplicate requests"
+      ],
+      "visibility": "Public GitHub project",
+      "workRange": "Queue, seats, mock payment and booking flow · Seat holds and duplicate-booking prevention",
+      "environment": "Java 21 · Spring Boot · MySQL · Redis"
+    },
+    "detail": {
+      "overview": "A personal project covering event browsing, queue entry, seat selection, mock payment, and booking confirmation. It focuses on competing requests for the same seat and repeated payment requests.",
+      "scope": [
+        "Queue, seats, mock payment and booking flow",
+        "Seat holds and duplicate-booking prevention",
+        "Local integration tests for concurrent requests"
+      ],
+      "workPoints": [
+        "Preventing duplicate seat holds and final reservations — Hold seats for five minutes in Redis and enforce unique final reservations with a MySQL session-and-seat composite primary key. In local integration tests using MySQL and Redis, only one of 100 concurrent hold requests for the same seat succeeded.",
+        "Separating payment acceptance from result processing — Save the payment-request event and transition the reservation to payment-in-progress in one transaction. Status checks and optimistic locking ensure ten concurrent confirmation requests for one reservation produce one event.",
+        "Connecting queue, seat, and payment states to the UI — Built the booking flow in Next.js and update queue position and seat state through SSE. After payment acceptance, poll for approval or rejection; reuse the request identifier when retrying a lost response. Payments are simulated."
+      ],
+      "techUsage": [
+        "Backend & DB: Java 21 · Spring Boot · MySQL · Redis",
+        "Frontend: TypeScript · React · Next.js",
+        "Testing & automation: Playwright · GitHub Actions"
+      ],
+      "results": [],
+      "disclosure": "A personal project in development. Concurrency figures come from local tests.",
+      "resources": [
+        {
+          "label": "GitHub repository",
+          "href": "https://github.com/YongjaeKwon/ticket-rush",
+          "type": "github"
+        }
+      ]
+    },
+    "perspectives": {
+      "frontend": {
+        "card": {
+          "description": [
+            "Connecting queue, seat, and payment states to the UI"
+          ],
+          "result": "Built the booking flow in Next.js and update queue position and seat state through SSE. After payment acceptance, poll for approval or rejection; reuse the request identifier when retrying a lost response. Payments are simulated."
+        }
+      },
+      "backend": {
+        "card": {
+          "description": [
+            "Preventing duplicate seat holds and final reservations"
+          ],
+          "result": "Hold seats for five minutes in Redis and enforce unique final reservations with a MySQL session-and-seat composite primary key. In local integration tests using MySQL and Redis, only one of 100 concurrent hold requests for the same seat succeeded."
+        }
+      }
+    }
+  },
+  {
+    "id": "reachrich",
+    "title": "Personal investment research and operations (ReachRich)",
+    "shortTitle": "ReachRich",
+    "subtitle": "Personal investment research & operations",
+    "period": "2026.03 – Present",
+    "category": "Personal project",
+    "focuses": [
+      "all",
+      "frontend",
+      "backend"
+    ],
+    "stack": [
+      "Python",
+      "FastAPI",
+      "SQLAlchemy",
+      "SQLite",
+      "Parquet",
+      "TypeScript",
+      "React",
+      "Vite",
+      "pytest",
+      "Vitest",
+      "GitHub Actions"
+    ],
+    "card": {
+      "summary": "A private project that collects account and price data through the Toss Securities API and supports strategy testing and paper operation. I migrated validation logic from existing research code and connected collection with a web dashboard.",
+      "description": [
+        "Repeatable account and price ingestion",
+        "Handling API limits and partial failures"
+      ],
+      "result": "Replace daily account summaries and holdings together in a SQLAlchemy/SQLite transaction. Merge each symbol’s daily prices by date in Parquet so recollecting the same data does not create duplicates.",
+      "keywords": [
+        "Data collection & validation",
+        "API error handling",
+        "Paper operation"
+      ],
+      "visibility": "Private personal project",
+      "workRange": "Account and price data collection · Migration of existing strategy validation",
+      "environment": "Python · FastAPI · SQLAlchemy · SQLite"
+    },
+    "detail": {
+      "overview": "A private project that collects account and price data through the Toss Securities API and supports strategy testing and paper operation. I migrated validation logic from existing research code and connected collection with a web dashboard.",
+      "scope": [
+        "Account and price data collection",
+        "Migration of existing strategy validation",
+        "Dashboard, scheduled workflows and failure alerts"
+      ],
+      "workPoints": [
+        "Repeatable account and price ingestion — Replace daily account summaries and holdings together in a SQLAlchemy/SQLite transaction. Merge each symbol’s daily prices by date in Parquet so recollecting the same data does not create duplicates.",
+        "Handling API limits and partial failures — Reuse OAuth2 tokens before expiry. On a rate-limit response, wait for the server’s specified delay and retry once. Continue collecting other symbols after a failure, but fail the job if the failure ratio exceeds its threshold.",
+        "Preventing future-data leakage in strategy validation — Migrated the existing validation module, passing only data available at each decision point and applying decisions from the next bar. Preserved tests that remove later data and verify past signals do not change, including tests that detect future-data references.",
+        "Account dashboard and trading journal — Serve locally stored account data through FastAPI and display equity history, holdings, and a journal in React. Persist the amount-hiding preference and pause polling when the browser tab is hidden.",
+        "Separating local collection from hosted workflows — Configured IP-restricted account and price collection as local jobs, and paper-operation records and health checks in GitHub Actions. Local jobs continue to later steps after a failure, and both environments send failure notifications through Telegram."
+      ],
+      "techUsage": [
+        "Backend & data: Python · FastAPI · SQLAlchemy · SQLite · Parquet",
+        "Frontend: TypeScript · React · Vite",
+        "Testing & automation: pytest · Vitest · GitHub Actions"
+      ],
+      "results": [],
+      "disclosure": "Based on the private original repository. Source code and actual account data are not published.",
+      "resources": []
+    },
+    "perspectives": {
+      "frontend": {
+        "card": {
+          "description": [
+            "Account dashboard and trading journal"
+          ],
+          "result": "Serve locally stored account data through FastAPI and display equity history, holdings, and a journal in React. Persist the amount-hiding preference and pause polling when the browser tab is hidden."
+        }
+      },
+      "backend": {
+        "card": {
+          "description": [
+            "Repeatable account and price ingestion"
+          ],
+          "result": "Replace daily account summaries and holdings together in a SQLAlchemy/SQLite transaction. Merge each symbol’s daily prices by date in Parquet so recollecting the same data does not create duplicates."
+        }
+      }
+    },
+    "image": {
+      "src": "/projects/reachrich.png",
+      "width": 1180,
+      "height": 838,
+      "previewSrc": "/projects/reachrich-preview.webp",
+      "previewWidth": 901,
+      "previewHeight": 640,
+      "alt": "ReachRich account summary, asset history and holdings screen example — synthetic data",
+      "caption": "Screen example using synthetic data. The description below covers the private implementation."
+    }
+  },
+  {
+    "id": "ssafast",
+    "title": "API specification and testing collaboration (SSAFAST)",
+    "shortTitle": "SSAFAST",
+    "subtitle": "Collaborative API specifications & testing",
+    "period": "2023.04 – 2023.05",
+    "category": "Team project · 6 members",
+    "focuses": [
+      "all",
+      "frontend"
+    ],
+    "stack": [
+      "TypeScript",
+      "React",
+      "Next.js",
+      "React Hook Form"
+    ],
+    "image": {
+      "src": "/projects/ssafast.png",
+      "width": 1200,
+      "height": 675,
+      "previewSrc": "/projects/ssafast-preview.webp",
+      "previewWidth": 960,
+      "previewHeight": 540,
+      "alt": "SSAFAST API spec input and test result screens"
+    },
+    "card": {
+      "summary": "A team tool for authoring API specifications, sending requests, and reviewing responses and performance-test results. I worked on the frontend specification forms and test request and result screens.",
+      "description": [
+        "Repeatable and nested API input forms",
+        "Converting form values into test requests"
+      ],
+      "result": "Used React Hook Form for headers, path variables, query parameters, and nested objects. Rendered inputs according to the API specification and managed values used for test requests.",
+      "keywords": [
+        "Nested input forms",
+        "Test request composition",
+        "Result views"
+      ],
+      "visibility": "Public GitHub project",
+      "workRange": "API specification input forms · Request composition and API integration",
+      "environment": "TypeScript · React · Next.js · React Hook Form"
+    },
+    "detail": {
+      "overview": "A team tool for authoring API specifications, sending requests, and reviewing responses and performance-test results. I worked on the frontend specification forms and test request and result screens.",
+      "scope": [
+        "API specification input forms",
+        "Request composition and API integration",
+        "Test history and result details"
+      ],
+      "workPoints": [
+        "Repeatable and nested API input forms — Used React Hook Form for headers, path variables, query parameters, and nested objects. Rendered inputs according to the API specification and managed values used for test requests.",
+        "Converting form values into test requests — Combined header, path, query, and body values into request data and connected them to the execution API. Validated required values and allowed ranges for request rate and duration in performance tests.",
+        "Test history and detailed results — Built screens for previous runs, average and percentile response latency, throughput, and counts by response status. Connected specification editing, execution, and result review in one workflow."
+      ],
+      "techUsage": [
+        "Frontend: TypeScript · React · Next.js · React Hook Form"
+      ],
+      "results": [],
+      "disclosure": "Frontend contributions within a six-person team.",
+      "resources": [
+        {
+          "label": "GitHub repository",
+          "href": "https://github.com/SSAFAST/ssafast",
+          "type": "github"
+        }
+      ]
+    }
+  },
+  {
+    "id": "ddoing",
+    "title": "Drawing-based English Vocabulary Service (ddoing)",
+    "shortTitle": "ddoing",
+    "subtitle": "English vocabulary through drawing",
+    "period": "Feb 2023 – Apr 2023",
+    "category": "Team project",
+    "focuses": [
+      "all",
+      "frontend"
+    ],
+    "stack": [
+      "React",
+      "TypeScript",
+      "Redux Toolkit",
+      "Vite",
+      "Canvas API"
+    ],
+    "image": {
+      "src": "/projects/ddoing.png",
+      "width": 800,
+      "height": 459,
+      "previewSrc": "/projects/ddoing-preview.webp",
+      "previewWidth": 800,
+      "previewHeight": 459,
+      "alt": "ddoing English vocabulary drawing screen"
+    },
+    "card": {
+      "summary": "A team project where learners draw the given English word and continue studying based on an AI's judgement.",
+      "description": [
         "I owned the frontend: the main screen, the drawing-based study screen, and score/XP updates.",
-        "Drawings are converted to images and sent to the AI judgement server; the result drives the next question and study state.",
+        "Drawings are converted to images and sent to the AI judgement server; the result drives the next question and study state."
       ],
-      result:
-        "Found and fixed a duplicated-timer bug that made time run fast, and a stale word-list issue between questions.",
-      keywords: ["React", "Drawing input", "State & timers"],
-      visibility: "Public GitHub project",
-      workRange: "Frontend · planning",
-      environment: "React · TypeScript · Redux Toolkit",
+      "result": "Found and fixed a duplicated-timer bug that made time run fast, and a stale word-list issue between questions.",
+      "keywords": [
+        "React",
+        "Drawing input",
+        "State & timers"
+      ],
+      "visibility": "Public GitHub project",
+      "workRange": "Frontend · planning",
+      "environment": "React · TypeScript · Redux Toolkit"
     },
-    detail: {
-      overview:
-        "A learning service where users express English words as drawings and earn scores and XP based on AI judgement.",
-      scope: ["Main and drawing-study screens", "Drawing input and AI-server integration", "Study state, scores, and timers"],
-      workPoints: [
+    "detail": {
+      "overview": "A learning service where users express English words as drawings and earn scores and XP based on AI judgement.",
+      "scope": [
+        "Main and drawing-study screens",
+        "Drawing input and AI-server integration",
+        "Study state, scores, and timers"
+      ],
+      "workPoints": [
         "Converted on-screen drawings to images, sent them to the AI judgement server, and applied scores and XP from the results.",
         "Fixed timers running twice when entering the screen, and made timers stop when leaving it.",
-        "Fixed the state-update timing that left the previous word list visible when moving to the next question.",
+        "Fixed the state-update timing that left the previous word list visible when moving to the next question."
       ],
-      results: ["Drawing input, judgement, scoring, and moving to the next question all flow within a single screen."],
-      techUsage: [
-        "React and TypeScript for the study screens and state transitions.",
-        "Canvas API for drawing input and image conversion.",
-        "Redux Toolkit for user scores and study state.",
+      "results": [
+        "Drawing input, judgement, scoring, and moving to the next question all flow within a single screen."
       ],
-      disclosure:
-        "A SSAFY team project. Image preprocessing was done with the team lead, who owned model training.",
-      resources: [
-        { label: "GitHub repository", href: "https://github.com/GomGom-Team/ddoing", type: "github" },
-        { label: "Screenshot", href: "/projects/ddoing.png", type: "image" },
+      "techUsage": [
+        "Frontend: TypeScript · React · Vite",
+        "Input & state: Canvas API · Redux Toolkit"
       ],
-    },
+      "disclosure": "A SSAFY team project. Image preprocessing was done with the team lead, who owned model training.",
+      "resources": [
+        {
+          "label": "GitHub repository",
+          "href": "https://github.com/GomGom-Team/ddoing",
+          "type": "github"
+        },
+        {
+          "label": "Screenshot",
+          "href": "/projects/ddoing.png",
+          "type": "image"
+        }
+      ]
+    }
   },
   {
-    id: "modac",
-    title: "Developer Study Log Service (MODAC)",
-    shortTitle: "MODAC",
-    period: "Jan 2023 – Feb 2023",
-    category: "Frontend Team Project",
-    focuses: ["all", "frontend"],
-    stack: ["Vue", "Pinia", "SockJS", "STOMP"],
-    image: {
-      src: "/projects/modac.png",
-      width: 600,
-      height: 338,
-      previewSrc: "/projects/modac-preview.webp",
-      previewWidth: 600,
-      previewHeight: 338,
-      alt: "MODAC study log and study room screens",
+    "id": "modac",
+    "title": "Developer Study Log Service (MODAC)",
+    "shortTitle": "MODAC",
+    "subtitle": "Learning records & study rooms for developers",
+    "period": "Jan 2023 – Feb 2023",
+    "category": "Team project · 6 members",
+    "focuses": [
+      "all",
+      "frontend"
+    ],
+    "stack": [
+      "Vue 3",
+      "Pinia",
+      "SockJS",
+      "STOMP"
+    ],
+    "image": {
+      "src": "/projects/modac.png",
+      "width": 600,
+      "height": 338,
+      "previewSrc": "/projects/modac-preview.webp",
+      "previewWidth": 600,
+      "previewHeight": 338,
+      "alt": "MODAC study log and study room screens"
     },
-    card: {
-      summary: "A team project where developers keep study logs and manage study-group activity together.",
-      description: [
+    "card": {
+      "summary": "A team project where developers keep study logs and manage study-group activity together.",
+      "description": [
         "I owned the frontend: study rooms, posts, and my-page screens.",
-        "Implemented room entry/exit with invite-code validation, plus study statistics, notifications, and favorites.",
+        "Implemented room entry/exit with invite-code validation, plus study statistics, notifications, and favorites."
       ],
-      result: "Wired up real-time chat so members can talk directly inside a study room.",
-      keywords: ["Vue 3", "State management", "Real-time chat"],
-      visibility: "Public GitHub project",
-      workRange: "Frontend",
-      environment: "Vue 3 · Pinia · SockJS/STOMP",
+      "result": "Wired up real-time chat so members can talk directly inside a study room.",
+      "keywords": [
+        "Vue 3",
+        "State management",
+        "Real-time chat"
+      ],
+      "visibility": "Public GitHub project",
+      "workRange": "Frontend",
+      "environment": "Vue 3 · Pinia · SockJS/STOMP"
     },
-    detail: {
-      overview:
-        "A SSAFY team project where developers write study logs and manage study-group activity in one service.",
-      scope: [
+    "detail": {
+      "overview": "A SSAFY team project where developers write study logs and manage study-group activity in one service.",
+      "scope": [
         "Study room, post, and my-page screens",
         "Study statistics, notifications, and favorites",
-        "Real-time chat UI integration",
+        "Real-time chat UI integration"
       ],
-      workPoints: [
+      "workPoints": [
         "Managed room entry/exit, invite-code validation, and screen state with Vue 3 and Pinia.",
         "Implemented study logs, statistics, notifications, and favorites screens.",
-        "Reflected connection state and incoming messages in the study room chat UI.",
+        "Reflected connection state and incoming messages in the study room chat UI."
       ],
-      results: ["Joining a study group, keeping logs, and chatting in real time all connect within one service."],
-      techUsage: [
-        "Vue 3 for the study room, post, and my-page screens.",
-        "Pinia for user and study-group state.",
-        "The team's SockJS/STOMP connection wired into the study room chat UI.",
+      "results": [
+        "Joining a study group, keeping logs, and chatting in real time all connect within one service."
       ],
-      disclosure: "A 6-person SSAFY team project; the code is public on GitHub.",
-      resources: [
-        { label: "GitHub repository", href: "https://github.com/YongjaeKwon/MODAC", type: "github" },
-        { label: "Screenshot", href: "/projects/modac.png", type: "image" },
+      "techUsage": [
+        "Frontend: Vue 3 · Pinia",
+        "Chat integration: SockJS · STOMP"
       ],
-    },
-  },
-  {
-    id: "ticketrush",
-    title: "First-come Ticketing System (ticket-rush)",
-    shortTitle: "ticket-rush",
-    period: "Aug 2026 – in progress",
-    category: "Personal Backend",
-    focuses: ["all", "backend"],
-    stack: ["Java 21", "Spring Boot 4", "Spring Modulith", "MySQL 8.4", "Redis 7", "Flyway", "Next.js", "TypeScript", "JUnit", "Testcontainers", "Vitest", "Playwright"],
-    image: {
-      src: "/projects/ticketrush.png",
-      width: 1200,
-      height: 675,
-      previewSrc: "/projects/ticketrush-preview.webp",
-      previewWidth: 960,
-      previewHeight: 540,
-      alt: "ticket-rush seat-selection mockup — section tabs, seat map, and remaining-seat count",
-    },
-    card: {
-      summary:
-        "An in-progress reservation system whose tests check that the same seat is never confirmed twice under concurrent requests.",
-      description: [
-        "Each seat is guarded by three layers — Redis SET NX holds, domain rules rejecting expired holds at payment, and a MySQL primary key on (show, seat) — with lost hold data reproduced in integration tests.",
-        "Stage 1 (monolith backend: ZSET queue, JWT entry tokens, idempotent processing, a transactional outbox, architecture-rule tests) and stage 2 (Next.js web with a Canvas seat map, SSE, payment/completion screens, and Playwright E2E, finished Sep 2026) are complete; stage 3 (outbox relay to Kafka) is in progress.",
-      ],
-      result:
-        "In the contention test, 100 threads competing for one seat produce exactly one successful hold; backend integration and concurrency tests plus web unit and Playwright E2E tests run in CI.",
-      keywords: ["Three-layer seat defense", "Transactional outbox", "Checked by contention tests"],
-      visibility: "Public GitHub project",
-      workRange: "Design · backend development · web frontend · concurrency testing · CI",
-      environment: "Spring Boot · Spring Modulith · MySQL · Redis · Next.js",
-    },
-    detail: {
-      overview:
-        "An in-progress personal project built to check, with tests, that the same seat is never sold twice in first-come ticketing. It follows a staged roadmap from a monolith to Kafka-based separation: stage 1 (the monolith backend) and stage 2 (the Next.js web app, Sep 2026) are complete, stage 3 (outbox relay to Kafka) is in progress, and a hexagonal structure (adapter→application→domain, one direction) is checked by architecture tests.",
-      scope: [
-        "Three-layer seat defense and concurrency tests",
-        "ZSET queue with JWT entry tokens",
-        "Idempotent processing, transactional outbox, SSE status streams",
-        "Next.js web with a Canvas seat map, Testcontainers/Playwright tests, and GitHub Actions CI",
-      ],
-      workPoints: [
-        "A Redis SET NX EX five-minute hold lets only one concurrent request through; domain rules reject payment on expired holds; and the MySQL primary key on confirmed_seat (show, seat) is the final guard.",
-        "Lost hold data is reproduced by deleting hold keys to create 10 overlapping holds on one seat; integration tests check that concurrent confirmation leaves exactly one confirmed seat and one CONFIRMED reservation.",
-        "Payment requests carry a per-attempt Idempotency-Key (a repeated key replays the stored response; a new attempt after a decline gets a new key), and reservation confirmation plus event records are written in one transaction via the outbox pattern.",
-        "ArchUnit and Spring Modulith tests check one-directional adapter→application→domain dependencies and a domain free of Spring and JPA dependencies.",
-      ],
-      results: [
-        "In the contention test, 100 threads competing for one seat produce exactly one successful hold.",
-        "Backend integration and concurrency tests (Testcontainers) plus web unit and Playwright E2E tests run in GitHub Actions CI.",
-        "With 10 overlapping holds, concurrent confirmation leaves exactly one confirmed seat and one CONFIRMED reservation.",
-      ],
-      techUsage: [
-        "Spring Boot and Spring Modulith divide the catalog, queue, and reservation module boundaries.",
-        "Redis provides SET NX EX seat holds and the ZSET queue with batch admission.",
-        "MySQL and Flyway manage the confirmed_seat (show, seat) primary key and schema history; Testcontainers runs integration tests against real DB and Redis instances.",
-        "GitHub Actions runs the backend suite and the web checks (types, unit tests, Playwright E2E) on pushes to main and on pull requests.",
-      ],
-      disclosure:
-        "A public GitHub project — all code and tests are open. As work in progress, only the completed stages 1–2 are described as fact; stage 3 (Kafka delivery) is in progress, and HTTP load numbers have not been measured yet.",
-      resources: [{ label: "GitHub repository & README", href: "https://github.com/YongjaeKwon/ticket-rush", type: "github" }],
-    },
-  },
-  {
-    id: "reachrich",
-    title: "Personal Investment Research & Operations Platform (ReachRich)",
-    shortTitle: "ReachRich",
-    period: "Mar 2026 – present",
-    category: "Personal Full Stack",
-    focuses: ["all", "frontend", "backend"],
-    image: {
-      src: "/projects/reachrich.png",
-      width: 1180,
-      height: 838,
-      previewSrc: "/projects/reachrich-preview.webp",
-      previewWidth: 901,
-      previewHeight: 640,
-      alt: "ReachRich public demo dashboard (synthetic data): account summary, asset history, holdings and data pipeline status",
-    },
-    stack: ["Python", "FastAPI", "React", "TypeScript", "SQLAlchemy", "SQLite", "Parquet", "GitHub Actions", "pytest", "Vitest"],
-    card: {
-      summary:
-        "A personal research and operations platform that gathers my brokerage account and market data to validate investment strategies and run them as paper trades.",
-      description: [
-        "In August 2026 I created a new repository and split responsibilities into six areas: data, universe selection, strategy, validation, operations, and console.",
-        "Connected brokerage account queries, KRX collection, a FastAPI read API, a React dashboard, daily health checks, and failure alerts.",
-      ],
-      result:
-        "Queries my real brokerage account and loads daily candles for the top 200 KRX stocks by trading value every day; automated failure alerts are verified end to end. Per the README (Aug 11, 2026), 205 Python and 96 web tests pass.",
-      keywords: ["Selective porting of validated logic", "Idempotent data collection", "React operations UI"],
-      visibility: "Private personal project",
-      workRange: "Redesign · data collection · API · dashboard · automation",
-      environment: "FastAPI · React · SQLite · Parquet · GitHub Actions",
-    },
-    detail: {
-      overview:
-        "I'm redesigning the investment research core I've been building since March 2026 in a new repository as of August 2026. Rather than moving the old code wholesale, I ported only validated assets — lookahead prevention, repeatable validation, the experiment ledger, and the paper-trading ledger. In the new repository I built account tracking, KRX data collection, read APIs, a React dashboard, and automated runs with failure detection from scratch. Per the README, a trading journal, market-regime and stock-grade views, and a pre-registered strategy-combination batch are also complete; no real-money orders are placed until a strategy passes the promotion gate.",
-      scope: [
-        "Full architecture redesign and module boundaries",
-        "Brokerage account and KRX data collection with local storage",
-        "FastAPI read API and React dashboard",
-        "GitHub Actions and Telegram operational alerts",
-      ],
-      workPoints: [
-        "Selected causality checks, Purged Walk-forward validation, standard metrics, the experiment ledger, Tracking Error, and the paper-trading ledger from the old core and fitted them into the six-module structure.",
-        "Built the boundary between external APIs and local data with OAuth2 token caching, 429 retries, date-keyed snapshots, and per-symbol Parquet upserts for KRX data.",
-        "Connected a FastAPI read API that only reads local snapshots to the React screens: amount masking, period-based equity curve, holdings, and status views.",
-        "Ran daily health checks and paper-trading accrual on GitHub Actions, with separate Telegram alerts for local job and Actions failures.",
-      ],
-      results: [
-        "Verified real brokerage account queries; KRX collection now loads the top-200 universe by trading value and its daily candles every day.",
-        "As of the August 11, 2026 README, 205 Python and 96 web automated tests pass, with the production build verified.",
-        "Verified CI, daily health check, and paper-trading workflow runs, including Telegram alerts on forced failures.",
-      ],
-      techUsage: [
-        "FastAPI serves four read APIs over SQLite snapshots plus the React static build.",
-        "SQLAlchemy/SQLite store account snapshots with per-date replacement; Parquet/JSON keep per-symbol candles and each date's universe without duplicates.",
-        "React, TypeScript, and Vite power the asset summary, period equity curve, holdings, and system status screens.",
-        "GitHub Actions runs backend/frontend tests and builds, daily checks, and paper-trading accrual, with failure alerts wired in.",
-      ],
-      disclosure:
-        "A private personal project: API credentials, real account amounts and holdings, strategy parameters, and investment performance are not disclosed. Screens are shown in privacy mode with structural summaries.",
-      resources: [
+      "disclosure": "A 6-person SSAFY team project; the code is public on GitHub.",
+      "resources": [
         {
-          label: "Public demo repository (quant-lab, synthetic data)",
-          href: "https://github.com/YongjaeKwon/quant-lab/blob/main/README.md",
-          type: "github",
+          "label": "GitHub repository",
+          "href": "https://github.com/YongjaeKwon/MODAC",
+          "type": "github"
         },
-      ],
-    },
-    perspectives: {
-      frontend: {
-        card: {
-          summary: "A React operations dashboard that turns account snapshots into asset summaries, period curves, and holdings.",
-          description: [
-            "Provides amount masking and light/dark/system themes, and skips polling in hidden tabs to avoid wasted requests.",
-            "Built reusable UI primitives and per-state empty screens, with PWA support for mobile access on the same network.",
-          ],
-          result:
-            "Per the README (Aug 11, 2026), 96 web tests pass along with the production build.",
-          keywords: ["React & TypeScript", "Privacy mode", "Visibility-based polling"],
-          workRange: "React screens · state handling · UI system · tests",
-        },
-        detail: {
-          scope: ["React + TypeScript dashboard", "UI primitives and dual themes", "Privacy, polling, and PWA"],
-          workPoints: [
-            "Split asset summary, period equity curve, holdings, and system status into separate screen components.",
-            "Persisted the amount-masking preference in the browser, skipped polling while the tab is hidden, and refreshed immediately when it becomes visible again.",
-            "Built reusable cards, badges, tables, and empty states, plus light/dark/system themes and a PWA app shell.",
-          ],
-        },
-      },
-      backend: {
-        card: {
-          summary: "A Python backend redesigned so account and market data stay consistent under repeated collection, flowing into validation and paper trading.",
-          description: [
-            "External API responses are stored in a SQLite/Parquet local mirror first; the read API only ever reads the mirror.",
-            "Per-symbol failures are isolated, but if the failure rate exceeds 30% the whole job is failed and an alert is sent.",
-          ],
-          result:
-            "Per the README (Aug 11, 2026), 205 Python tests pass across collection, validation, and operations; real brokerage queries are verified, and KRX collection loads the top-200 universe by trading value every day.",
-          keywords: ["FastAPI", "SQLite & Parquet", "Idempotent collection & failure isolation"],
-          workRange: "Architecture redesign · API · data collection · automation",
-        },
-        detail: {
-          scope: [
-            "Six-module structure and ported validation assets",
-            "Account/KRX collection and the local mirror",
-            "Read APIs, automated runs, and failure alerts",
-          ],
-          workPoints: [
-            "Split responsibilities into data, universe, strategy, validation, operations, and console, porting only reusable validation logic from the old core.",
-            "Built the external API client to refresh OAuth2 tokens before expiry and retry 429 responses once, honoring Retry-After.",
-            "Stored accounts with per-date replacement and upserted KRX candles by symbol and date, so re-running the same job never duplicates data.",
-          ],
-        },
-      },
-    },
-  },
-  {
-    id: "oneulsai",
-    title: "Offline Dating Event Service (ONULSAI)",
-    shortTitle: "ONULSAI",
-    period: "Sep 2026 – in progress",
-    category: "Personal Full Stack",
-    focuses: ["all", "frontend", "backend"],
-    image: {
-      src: "/projects/oneulsai.png",
-      width: 1200,
-      height: 675,
-      previewSrc: "/projects/oneulsai-preview.webp",
-      previewWidth: 960,
-      previewHeight: 540,
-      alt: "ONULSAI brand logo and two service introduction cards",
-    },
-    stack: ["TypeScript", "NestJS", "Next.js", "PostgreSQL", "Prisma", "Turborepo", "Vitest", "Playwright"],
-    card: {
-      summary: "A service for running offline rotation dating events: seven one-on-one conversations in a café on Sunday, connected only when both people choose each other.",
-      description: [
-        "A monorepo with an API Gateway in front of member, event, matching, notification and payment services, each with its own database.",
-        "Sign-up and login, event scheduling and applications work today. Payment, check-in and matching are the next stages.",
-      ],
-      result: "Integration tests on a real PostgreSQL check that a rush of applications never exceeds the per-gender capacity: 20 simultaneous applications for the last seat produce exactly one success.",
-      keywords: ["Database per service", "Row locks for capacity", "Spec-first"],
-      visibility: "Private personal project",
-      workRange: "Specs · service design · APIs · participant and admin web · tests",
-      environment: "NestJS · Next.js · PostgreSQL · Prisma · GitHub Actions",
-    },
-    detail: {
-      overview: "A service started in September 2026 to actually run offline rotation dating events. Each feature starts with a written spec that is approved before implementation. Foundations, member auth, and event products and schedules are done; applications are implemented and being verified. Payment will start as manual bank-transfer confirmation.",
-      scope: ["Service boundaries and specs", "Gateway auth and service-to-service call rules", "Member, schedule and application APIs", "Participant and admin web apps", "Integration tests and browser E2E"],
-      workPoints: [
-        "Only the Gateway accepts external requests. It verifies the JWT, turns the user into internal headers, and attaches an internal token before proxying to services.",
-        "Each service uses only its own database. Data owned by another service is requested over REST, never read from its tables or models.",
-        "Applying locks the schedule row first, then counts applicants by gender and inserts. Lock waits are capped at 2 seconds so one long-held lock cannot stall the whole service.",
-      ],
-      results: [
-        "20 men applying at once for the last male seat get exactly one 201; the rest end in 409 or 503.",
-        "The same member pressing apply 8 times at once leaves a single application.",
-        "Participants can sign up, browse schedules and apply; operators can look up members, manage schedules and cancel applications.",
-      ],
-      techUsage: [
-        "Five NestJS services, the Gateway and two Next.js web apps live in a pnpm and Turborepo monorepo.",
-        "One PostgreSQL instance holds five logical databases, one per service, with schemas and migrations managed by Prisma.",
-        "Request and response types shared between services live only in one contracts package.",
-        "Vitest unit and integration tests and Playwright browser E2E run in GitHub Actions.",
-      ],
-      disclosure: "Private personal project, so there is no repository link. Only facts confirmed in the specs and tests are listed. Specs and working rules come first; implementation and review proceed PR by PR together with AI coding agents.",
-      resources: [],
-    },
-  },
+        {
+          "label": "Screenshot",
+          "href": "/projects/modac.png",
+          "type": "image"
+        }
+      ]
+    }
+  }
 ];
 
 export const techGroups = [
-  { title: "Frontend", items: ["JavaScript", "TypeScript", "Vue", "React", "Next.js", "WebSquare", "JSP"] },
-  { title: "Backend", items: ["Java", "Spring MVC", "Spring Boot", "MyBatis", "Python", "FastAPI"] },
-  { title: "Database", items: ["MariaDB", "MySQL", "Oracle", "PostgreSQL", "SQLite"] },
-  { title: "Tools & Deployment", items: ["Git", "GitHub", "GitHub Actions", "SVN", "Jenkins", "Linux", "Tomcat", "Docker"] },
+  {
+    "title": "Backend",
+    "items": [
+      "Java",
+      "Spring Boot",
+      "Spring MVC",
+      "MyBatis"
+    ]
+  },
+  {
+    "title": "Frontend",
+    "items": [
+      "JavaScript",
+      "Vue 2",
+      "WebSquare5",
+      "Nexacro 17",
+      "JSP"
+    ]
+  },
+  {
+    "title": "Databases",
+    "items": [
+      "SQL",
+      "MariaDB",
+      "Oracle"
+    ]
+  },
+  {
+    "title": "Delivery & version control",
+    "items": [
+      "Jenkins",
+      "Git",
+      "SVN"
+    ]
+  }
 ];
 
 export const experience = {
-  title: "Web Developer",
-  company: "TG Alliance",
-  period: "Jun 2024 – present",
-  description:
-    "On the B2B partner portal PPS and the device operations system TSMS, I own everything from requirements discussion to screen, server, and DB development, UAT, and deployment.",
-  responsibilities: ["Requirements discussion", "Screen, server & DB development", "UAT, deployment & operations"],
+  "title": "Web Developer",
+  "company": "TG Alliance",
+  "period": "Jun 2024 – present",
+  "description": "I build and maintain partner portals and business systems, from requirements discussions to UI, API and SQL development and deployment.",
+  "responsibilities": [
+    "Requirements discussion",
+    "Screen, server & DB development",
+    "UAT, deployment & operations"
+  ]
 };
 
-// Newest first. Only valid language scores (OPIc IM2, Mar 2024, has expired).
 export const education = [
-  { title: "TOEIC 885", period: "Jun 2026", description: "Listening 480 · Reading 405", icon: "Languages" },
-  { title: "TOEIC Speaking, Advanced Low", period: "Jun 2026", description: "Score 170", icon: "Languages" },
-  { title: "SQLD", period: "Sep 2024", description: "Korean national SQL developer certification", icon: "Database" },
   {
-    title: "SSAFY (Samsung SW Academy For Youth), 8th cohort",
-    period: "Jul 2022 – Jun 2023",
-    description: "Completed the web development track; owned the frontend across three team projects.",
-    icon: "Award",
+    "title": "TOEIC 885",
+    "period": "Jun 2026",
+    "description": "Listening 480 · Reading 405",
+    "icon": "Languages"
   },
-  { title: "B.A. in e-Business, Ajou University", period: "Mar 2018 – Aug 2020", description: "Graduated", icon: "GraduationCap" },
   {
-    title: "California State University, Chico",
-    period: "Jan 2014 – May 2015",
-    description: "Studied Business Administration before transferring to Ajou University",
-    icon: "GraduationCap",
+    "title": "TOEIC Speaking, Advanced Low",
+    "period": "Jun 2026",
+    "description": "Score 170",
+    "icon": "Languages"
   },
+  {
+    "title": "SQLD",
+    "period": "Sep 2024",
+    "description": "Korean national SQL developer certification",
+    "icon": "Database"
+  },
+  {
+    "title": "SSAFY (Samsung SW Academy For Youth), 8th cohort",
+    "period": "Jul 2022 – Jun 2023",
+    "description": "Completed the web development track; owned the frontend across three team projects.",
+    "icon": "Award"
+  },
+  {
+    "title": "B.A. in e-Business, Ajou University",
+    "period": "Mar 2018 – Aug 2020",
+    "description": "Graduated",
+    "icon": "GraduationCap"
+  },
+  {
+    "title": "California State University, Chico",
+    "period": "Jan 2014 – May 2015",
+    "description": "Studied Business Administration before transferring to Ajou University",
+    "icon": "GraduationCap"
+  }
 ];
 

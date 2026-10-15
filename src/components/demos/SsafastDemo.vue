@@ -1,24 +1,11 @@
 <template>
   <section class="ssafast-demo" aria-labelledby="ssafast-demo-title">
     <header class="demo-header">
-      <div>
-        <div class="demo-eyebrow">
-          <span class="demo-dot" aria-hidden="true"></span>
-          {{ t("샘플 데이터 데모", "Sample-data demo") }}
-        </div>
-        <h3 id="ssafast-demo-title">{{ t("화면 선택부터 API 테스트까지", "From screen selection to API testing") }}</h3>
-        <p>{{ t("팀의 Figma 화면 불러오기부터 API 명세 작성, 요청 확인, 테스트 결과까지 여섯 단계로 체험합니다.", "Six steps: import the team's Figma screens, write an API spec, preview the request, and review test results.") }}</p>
-      </div>
+      <h3 id="ssafast-demo-title" class="sr-only">{{ t("화면 선택부터 API 테스트까지", "From screen selection to API testing") }}</h3>
+      <p class="demo-brief" role="note"><strong>{{ t("샘플 데이터 데모", "Sample-data demo") }}</strong> · {{ t("API 호출과 성능 수치는 시뮬레이션입니다.", "API calls and performance numbers are simulated.") }}</p>
       <button class="button is-quiet" type="button" @click="resetFromHeader">{{ t("데모 초기화", "Reset demo") }}</button>
     </header>
 
-    <div class="demo-notice" role="note">
-      <span aria-hidden="true">ⓘ</span>
-      <p>
-        <strong>{{ t("공개 데모에서는 실제 API를 호출하거나 성능을 측정하지 않습니다.", "The public demo never calls real APIs or measures real performance.") }}</strong>
-        {{ t("Figma 화면과 입력 데이터는 브라우저 안의 샘플입니다. 마지막 단계의 성능 수치도 입력 조건으로 만든 시뮬레이션 값입니다.", "Figma screens and inputs are in-browser samples, and the final performance numbers are simulated from your inputs.") }}
-      </p>
-    </div>
     <p v-if="storageWarning" class="storage-warning" role="alert">{{ storageWarning }}</p>
     <p v-if="stage === 'figma' && savedMessage" class="sr-only" role="status">{{ savedMessage }}</p>
 
@@ -41,7 +28,8 @@
       </button>
     </nav>
 
-    <section ref="guideCard" class="guide-card" aria-labelledby="guide-step-title" aria-live="polite" tabindex="-1">
+    <details ref="guideCard" :key="guidedStep" class="guide-card demo-disclosure" tabindex="-1">
+      <summary>{{ t("단계 설명과 담당 범위", "Step guide & contribution") }}</summary>
       <div class="guide-card-heading">
         <span class="guide-step-count">{{ activeGuidedStep.number }} / 06</span>
         <div>
@@ -58,7 +46,7 @@
         <div><dt>{{ t("원 프로젝트 담당", "Built in the original") }}</dt><dd>{{ activeGuidedStep.ownership }}</dd></div>
         <div><dt>{{ t("공개 데모 재현", "Re-created in this demo") }}</dt><dd>{{ activeGuidedStep.demo }}</dd></div>
       </dl>
-    </section>
+    </details>
 
     <section v-if="stage === 'figma'" class="figma-stage" aria-labelledby="figma-import-title">
       <div class="figma-import-panel">
@@ -71,15 +59,11 @@
         </div>
 
         <p class="figma-scope-note" role="note">
-          {{ t("원 프로젝트는 Figma OAuth와 API로 파일과 프레임 이미지를 불러왔고, 이 연동은 팀원이 맡았습니다. 공개 데모는 외부 요청 없이 화면을 고르는 흐름만 재현합니다.", "The original project fetched files and frame images through Figma OAuth and its API — an integration a teammate owned. The public demo re-creates only the selection flow, with no external requests.") }}
+          {{ t("팀원이 맡은 Figma 연동을 샘플 화면으로 재현했습니다.", "Sample screens re-create the Figma integration built by a teammate.") }}
         </p>
 
         <div class="figma-url-row">
-          <label class="field-label">
-            {{ t("Figma 공유 링크", "Figma share link") }}
-            <input v-model="figmaDemoUrl" type="text" readonly aria-describedby="figma-url-help" />
-            <small id="figma-url-help">{{ t("실제 주소가 아닌 공개 데모 전용 샘플 링크입니다.", "A sample link for the public demo — not a real URL.") }}</small>
-          </label>
+
           <button
             class="button is-primary"
             type="button"
@@ -88,6 +72,14 @@
           >
             {{ figmaImportState === 'loading' ? t('샘플 화면 불러오는 중…', 'Loading sample screens…') : figmaReady ? t('샘플 화면 다시 불러오기', 'Reload sample screens') : t('샘플 화면 불러오기', 'Load sample screens') }}
           </button>
+          <details class="demo-disclosure">
+            <summary>{{ t("샘플 링크 보기", "View sample link") }}</summary>
+          <label class="field-label">
+            {{ t("Figma 공유 링크", "Figma share link") }}
+            <input v-model="figmaDemoUrl" type="text" readonly aria-describedby="figma-url-help" />
+            <small id="figma-url-help">{{ t("실제 주소가 아닌 공개 데모 전용 샘플 링크입니다.", "A sample link for the public demo — not a real URL.") }}</small>
+          </label>
+          </details>
         </div>
 
         <div v-if="figmaImportState === 'loading'" class="figma-loading" role="status" aria-live="polite">
@@ -1253,21 +1245,6 @@ onBeforeUnmount(() => {
 .demo-eyebrow { display: inline-flex; align-items: center; gap: 0.4rem; }
 .demo-dot { width: 0.46rem; height: 0.46rem; border-radius: 50%; background: #21b87a; box-shadow: 0 0 0 0.25rem rgba(33, 184, 122, 0.12); }
 
-.demo-notice {
-  display: flex;
-  gap: 0.65rem;
-  margin-top: 1rem;
-  border: 1px solid rgba(49, 130, 246, 0.15);
-  border-radius: 0.85rem;
-  padding: 0.8rem 0.9rem;
-  color: var(--text-secondary, #3d4758);
-  background: rgba(49, 130, 246, 0.055);
-  font-size: 0.78rem;
-  line-height: 1.55;
-}
-.demo-notice span { color: var(--demo-blue-strong); font-weight: 900; }
-.demo-notice p { margin: 0; }
-.demo-notice strong { color: var(--text-primary, #121722); }
 .storage-warning { margin: 0.6rem 0 0; border-radius: 0.7rem; padding: 0.65rem 0.8rem; color: #92400e; background: rgba(245, 158, 11, 0.1); font-size: 0.7rem; line-height: 1.5; }
 
 .guide-progress { height: 0.22rem; margin-top: 1rem; overflow: hidden; border-radius: 99px; background: rgba(49, 130, 246, 0.1); }
@@ -1296,7 +1273,7 @@ onBeforeUnmount(() => {
 .figma-flow-panel { min-width: 0; border: 1px solid var(--demo-border); border-radius: 1rem; padding: 1rem; background: rgba(255, 255, 255, 0.72); }
 .team-feature-badge { display: inline-flex; align-items: center; min-height: 1.75rem; border-radius: 999px; padding: 0 0.62rem; color: #6846ba; background: rgba(124, 94, 216, 0.1); font-size: 0.65rem; font-weight: 800; white-space: nowrap; }
 .figma-scope-note { margin: 0.8rem 0 0; border-left: 3px solid #7c5ed8; border-radius: 0 0.65rem 0.65rem 0; padding: 0.62rem 0.72rem; color: var(--text-secondary, #3d4758); background: rgba(124, 94, 216, 0.055); font-size: 0.68rem; line-height: 1.6; }
-.figma-url-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 0.7rem; margin-top: 0.85rem; }
+.figma-url-row { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 0.7rem; margin-top: 0.85rem; }
 .figma-url-row input[readonly] { color: var(--text-secondary, #3d4758); background: rgba(247, 249, 252, 0.9); cursor: default; }
 .figma-loading,
 .figma-empty-state { display: grid; min-height: 11rem; place-content: center; justify-items: center; gap: 0.65rem; margin-top: 0.9rem; border: 1px dashed rgba(49, 130, 246, 0.22); border-radius: 0.85rem; color: var(--text-muted, #5f6b7c); text-align: center; font-size: 0.69rem; }

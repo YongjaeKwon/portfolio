@@ -26,7 +26,7 @@ describe("interactive project demos", () => {
   it("loads the demo panel and each project demo lazily", () => {
     expect(projectView).toContain('defineAsyncComponent(() => import("@/components/demos/ProjectDemoPanel.vue"))');
     expect(projectView).toContain('new Set(["ticketrush", "ssafast", "ddoing", "modac"])');
-    expect(projectView).toContain("직접 체험하기");
+    expect(projectView).toContain("직접 예매해 보기");
     expect(projectView).toContain("openInlineDemo(item)");
     expect(projectView).toContain("start-expanded");
     expect(projectView).toContain("embedded");

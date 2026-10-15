@@ -1,7 +1,6 @@
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
-import os from "node:os";
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 import { marked } from "marked";
 import { findBrowser, printPdf } from "./chrome-pdf.mjs";
 
@@ -24,12 +23,12 @@ const resumes = [
     finalCopy: "yongjae-kwon-web-developer-resume.pdf",
   },
   {
-    // 영문 통합본 — 영어 모드(?lang=en) 다운로드
-    source: "docs/resume-en.html",
-    html: "resume-en.html",
-    output: "public/resume-en.pdf",
-    title: "Yongjae Kwon - Web Developer Resume",
-    finalCopy: "yongjae-kwon-web-developer-resume-en.pdf",
+    // 최종 국문 경력기술서 — 두 로케일에서 언어를 표시해 제공
+    source: "docs/career.html",
+    html: "career.html",
+    output: "public/career.pdf",
+    title: "권용재 - 경력기술서",
+    finalCopy: "yongjae-kwon-career.pdf",
   },
 ];
 
@@ -158,6 +157,28 @@ const css = `
     break-inside: avoid;
   }
 `;
+
+function renderHtml(markdown, title) {
+  const content = marked.parse(markdown, {
+    gfm: true,
+    breaks: false,
+  });
+
+  return `<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${title}</title>
+  <style>${css}</style>
+</head>
+<body>
+  <main class="resume">
+    ${content}
+  </main>
+</body>
+</html>`;
+}
 
 function collectApplicationResumes() {
   if (!existsSync(applicationsDir)) {

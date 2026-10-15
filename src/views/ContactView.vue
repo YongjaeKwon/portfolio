@@ -13,6 +13,14 @@
           {{ t("이메일을 보내 주시면 확인하는 대로 답장드리겠습니다.", "Send me an email and I'll get back to you as soon as I can.") }}
         </p>
 
+        <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span class="text-primary break-all text-base font-semibold">{{ profile.email }}</span>
+          <button type="button" class="focus-ring text-secondary inline-flex min-h-11 items-center rounded-full border border-[var(--fresh-border)] px-4 py-2 text-sm font-semibold" @click="copyEmailAddress">
+            {{ t("메일 주소 복사", "Copy email address") }}
+          </button>
+        </div>
+        <p role="status" aria-live="polite" aria-atomic="true" class="text-secondary min-h-6 text-sm leading-6">{{ copyStatusMessage }}</p>
+
         <div class="mt-8 flex flex-wrap gap-3">
           <button
             type="button"
@@ -34,17 +42,24 @@
             :href="profile.resume"
             download="Yongjae-Kwon-Resume.pdf"
           >
-            {{ t("이력서 PDF", "Resume PDF") }}
+            {{ t("이력서 PDF", "Resume PDF (Korean)") }}
+          </a>
+          <a
+            class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:-translate-y-0.5"
+            :href="profile.career"
+            download="Yongjae-Kwon-Career.pdf"
+          >
+            {{ t("경력기술서 PDF", "Career Details PDF (Korean)") }}
           </a>
         </div>
 
         <div
-          v-if="showMailFallback || copyStatus !== 'idle'"
+          v-if="showMailFallback"
           class="mt-6 border-t border-[var(--fresh-border)] pt-6"
         >
           <p class="text-primary text-sm font-black">{{ t("메일 앱이 열리지 않나요?", "Mail app didn't open?") }}</p>
           <p class="text-secondary mt-2 text-sm leading-6">
-            {{ t("Gmail에서 바로 쓰거나 메일 주소를 복사해 주세요.", "Compose directly in Gmail or copy the email address instead.") }}
+            {{ t("Gmail에서 작성하거나 위의 메일 주소를 복사해 주세요.", "Compose in Gmail or copy the email address above.") }}
           </p>
           <div class="mt-4 flex flex-wrap gap-2">
             <a
@@ -55,15 +70,7 @@
             >
               {{ t("Gmail로 작성하기", "Compose in Gmail") }}
             </a>
-            <button
-              type="button"
-              class="focus-ring fresh-button-soft inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition hover:-translate-y-0.5"
-              @click="copyEmailAddress"
-            >
-              {{ copyButtonLabel }}
-            </button>
           </div>
-          <p class="text-muted mt-3 text-sm">{{ profile.email }}</p>
         </div>
       </div>
     </div>
@@ -83,16 +90,16 @@ const showMailFallback = ref(false);
 const mailOpenedExternally = ref(false);
 const copyStatus = ref<"idle" | "copied" | "failed">("idle");
 const gmailComposeUrl = computed(() => createGmailComposeUrl(profile.email));
-const copyButtonLabel = computed(() => {
+const copyStatusMessage = computed(() => {
   if (copyStatus.value === "copied") {
-    return t("복사했습니다", "Copied");
+    return t("메일 주소를 복사했습니다.", "Email address copied.");
   }
 
   if (copyStatus.value === "failed") {
-    return t("복사 실패", "Copy failed");
+    return t("복사하지 못했습니다. 위 주소를 선택해 복사해 주세요.", "Copy failed. Select and copy the address above.");
   }
 
-  return t("메일 주소 복사", "Copy email address");
+  return "";
 });
 
 let fallbackTimer: number | undefined;
@@ -152,7 +159,6 @@ function attemptEmailContact() {
 }
 
 async function copyEmailAddress() {
-  showMailFallback.value = true;
   clearCopyResetTimer();
 
   const copied = await copyText(profile.email);

@@ -162,8 +162,8 @@ describe("ddoing guided demo", () => {
 
   it("makes the browser-only simulation and non-semantic score explicit", () => {
     expect(source).toContain("샘플 데이터 데모");
-    expect(source).toContain("AI 서버를 호출하지 않는 브라우저 재현");
-    expect(source).toContain("그림이 단어와 맞는지, 정답인지는 판정하지 않습니다");
+    expect(source).toContain("실제 AI 판정 없이");
+    expect(source).toContain("그림 입력과 결과 화면을 체험합니다");
     expect(source).toContain("semanticMatch: NOT_EVALUATED");
     expect(source).toContain("활동 지표입니다. 그림이 무엇인지 판정한 값은 아닙니다");
     expect(source).not.toMatch(/DEMO CORRECT|TRY AGAIN|정답!|accepted|ACCEPTANCE_SCORE/);

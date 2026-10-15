@@ -1,5 +1,5 @@
 <template>
-  <div class="inline-flex max-w-full gap-1" role="group" :aria-label="t('직무별 내용 보기', 'View by role')">
+  <div class="inline-flex max-w-full gap-1" role="group" :aria-label="t('경험별 내용 보기', 'Explore experience by area')">
     <button
       v-for="track in focusTracks"
       :key="track.id"

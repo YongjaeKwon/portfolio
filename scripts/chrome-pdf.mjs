@@ -60,28 +60,6 @@ export function findBrowser() {
   throw new Error("Chrome/Edge 실행 파일을 찾지 못했습니다. PDF_BROWSER_PATH 또는 CHROME_PATH를 지정해 주세요.");
 }
 
-function renderHtml(markdown, title) {
-  const content = marked.parse(markdown, {
-    gfm: true,
-    breaks: false,
-  });
-
-  return `<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
-  <style>${css}</style>
-</head>
-<body>
-  <main class="resume">
-    ${content}
-  </main>
-</body>
-</html>`;
-}
-
 // tempDir: Chrome 임시 프로필을 만들 곳. budget: 웹폰트 등을 기다릴 가상 시간(ms). minSize: 이보다 작으면 실패로 본다.
 export function printPdf(browser, htmlPath, outputPath, { tempDir = os.tmpdir(), budget = 8000, minSize = 10_000 } = {}) {
   const temporaryOutputPath = `${outputPath}.generating`;

@@ -1,22 +1,7 @@
 <template>
   <section class="ticketrush-demo" aria-labelledby="ticketrush-demo-title">
-    <header class="demo-header">
-      <div>
-        <div class="badge-row">
-          <span class="sample-badge">{{ t("샘플 데이터 데모", "Sample-data demo") }}</span>
-          <span class="round-badge">{{ t("4단계 예매 흐름", "4-step booking flow") }}</span>
-        </div>
-        <h3 id="ticketrush-demo-title">{{ t("이중 예매를 0건으로 막는 예매 흐름", "A booking flow that keeps double bookings at zero") }}</h3>
-        <p>{{ t("대기열 입장부터 좌석 선점, 한 좌석에 몰린 동시 요청 100건, 결제 확정까지 실제 설계를 브라우저에서 재현합니다.", "From queue admission to seat holds, a 100-request race, and payment confirmation — the real design, re-created in the browser.") }}</p>
-      </div>
-      <div class="demo-notice" role="note">
-        <span aria-hidden="true">i</span>
-        <div>
-          <strong>{{ t("서버·Redis·DB 없이 동작하는 브라우저 시뮬레이션", "A browser simulation with no server, Redis, or DB") }}</strong>
-          <small>{{ t("실제 저장소의 3겹 방어 설계와 통합 테스트 시나리오를 샘플 데이터로 재현합니다. 외부로 요청을 보내지 않습니다.", "The repository's three-layer defense and its integration-test scenarios are re-created with sample data. No external requests are made.") }}</small>
-        </div>
-      </div>
-    </header>
+    <h3 id="ticketrush-demo-title" class="sr-only">{{ t("티켓 예매 흐름", "Ticket booking flow") }}</h3>
+    <p class="demo-brief" role="note"><strong>{{ t("샘플 데이터 데모", "Sample-data demo") }}</strong> · {{ t("실제 서버 연결이나 예매·결제 없이 동작합니다.", "No server connection, real bookings or payments.") }}</p>
 
     <nav class="step-navigation" :aria-label="t('티켓러시 예매 흐름 단계', 'ticket-rush booking flow steps')">
       <ol>
@@ -64,7 +49,7 @@
         <button v-if="queuePosition === 0" type="button" class="primary-button" @click="advanceTo(1)">
           {{ t("좌석 선택으로 이동", "Go to seat selection") }}
         </button>
-        <p class="scope-note">{{ t("실제 구현: Redis ZSET 대기열, N명씩 순차 입장, JWT 입장권 · 데모: 대기 인원이 줄어드는 애니메이션", "Actually built: Redis ZSET queue, batch admission, JWT tokens · Demo: the countdown animation") }}</p>
+        <details class="demo-disclosure"><summary>{{ t("실제 구현과 체험 범위", "Implementation & demo scope") }}</summary><p class="scope-note">{{ t("실제 구현: Redis ZSET 대기열, N명씩 순차 입장, JWT 입장권 · 데모: 대기 인원이 줄어드는 애니메이션", "Actually built: Redis ZSET queue, batch admission, JWT tokens · Demo: the countdown animation") }}</p></details>
       </div>
 
       <!-- 2단계: 좌석 홀드 -->
@@ -96,15 +81,15 @@
             {{ t("동시 요청 경쟁 보기", "Watch the contention race") }}
           </button>
         </div>
-        <p class="scope-note">{{ t("실제 구현: Redis SET NX EX 5분 선점 · 데모: 선점 타이머와 좌석 상태 표시", "Actually built: Redis SET NX EX 5-minute holds · Demo: the timer and seat-state display") }}</p>
+        <details class="demo-disclosure"><summary>{{ t("실제 구현과 체험 범위", "Implementation & demo scope") }}</summary><p class="scope-note">{{ t("실제 구현: Redis SET NX EX 5분 선점 · 데모: 선점 타이머와 좌석 상태 표시", "Actually built: Redis SET NX EX 5-minute holds · Demo: the timer and seat-state display") }}</p></details>
       </div>
 
       <!-- 3단계: 동시성 경쟁 -->
       <div v-else-if="currentStep === 2" class="race-stage">
         <div class="race-controls">
-          <label class="outage-toggle">
-            <input v-model="redisOutage" type="checkbox" :disabled="raceRunning" />
-            <span>{{ t("Redis 장애 상황 재현", "Reproduce a Redis outage") }}</span>
+          <label class="key-loss-toggle">
+            <input v-model="holdKeyLost" type="checkbox" :disabled="raceRunning" />
+            <span>{{ t("선점 정보 유실 상황 재현", "Reproduce hold-key loss") }}</span>
           </label>
           <button type="button" class="primary-button" :disabled="raceRunning" @click="startRace">
             {{ raceDone ? t("다시 실행", "Run again") : t(`같은 좌석에 동시 요청 ${RACE_SIZE}건`, `${RACE_SIZE} concurrent requests, one seat`) }}
@@ -123,7 +108,7 @@
           <li v-for="layer in defenseLayers" :key="layer.id" :class="{ breached: layer.breached, active: raceDone && !layer.breached }">
             <div class="layer-head">
               <b>{{ layer.name }}</b>
-              <span v-if="layer.breached" class="layer-tag down">{{ t("장애로 무력화", "Down in outage") }}</span>
+              <span v-if="layer.breached" class="layer-tag down">{{ t("선점 정보 유실", "Hold key lost") }}</span>
               <span v-else-if="raceDone" class="layer-tag ok">{{ t(`${layer.blocked}건 차단`, `${layer.blocked} blocked`) }}</span>
             </div>
             <small>{{ layer.description }}</small>
@@ -132,12 +117,12 @@
 
         <div v-if="raceDone" class="race-result" role="status">
           <div class="result-chip success">{{ t("확정 성공", "Confirmed") }} <b>1</b></div>
-          <div class="result-chip rejected">{{ redisOutage ? t("DB 기본키로 거절", "Rejected by DB primary key") : "SEAT_ALREADY_HELD" }} <b>{{ redisOutage ? 1 : RACE_SIZE - 1 }}</b></div>
-          <div v-if="redisOutage" class="result-chip rejected">{{ t("선점 실패", "Hold failed") }} <b>{{ RACE_SIZE - 2 }}</b></div>
+          <div class="result-chip rejected">{{ holdKeyLost ? t("DB 기본키로 거절", "Rejected by DB primary key") : "SEAT_ALREADY_HELD" }} <b>{{ holdKeyLost ? 1 : RACE_SIZE - 1 }}</b></div>
+          <div v-if="holdKeyLost" class="result-chip rejected">{{ t("선점 실패", "Hold failed") }} <b>{{ RACE_SIZE - 2 }}</b></div>
           <p>
             {{
-              redisOutage
-                ? t("Redis가 멈춰 선점 2건이 통과했습니다. 하지만 DB의 (회차, 좌석) 기본키가 두 번째 확정을 막아 최종 확정은 1건입니다. 실제 통합 테스트에서는 선점 키를 지워 같은 상황을 재현합니다.", "With Redis down, two holds slipped through, but the DB primary key on (show, seat) blocked the second confirmation, leaving exactly one. The real integration test re-creates this by deleting the hold key.")
+              holdKeyLost
+                ? t("첫 선점의 키가 사라진 뒤 같은 좌석에 두 번째 선점이 생긴 상황입니다. DB의 (회차, 좌석) 기본키가 두 번째 확정을 막아 최종 확정은 1건입니다. 실제 테스트에서는 선점 키를 삭제했습니다.", "After the first hold key was lost, a second hold was created for the same seat. The DB primary key on (show, seat) rejected the second confirmation. The actual test deleted the hold key.")
                 : t("Redis SET NX가 첫 요청만 통과시키고, 나머지는 SEAT_ALREADY_HELD로 거절했습니다. 실제 경합 테스트에서도 성공은 1건입니다.", "Redis SET NX let only the first request through; the rest were rejected with SEAT_ALREADY_HELD. In the real contention test, exactly one succeeds.")
             }}
           </p>
@@ -145,7 +130,7 @@
             {{ t("결제·확정으로 이동", "Go to payment") }}
           </button>
         </div>
-        <p class="scope-note">{{ t("실제 구현: 좌석 1개·동시 요청 100건 경합 테스트, Redis 장애 통합 테스트 · 데모: 요청 처리 애니메이션", "Actually built: the 100-request contention test and Redis-outage integration test · Demo: the processing animation") }}</p>
+        <details class="demo-disclosure"><summary>{{ t("실제 구현과 체험 범위", "Implementation & demo scope") }}</summary><p class="scope-note">{{ t("실제 구현: 좌석 1개·동시 요청 100건 경합 테스트, 선점 키 유실 후 중복 확정 방지 테스트 · 데모: 요청 처리 애니메이션", "Actually built: the 100-request contention test and duplicate-confirmation prevention after hold-key loss · Demo: the processing animation") }}</p></details>
       </div>
 
       <!-- 4단계: 결제·확정 -->
@@ -154,9 +139,11 @@
           <div class="confirm-panel">
             <h5>{{ t("모의 결제", "Mock payment") }}</h5>
             <p>{{ t(`좌석 ${mySeatId ?? "B4"} · 선점 확인 후 결제`, `Seat ${mySeatId ?? "B4"} · payment after hold check`) }}</p>
-            <button type="button" class="primary-button" :disabled="paymentState !== 'idle'" @click="confirmPayment">
+            <button type="button" class="primary-button" :disabled="paymentState !== 'idle' || !canConfirm" @click="confirmPayment">
               {{ paymentState === "idle" ? t("결제 요청", "Pay now") : paymentState === "processing" ? t("처리 중…", "Processing…") : t("확정 완료", "Confirmed") }}
             </button>
+            <p v-if="paymentState === 'idle' && !canConfirm" role="status">{{ t("선점 시간이 만료되었습니다. 좌석을 다시 선택해 주세요.", "The hold has expired. Please select a seat again.") }}</p>
+            <button v-if="paymentState === 'idle' && !canConfirm" type="button" class="text-button" @click="advanceTo(1)">{{ t("좌석 다시 선택", "Select a seat again") }}</button>
             <small v-if="paymentState === 'done'">{{ t("같은 멱등성 키의 재시도는 새 결제를 만들지 않습니다.", "Retries with the same idempotency key never create a second payment.") }}</small>
           </div>
           <div class="confirm-panel">
@@ -170,7 +157,7 @@
             </ul>
           </div>
         </div>
-        <p class="scope-note">{{ t("실제 구현: 멱등성 키, 트랜잭셔널 아웃박스, SSE 좌석 상태 스트림 · 데모: 이벤트 로그와 상태 갱신 표시", "Actually built: idempotency keys, a transactional outbox, SSE seat-status streams · Demo: the log and status display") }}</p>
+        <details class="demo-disclosure"><summary>{{ t("실제 구현과 체험 범위", "Implementation & demo scope") }}</summary><p class="scope-note">{{ t("실제 구현: 멱등성 키, 트랜잭셔널 아웃박스, SSE 좌석 상태 스트림 · 데모: 이벤트 로그와 상태 갱신 표시", "Actually built: idempotency keys, a transactional outbox, SSE seat-status streams · Demo: the log and status display") }}</p></details>
       </div>
     </section>
 
@@ -266,6 +253,7 @@ const initialSeats = (): Seat[] =>
 const seats = ref<Seat[]>(initialSeats());
 const mySeatId = ref<string | null>(null);
 const holdRemaining = ref(HOLD_SECONDS);
+let holdExpiresAt = 0;
 const holdClock = computed(() => {
   const minutes = Math.floor(holdRemaining.value / 60);
   const seconds = holdRemaining.value % 60;
@@ -282,22 +270,27 @@ const seatAriaLabel = (seat: Seat) => {
 };
 let holdInterval: number | null = null;
 const holdSeat = (seat: Seat) => {
+  if (paymentState.value !== "idle") return;
   if (seat.state === "held" || seat.state === "sold") return;
   for (const item of seats.value) if (item.state === "mine") item.state = "free";
   seat.state = "mine";
   mySeatId.value = seat.id;
   holdRemaining.value = HOLD_SECONDS;
+  holdExpiresAt = Date.now() + HOLD_SECONDS * 1000;
   if (holdInterval !== null) window.clearInterval(holdInterval);
   holdInterval = track(
     window.setInterval(() => {
-      holdRemaining.value = Math.max(0, holdRemaining.value - 1);
-      if (holdRemaining.value === 0 && holdInterval !== null) window.clearInterval(holdInterval);
+      holdRemaining.value = Math.max(0, Math.ceil((holdExpiresAt - Date.now()) / 1000));
+      if (holdRemaining.value === 0) {
+        if (holdInterval !== null) window.clearInterval(holdInterval);
+        for (const item of seats.value) if (item.state === "mine") item.state = "free";
+      }
     }, 1000),
   );
 };
 
 // 3단계: 동시성 경쟁
-const redisOutage = ref(false);
+const holdKeyLost = ref(false);
 const raceRunning = ref(false);
 const raceDone = ref(false);
 const processedCount = ref(0);
@@ -305,23 +298,23 @@ const defenseLayers = computed(() => [
   {
     id: "redis",
     name: t("1차 · Redis SET NX 선점", "Layer 1 · Redis SET NX hold"),
-    description: t("동시 요청 중 첫 1건만 선점합니다. 빠르지만 Redis가 멈추면 선점 정보도 사라집니다.", "Only the first concurrent request wins the hold. Fast — but gone if Redis dies."),
-    breached: redisOutage.value,
-    blocked: RACE_SIZE - 1,
+    description: t("동시 요청 중 첫 1건만 선점합니다. 선점 키가 유실되면 같은 좌석을 다시 선점할 수 있습니다.", "Only the first concurrent request wins. If its key is lost, the same seat can be held again."),
+    breached: holdKeyLost.value,
+    blocked: holdKeyLost.value ? RACE_SIZE - 2 : RACE_SIZE - 1,
   },
   {
     id: "domain",
     name: t("2차 · 도메인 규칙", "Layer 2 · Domain rules"),
     description: t("선점이 만료됐거나 없으면 결제할 수 없습니다.", "Payment cannot proceed on an expired or missing hold."),
     breached: false,
-    blocked: redisOutage.value ? RACE_SIZE - 2 : 0,
+    blocked: 0,
   },
   {
     id: "db",
     name: t("최종 · DB (회차, 좌석) 기본키", "Final · DB primary key on (show, seat)"),
-    description: t("Redis가 완전히 멈춰도 같은 좌석을 두 번째로 확정하는 INSERT는 DB 기본키가 거절합니다.", "Even with Redis fully down, the DB primary key rejects a second confirmation for the same seat."),
+    description: t("선점 정보가 유실돼 두 요청이 확정을 시도해도 DB 기본키가 같은 좌석의 중복 저장을 거절합니다.", "Even if hold-key loss lets two requests attempt confirmation, the DB primary key rejects a duplicate seat record."),
     breached: false,
-    blocked: redisOutage.value ? 1 : 0,
+    blocked: holdKeyLost.value ? 1 : 0,
   },
 ]);
 const startRace = () => {
@@ -344,24 +337,31 @@ const startRace = () => {
 type OutboxEvent = { id: number; name: string; detail: string };
 const paymentState = ref<"idle" | "processing" | "done">("idle");
 const outboxEvents = ref<OutboxEvent[]>([]);
+const hasLiveHold = () => holdExpiresAt > Date.now() && seats.value.some(seat => seat.id === mySeatId.value && seat.state === "mine");
+const canConfirm = computed(() => holdRemaining.value > 0 && hasLiveHold());
 const confirmPayment = () => {
+  if (paymentState.value !== "idle" || !hasLiveHold()) return;
   paymentState.value = "processing";
-  const seatLabel = mySeatId.value ?? "B4";
-  const pushEvent = (delay: number, name: string, detail: string) =>
-    track(
-      window.setTimeout(() => {
-        outboxEvents.value = [...outboxEvents.value, { id: outboxEvents.value.length + 1, name, detail }];
-      }, delay),
-    );
-  pushEvent(200, "PaymentApproved", t(`멱등성 키 pay.${tokenSuffix.value} · 승인`, `idempotency key pay.${tokenSuffix.value} · approved`));
-  pushEvent(700, "SeatConfirmed", t(`좌석 ${seatLabel} · HELD → CONFIRMED (같은 트랜잭션에서 기록)`, `seat ${seatLabel} · HELD → CONFIRMED (written in the same transaction)`));
-  pushEvent(1200, "SeatStatusPushed", t("SSE로 좌석 상태 변경 전달", "seat-status update pushed over the SSE stream"));
   track(
     window.setTimeout(() => {
+      if (!hasLiveHold()) {
+        holdRemaining.value = 0;
+        for (const seat of seats.value) if (seat.state === "mine") seat.state = "free";
+        paymentState.value = "idle";
+        return;
+      }
+      const mine = seats.value.find(seat => seat.id === mySeatId.value)!;
+      mine.state = "sold";
+      if (holdInterval !== null) window.clearInterval(holdInterval);
+      outboxEvents.value = [
+        { id: 1, name: "PaymentApproved", detail: t(`멱등성 키 pay.${tokenSuffix.value} · 승인`, `idempotency key pay.${tokenSuffix.value} · approved`) },
+        { id: 2, name: "SeatConfirmed", detail: t(`좌석 ${mine.id} · HELD → CONFIRMED (같은 트랜잭션에서 기록)`, `seat ${mine.id} · HELD → CONFIRMED (written in the same transaction)`) },
+      ];
       paymentState.value = "done";
-      const mine = seats.value.find((seat) => seat.state === "mine");
-      if (mine) mine.state = "sold";
-    }, 1300),
+      track(window.setTimeout(() => {
+        outboxEvents.value.push({ id: 3, name: "SeatStatusPushed", detail: t("SSE로 좌석 상태 변경 전달", "seat-status update pushed over the SSE stream") });
+      }, 1000));
+    }, 200),
   );
 };
 
@@ -375,7 +375,8 @@ const resetDemo = () => {
   seats.value = initialSeats();
   mySeatId.value = null;
   holdRemaining.value = HOLD_SECONDS;
-  redisOutage.value = false;
+  holdExpiresAt = 0;
+  holdKeyLost.value = false;
   raceRunning.value = false;
   raceDone.value = false;
   processedCount.value = 0;
@@ -393,74 +394,6 @@ onBeforeUnmount(() => {
   display: grid;
   gap: 1.1rem;
   min-width: 0;
-}
-.demo-header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-between;
-}
-.demo-header h3 {
-  margin: 0.4rem 0 0.3rem;
-  font-size: 1.05rem;
-  font-weight: 800;
-}
-.demo-header p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--text-muted, #667085);
-  max-width: 34rem;
-}
-.badge-row {
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-.sample-badge,
-.round-badge {
-  display: inline-flex;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 800;
-}
-.sample-badge {
-  background: rgba(21, 179, 115, 0.14);
-  color: #0d7a4e;
-}
-.round-badge {
-  background: rgba(49, 130, 246, 0.12);
-  color: #1d4ed8;
-}
-.demo-notice {
-  display: flex;
-  gap: 0.6rem;
-  align-items: flex-start;
-  max-width: 21rem;
-  padding: 0.7rem 0.85rem;
-  border: 1px solid rgba(49, 130, 246, 0.2);
-  border-radius: 0.9rem;
-  background: rgba(239, 246, 255, 0.7);
-  font-size: 0.76rem;
-}
-.demo-notice span {
-  display: inline-flex;
-  width: 1.1rem;
-  height: 1.1rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: #1d4ed8;
-  color: #fff;
-  font-weight: 800;
-  flex: none;
-}
-.demo-notice strong {
-  display: block;
-  font-size: 0.78rem;
-}
-.demo-notice small {
-  color: var(--text-muted, #667085);
 }
 .step-navigation ol {
   display: grid;
@@ -582,6 +515,7 @@ onBeforeUnmount(() => {
   transition: width 0.2s ease;
 }
 .primary-button {
+  min-height: 44px;
   padding: 0.55rem 1rem;
   border: 0;
   border-radius: 999px;
@@ -684,7 +618,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 0.8rem;
 }
-.outage-toggle {
+.key-loss-toggle {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;

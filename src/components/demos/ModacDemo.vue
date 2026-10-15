@@ -380,21 +380,10 @@ onBeforeUnmount(() => {
 <template>
   <section class="modac-demo" aria-labelledby="modac-demo-title">
     <header class="demo-header">
-      <div>
-        <div class="demo-eyebrow">
-          <span class="live-dot" aria-hidden="true"></span>
-          {{ t("샘플 데이터 데모", "Sample-data demo") }}
-        </div>
-        <h3 id="modac-demo-title">{{ t("스터디 탐색부터 활동 기록까지", "From browsing studies to activity logs") }}</h3>
-        <p>{{ t("스터디를 찾아 참여하고, 활동한 뒤 기록을 확인하는 흐름을 다섯 단계로 재현했습니다.", "Five steps re-create the service flow: find a study group, join, participate, and review your log.") }}</p>
-      </div>
+      <h3 id="modac-demo-title" class="sr-only">{{ t("스터디 탐색부터 활동 기록까지", "From browsing studies to activity logs") }}</h3>
+      <p class="demo-brief" role="note"><strong>{{ t("샘플 데이터 데모", "Sample-data demo") }}</strong> · {{ t("실제 참가자 연결 없이 스터디와 모의 채팅을 체험합니다.", "Explore study rooms and simulated chat without connecting to real participants.") }}</p>
       <button class="reset-button" type="button" @click="resetDemo">{{ t("처음부터", "Start over") }}</button>
     </header>
-
-    <div class="simulation-notice">
-      <strong>{{ t("브라우저에서 실행되는 공개용 시뮬레이션", "A public simulation running in the browser") }}</strong>
-      <span>{{ t("외부 서버, DB, WebSocket에는 연결하지 않습니다. 팀이 함께 만든 서비스 가운데 제가 맡은 화면과 상태 처리를 중심으로 다시 만들었습니다.", "No external servers, DBs, or WebSockets — rebuilt around the screens and state handling I owned within the team's full service.") }}</span>
-    </div>
 
     <ol class="flow-steps" :aria-label="t('MODAC 서비스 흐름 단계', 'MODAC service flow steps')">
       <li
@@ -408,18 +397,7 @@ onBeforeUnmount(() => {
       </li>
     </ol>
 
-    <section class="guide-summary" aria-live="polite">
-      <div class="guide-title">
-        <span>STEP {{ currentStep }}</span>
-        <strong>{{ currentGuide.title }}</strong>
-      </div>
-      <div class="responsibility-grid">
-        <div><span>{{ t("사용자 행동", "User action") }}</span><strong>{{ currentGuide.userAction }}</strong></div>
-        <div><span>{{ t("화면 변화", "Screen change") }}</span><strong>{{ currentGuide.screenChange }}</strong></div>
-        <div><span>{{ t("원 프로젝트 담당", "Built in the original") }}</span><strong>{{ currentGuide.ownership }}</strong></div>
-        <div><span>{{ t("공개 데모 재현", "Re-created in this demo") }}</span><strong>{{ currentGuide.demo }}</strong></div>
-      </div>
-    </section>
+
 
     <div v-if="currentStep === 1" class="room-stage">
       <div class="stage-heading">
@@ -637,6 +615,20 @@ onBeforeUnmount(() => {
       </div>
     </Teleport>
 
+    <details :key="currentStep" class="guide-summary demo-disclosure">
+      <summary>{{ t("단계 설명과 담당 범위", "Step guide & contribution") }}</summary>
+      <div class="guide-title">
+        <span>STEP {{ currentStep }}</span>
+        <strong>{{ currentGuide.title }}</strong>
+      </div>
+      <div class="responsibility-grid">
+        <div><span>{{ t("사용자 행동", "User action") }}</span><strong>{{ currentGuide.userAction }}</strong></div>
+        <div><span>{{ t("화면 변화", "Screen change") }}</span><strong>{{ currentGuide.screenChange }}</strong></div>
+        <div><span>{{ t("원 프로젝트 담당", "Built in the original") }}</span><strong>{{ currentGuide.ownership }}</strong></div>
+        <div><span>{{ t("공개 데모 재현", "Re-created in this demo") }}</span><strong>{{ currentGuide.demo }}</strong></div>
+      </div>
+    </details>
+
     <footer class="demo-footer">
       <span>{{ t("샘플 데이터는 브라우저 메모리에서만 사용됩니다.", "Sample data lives only in browser memory.") }}</span>
       <span>{{ t("WebSocket · OAuth · 외부 저장소 미연결", "No WebSocket · OAuth · external storage") }}</span>
@@ -663,38 +655,6 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   gap: 18px;
   padding: 24px 24px 18px;
-}
-
-.demo-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 8px;
-  color: var(--accent-strong, var(--fresh-blue-strong));
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-}
-
-.live-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--fresh-green);
-  box-shadow: 0 0 0 4px rgb(36 192 111 / 0.13);
-}
-
-.demo-header h3 {
-  margin: 0;
-  font-size: clamp(20px, 3vw, 26px);
-  line-height: 1.25;
-}
-
-.demo-header p {
-  margin: 8px 0 0;
-  color: var(--text-secondary, var(--fresh-ink-soft));
-  font-size: 14px;
-  line-height: 1.65;
 }
 
 button,
@@ -771,29 +731,6 @@ button:disabled {
 
 .flow-steps li.complete {
   color: var(--fresh-green);
-}
-
-.simulation-notice {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin: 0 24px 16px;
-  padding: 12px 14px;
-  border: 1px solid rgb(var(--accent-rgb, 49 130 246) / 0.14);
-  border-radius: 12px;
-  background: rgb(var(--accent-rgb, 49 130 246) / 0.055);
-}
-
-.simulation-notice strong {
-  flex: 0 0 auto;
-  color: var(--accent-strong, var(--fresh-blue-strong));
-  font-size: 11px;
-}
-
-.simulation-notice span {
-  color: var(--text-secondary, var(--fresh-ink-soft));
-  font-size: 11px;
-  line-height: 1.55;
 }
 
 .guide-summary {
@@ -1144,6 +1081,7 @@ button:disabled {
 }
 
 .room-card-bottom button {
+  min-height: 44px;
   padding: 8px 10px;
 }
 
@@ -1506,11 +1444,6 @@ button:disabled {
   .flow-steps li span {
     width: 16px;
     height: 16px;
-  }
-
-  .simulation-notice {
-    display: grid;
-    margin-inline: 16px;
   }
 
   .guide-summary,

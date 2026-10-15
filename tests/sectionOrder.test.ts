@@ -1,6 +1,8 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { techGroups } from "../src/data/portfolio.ko";
+import { techGroups as enTechGroups } from "../src/data/portfolio.en";
 
 const readSource = (relativePath: string) =>
   readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), "utf8");
@@ -33,12 +35,12 @@ describe("portfolio section order", () => {
     const navbar = readSource("../src/components/Navbar.vue");
 
     expectInOrder(navbar, [
-      '{ id: "hero", label: "About" }',
-      '{ id: "experience", label: "Experience" }',
-      '{ id: "projects", label: "Projects" }',
-      '{ id: "techstack", label: "Tech" }',
-      '{ id: "education", label: "Education" }',
-      '{ id: "contact", label: "Contact" }',
+      '{ id: "hero", label: "About", labelKo: "소개" }',
+      '{ id: "experience", label: "Experience", labelKo: "경력" }',
+      '{ id: "projects", label: "Projects", labelKo: "프로젝트" }',
+      '{ id: "techstack", label: "Tech", labelKo: "기술" }',
+      '{ id: "education", label: "Education", labelKo: "교육" }',
+      '{ id: "contact", label: "Contact", labelKo: "연락" }',
     ]);
     expect(navbar).toContain("const sectionIds = navItems.map((item) => item.id)");
   });
@@ -59,24 +61,18 @@ describe("portfolio section order", () => {
   it("keeps the existing tech stack presentation while moving its section", () => {
     const home = readSource("../src/views/HomeView.vue");
     const techStack = readSource("../src/views/TechStackView.vue");
-    const portfolio = readSource("../src/data/portfolio.ko.ts");
-    const portfolioEn = readSource("../src/data/portfolio.en.ts");
 
     expect(home).not.toContain("hero-tech-summary");
     expect(home).not.toContain("activeTechSummary");
     expect(home).not.toContain("techByTrack");
-    expect(home).toContain("activeProof");
+    expect(home).not.toContain("hero-proof");
+    expect(home).not.toContain("activeProof");
     expect(techStack).not.toContain("group.description");
     expect(techStack).not.toContain("iconMap[group.icon]");
 
-    expect(portfolio).toContain('{ title: "프론트엔드", items: ["JavaScript", "TypeScript", "Vue", "React", "Next.js", "WebSquare", "JSP"] }');
-    expect(portfolio).toContain('{ title: "백엔드", items: ["Java", "Spring MVC", "Spring Boot", "MyBatis", "Python", "FastAPI"] }');
-    expect(portfolio).toContain('{ title: "데이터베이스", items: ["MariaDB", "MySQL", "Oracle", "PostgreSQL", "SQLite"] }');
-    expect(portfolio).toContain('{ title: "도구 및 배포", items: ["Git", "GitHub", "GitHub Actions", "SVN", "Jenkins", "Linux", "Tomcat", "Docker"] }');
-
-    expect(portfolioEn).toContain('{ title: "Frontend", items: ["JavaScript", "TypeScript", "Vue", "React", "Next.js", "WebSquare", "JSP"] }');
-    expect(portfolioEn).toContain('{ title: "Backend", items: ["Java", "Spring MVC", "Spring Boot", "MyBatis", "Python", "FastAPI"] }');
-    expect(portfolioEn).toContain('{ title: "Database", items: ["MariaDB", "MySQL", "Oracle", "PostgreSQL", "SQLite"] }');
-    expect(portfolioEn).toContain('{ title: "Tools & Deployment", items: ["Git", "GitHub", "GitHub Actions", "SVN", "Jenkins", "Linux", "Tomcat", "Docker"] }');
+    expect(techGroups.map((group) => group.title)).toEqual(["백엔드", "프론트엔드", "데이터베이스", "배포·형상관리"]);
+    expect(techGroups[1].items).toContain("Nexacro 17");
+    expect(techGroups.flatMap((group) => group.items)).not.toContain("React");
+    expect(enTechGroups.map((group) => group.items)).toEqual(techGroups.map((group) => group.items));
   });
 });

@@ -11,12 +11,16 @@ const STORAGE_KEY = "locale";
 const readLocale = (): Locale => {
   if (typeof window === "undefined") return "ko";
 
-  try {
-    const param = new URLSearchParams(window.location.search).get("lang");
-    if (param === "en" || param === "ko") {
+  const param = new URLSearchParams(window.location.search).get("lang");
+  if (param === "en" || param === "ko") {
+    try {
       window.localStorage.setItem(STORAGE_KEY, param);
-      return param;
+    } catch {
+      // 저장할 수 없어도 명시한 URL 언어를 따른다.
     }
+    return param;
+  }
+  try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === "en" || stored === "ko") return stored;
   } catch {
@@ -42,10 +46,6 @@ export const switchLocale = (next: Locale) => {
   }
 
   const url = new URL(window.location.href);
-  if (next === "ko") {
-    url.searchParams.delete("lang");
-  } else {
-    url.searchParams.set("lang", next);
-  }
+  url.searchParams.set("lang", next);
   window.location.href = url.toString();
 };

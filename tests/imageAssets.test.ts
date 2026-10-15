@@ -72,12 +72,12 @@ const expectedAssets = [
 ] as const;
 
 const expectedProjects = {
-  ssafast: { src: "/projects/ssafast.png", width: 1200, height: 675, previewSrc: "/projects/ssafast-preview.webp", previewWidth: 960, previewHeight: 540 },
   ddoing: { src: "/projects/ddoing.png", width: 800, height: 459, previewSrc: "/projects/ddoing-preview.webp", previewWidth: 800, previewHeight: 459 },
   modac: { src: "/projects/modac.png", width: 600, height: 338, previewSrc: "/projects/modac-preview.webp", previewWidth: 600, previewHeight: 338 },
+  reachrich: { src: "/projects/reachrich.png", width: 1180, height: 838, previewSrc: "/projects/reachrich-preview.webp", previewWidth: 901, previewHeight: 640 },
+  ssafast: { src: "/projects/ssafast.png", width: 1200, height: 675, previewSrc: "/projects/ssafast-preview.webp", previewWidth: 960, previewHeight: 540 },
   ticketrush: { src: "/projects/ticketrush.png", width: 1200, height: 675, previewSrc: "/projects/ticketrush-preview.webp", previewWidth: 960, previewHeight: 540 },
   oneulsai: { src: "/projects/oneulsai.png", width: 1200, height: 675, previewSrc: "/projects/oneulsai-preview.webp", previewWidth: 960, previewHeight: 540 },
-  reachrich: { src: "/projects/reachrich.png", width: 1180, height: 838, previewSrc: "/projects/reachrich-preview.webp", previewWidth: 901, previewHeight: 640 },
 } as const;
 
 describe("optimized image assets", () => {
@@ -130,13 +130,13 @@ describe("optimized image assets", () => {
     expect(modal).not.toContain("previewSrc");
   });
 
-  // ReachRich 캡처는 공개 데모 저장소(quant-lab)의 합성 데이터 대시보드다. 옛 quant-core 차트는 오래된 화면이라 쓰지 않는다.
-  it("shows ReachRich with the public synthetic-data demo capture, not the stale quant chart", () => {
+  it("does not present a synthetic-data screenshot as the private ReachRich implementation", () => {
     const reachRich = featuredProjects.find((project) => project.id === "reachrich");
 
     expect(reachRich?.image?.src).toBe("/projects/reachrich.png");
-    expect(reachRich?.image?.alt).toMatch(/합성 데이터|synthetic data/);
-    expect(JSON.stringify(reachRich)).not.toContain("/projects/quant-core");
+    expect(reachRich?.image?.caption).toContain("합성 데이터");
+    expect(reachRich?.image?.caption).toContain("비공개 원본");
+    expect(JSON.stringify(reachRich)).not.toMatch(/quant-lab|quant-core|공개 데모/);
   });
 
   it("prioritizes the hero image", async () => {

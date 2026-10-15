@@ -3,16 +3,16 @@
     <Transition name="modal">
       <div
         v-if="project"
-        class="case-study-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+        class="case-study-backdrop fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 backdrop-blur-sm"
         role="dialog"
         aria-modal="true"
         :aria-labelledby="detailTitleId"
         @click.self="emit('close')"
       >
-        <div ref="modalRef" class="case-study-modal flex max-h-[88dvh] w-full max-w-4xl flex-col overflow-hidden rounded-lg">
+        <div ref="modalRef" class="case-study-modal flex h-[100dvh] max-h-[100dvh] w-full max-w-4xl flex-col overflow-hidden sm:h-auto sm:max-h-[88dvh] sm:rounded-lg">
           <div class="flex shrink-0 items-start justify-between gap-4 border-b border-[var(--border)] p-5 md:p-6">
             <div>
-              <h3 :id="detailTitleId" class="font-heading text-primary text-3xl font-black tracking-[-0.04em]">{{ project.project.title }}</h3>
+              <h3 :id="detailTitleId" class="font-heading text-primary text-2xl sm:text-3xl font-black tracking-[-0.04em]"><span class="sm:hidden">{{ project.project.shortTitle }}</span><span class="hidden sm:inline">{{ project.project.title }}</span></h3>
               <p class="text-muted mt-2 text-sm"><span class="font-mono tnum">{{ project.project.period }}</span> · {{ project.project.category }}</p>
             </div>
             <button
@@ -26,23 +26,27 @@
           </div>
 
           <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 md:p-8" tabindex="0" :aria-label="t('프로젝트 상세 내용', 'Project details')">
-            <ProjectCaseVisual
-              v-if="!project.project.image"
-              :project-id="project.project.id"
-              class="mb-8"
-            />
-            <img
-              v-else-if="project.project.image"
+            <p class="text-secondary mb-5 text-sm font-bold sm:hidden">{{ project.project.title }}</p>
+            <figure v-if="project.project.image" class="mb-8">
+              <img
               :src="project.project.image.src"
               :alt="project.project.image.alt"
               :width="project.project.image.width"
               :height="project.project.image.height"
               decoding="async"
-              class="mb-8 max-h-80 w-full rounded-lg border border-[var(--border)] bg-[var(--surface-soft)] object-contain p-3"
-            />
+                class="max-h-80 w-full rounded-lg border border-[var(--border)] bg-[var(--surface-soft)] object-contain p-3"
+              />
+              <figcaption v-if="project.project.image.caption" class="text-muted mt-3 text-xs leading-5">{{ project.project.image.caption }}</figcaption>
+            </figure>
 
             <div class="grid gap-6">
-              <DetailBlock :title="t('프로젝트 개요', 'Overview')" :items="[project.detail.overview]" />
+              <section v-if="isWorkProject" class="border-b border-[var(--fresh-border)] pb-5">
+                <h4 class="sr-only">{{ t("프로젝트 개요와 담당 범위", "Overview and responsibilities") }}</h4>
+                <p class="text-secondary text-sm leading-7">{{ project.detail.overview }}</p>
+                <p class="text-secondary mt-3 text-sm leading-6"><strong class="text-primary mr-2">{{ t("담당", "Scope") }}</strong>{{ project.detail.scope.join(" · ") }}</p>
+              </section>
+              <DetailBlock v-else :title="t('프로젝트 개요', 'Overview')" :items="[project.detail.overview]" />
+              <ProjectCaseVisual v-if="project.project.id === 'reachrich'" project-id="reachrich" />
 
               <section v-if="roleSections.length">
                 <h4 class="text-primary mb-3 text-lg font-black">{{ t("영역별 담당 내용", "Contributions by area") }}</h4>
@@ -77,7 +81,7 @@
               </section>
 
               <template v-else>
-                <DetailBlock :title="t('담당 범위', 'Scope')" :items="project.detail.scope" />
+                <DetailBlock v-if="!isWorkProject" :title="t('담당 범위', 'Scope')" :items="project.detail.scope" />
                 <DetailBlock
                   v-if="!hasDetailedCaseStudies(project.project.id)"
                   :title="t('주요 구현 내용', 'Key implementation')"
@@ -168,8 +172,9 @@ const emit = defineEmits<{
 }>();
 
 const ProjectCaseStudyList = defineAsyncComponent(() => import("@/components/ProjectCaseStudyList.vue"));
-const detailedCaseProjectIds = new Set(["pps", "tsms", "ticketrush", "ssafast", "ddoing", "modac", "reachrich"]);
+const detailedCaseProjectIds = new Set(["pps", "tsms", "sr30", "oneulsai", "ticketrush", "ssafast", "reachrich", "ddoing", "modac"]);
 const hasDetailedCaseStudies = (projectId: string) => detailedCaseProjectIds.has(projectId);
+const isWorkProject = computed(() => ["pps", "tsms", "sr30"].includes(props.project?.project.id ?? ""));
 
 const DetailBlock = defineComponent({
   props: { title: { type: String, required: true }, items: { type: Array as () => string[], required: true } },

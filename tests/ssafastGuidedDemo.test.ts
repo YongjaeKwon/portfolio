@@ -99,12 +99,12 @@ describe("SSAFAST guided demo", () => {
   });
 
   it("keeps the Figma import local and discloses simulation limits before any execution CTA", () => {
-    const disclosureIndex = source.indexOf("실제 API를 호출하거나 성능을 측정하지 않습니다");
+    const disclosureIndex = source.indexOf("API 호출과 성능 수치는 시뮬레이션입니다");
     const ctaIndex = source.indexOf("'시뮬레이션 실행'");
 
     expect(disclosureIndex).toBeGreaterThanOrEqual(0);
     expect(ctaIndex).toBeGreaterThan(disclosureIndex);
-    expect(source).toContain("외부 요청 없이 화면을 고르는 흐름만 재현합니다");
+    expect(source).toContain("팀원이 맡은 Figma 연동을 샘플 화면으로 재현했습니다");
     expect(source).toContain("외부 OAuth, API, 서버 저장은 연결하지 않습니다");
     expect(source).toContain('const FIGMA_SAMPLE_PATH = "sample.figma.local/file/ssafast-team-ui"');
     expect(source).toContain("실제 측정값이 아닌 공개 데모용 시뮬레이션");

@@ -24,7 +24,7 @@
     </div>
 
     <div v-if="expanded" :id="contentId" class="project-demo-content">
-      <component :is="demoComponent" @dialog-state-change="handleDialogStateChange" />
+      <component :is="demoComponent" @vue:mounted="emit('ready')" @dialog-state-change="handleDialogStateChange" />
     </div>
   </section>
 </template>
@@ -38,7 +38,7 @@ const props = withDefaults(defineProps<{ projectId: string; startExpanded?: bool
   startExpanded: false,
   embedded: false,
 });
-const emit = defineEmits<{ (event: "dialog-state-change", open: boolean): void }>();
+const emit = defineEmits<{ (event: "dialog-state-change", open: boolean): void; (event: "ready"): void }>();
 
 const demos = {
   ssafast: defineAsyncComponent(() => import("@/components/demos/SsafastDemo.vue")),
@@ -184,6 +184,35 @@ const handleDialogStateChange = (open: boolean) => emit("dialog-state-change", o
 .project-demo-embedded .project-demo-content {
   border-top: 0;
   padding-top: 0;
+}
+
+.project-demo-content :deep(.demo-brief) {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.project-demo-content :deep(.demo-disclosure) {
+  width: 100%;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.project-demo-content :deep(.demo-disclosure > summary) {
+  min-height: 2.75rem;
+  align-content: center;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.project-demo-content :deep(.demo-disclosure > summary:focus-visible) {
+  outline: 2px solid var(--fresh-blue-strong);
+  outline-offset: 3px;
+}
+
+.project-demo-content :deep(.demo-disclosure[open] > summary) {
+  margin-bottom: 0.75rem;
 }
 
 @media (max-width: 700px) {

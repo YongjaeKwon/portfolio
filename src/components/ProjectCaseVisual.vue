@@ -1,49 +1,28 @@
 <template>
   <figure
-    :class="['case-figure', `case-figure--${projectId}`]"
+    :class="['case-figure', `case-figure--${projectId}`, { 'case-figure--compact': compact }]"
     :aria-label="t(`${projectName} 대표 개선 사례 요약`, `${projectName} highlight case summary`)"
   >
-    <template v-if="projectId === 'pps'">
-      <p class="cf-number font-mono tnum">300~400<small>{{ t("건", " files") }}</small></p>
-      <p class="cf-lead">{{ t("현장 엔지니어 증빙 첨부파일을 한 요청에서 압축하던 다운로드", "Field-engineer evidence files zipped inside one request") }}</p>
-      <ol class="cf-steps">
-        <li>
-          <span>{{ t("문제", "Problem") }}</span>
-          <strong>{{ t("긴 동기 요청", "Long sync request") }}</strong>
-          <p>{{ t("진행 중인지 실패했는지 알 수 없음", "No way to tell progress from failure") }}</p>
-        </li>
-        <li>
-          <span>{{ t("판단", "Decision") }}</span>
-          <strong>{{ t("작업 ID 분리", "Separate job ID") }}</strong>
-          <p>{{ t("요청과 압축 실행을 떼어 냄", "Request split from compression") }}</p>
-        </li>
-        <li>
-          <span>{{ t("결과", "Result") }}</span>
-          <strong>{{ t("상태 추적", "Status tracking") }}</strong>
-          <p>{{ t("새로고침 후에도 이어서 확인", "Resumes after a refresh") }}</p>
+    <template v-if="compact && compactFlow">
+      <figcaption class="cf-compact-title">{{ compactFlow.title }}</figcaption>
+      <ol class="cf-compact-steps">
+        <li v-for="(step, index) in compactFlow.steps" :key="step">
+          <div class="cf-compact-step-top" aria-hidden="true">
+            <span class="font-mono">0{{ index + 1 }}</span>
+            <ArrowRight v-if="index < compactFlow.steps.length - 1" class="cf-compact-arrow" />
+          </div>
+          <strong>{{ step }}</strong>
         </li>
       </ol>
-      <dl class="cf-facts">
-        <div><dt>{{ t("상태", "States") }}</dt><dd>{{ t("대기 · 진행 · 완료 · 실패", "waiting · running · done · failed") }}</dd></div>
-        <div><dt>{{ t("담당", "Scope") }}</dt><dd>{{ t("화면 · 서버 · 배포", "UI · server · deployment") }}</dd></div>
-      </dl>
     </template>
 
-    <template v-else>
-      <p class="cf-title font-heading">{{ t("흩어진 운영 업무를 확인할 수 있는 이력으로", "Scattered operations became verifiable histories") }}</p>
-      <ol class="cf-cases">
-        <li>
-          <strong>{{ t("중고거래 모니터링", "Used-market monitoring") }}</strong>
-          <p>{{ t("외부 사이트에 직접 요청하지 않고, 담당자가 확인한 URL 문자열만 분석합니다.", "Only staff-verified URL strings are analyzed, with no direct requests to external sites.") }}</p>
-          <p class="cf-path">{{ t("검색 링크 → URL 분석 → 중복 · 이력", "search links → URL analysis → duplicates · history") }}</p>
-        </li>
-        <li>
-          <strong>{{ t("학교 방문 점검", "On-site school inspections") }}</strong>
-          <p>{{ t("종이 점검을 일정, 대상, 미점검 사유, 재점검 회차까지 시스템에서 처리하게 바꿨습니다.", "Paper inspections became one flow: schedules, targets, missed reasons and re-inspection rounds.") }}</p>
-          <p class="cf-path">{{ t("일정 · 대상 → 현장 점검 → 재점검 · 결과", "schedule · targets → field check → re-check · results") }}</p>
-        </li>
+    <template v-else-if="projectId === 'reachrich'">
+      <figcaption class="cf-title font-heading">{{ t("데이터 수집부터 대시보드까지", "From data collection to the dashboard") }}</figcaption>
+      <ol class="cf-steps">
+        <li><span>{{ t("수집", "Collect") }}</span><strong>{{ t("계좌 · 시세 API", "Account · market APIs") }}</strong></li>
+        <li><span>{{ t("저장", "Store") }}</span><strong>SQLite · Parquet</strong></li>
+        <li><span>{{ t("조회", "View") }}</span><strong>FastAPI · React</strong></li>
       </ol>
-      <p class="cf-note">{{ t("이 밖에 QR 발급, 안내 메시지, 공통 연계", "Also: QR issuance, notifications, shared integrations") }}</p>
     </template>
 
   </figure>
@@ -51,10 +30,28 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
+import { ArrowRight } from "@lucide/vue";
 import { t } from "@/i18n/locale";
 
-const props = defineProps<{ projectId: string }>();
-const projectName = computed(() => (props.projectId === "pps" ? "PPS" : "TSMS"));
+const props = defineProps<{ projectId: string; compact?: boolean }>();
+const projectName = computed(() => props.projectId === "reachrich" ? "ReachRich" : props.projectId.toUpperCase());
+const compactFlow = computed(() => {
+  const flows: Record<string, { title: string; steps: string[] }> = {
+    tsms: {
+      title: t("A/S 조회 개선", "Service-query improvement"),
+      steps: [t("통합 뷰 조회 분석", "Analyze view query"), t("접수별 최신 이력 조회", "Fetch latest per case"), t("기존 결과 대조", "Compare results")],
+    },
+    pps: {
+      title: t("대용량 첨부파일 다운로드", "Bulk attachment download"),
+      steps: [t("작업 번호 발급", "Create job ID"), t("비동기 압축", "Compress async"), t("상태 확인·다운로드", "Track & download")],
+    },
+    sr30: {
+      title: t("기간별 실적 조회", "Period-based reporting"),
+      steps: [t("조회 기간 선택", "Select period"), t("월 목록·실적 집계", "Aggregate by month"), t("월별 열·소계 표시", "Show columns & totals")],
+    },
+  };
+  return flows[props.projectId];
+});
 </script>
 
 <style scoped>
@@ -76,28 +73,20 @@ const projectName = computed(() => (props.projectId === "pps" ? "PPS" : "TSMS"))
   margin: 0;
 }
 
-.cf-number {
-  font-size: clamp(3rem, 2rem + 3vw, 4.25rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.06em;
+.case-figure--compact {
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border-top-width: 1px;
 }
 
-.cf-number small {
-  margin-left: 0.15rem;
-  font-family: var(--font-body);
-  font-size: 0.4em;
-  font-weight: 900;
-  letter-spacing: 0;
-}
-
-.cf-lead {
-  margin-top: -0.5rem !important;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.6;
-}
+.cf-compact-title { font-size: 0.875rem; font-weight: 800; }
+.cf-compact-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; padding: 0; list-style: none; }
+.cf-compact-steps li { display: grid; align-content: start; gap: 0.4rem; }
+.cf-compact-step-top { display: flex; min-height: 1rem; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.cf-compact-arrow { width: 1rem; height: 1rem; flex: none; color: var(--text-muted); }
+.cf-compact-steps span { color: var(--text-muted); font-size: 0.65rem; }
+.cf-compact-steps strong { font-size: 0.875rem; overflow-wrap: anywhere; line-height: 1.6; word-break: keep-all; }
 
 .cf-title {
   font-size: 1.4rem;
@@ -126,8 +115,7 @@ const projectName = computed(() => (props.projectId === "pps" ? "PPS" : "TSMS"))
   padding-left: 0.9rem;
 }
 
-.cf-steps span,
-.cf-facts dt {
+.cf-steps span {
   color: var(--text-muted);
   font-size: 0.75rem;
   font-weight: 700;
@@ -136,61 +124,6 @@ const projectName = computed(() => (props.projectId === "pps" ? "PPS" : "TSMS"))
 .cf-steps strong {
   font-size: 0.95rem;
   font-weight: 900;
-}
-
-.cf-steps p,
-.cf-cases p {
-  color: var(--text-secondary);
-  font-size: 0.8125rem;
-  line-height: 1.55;
-}
-
-.cf-facts {
-  display: grid;
-  gap: 0.35rem;
-  border-top: 1px solid var(--fresh-border);
-  padding-top: 0.9rem;
-  font-size: 0.8125rem;
-}
-
-.cf-facts div {
-  display: grid;
-  grid-template-columns: 3rem 1fr;
-}
-
-.cf-facts dd {
-  margin: 0;
-  font-weight: 700;
-}
-
-.cf-cases {
-  display: grid;
-  padding: 0;
-  list-style: none;
-}
-
-.cf-cases li {
-  display: grid;
-  gap: 0.35rem;
-  border-top: 1px solid var(--fresh-border);
-  padding: 0.9rem 0;
-}
-
-.cf-cases strong {
-  font-size: 1rem;
-  font-weight: 900;
-}
-
-.cf-path {
-  color: var(--text-primary);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  line-height: 1.6;
-}
-
-.cf-note {
-  color: var(--text-muted);
-  font-size: 0.8125rem;
 }
 
 @media (max-width: 480px) {

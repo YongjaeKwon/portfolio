@@ -160,15 +160,15 @@ describe("MODAC guided demo", () => {
     expect(source).toContain("화면 변화");
     expect(source).toContain("원 프로젝트 담당");
     expect(source).toContain("공개 데모 재현");
-    expect(source).toContain("팀이 함께 만든 서비스 가운데 제가 맡은 화면과 상태 처리를 중심으로");
+    expect(source).toContain("<details :key=\"currentStep\"");
     expect(source).toContain("팀이 구성한 실시간 연결을 채팅 UI에 연결");
     expect(source).toContain("활동 기록·통계 화면 UI");
     expect(source.match(/^\s+demo:/gm)).toHaveLength(5);
   });
 
   it("keeps the public demo browser-only and explicit about simulated data", () => {
-    expect(source).toContain("브라우저에서 실행되는 공개용 시뮬레이션");
-    expect(source).toContain("외부 서버, DB, WebSocket에는 연결하지 않습니다");
+    expect(source).toContain("샘플 데이터 데모");
+    expect(source).toContain("실제 참가자 연결 없이 스터디와 모의 채팅을 체험합니다");
     expect(source).toContain("서버 저장 없이 UI 흐름만 재현");
     expect(source).not.toMatch(/\bfetch\s*\(|\baxios\b|new\s+WebSocket|https?:\/\//i);
   });

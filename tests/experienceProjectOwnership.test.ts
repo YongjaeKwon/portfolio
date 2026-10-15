@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { experience, featuredProjects } from "../src/data/portfolio";
+import { presentProject } from "../src/utils/projectPresentation";
 
 const readSource = (relativePath: string) =>
   readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), "utf8");
@@ -20,8 +21,8 @@ describe("experience and project ownership", () => {
     const workIds = idsFromSet(experienceView, "workProjectIds");
     const personalIds = idsFromSet(projectsView, "personalProjectIds");
 
-    expect(workIds).toEqual(["pps", "tsms"]);
-    expect(personalIds).toEqual(["ticketrush", "oneulsai", "reachrich", "ssafast", "ddoing", "modac"]);
+    expect(workIds).toEqual(["pps", "tsms", "sr30"]);
+    expect(personalIds).toEqual(["oneulsai", "ticketrush", "reachrich", "ssafast", "ddoing", "modac"]);
     expect(workIds.filter((id) => personalIds.includes(id))).toEqual([]);
     expect(new Set([...workIds, ...personalIds])).toEqual(
       new Set(featuredProjects.map((project) => project.id)),
@@ -44,15 +45,34 @@ describe("experience and project ownership", () => {
     }
   });
 
-  it("replaces the duplicated six-item career list with a compact responsibility summary", () => {
+  it("keeps the former hero achievements on their work cards, including role views", () => {
+    const tsms = featuredProjects.find((project) => project.id === "tsms")!;
+    const pps = featuredProjects.find((project) => project.id === "pps")!;
+    const tsmsCard = JSON.stringify(presentProject(tsms, "all").card);
+    const ppsCard = JSON.stringify(presentProject(pps, "all").card);
+    expect(tsmsCard).toContain("53초 → 1.2초");
+    expect(tsmsCard).toContain("점검 결과를 보존하며 중복 데이터 정리");
+    expect(tsmsCard).toContain("종이 점검표와 재방문 업무 전산화");
+    expect(ppsCard).toContain("새로고침 후에도");
+    expect(ppsCard).toContain("다른 엔지니어의 첨부파일이 연결되는 오류 해결");
+    expect(ppsCard).toContain("인증번호 중복 발송·재사용 방지");
+    for (const focus of ["frontend", "backend"] as const) {
+      expect(presentProject(pps, focus).card.highlights?.[0].detail).toContain("300~400건");
+    }
+    expect(presentProject(tsms, "backend").card.highlights?.[0].title).toContain("중복 데이터 정리");
+    expect(presentProject(tsms, "frontend").card.result).toContain("동시 수정");
+  });
+
+  it("keeps the career introduction compact without repeating card responsibilities", () => {
     expect("bullets" in experience).toBe(false);
     expect(experience.responsibilities).toHaveLength(3);
-    expect(experienceView).toContain("experience.responsibilities");
+    expect(experienceView).not.toContain("experience.responsibilities");
+    expect(experienceView).toContain("experience.description");
     expect(experienceView).not.toContain("experience.bullets");
     expect(experienceView).not.toMatch(/v-for=["']bullet\s+in/);
   });
 
-  it("keeps one role focus in the hero that Experience and Projects follow", async () => {
+  it("keeps one role focus in Experience that both project sections follow", async () => {
     const replaceState = vi.fn();
     const addEventListener = vi.fn();
     vi.stubGlobal("window", {
@@ -69,8 +89,8 @@ describe("experience and project ownership", () => {
     const experienceFocus = useFocusTrack();
     const projectFocus = useFocusTrack();
 
-    expect(readFileSync(fileURLToPath(new URL("../src/views/HomeView.vue", import.meta.url)), "utf8")).toContain("<FocusTabs />");
-    expect(experienceView).not.toContain("<FocusTabs />");
+    expect(readFileSync(fileURLToPath(new URL("../src/views/HomeView.vue", import.meta.url)), "utf8")).not.toContain("<FocusTabs />");
+    expect(experienceView).toContain("<FocusTabs />");
     expect(projectsView).not.toContain("<FocusTabs />");
     expect(experienceView).toContain("activeTrack");
     expect(projectsView).toContain("activeTrack");

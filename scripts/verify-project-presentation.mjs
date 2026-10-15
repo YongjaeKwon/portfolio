@@ -23,12 +23,14 @@ try {
   const tsmsFrontend = presentProject(tsms, "frontend");
   const tsmsBackend = presentProject(tsms, "backend");
 
-  assert.match(ppsFrontend.detail.caseStudy.problem, /화면/);
-  assert.match(ppsBackend.detail.caseStudy.problem, /HTTP 요청/);
-  assert.match(ppsAll.detail.caseStudy.problem, /300~400건/);
-  assert.match(tsmsFrontend.detail.caseStudy.outcome[0], /119개 학교/);
-  assert.equal(tsmsBackend.detail.caseStudy.outcome[0], "공통 연계 경로를 25개 화면에서 사용합니다.");
-  assert.notEqual(ppsFrontend.detail.caseStudy.problem, ppsBackend.detail.caseStudy.problem);
+  assert.match(ppsFrontend.card.result, /Vue/);
+  assert.match(ppsBackend.card.result, /재발송 제한/);
+  assert.match(ppsAll.card.result, /300~400건/);
+  assert.match(tsmsFrontend.card.result, /71개교/);
+  assert.match(tsmsBackend.card.result, /53초.*1.2초/);
+  assert.notEqual(ppsFrontend.card.result, ppsBackend.card.result);
+  // Selecting a role must not drop the full project evidence from its detail view.
+  assert.deepEqual(ppsFrontend.detail.workPoints, ppsAll.detail.workPoints);
 
   console.log("Project presentation verification passed.");
 } finally {

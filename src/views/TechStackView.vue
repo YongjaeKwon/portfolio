@@ -2,6 +2,7 @@
   <section id="techstack" class="py-24">
     <div class="section-shell">
       <h2 class="reveal section-title">{{ t("기술 스택", "Tech Stack") }}</h2>
+      <p class="reveal section-copy">{{ t("실무에서 사용한 기술입니다. 개인·팀 프로젝트의 기술은 각 프로젝트에 표시했습니다.", "Technologies used in my work. Personal and team project technologies are listed with each project.") }}</p>
 
       <dl class="reveal mt-7 divide-y divide-[var(--fresh-border)] rounded-lg border border-[var(--fresh-border)] bg-[var(--fresh-surface-solid)]">
         <div

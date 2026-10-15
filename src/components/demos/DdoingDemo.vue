@@ -1,22 +1,7 @@
 <template>
   <section ref="demoRoot" class="ddoing-demo" aria-labelledby="ddoing-demo-title">
-    <header class="demo-header">
-      <div>
-        <div class="badge-row">
-          <span class="sample-badge">{{ t("샘플 데이터 데모", "Sample-data demo") }}</span>
-          <span class="round-badge">{{ t("5단계 학습 흐름", "5-step learning flow") }}</span>
-        </div>
-        <h3 id="ddoing-demo-title">{{ t("그림으로 단어를 학습하는 전체 흐름", "The full flow of learning words by drawing") }}</h3>
-        <p>{{ t("단어 확인부터 Canvas 입력, 이미지 제출, 판정 응답과 점수 반영까지 순서대로 살펴볼 수 있습니다.", "Walk through checking the word, Canvas input, image submission, the judgement response, and scoring — in order.") }}</p>
-      </div>
-      <div class="demo-notice" role="note">
-        <span aria-hidden="true">i</span>
-        <div>
-          <strong>{{ t("AI 서버를 호출하지 않는 브라우저 재현", "A browser re-creation with no AI server calls") }}</strong>
-          <small>{{ t("샘플 데이터로 화면 흐름만 재현합니다. 그림이 단어와 맞는지, 정답인지는 판정하지 않습니다.", "Only the screen flow is re-created with sample data — no word matching or correctness is judged.") }}</small>
-        </div>
-      </div>
-    </header>
+    <h3 id="ddoing-demo-title" class="sr-only">{{ t("그림으로 단어 학습하기", "Learn words by drawing") }}</h3>
+    <p class="demo-brief" role="note"><strong>{{ t("샘플 데이터 데모", "Sample-data demo") }}</strong> · {{ t("실제 AI 판정 없이 그림 입력과 결과 화면을 체험합니다.", "Try drawing and sample results without real AI judging.") }}</p>
 
     <nav class="step-navigation" :aria-label="t('ddoing 학습 흐름 단계', 'ddoing learning flow steps')">
       <ol>
@@ -59,32 +44,15 @@
           <p>{{ currentGuideStep.description }}</p>
         </div>
 
-        <div class="responsibility-grid" :aria-label="t('현재 단계 설명', 'Current step description')">
-          <div>
-            <span>{{ t("사용자 행동", "User action") }}</span>
-            <strong>{{ currentGuideStep.userAction }}</strong>
-          </div>
-          <div>
-            <span>{{ t("화면 변화", "Screen change") }}</span>
-            <strong>{{ currentGuideStep.screenChange }}</strong>
-          </div>
-          <div>
-            <span>{{ t("원 프로젝트 담당", "Built in the original") }}</span>
-            <strong>{{ currentGuideStep.implementation }}</strong>
-          </div>
-          <div>
-            <span>{{ t("공개 데모 재현", "Re-created in this demo") }}</span>
-            <strong>{{ currentGuideStep.demo }}</strong>
-          </div>
-        </div>
+
 
         <div v-if="currentStep === STEP.WORD" class="word-stage">
           <span>{{ t("오늘의 단어", "Today's word") }}</span>
           <strong>{{ currentWord.word }}</strong>
           <p>{{ currentWord.hint }}</p>
-          <div class="word-route" :aria-label="t('현재 문제 학습 순서', 'Learning order for this question')">
-            <span>{{ t("단어 확인", "Check the word") }}</span><i aria-hidden="true">→</i><span>{{ t("그림 입력", "Draw") }}</span><i aria-hidden="true">→</i><span>{{ t("결과 확인", "See results") }}</span>
-          </div>
+          <button type="button" class="primary-button word-start" @click="nextStep">
+            {{ nextButtonLabel }} <span aria-hidden="true">→</span>
+          </button>
         </div>
 
         <template v-else>
@@ -185,7 +153,7 @@
         </template>
       </section>
 
-      <div class="step-controls">
+      <div v-if="currentStep !== STEP.WORD" class="step-controls">
         <button type="button" class="secondary-button" :disabled="currentStep === STEP.WORD" @click="previousStep">
           <span aria-hidden="true">←</span>
           {{ t("이전 단계", "Previous step") }}
@@ -196,6 +164,27 @@
           <span aria-hidden="true">→</span>
         </button>
       </div>
+        <details :key="currentStep" class="demo-disclosure">
+          <summary>{{ t("이 단계의 구현과 체험 범위", "Implementation & demo scope") }}</summary>
+        <div class="responsibility-grid" :aria-label="t('현재 단계 설명', 'Current step description')">
+          <div>
+            <span>{{ t("사용자 행동", "User action") }}</span>
+            <strong>{{ currentGuideStep.userAction }}</strong>
+          </div>
+          <div>
+            <span>{{ t("화면 변화", "Screen change") }}</span>
+            <strong>{{ currentGuideStep.screenChange }}</strong>
+          </div>
+          <div>
+            <span>{{ t("원 프로젝트 담당", "Built in the original") }}</span>
+            <strong>{{ currentGuideStep.implementation }}</strong>
+          </div>
+          <div>
+            <span>{{ t("공개 데모 재현", "Re-created in this demo") }}</span>
+            <strong>{{ currentGuideStep.demo }}</strong>
+          </div>
+        </div>
+        </details>
     </div>
 
     <div v-else class="complete-panel" aria-live="polite">
@@ -807,20 +796,7 @@ onBeforeUnmount(() => {
   color: var(--text-primary);
 }
 
-.demo-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.25rem; padding: 1.35rem; border-bottom: 1px solid var(--border); }
-.badge-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.7rem; }
-.sample-badge,
-.round-badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 0.34rem 0.64rem; font-size: 0.68rem; font-weight: 850; letter-spacing: 0.04em; }
-.sample-badge { color: var(--fresh-blue-strong); background: var(--fresh-blue-soft); }
-.round-badge { border: 1px solid var(--border); color: var(--text-muted); }
-.demo-header h3 { margin: 0; font-size: clamp(1.08rem, 2.4vw, 1.38rem); letter-spacing: -0.035em; }
-.demo-header p { max-width: 38rem; margin: 0.45rem 0 0; color: var(--text-muted); font-size: 0.82rem; line-height: 1.65; }
-.demo-notice { display: flex; min-width: min(19rem, 100%); gap: 0.65rem; border: 1px solid rgba(49, 130, 246, 0.18); border-radius: 1rem; background: rgba(49, 130, 246, 0.055); padding: 0.78rem; }
-.demo-notice > span { display: grid; width: 1.5rem; height: 1.5rem; flex: 0 0 auto; place-items: center; border-radius: 50%; color: white; background: var(--fresh-blue); font-size: 0.72rem; font-weight: 900; }
-.demo-notice strong,
-.demo-notice small { display: block; }
-.demo-notice strong { font-size: 0.72rem; }
-.demo-notice small { margin-top: 0.2rem; color: var(--text-muted); font-size: 0.64rem; line-height: 1.5; }
+.demo-brief { padding: 1rem 1.35rem; }
 
 .step-navigation { width: 100%; min-width: 0; max-width: 100%; overflow-x: auto; border-bottom: 1px solid var(--border); background: rgba(247, 249, 252, 0.6); scrollbar-width: thin; }
 .step-navigation ol { display: grid; min-width: 39rem; grid-template-columns: repeat(5, 1fr); margin: 0; padding: 0.75rem 1.1rem; list-style: none; }
@@ -858,9 +834,8 @@ onBeforeUnmount(() => {
 .word-stage > span { color: var(--fresh-blue-strong); font: 850 0.62rem var(--font-mono); letter-spacing: 0.1em; }
 .word-stage > strong { margin-top: 0.25rem; font-size: clamp(2rem, 7vw, 3.4rem); letter-spacing: -0.06em; }
 .word-stage > p { margin: 0.4rem 0 0; color: var(--text-muted); font-size: 0.78rem; }
-.word-route { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem; margin-top: 1rem; }
-.word-route span { border: 1px solid var(--border); border-radius: 999px; background: var(--surface-strong); padding: 0.36rem 0.62rem; color: var(--text-secondary); font-size: 0.64rem; font-weight: 800; }
-.word-route i { color: var(--fresh-blue); font-style: normal; }
+.word-start { margin-top: 1rem; }
+.guided-workspace > .demo-disclosure { padding: 0 1.35rem 1rem; }
 
 .drawing-layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(14rem, 0.75fr); gap: 0.8rem; margin-top: 0.9rem; }
 .canvas-column { min-width: 0; }
@@ -950,8 +925,6 @@ onBeforeUnmount(() => {
 @keyframes timer-pulse { to { transform: scale(1.025); } }
 
 @media (max-width: 760px) {
-  .demo-header { display: grid; padding: 1rem; }
-  .demo-notice { min-width: 0; }
   .round-bar { padding-inline: 1rem; }
   .step-panel { margin-inline: 1rem; padding: 0.85rem; }
   .responsibility-grid { grid-template-columns: 1fr; }

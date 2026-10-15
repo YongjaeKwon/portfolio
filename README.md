@@ -2,40 +2,37 @@
 
 운영 중인 공공 · B2B 업무 시스템을 만드는 웹 개발자 권용재의 포트폴리오 사이트입니다. Vue 3와 TypeScript로 만들었습니다.
 
-**[사이트 열기 ↗](https://www.yongjaekwon.com/)** · [포트폴리오 PDF](https://www.yongjaekwon.com/portfolio.pdf) · [이력서](https://www.yongjaekwon.com/resume.pdf) · [Resume (EN)](https://www.yongjaekwon.com/resume-en.pdf)
+**[사이트 열기 ↗](https://www.yongjaekwon.com/)** · [포트폴리오 PDF](https://www.yongjaekwon.com/portfolio.pdf) · [이력서](https://www.yongjaekwon.com/resume.pdf) · [경력기술서](https://www.yongjaekwon.com/career.pdf)
 
-[![권용재 포트폴리오 첫 화면 — 한 줄 소개, 기울인 프로젝트 화면과 대표 성과 숫자](docs/images/portfolio.png)](https://www.yongjaekwon.com/)
+[![권용재 포트폴리오 첫 화면 — 자기소개와 최신 서류 다운로드](docs/images/portfolio.jpg)](https://www.yongjaekwon.com/)
 
 ## 대표 성과
 
 | 성과 | 프로젝트 |
 | --- | --- |
-| 60초 안에 끝나지 않던 조회를 **63~69ms**로 줄임 | 교육용 단말 운영 시스템(TSMS) |
+| A/S 월별 결과 조회 **약 53초 → 1.2초** (운영 DB 비교) | 교육용 단말 운영 시스템(TSMS) |
 | 첨부파일 **300~400건** 압축을 진행 상태가 보이는 작업으로 바꿈 | B2B 협력사 포털(PPS) |
-| 교육용 단말 **108,237대**에 QR 발급 (전체 111,593대 중) | 교육용 단말 운영 시스템(TSMS) |
+| 점검 결과를 보존하며 일련번호 기준 수정·중복 데이터 정리 | 교육용 단말 운영 시스템(TSMS) |
 
 ## 둘러보기
 
-전체 · 프론트엔드 · 백엔드 중 하나를 고르면 그 영역에서 맡은 일 위주로 보입니다. 프로젝트를 열면 문제, 제약, 판단, 구현, 결과 순서로 이어집니다.
+전체 · 프론트엔드 · 백엔드 중 하나를 고르면 그 영역에서 맡은 일 위주로 보입니다. 프로젝트를 열면 직접 맡은 기능과 문제 해결 과정을 볼 수 있습니다.
 
-- **[PPS · 협력사 포털](docs/case-studies/pps.md)**: 대량 첨부파일 압축을 별도 작업으로 떼어 내 새로고침 후에도 진행 상태를 이어서 보게 했습니다. [Vue 화면 사이에 남던 상태로 첨부파일이 잘못 연결될 수 있던 문제](docs/case-studies/pps.md#2-vue-화면-사이에-남던-공통-상태-분리)를 화면과 서버 양쪽에서 막은 과정도 담았습니다.
-- **[TSMS · 단말 운영 시스템](docs/case-studies/tsms.md)**: 통합 뷰 조회 재작성, 외부 API 호출 공통화, 등록 전 단말 검증, 현장 점검과 재점검 이력 관리 사례입니다.
-- **[인터랙티브 데모](https://www.yongjaekwon.com/#projects)**: 예매, API 명세 작성, 그림 학습, 스터디룸 참여 흐름을 직접 눌러 볼 수 있습니다.
+- **[TSMS · 단말 운영 시스템](docs/case-studies/tsms.md)**: A/S·학교별 조회 SQL, 점검·재방문 전산화, 운영 데이터 정리와 중복 요청 제어입니다. 학교별 조회 SQL은 운영 반영 전입니다.
+- **[PPS · 협력사 포털](docs/case-studies/pps.md)**: 비동기 다운로드, 첨부파일 상태 오류, 인증번호 제한과 계정·알림·배포 업무입니다.
+- **[SR30 · 서비스·자재 관리](docs/case-studies/sr30.md)**: 실적 집계, 전화번호 검색, 재고 조건, 접속 이력과 설치·철거 화면입니다.
+- **[인터랙티브 데모](https://www.yongjaekwon.com/#projects)**: 예매, API 명세·테스트, 그림 영어 학습, 스터디룸 흐름을 샘플 데이터로 체험합니다. 외부 서버나 DB에 연결하지 않는 시뮬레이션입니다.
 
-실무 사례에는 사내 코드 · 화면 · 고객 데이터를 빼고 설명과 축약한 코드만 담았습니다. 사이트의 데모는 외부 서버나 DB에 연결하지 않는 샘플 시뮬레이션이라, 성능 수치 · 동시 요청 · AI 판정 · 채팅 결과도 재구성한 예시입니다.
-
-URL을 넣을 수 없는 지원서에는 [포트폴리오 PDF](https://www.yongjaekwon.com/portfolio.pdf)(가로 11장)를 첨부합니다. 사이트와 같은 데이터에서 옮겼습니다.
+최종 국문 이력서와 경력기술서는 사진·디자인을 유지한 4쪽 PDF입니다. 영문 페이지에서도 국문 문서임을 표시해 같은 최신 파일을 제공합니다. 기존 영문 이력서 주소는 최신 이력서로 연결됩니다. [포트폴리오 PDF](https://www.yongjaekwon.com/portfolio.pdf)도 같은 내용으로 갱신했습니다.
 
 ## 프로젝트 원본
 
-사이트에 소개한 프로젝트의 구현과 테스트는 각 저장소에서 볼 수 있습니다.
-
-- **[ticket-rush](https://github.com/YongjaeKwon/ticket-rush)**: 개인 선착순 예매 시스템입니다. 좌석 선점과 예약 확정, 동시 요청과 선점 만료, 중복 확정 방지를 테스트로 확인합니다. Next.js 웹을 붙인 2단계를 마쳤고, Outbox 이벤트를 Kafka로 넘기는 3단계를 진행하고 있습니다.
-- **오늘사이**: 오프라인 소개팅 운영 서비스로, 비공개 개인 프로젝트라 저장소 링크가 없습니다. 서비스 구조와 동시 신청 결과는 사이트와 PDF에 적었습니다.
-- **[ReachRich 공개 데모(quant-lab)](https://github.com/YongjaeKwon/quant-lab)**: 비공개 개인 프로젝트 ReachRich의 저장 · 검증 · 조회 흐름을 합성 데이터로 옮긴 공개 데모입니다.
-- **[SSAFAST](https://github.com/SSAFAST/ssafast)**: 팀 프로젝트에서 동적 API 명세 입력 폼과 테스트 결과 화면을 맡았습니다.
-- **[ddoing](https://github.com/GomGom-Team/ddoing)**: 팀 프로젝트에서 Canvas 그림 학습 화면, 타이머, 판정 서버 연동을 맡았습니다.
-- **[MODAC](https://github.com/YongjaeKwon/MODAC)**: 팀 프로젝트에서 스터디룸 입장, 학습 기록, 채팅 UI를 맡았습니다.
+- **[오늘사이](https://github.com/YongjaeKwon/oneul-sai)**: 모집 회차·정원, 참가 신청·취소, 참가자·운영자 화면을 개발하고 있습니다. 마지막 자리의 동시 신청은 회원 조회를 대체한 로컬 테스트로 검증했습니다.
+- **[티켓러시](https://github.com/YongjaeKwon/ticket-rush)**: 대기열, 좌석 선점, 모의 결제와 예약 흐름입니다. 동시 요청 수치는 MySQL·Redis를 이용한 로컬 테스트 결과입니다.
+- **ReachRich**: 비공개 원본의 계좌·시세 수집, API 예외 처리, 전략 검증, 대시보드와 자동 작업을 소개합니다. 이미지는 합성 데이터로 구성한 화면 예시이며, 소스와 실제 계좌 데이터는 공개하지 않습니다.
+- **[SSAFAST](https://github.com/SSAFAST/ssafast)**: 6인 팀 프로젝트에서 API 명세 폼, 테스트 요청 구성과 결과 화면을 맡았습니다.
+- **[ddoing](https://github.com/GomGom-Team/ddoing)**: 그림 입력과 AI 추론 서버 연동, 학습 타이머·점수·경험치 화면을 맡았습니다. AI 모델 학습은 팀원이 담당했습니다.
+- **[MODAC](https://github.com/YongjaeKwon/MODAC)**: 6인 팀에서 스터디룸·게시글·마이페이지 화면과 SockJS/STOMP 채팅 연동을 맡았습니다.
 
 ## 코드 살펴보기
 
@@ -65,4 +62,4 @@ npm run dev
 | `npm test` | 이 포트폴리오의 로직 · 접근성 · 콘텐츠 계약 검사 (다른 프로젝트나 전체 브라우저 흐름은 검증하지 않음) |
 | `npm run build` | 타입 검사와 정적 빌드. `npm run preview`로 결과 확인 |
 | `npm run portfolio:pdf` | `docs/portfolio-deck.html`을 `public/portfolio.pdf`로 인쇄 (Chrome 또는 Edge 필요) |
-| `npm run resumes:pdf` | `docs/resume.html` · `docs/resume-en.html`을 `public/resume.pdf` · `public/resume-en.pdf`로 인쇄 |
+| `npm run resumes:pdf` | `docs/resume.html` · `docs/career.html`을 `public/resume.pdf` · `public/career.pdf`로 인쇄 |

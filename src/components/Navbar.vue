@@ -33,7 +33,7 @@
             ]"
             @click="moveToSection(item.id)"
           >
-            {{ item.label }}
+            {{ t(item.labelKo, item.label) }}
           </button>
         </nav>
 
@@ -80,7 +80,7 @@
           ]"
           @click="mobileMoveToSection(item.id)"
         >
-          {{ item.label }}
+          {{ t(item.labelKo, item.label) }}
         </button>
       </nav>
     </Transition>
@@ -123,12 +123,12 @@ watch(isMenuOpen, (open) => {
 });
 const activeSection = ref("hero");
 const navItems = [
-  { id: "hero", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "projects", label: "Projects" },
-  { id: "techstack", label: "Tech" },
-  { id: "education", label: "Education" },
-  { id: "contact", label: "Contact" },
+  { id: "hero", label: "About", labelKo: "소개" },
+  { id: "experience", label: "Experience", labelKo: "경력" },
+  { id: "projects", label: "Projects", labelKo: "프로젝트" },
+  { id: "techstack", label: "Tech", labelKo: "기술" },
+  { id: "education", label: "Education", labelKo: "교육" },
+  { id: "contact", label: "Contact", labelKo: "연락" },
 ];
 
 const sectionIds = navItems.map((item) => item.id);

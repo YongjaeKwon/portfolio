@@ -5,7 +5,7 @@
         <h4 :id="headingId" class="font-heading text-primary text-2xl font-black tracking-[-0.03em]">{{ t("상세 개발 사례", "Detailed Case Studies") }}</h4>
       </div>
       <p class="text-muted max-w-lg text-sm leading-6">
-        {{ t("사례마다 문제, 제약, 판단, 구현, 결과 순서로 적었습니다.", "Problems solved in this project and how they were implemented, case by case.") }}
+        {{ t("실제로 맡은 기능과 문제를 해결한 과정을 정리했습니다.", "Problems solved in this project and how they were implemented, case by case.") }}
       </p>
     </div>
 
@@ -20,27 +20,12 @@
                     <span class="min-w-0 flex-1">
             <span class="deep-case-meta">{{ study.area }}</span>
             <strong class="text-primary mt-1 block text-base font-black leading-6">{{ study.title }}</strong>
-            <span class="text-muted mt-1 block text-sm leading-5">{{ study.summary }}</span>
+
           </span>
           <ChevronDown class="deep-case-chevron h-5 w-5 shrink-0" aria-hidden="true" />
         </summary>
 
         <div class="deep-case-content">
-          <div class="deep-case-context">
-            <div class="deep-case-phase">
-              <span>{{ t("문제", "Problem") }}</span>
-              <p>{{ study.problem }}</p>
-            </div>
-            <div class="deep-case-phase">
-              <span>{{ t("제약", "Constraint") }}</span>
-              <p>{{ study.constraint }}</p>
-            </div>
-            <div class="deep-case-phase">
-              <span>{{ t("판단", "Decision") }}</span>
-              <p>{{ study.decision }}</p>
-            </div>
-          </div>
-
           <section class="deep-case-implementation">
             <h5 class="text-primary text-sm font-black">{{ t("주요 구현", "Key implementation") }}</h5>
             <ul class="mt-3 grid gap-2.5">
@@ -54,7 +39,7 @@
             </ul>
           </section>
 
-          <div class="deep-case-phase deep-case-outcome">
+          <div v-if="study.outcome" class="deep-case-phase deep-case-outcome">
             <span>{{ t("결과", "Outcome") }}</span>
             <p>{{ study.outcome }}</p>
           </div>

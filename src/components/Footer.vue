@@ -10,7 +10,7 @@
         </span>
         <p class="text-muted text-sm">© 2026 {{ profile.name }} · Web Developer</p>
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
         <a
           class="focus-ring text-muted inline-flex min-h-11 items-center text-sm font-semibold transition hover:text-[var(--accent-strong)]"
           :href="profile.github"
@@ -32,7 +32,15 @@
           :href="profile.resume"
           download="Yongjae-Kwon-Resume.pdf"
         >
-          {{ t("이력서 PDF", "Resume PDF") }}
+          {{ t("이력서 PDF", "Resume PDF (Korean)") }}
+        </a>
+        <span class="text-muted/50 text-xs select-none" aria-hidden="true">·</span>
+        <a
+          class="focus-ring text-muted inline-flex min-h-11 items-center text-sm font-semibold transition hover:text-[var(--accent-strong)]"
+          :href="profile.career"
+          download="Yongjae-Kwon-Career.pdf"
+        >
+          {{ t("경력기술서 PDF", "Career Details PDF (Korean)") }}
         </a>
       </div>
     </div>
