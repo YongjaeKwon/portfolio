@@ -15,12 +15,13 @@ export const enProjectCaseStudies: Record<CaseStudyProjectId, ProjectCaseStudy[]
     {
       "id": "cc",
       "area": "Backend",
-      "title": "School-specific history lookup: about 9 s → 0.02 s",
+      "title": "Reducing call-center service-history wait times",
       "implementation": [
-        "Filtered service requests first, then aggregated only their histories instead of aggregating the full dataset. Preserved search, school-shared history, authorization, and pagination conditions.",
-        "Compared values, NULLs, order, and counts on the production DB. For old name-search queries that timed out, compared results separately with a restricted range or join order. This change has not yet been deployed."
+        "Service history loaded slowly after an agent selected a customer or completed a service request. The query aggregated all requests and histories before narrowing the search.",
+        "Filtered matching requests by school, customer name, or phone number before fetching their latest histories. The count query now checks whether history exists instead of aggregating the latest records. Preserved grouped-request counts, search filters, permissions, and pagination.",
+        "Compared values, NULLs, ordering, and counts on the production DB before deployment. Where the original name search timed out, used a bounded range or fixed join order to compare results separately."
       ],
-      "outcome": "A list lookup for a specified school improved from about 9 s to 0.02 s in DB verification; deployment is pending."
+      "outcome": "Daily production logs before and after deployment showed median lookup API response time falling from about 20 s to 0.02 s. Agents also reported that the wait for a request number to appear fell from about 10 s to 1 s."
     },
     {
       "id": "inspection",

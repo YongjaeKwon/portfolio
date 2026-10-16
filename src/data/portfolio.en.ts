@@ -8,13 +8,13 @@ export const profile = {
   "phone": "010-9470-1704",
   "github": "https://github.com/YongjaeKwon",
   "location": "Yongin, South Korea",
-  "resume": "/resume.pdf?v=20261014",
+  "resume": "/resume.pdf?v=20261016",
   "introduction": [
     "I start by understanding how people do their work and where they get stuck. When digitizing paper inspection records, I kept device-level reasons for incomplete checks and previous results so staff could continue on their next visit. I trace UI errors through server logic and data, and check that SQL changes preserve results as well as improve speed.",
     "I'm currently building Oneul Sai around the rules of an offline dating service, including both participant and operator features. I want to use my experience with business workflows and troubleshooting to finish useful features and improve the way they work in practice."
   ],
-  "career": "/career.pdf?v=20261015-2",
-  "portfolio": "/portfolio.pdf?v=20261015-2"
+  "career": "/career.pdf?v=20261016",
+  "portfolio": "/portfolio.pdf?v=20261016"
 };
 
 export const focusTracks = [
@@ -115,6 +115,10 @@ export const featuredProjects: FeaturedProject[] = [
       "environment": "Java 11 · Spring MVC · MyBatis · MariaDB",
       "highlights": [
         {
+          "title": "Reducing call-center service-history wait times",
+          "detail": "Filtered matching requests before fetching history and verified results before deployment. Daily production logs showed median lookup API response time falling from about 20 s to 0.02 s."
+        },
+        {
           "title": "Preserving inspection results during data cleanup",
           "detail": "Standardized serial-number storage and prepared backup, rollback, and validation before cleaning duplicate production records while preserving existing inspection results."
         },
@@ -133,7 +137,7 @@ export const featuredProjects: FeaturedProject[] = [
       ],
       "workPoints": [
         "Monthly service-result lookup: about 53 s → 1.2 s — Replaced a combined view with base-table joins and direct lookup of the latest history per service request. Changed date filters from functions on the column to a start-inclusive, next-day-exclusive range. Compared old and new SQL in read-only transactions on the production DB, checking values, NULLs, duplicate rows, and column metadata. Reproduced missing cancellation details in the development DB under different optimizer settings and compared them with the source history.",
-        "School-specific history lookup: about 9 s → 0.02 s — Filtered service requests first, then aggregated only their histories instead of aggregating the full dataset. Preserved search, school-shared history, authorization, and pagination conditions. Compared values, NULLs, order, and counts on the production DB. For old name-search queries that timed out, compared results separately with a restricted range or join order. This change has not yet been deployed.",
+        "Reducing call-center service-history wait times — Filtered matching requests by school, customer name, or phone number before fetching their latest histories. The count query now checks whether history exists instead of aggregating the latest records. Preserved grouped-request counts, search filters, permissions, and pagination. Daily production logs before and after deployment showed median lookup API response time falling from about 20 s to 0.02 s. Agents also reported that the wait for a request number to appear fell from about 10 s to 1 s.",
         "Digitizing paper inspections and follow-up visits — Paper records made progress hard to track, especially when missing devices needed another visit. Stored the inspection round, result, and reason for each incomplete device so staff could continue using previous records. Connected schedule approval, inspection forms, touch signatures, and certificates. Input fields follow role and progress state. Version checks on save prevent overwriting another staff member’s update.",
         "Cleaning duplicate records without losing inspection results — Mixed 14- and 15-digit serial numbers could link records to the wrong device or create duplicates. Standardized storage to 15 digits and resolved 14-digit input against school assignments. Identified duplicates using class, student number, and inspection history. Prepared backup, rollback, and post-change validation SQL before applying the cleanup.",
         "Preventing duplicate scroll requests and stale search results — Allowed only one request at a time. A search change discards the old response and runs the latest search. Subsequent pages retain customer, search, and authorization filters, with retry after errors.",
@@ -168,6 +172,10 @@ export const featuredProjects: FeaturedProject[] = [
             {
               "title": "Preserving inspection results during data cleanup",
               "detail": "Standardized serial-number storage and prepared backup, rollback, and validation before cleaning duplicate production records while preserving existing inspection results."
+            },
+            {
+              "title": "Reducing call-center service-history wait times",
+              "detail": "Filtered matching requests before fetching history and verified results before deployment. Daily production logs showed median lookup API response time falling from about 20 s to 0.02 s."
             }
           ]
         }

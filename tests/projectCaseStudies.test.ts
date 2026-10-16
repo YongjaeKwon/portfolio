@@ -27,8 +27,14 @@ describe("project case studies", () => {
   });
 
   it("retains the limits of performance claims and keeps ReachRich private", () => {
-    expect(JSON.stringify(projectCaseStudies.tsms.find((item) => item.id === "cc"))).toContain("운영 반영 전");
-    expect(JSON.stringify(enProjectCaseStudies.tsms.find((item) => item.id === "cc"))).toContain("not yet been deployed");
+    const callcenter = projectCaseStudies.tsms.find((item) => item.id === "cc")!;
+    const callcenterEn = enProjectCaseStudies.tsms.find((item) => item.id === "cc")!;
+    expect(callcenter.implementation.join(" ")).toContain("운영에 반영했습니다");
+    expect(callcenter.outcome).toMatch(/일별 운영 로그.*API 응답 중앙값.*20초.*0.02초/);
+    expect(callcenter.outcome).toMatch(/상담사.*10초.*1초.*피드백/);
+    expect(callcenterEn.outcome).toMatch(/Daily production logs.*median.*20 s.*0.02 s/);
+    expect(callcenterEn.outcome).toMatch(/Agents.*reported.*10 s.*1 s/);
+    expect(JSON.stringify(callcenterEn)).not.toContain("not yet been deployed");
     expect(JSON.stringify(projectCaseStudies.oneulsai)).toMatch(/회원 조회를 대체한 로컬 테스트/);
     expect(JSON.stringify(projectCaseStudies.ticketrush)).toContain("로컬 통합 테스트");
     expect(ko.featuredProjects.find((item) => item.id === "reachrich")?.detail.resources).toEqual([]);
